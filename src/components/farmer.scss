@@ -1,0 +1,86 @@
+@import "../assets/stylesheets/colors";
+
+.navbar {
+
+  border-bottom: 1px solid $grey;
+
+  .profile-image {
+    border-radius: 50%;
+  }
+
+  .profile-name {
+    margin-right: 10px;
+    color: black;
+  }
+
+}
+
+
+.title {
+  h1 {
+    color: $green;
+  }
+}
+
+.table-section {
+  padding: 10px;
+  border: 1px solid $grey;
+
+  .table-key {
+    margin-right: 30px;
+    border: 1px solid $grey;
+
+    ul {
+      list-style: none;
+      padding-left: 0;
+      margin: 0 20px;
+
+      li {
+
+        .key-color {
+          margin-right: 10px;
+          display: inline-block;
+          $s: 10px;
+          width: $s;
+          height: $s;
+        }
+
+
+      }
+    }
+  }
+
+  .table {
+    .product-name {
+      font-weight: bold;
+    }
+  }
+}
+
+
+.product-table-dashboard{
+  max-height: 320px;
+  overflow-y: scroll;
+}
+
+.ready-for-harvest {
+  color: $green;
+  .key-color {
+
+    background-color: $green;
+  }
+
+}
+.lab-tested{
+  color: $pink;
+  .key-color{
+    background-color: $pink;
+  }
+}
+.harvested{
+  color: $blue;
+  .key-color{
+    background-color: $blue;
+  }
+}
+
