@@ -1,7 +1,11 @@
-import React from 'react';
+import React,{useState} from 'react';
 import Table from "react-bootstrap/Table";
-
+import Modal from 'react-bootstrap/Modal';
+import {Link} from "react-router-dom";
+import Product from "./Product";
 const ProductTable = () => {
+
+    const [showModal, setShowModal] = useState(false);
     return (
         <Table responsive>
             <thead>
@@ -26,7 +30,7 @@ const ProductTable = () => {
             <tbody>
                 <tr>
                     <td>1</td>
-                    <td className={'product-name ready-for-harvest'} >Gundza</td>
+                    <td className={'product-name ready-for-harvest'}  > <Link to={'/farmer/products/gundza'} > Gundza </Link>  </td>
                     <td>04/23/19</td>
                     {/*<td>00PPQQRRSS</td>*/}
                     <td>100</td>
@@ -47,6 +51,18 @@ const ProductTable = () => {
                 </tr>
 
             </tbody>
+            <Modal show={showModal} onHide={() =>{setShowModal(false)}} dialogClassName={"product-modal"}>
+                <Modal.Header closeButton>
+                    <Modal.Title>
+
+                    <h1> Gundza</h1>
+                    </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Product/>
+                </Modal.Body>
+
+            </Modal>
 
         </Table>
     );
