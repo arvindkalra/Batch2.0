@@ -1,8 +1,6 @@
-import { Buffer } from "buffer";
 import {
   getJsonFromIPFS,
   harvestStates,
-  hexToAscii,
   makeTransaction,
   OWN_ADDRESS,
   uploadJsonToIPFS
@@ -18,9 +16,9 @@ export function setFarmerDetails(details) {
   });
 }
 
-export function getFarmerDetails() {
+export function getFarmerDetails(address) {
   return new Promise((resolve, reject) => {
-    makeTransaction("getFarmerDetails", OWN_ADDRESS)
+    makeTransaction("getFarmerDetails", address ? address : OWN_ADDRESS)
       .then(hash => {
         return getJsonFromIPFS(hash);
       })
@@ -98,13 +96,13 @@ export function getRowsForFarmer(rowObject) {
       for (let i = 0; i < array.length; i++) {
         let uid = array[i].toNumber();
         makeTransaction("getSeedUnitDetails", uid)
-          .then(handleObject)
+          .then(x => handleObject(x, uid))
           .catch(handleError);
       }
     })
     .catch(handleError);
 
-  function handleObject(object) {
+  function handleObject(object, uid) {
     object = object.valueOf();
     let addresses = object[0];
     let integers = object[1];
@@ -113,6 +111,7 @@ export function getRowsForFarmer(rowObject) {
     getJsonFromIPFS(latestHash)
       .then(obj => {
         let rowObj = {
+          uid,
           details: obj,
           farmerAddress: addresses[0],
           manufacturerAddress: addresses[1],
