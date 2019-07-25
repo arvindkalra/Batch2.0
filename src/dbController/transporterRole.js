@@ -1,9 +1,30 @@
 import {
   getJsonFromIPFS,
   harvestStates,
-  makeTransaction,
+  makeTransaction, OWN_ADDRESS,
   uploadJsonToIPFS
 } from "./init";
+
+export function setTransporterDetails(details) {
+  return new Promise((resolve, reject) => {
+    uploadJsonToIPFS(details).then(hash => {
+      makeTransaction("setTransporterDetails", hash)
+          .then(resolve)
+          .catch(reject);
+    });
+  });
+}
+
+export function getTransporterDetails(address) {
+  return new Promise((resolve, reject) => {
+    makeTransaction("getTransporterDetails", address ? address : OWN_ADDRESS)
+        .then(hash => {
+          return getJsonFromIPFS(hash);
+        })
+        .then(resolve)
+        .catch(reject);
+  });
+}
 
 export function getTransportUnitDetails(isHarvest, rowCallback) {
   let which = isHarvest ? 0 : 1;
