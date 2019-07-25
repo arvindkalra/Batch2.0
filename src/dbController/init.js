@@ -66,7 +66,6 @@ export function uploadJsonToIPFS(_json) {
     ipfsNode
       .add(buffer)
       .then(response => {
-        // console.log(response);
         resolve(response[0].path);
       })
       .catch(reject);
@@ -74,7 +73,6 @@ export function uploadJsonToIPFS(_json) {
 }
 
 export function getJsonFromIPFS(_path) {
-  console.log(_path);
   return new Promise((resolve, reject) => {
     ipfsNode
       .get("/ipfs/" + _path)
@@ -115,5 +113,21 @@ export function harvestStates(id) {
 
     default:
       return "discarded";
+  }
+}
+
+export function packetStates(id) {
+  switch (id) {
+    case 1:
+      return 'packed';
+
+    case 2:
+      return 'dispatched';
+
+    case 3:
+      return 'delivered';
+
+    default:
+      return 'lost';
   }
 }

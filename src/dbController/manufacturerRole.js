@@ -2,7 +2,7 @@ import {
   getJsonFromIPFS,
   harvestStates,
   makeTransaction,
-  OWN_ADDRESS,
+  OWN_ADDRESS, packetStates,
   uploadJsonToIPFS
 } from "./init";
 
@@ -90,7 +90,7 @@ export function fetchPackagedUnitsByManufacturer(rowCallback) {
           details,
           amountCreated: integers[0].toNumber(),
           amountAlreadyUsed: integers[1].toNumber(),
-          currentState: harvestStates(integers[2].toNumber()),
+          currentState: packetStates(integers[2].toNumber()),
           retailerAddress: addresses[0],
           transporterAddress: addresses[1]
         });

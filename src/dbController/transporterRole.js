@@ -1,7 +1,9 @@
 import {
   getJsonFromIPFS,
   harvestStates,
-  makeTransaction, OWN_ADDRESS,
+  makeTransaction,
+  OWN_ADDRESS,
+  packetStates,
   uploadJsonToIPFS
 } from "./init";
 
@@ -9,8 +11,8 @@ export function setTransporterDetails(details) {
   return new Promise((resolve, reject) => {
     uploadJsonToIPFS(details).then(hash => {
       makeTransaction("setTransporterDetails", hash)
-          .then(resolve)
-          .catch(reject);
+        .then(resolve)
+        .catch(reject);
     });
   });
 }
@@ -18,11 +20,11 @@ export function setTransporterDetails(details) {
 export function getTransporterDetails(address) {
   return new Promise((resolve, reject) => {
     makeTransaction("getTransporterDetails", address ? address : OWN_ADDRESS)
-        .then(hash => {
-          return getJsonFromIPFS(hash);
-        })
-        .then(resolve)
-        .catch(reject);
+      .then(hash => {
+        return getJsonFromIPFS(hash);
+      })
+      .then(resolve)
+      .catch(reject);
   });
 }
 
@@ -46,7 +48,9 @@ export function getTransportUnitDetails(isHarvest, rowCallback) {
       rowCallback({
         uid,
         details,
-        currentState: harvestStates(obj[4].toNumber()),
+        currentState: isHarvest
+          ? harvestStates(obj[4].toNumber())
+          : packetStates(obj[4].toNumber()),
         senderAddress: obj[0],
         receiverAddress: obj[1],
         amount: obj[2].toNumber()
@@ -60,13 +64,12 @@ export function getTransportUnitDetails(isHarvest, rowCallback) {
 }
 
 export function deliverOrDispatchTransport(uid, isHarvest, details) {
-  return uploadJsonToIPFS(details)
-    .then(hash => {
-      return makeTransaction(
-        "deliverOrDispatchByTransporter",
-        uid,
-        hash,
-        isHarvest ? 0 : 1
-      );
-    });
+  return uploadJsonToIPFS(details).then(hash => {
+    return makeTransaction(
+      "deliverOrDispatchByTransporter",
+      uid,
+      hash,
+      isHarvest ? 0 : 1
+    );
+  });
 }
