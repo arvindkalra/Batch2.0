@@ -1,6 +1,6 @@
 import {
   getJsonFromIPFS,
-  harvestStates,
+  harvestStates, makeChainTransaction,
   makeTransaction,
   OWN_ADDRESS, packetStates,
   uploadJsonToIPFS
@@ -9,7 +9,7 @@ import {
 export function setManufacturerDetails(details) {
   return new Promise((resolve, reject) => {
     uploadJsonToIPFS(details).then(hash => {
-      makeTransaction("setManufacturerDetails", hash)
+      makeChainTransaction("setManufacturerDetails", hash)
         .then(resolve)
         .catch(reject);
     });
@@ -18,7 +18,7 @@ export function setManufacturerDetails(details) {
 
 export function getManufacturerDetails(address) {
   return new Promise((resolve, reject) => {
-    makeTransaction("getManufacturerDetails", address ? address : OWN_ADDRESS)
+    makeChainTransaction("getManufacturerDetails", address ? address : OWN_ADDRESS)
       .then(hash => {
         return getJsonFromIPFS(hash);
       })
@@ -28,12 +28,12 @@ export function getManufacturerDetails(address) {
 }
 
 export function fetchHarvestUnitsByManufacturer(rowCallback) {
-  makeTransaction("getHarvestsByManufacturer")
+  makeChainTransaction("getHarvestsByManufacturer")
     .then(array => {
       array = array.valueOf();
       array.forEach(val => {
         val = val.toNumber();
-        makeTransaction("getHarvestDetailsByManufacturer", val)
+        makeChainTransaction("getHarvestDetailsByManufacturer", val)
           .then(x => handleObject(x, val))
           .catch(handleError);
       });
@@ -66,12 +66,12 @@ export function fetchHarvestUnitsByManufacturer(rowCallback) {
 }
 
 export function fetchPackagedUnitsByManufacturer(rowCallback) {
-  makeTransaction("getPacketsByManufacturer")
+  makeChainTransaction("getPacketsByManufacturer")
     .then(array => {
       array = array.valueOf();
       array.forEach(val => {
         val = val.toNumber();
-        makeTransaction("getPacketDetailsByManufacturer", val)
+        makeChainTransaction("getPacketDetailsByManufacturer", val)
           .then(x => handleObject(x, val))
           .catch(handleError);
       });
@@ -112,7 +112,7 @@ export function packetsManufactured(
   details
 ) {
   return uploadJsonToIPFS(details).then(hash => {
-    return makeTransaction(
+    return makeChainTransaction(
       "packetsManufactured",
       harvestUnitId,
       numberOfPackets,

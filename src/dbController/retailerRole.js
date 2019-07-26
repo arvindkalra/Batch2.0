@@ -1,12 +1,73 @@
-import { getJsonFromIPFS, makeTransaction, packetStates } from "./init";
+import {
+  getJsonFromIPFS,
+  makeChainTransaction,
+  makeLabTransaction,
+  OWN_ADDRESS,
+  packetStates,
+  uploadJsonToIPFS
+} from "./init";
+
+export function setRetailerDetails(details) {
+  return new Promise((resolve, reject) => {
+    uploadJsonToIPFS(details).then(hash => {
+      makeChainTransaction("setRetailerDetails", hash)
+        .then(resolve)
+        .catch(reject);
+    });
+  });
+}
+
+export function getRetailerDetails(address) {
+  return new Promise((resolve, reject) => {
+    makeChainTransaction("getRetailerDetails", address ? address : OWN_ADDRESS)
+      .then(hash => {
+        return getJsonFromIPFS(hash);
+      })
+      .then(resolve)
+      .catch(reject);
+  });
+}
+
+export function setConsumerDetails(buyerAddress, details) {
+  return new Promise((resolve, reject) => {
+    uploadJsonToIPFS(details).then(hash => {
+      makeLabTransaction("setConsumerDetails", buyerAddress, hash)
+        .then(resolve)
+        .catch(reject);
+    });
+  });
+}
+
+export function getConsumerDetails(buyerAddress) {
+  return new Promise((resolve, reject) => {
+    makeLabTransaction("getConsumerDetails", buyerAddress)
+      .then(hash => {
+        return getJsonFromIPFS(hash);
+      })
+      .then(resolve)
+      .catch(reject);
+  });
+}
+
+export function sellPacketsToBuyer(puid, buyerAddress, amount, details) {
+  return uploadJsonToIPFS(details).then(hash => {
+    return makeChainTransaction(
+      "sellToConsumer",
+      puid,
+      buyerAddress,
+      amount,
+      hash
+    );
+  });
+}
 
 export function getRowsForRetailer(rowCallback) {
-  makeTransaction("getSellingUnits")
+  makeChainTransaction("getSellingUnits")
     .then(array => {
       array = array.valueOf();
       array.forEach(val => {
         val = val.toNumber();
-        makeTransaction("getSellingUnitDetail", val)
+        makeChainTransaction("getSellingUnitDetail", val)
           .then(x => handleObject(x, val))
           .catch(handleError);
       });
@@ -25,7 +86,6 @@ export function getRowsForRetailer(rowCallback) {
       });
     });
   }
-
   function handleError(err) {
     throw err;
   }

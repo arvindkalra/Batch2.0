@@ -1,7 +1,6 @@
 import {
   getJsonFromIPFS,
-  harvestStates,
-  makeTransaction,
+  harvestStates, makeChainTransaction,
   OWN_ADDRESS,
   uploadJsonToIPFS
 } from "./init";
@@ -9,7 +8,7 @@ import {
 export function setFarmerDetails(details) {
   return new Promise((resolve, reject) => {
     uploadJsonToIPFS(details).then(hash => {
-      makeTransaction("setFarmerDetails", hash)
+      makeChainTransaction("setFarmerDetails", hash)
         .then(resolve)
         .catch(reject);
     });
@@ -18,7 +17,7 @@ export function setFarmerDetails(details) {
 
 export function getFarmerDetails(address) {
   return new Promise((resolve, reject) => {
-    makeTransaction("getFarmerDetails", address ? address : OWN_ADDRESS)
+    makeChainTransaction("getFarmerDetails", address ? address : OWN_ADDRESS)
       .then(hash => {
         return getJsonFromIPFS(hash);
       })
@@ -30,7 +29,7 @@ export function getFarmerDetails(address) {
 export function seedSownByFarmer(details) {
   return new Promise((resolve, reject) => {
     uploadJsonToIPFS(details).then(hash => {
-      makeTransaction("seedsSownByFarmer", hash)
+      makeChainTransaction("seedsSownByFarmer", hash)
         .then(resolve)
         .catch(reject);
     });
@@ -40,7 +39,7 @@ export function seedSownByFarmer(details) {
 export function locationMovedByFarmer(buid, details) {
   return new Promise((resolve, reject) => {
     uploadJsonToIPFS(details).then(hash => {
-      makeTransaction("movedLocationByFarmer", buid, hash)
+      makeChainTransaction("movedLocationByFarmer", buid, hash)
         .then(resolve)
         .catch(reject);
     });
@@ -55,7 +54,7 @@ export function plantHarvestedByFarmer(
 ) {
   return new Promise((resolve, reject) => {
     uploadJsonToIPFS(details).then(hash => {
-      makeTransaction(
+      makeChainTransaction(
         "plantHarvestedByFarmer",
         amountHarvest,
         labAddress,
@@ -76,7 +75,7 @@ export function sellHarvestByFarmer(
 ) {
   return new Promise((resolve, reject) => {
     uploadJsonToIPFS(details).then(hash => {
-      makeTransaction(
+      makeChainTransaction(
         "sellHarvestByFarmer",
         buid,
         manufacturerAddress,
@@ -90,12 +89,12 @@ export function sellHarvestByFarmer(
 }
 
 export function getRowsForFarmer(rowObject) {
-  makeTransaction("fetchSeedsForFarmer")
+  makeChainTransaction("fetchSeedsForFarmer")
     .then(array => {
       array = array.valueOf();
       for (let i = 0; i < array.length; i++) {
         let uid = array[i].toNumber();
-        makeTransaction("getSeedUnitDetails", uid)
+        makeChainTransaction("getSeedUnitDetails", uid)
           .then(x => handleObject(x, uid))
           .catch(handleError);
       }

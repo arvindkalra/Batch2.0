@@ -1,7 +1,6 @@
 import {
   getJsonFromIPFS,
-  harvestStates,
-  makeTransaction,
+  harvestStates, makeChainTransaction, makeLabTransaction,
   OWN_ADDRESS,
   uploadJsonToIPFS
 } from "./init";
@@ -9,7 +8,7 @@ import {
 export function setLaboratoryDetails(details) {
   return new Promise((resolve, reject) => {
     uploadJsonToIPFS(details).then(hash => {
-      makeTransaction("setLaboratoryDetails", hash)
+      makeLabTransaction("setLaboratoryDetails", hash)
         .then(resolve)
         .catch(reject);
     });
@@ -18,7 +17,7 @@ export function setLaboratoryDetails(details) {
 
 export function getLaboratoryDetails(address) {
   return new Promise((resolve, reject) => {
-    makeTransaction("getLaboratoryDetails", address ? address : OWN_ADDRESS)
+    makeLabTransaction("getLaboratoryDetails", address ? address : OWN_ADDRESS)
       .then(hash => {
         return getJsonFromIPFS(hash);
       })
@@ -31,7 +30,7 @@ export function uploadReport(buid, details, isApproved) {
   return new Promise((resolve, reject) => {
     uploadJsonToIPFS(details)
       .then(hash => {
-        makeTransaction(
+        makeChainTransaction(
           "plantAcceptedByLaboratory",
           buid,
           hash,
@@ -58,12 +57,12 @@ export function getRowsForLaboratory(rowCallback) {
     });
   };
   let handleError = () => {};
-  makeTransaction("fetchReportsForLaboratory")
+  makeChainTransaction("fetchReportsForLaboratory")
     .then(array => {
       array = array.valueOf();
       array.forEach(val => {
         val = val.toNumber();
-        makeTransaction("fetchReportDetails", val)
+        makeChainTransaction("fetchReportDetails", val)
           .then(x => handleRow(x, val))
           .catch(handleError);
       });

@@ -9,10 +9,13 @@ export const ipfsNode = new IPFS({
 
 export let web3;
 // export const NETWORK_NAME = config.NETWORK_NAME;
-export let CONTRACT_ADDRESS = config.CONTRACT_ADDRESS;
+export let CHAIN_ADDRESS = config.CHAIN_ADDRESS;
+export let LAB_ADDRESS = config.LAB_ADDRESS;
 export let OWN_ADDRESS;
-export let Contract_Abi = config.CONTRACT_ABI;
-export let Contract_Instance;
+export let Chain_Abi = config.CHAIN_ABI;
+export let Chain_Instance;
+export let Lab_Abi = config.LAB_ABI;
+export let Lab_Instance;
 
 export function connectToMetamask() {
   return new Promise((resolve, reject) => {
@@ -43,13 +46,14 @@ export function connectToMetamask() {
 }
 
 function createContractInstance() {
-  Contract_Instance = web3.eth.contract(Contract_Abi).at(CONTRACT_ADDRESS);
-  console.log("Contract Instance", Contract_Instance);
+  Chain_Instance = web3.eth.contract(Chain_Abi).at(CHAIN_ADDRESS);
+  Lab_Instance = web3.eth.contract(Lab_Abi).at(LAB_ADDRESS);
+  console.log("Contract Instance", Chain_Instance, Lab_Instance);
 }
 
-export function makeTransaction(functionName, ...args) {
+export function makeChainTransaction(functionName, ...args) {
   return new Promise((resolve, reject) => {
-    Contract_Instance[functionName](
+    Chain_Instance[functionName](
       ...args,
       { from: OWN_ADDRESS, gasPrice: web3.toWei(1000, "gwei") },
       function(err, result) {
@@ -57,6 +61,43 @@ export function makeTransaction(functionName, ...args) {
         resolve(result);
       }
     );
+  });
+}
+
+export function makeLabTransaction(functionName, ...args) {
+  return new Promise((resolve, reject) => {
+    Lab_Instance[functionName](
+      ...args,
+      { from: OWN_ADDRESS, gasPrice: web3.toWei(1000, "gwei") },
+      function(err, result) {
+        if (err) reject(err);
+        resolve(result);
+      }
+    );
+  });
+}
+
+export function fetchEntireChain(buid) {
+  return new Promise((resolve, reject) => {
+    let packetsHash = "";
+    let harvestHash = "";
+    let rv = {};
+    makeChainTransaction("fetchEntireChain", buid)
+      .then(data => {
+        data = data.valueOf();
+        packetsHash = data[0];
+        harvestHash = data[1];
+        return getJsonFromIPFS(packetsHash);
+      })
+      .then(details => {
+        rv = { ...rv, ...details };
+        return getJsonFromIPFS(harvestHash);
+      })
+      .then(details => {
+        rv = { ...rv, ...details };
+        resolve(rv);
+      })
+      .catch(reject);
   });
 }
 
@@ -119,15 +160,15 @@ export function harvestStates(id) {
 export function packetStates(id) {
   switch (id) {
     case 1:
-      return 'packed';
+      return "packed";
 
     case 2:
-      return 'dispatched';
+      return "dispatched";
 
     case 3:
-      return 'delivered';
+      return "delivered";
 
     default:
-      return 'lost';
+      return "lost";
   }
 }

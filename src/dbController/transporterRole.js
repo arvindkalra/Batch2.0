@@ -1,16 +1,15 @@
 import {
-  getJsonFromIPFS,
-  harvestStates,
-  makeTransaction,
-  OWN_ADDRESS,
-  packetStates,
-  uploadJsonToIPFS
+    getJsonFromIPFS,
+    harvestStates, makeChainTransaction,
+    OWN_ADDRESS,
+    packetStates,
+    uploadJsonToIPFS
 } from "./init";
 
 export function setTransporterDetails(details) {
   return new Promise((resolve, reject) => {
     uploadJsonToIPFS(details).then(hash => {
-      makeTransaction("setTransporterDetails", hash)
+      makeChainTransaction("setTransporterDetails", hash)
         .then(resolve)
         .catch(reject);
     });
@@ -19,7 +18,7 @@ export function setTransporterDetails(details) {
 
 export function getTransporterDetails(address) {
   return new Promise((resolve, reject) => {
-    makeTransaction("getTransporterDetails", address ? address : OWN_ADDRESS)
+    makeChainTransaction("getTransporterDetails", address ? address : OWN_ADDRESS)
       .then(hash => {
         return getJsonFromIPFS(hash);
       })
@@ -30,12 +29,12 @@ export function getTransporterDetails(address) {
 
 export function getTransportUnitDetails(isHarvest, rowCallback) {
   let which = isHarvest ? 0 : 1;
-  makeTransaction("getTransportUnitsByTransporter", which)
+  makeChainTransaction("getTransportUnitsByTransporter", which)
     .then(array => {
       array = array.valueOf();
       array.forEach(x => {
         x = x.toNumber();
-        makeTransaction("getTransportUnitDetails", x, which)
+        makeChainTransaction("getTransportUnitDetails", x, which)
           .then(o => handleObject(o, x))
           .catch(handleError);
       });
@@ -65,7 +64,7 @@ export function getTransportUnitDetails(isHarvest, rowCallback) {
 
 export function deliverOrDispatchTransport(uid, isHarvest, details) {
   return uploadJsonToIPFS(details).then(hash => {
-    return makeTransaction(
+    return makeChainTransaction(
       "deliverOrDispatchByTransporter",
       uid,
       hash,
