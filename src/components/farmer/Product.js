@@ -8,7 +8,7 @@ import ActionPanel from "../actionPanel/ActionPanel";
 
 const Product = (props) => {
     console.log(props);
-    const [productStatus, setProductStatus] = useState({state: 'Lab Test Approved', progress: 90})
+    const [productStatus, setProductStatus] = useState({state: 'Sown', progress: 20})
     return (
         <Layout>
             <Row className={'title'}>
