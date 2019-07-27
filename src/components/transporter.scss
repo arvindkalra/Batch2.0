@@ -1,0 +1,23 @@
+@import "../assets/stylesheets/colors";
+
+.shipment-section{
+  border: 3px solid $grey;
+  padding: 0 10px 10px 10px;
+
+  h3 {
+    text-transform: uppercase;
+    color: $darkblue;
+    text-align: center;
+    margin: 2%;
+    font-size: 1.6em;
+  }
+
+  table {
+    text-align: center;
+  }
+
+  button {
+    padding: 4px;
+    width: 75%;
+  }
+}
