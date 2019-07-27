@@ -1,0 +1,19 @@
+@import "../assets/stylesheets/colors";
+
+.manufacturer-graph{
+  border: 3px solid $grey;
+  padding: 10px;
+
+  h3 {
+    padding-bottom: 10px;
+    border-bottom: 2px solid $grey;
+    text-transform: uppercase;
+    color: $darkblue;
+    text-align: center;
+    font-size: 1.6em;
+  }
+
+  .bar-graph-container{
+    height: 300px;
+  }
+}

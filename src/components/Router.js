@@ -5,6 +5,7 @@ import Farmer from "./farmer/Farmer";
 import Product from "./farmer/Product";
 import About from './farmer/About';
 import Laboratory from './laboratory/Laboratory';
+import Manufacturer from "./manufacturer/Manufacturer";
 const AppRouter = () => {
     return (
         <Router>
@@ -13,6 +14,7 @@ const AppRouter = () => {
             <Route exact path={'/farmer/about'} component={About} />
             <Route exact path={'/farmer/products/:product'} component={Product}  />
             <Route exact path={'/laboratory/dashboard'} component={Laboratory}/>
+            <Route exact path={'/manufacturer/dashboard'} component={Manufacturer}/>
         </Router>
     );
 };
