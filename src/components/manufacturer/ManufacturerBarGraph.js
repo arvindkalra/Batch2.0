@@ -3,30 +3,12 @@ import { Bar } from "react-chartjs-2";
 
 const options = {
   maintainAspectRatio: false,
-  title: {
-    display: false
-  },
-  responsive: true,
-  legend: {
-    display: false
-  },
   scales: {
     yAxes: [
       {
-        display: false,
-        gridLines: {
-          display: true,
-          drawBorder: true
-        },
-      }
-    ],
-    xAxes: [
-      {
-        gridLines: {
-          display: false,
-          drawBorder: false
-        },
-        barPercentage: 1
+        ticks: {
+          suggestedMin: 0
+        }
       }
     ]
   }
@@ -60,10 +42,11 @@ const ManufacturerBarGraph = ({ data }) => {
       ]
     };
     setBarData(obj);
+    console.log(obj);
   }, [data]);
   return (
     <div className={"bar-graph-container"}>
-      <Bar data={barData}/>
+      <Bar data={barData} options={options}/>
     </div>
   );
 };
