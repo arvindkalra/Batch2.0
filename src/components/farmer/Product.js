@@ -1,14 +1,14 @@
-import React from 'react';
+import React,{useState} from 'react';
 import Layout from "../Layout";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import {setBreadcrumb} from "../../helpers";
-import TakeAction from "./TakeAction";
 import ActionPanel from "../actionPanel/ActionPanel";
 
 const Product = (props) => {
-    console.log(props)
+    console.log(props);
+    const [productStatus, setProductStatus] = useState({state: 'Lab Test Approved', progress: 90})
     return (
         <Layout>
             <Row className={'title'}>
@@ -118,7 +118,11 @@ const Product = (props) => {
                         <h3 className="status-tab-title">
                             Product Status
                         </h3>
-                        <ProgressBar variant="info" now={20} label={'Sown'} />
+                        <ProgressBar variant="info" now={productStatus.progress} label={productStatus.state} />
+                        {productStatus.state ==='Sown'?<p>
+                            Current Location:<span className={'info'}> Outdoor  </span>
+                        </p>: null }
+
 
 
                     </section>
@@ -127,7 +131,7 @@ const Product = (props) => {
 
             </Row>
             <Row>
-                <ActionPanel />
+                <ActionPanel productState={productStatus.state} setProductStatus={(newProductStatus) => {setProductStatus(newProductStatus)}} />
             </Row>
 
 

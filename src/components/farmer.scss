@@ -1,4 +1,5 @@
 @import "../assets/stylesheets/colors";
+@import "../assets/stylesheets/utils";
 
 .navbar {
 
@@ -158,6 +159,7 @@ ul.action-panel-list{
 
     list-style: none;
     li.current-status{
+      cursor: none;
       color:green;
 
       &:before{
@@ -167,6 +169,10 @@ ul.action-panel-list{
     }
   li.inactive{
     color: $grey;
+    cursor: not-allowed;
+  }
+  li.active{
+    cursor: pointer;
   }
 
 }
