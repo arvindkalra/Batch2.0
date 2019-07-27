@@ -4,6 +4,8 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import {setBreadcrumb} from "../../helpers";
+import TakeAction from "./TakeAction";
+import ActionPanel from "../actionPanel/ActionPanel";
 
 const Product = (props) => {
     console.log(props)
@@ -118,11 +120,14 @@ const Product = (props) => {
                         </h3>
                         <ProgressBar variant="info" now={20} label={'Sown'} />
 
+
                     </section>
+
                 </Col>
+
             </Row>
             <Row>
-
+                <ActionPanel />
             </Row>
 
 

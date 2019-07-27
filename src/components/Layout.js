@@ -1,11 +1,35 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Navbar from "react-bootstrap/Navbar";
+import {connectToMetamask} from "../dbController/init";
+import {getFarmerDetails} from "../dbController/farmerRole";
 
 
 const Layout = ({children}) => {
+
+
+    const [farmerDetails, setFarmerDetails] = useState('');
+
+    useEffect(() => {
+        let connectedToMetaMask = localStorage.getItem("connectedToMetaMask");
+        // if (!connectedToMetaMask) {
+        //
+        //     connectToMetamask().then(() => {
+        //
+        //         return getFarmerDetails()
+        //     }).then(farmerObject => {
+        //         setFarmerDetails(farmerObject);
+        //         localStorage.setItem('connectedToMetaMask', true);
+        //         console.log(connectedToMetaMask);
+        //
+        //         console.log(farmerObject);
+        //     })
+        // }
+
+    }, []);
+
     return (
 
         <Container fluid={true}>
@@ -25,8 +49,7 @@ const Layout = ({children}) => {
                 </Col>
             </Row>
 
-                {children}
-
+            {children}
 
 
         </Container>

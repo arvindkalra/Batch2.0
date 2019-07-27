@@ -152,3 +152,27 @@
 section{
   margin-bottom: 50px;
 }
+
+
+ul.action-panel-list{
+
+    list-style: none;
+    li.current-status{
+      color:green;
+
+      &:before{
+        content: '✓';
+        margin-right: 4px;
+      }
+    }
+  li.inactive{
+    color: $grey;
+  }
+
+}
+
+
+.action-panel-form-section{
+  border: 1px dashed $grey;
+  padding: 50px;
+}
