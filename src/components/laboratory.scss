@@ -29,3 +29,32 @@
   }
 
 }
+
+
+.lab-header-section{
+  border-bottom: 1px solid $grey;
+  h1.title{
+    text-align: center;
+    padding-top: 30px;
+    font-size: 50px;
+  }
+  .lab-details-section{
+    border-left: 4px solid black;
+    padding-left: 10px;
+
+  }
+}
+  .lab-product-details-section{
+    ul{
+      display: flex;
+      justify-content: space-around;
+      margin-left: 0;
+      padding-left:0;
+      li{
+        display: inline-block;
+
+
+        font-weight: bold;
+      }
+    }
+  }

@@ -23,8 +23,10 @@ const colors = [
 ];
 
 const ManufacturerBarGraph = ({ data }) => {
+  console.log(data);
   const [barData, setBarData] = useState({});
   useEffect(() => {
+    console.log(barData);
     let labels = Object.keys(data);
     let values = [];
     labels.forEach(element => {

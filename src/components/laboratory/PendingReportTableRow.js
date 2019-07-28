@@ -1,7 +1,9 @@
-import React from "react";
+import React,{useState} from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import ReportForm from "./ReportForm";
 const PendingReportTableRow = ({ values }) => {
+    const [showModal, setShowModal] = useState(false)
   return (
     <>
       <tr>
@@ -11,14 +13,13 @@ const PendingReportTableRow = ({ values }) => {
         <td>{values.amount}</td>
         <td>{values.dateHarvested}</td>
         <td>
-          <Button>Upload</Button>
+          <Button onClick={()=>{setShowModal(true)}} >Upload</Button>
         </td>
       </tr>
-      <Modal>
-        <Modal.Header>
-          Upload Report Result for Batch Id : {values.buid}
-        </Modal.Header>
+      <Modal show={showModal} size={'xl'} onHide={()=>{setShowModal(false)}}>
+
         <Modal.Body>
+            <ReportForm/>
 
         </Modal.Body>
       </Modal>
