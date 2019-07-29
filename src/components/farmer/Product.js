@@ -33,40 +33,34 @@ const Product = (props) => {
                 <Col>
                     <section className={'product-details-section'}>
                         <Row>
-                            <Col md={4}>
+                            <Col md={4} className={'product-info-tab'}>
                                 <h2>Lineage</h2>
                                 <p>
                                     Urkle
                                 </p>
                             </Col>
-                            <Col md={4}>
+                            <Col md={4} className={'product-info-tab'}>
                                 <h2>Flowering Time</h2>
                                 <p>
                                     65 Days
                                 </p>
                             </Col>
-                            <Col md={4}>
-                                <h2>Lineage</h2>
+                            <Col md={4} className={'product-info-tab'}>
+                                <h2>Current Location</h2>
                                 <p>
-                                    Urkle
+                                    Greenhouse
                                 </p>
                             </Col>
-                            <Col md={4}>
-                                <h2>Lineage</h2>
+                            <Col md={{span:4, offset:2}} className={'product-info-tab'}>
+                                <h2>Soil Type</h2>
                                 <p>
-                                    Urkle
+                                    Slightly acidic
                                 </p>
                             </Col>
-                            <Col md={4}>
-                                <h2>Flowering Time</h2>
+                            <Col md={{span:4}} className={'product-info-tab'}>
+                                <h2>Nutrients</h2>
                                 <p>
-                                    65 Days
-                                </p>
-                            </Col>
-                            <Col md={4}>
-                                <h2>Lineage</h2>
-                                <p>
-                                    Urkle
+                                    HomerJbio
                                 </p>
                             </Col>
 
@@ -118,7 +112,7 @@ const Product = (props) => {
                         <h3 className="status-tab-title">
                             Product Status
                         </h3>
-                        <ProgressBar variant="info" now={productStatus.progress} label={productStatus.state} />
+                        <ProgressBar striped variant="success" now={productStatus.progress} label={productStatus.state} />
                         {productStatus.state ==='Sown'?<p>
                             Current Location:<span className={'info'}> Outdoor  </span>
                         </p>: null }
