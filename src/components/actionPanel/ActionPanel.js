@@ -40,50 +40,61 @@ const ActionPanel = ({productState, setProductStatus}) => {
                     <li className={'current-status'}>Sown</li>
                     <li className={'current-status'}>Harvested
                     </li>
-                    <li className={'current-status'}> Sent  Sample to Lab
+                    <li className={'current-status'}> Sent Sample to Lab
                     </li>
                     <li className={'inactive'}>Send to Manufacturer</li>
                 </ul>
             )
 
-        }else if(productState === 'Lab Test Approved'){
-            return(
+        } else if (productState === 'Lab Test Approved') {
+            return (
 
-            <ul className={'action-panel-list'}>
-                <li className={'current-status'}>Sown</li>
-                <li className={'current-status'}>Harvested
-                </li>
-                <li className={'current-status'}> Sent  Sample to Lab
-                </li>
-                <li className={'current-status'}>
-                    Lab Test Approved
-                </li>
-                <li className={'active'}>Send to Manufacturer</li>
-            </ul>
-                )
-        }else if( productState === 'Sent to Manufacturer'){
-            return(
+                <ul className={'action-panel-list'}>
+                    <li className={'current-status'}>Sown</li>
+                    <li className={'current-status'}>Harvested
+                    </li>
+                    <li className={'current-status'}> Sent Sample to Lab
+                    </li>
+                    <li className={'current-status'}>
+                        Lab Test Approved
+                    </li>
+                    <li className={'active'}>Send to Manufacturer</li>
+                </ul>
+            )
+        } else if (productState === 'Sent to Manufacturer') {
+            return (
 
-            <ul className={'action-panel-list'}>
-                <li className={'current-status'}>Sown</li>
-                <li className={'current-status'}>Harvested
-                </li>
-                <li className={'current-status'}> Sent  Sample to Lab
-                </li>
-                <li className={'current-status'}>
-                    Lab Test Approved
-                </li>
-                <li className={'current-status'}>Sent to Manufacturer</li>
-            </ul>
-                )
+                <ul className={'action-panel-list'}>
+                    <li className={'current-status'}>Sown</li>
+                    <li className={'current-status'}>Harvested
+                    </li>
+                    <li className={'current-status'}> Sent Sample to Lab
+                    </li>
+                    <li className={'current-status'}>
+                        Lab Test Approved
+                    </li>
+                    <li className={'current-status'}>Sent to Manufacturer</li>
+                </ul>
+            )
         }
     };
     return (<>
             <Col md={3}>
-                <h2>Current Harvest Status</h2>
-                {setList()}
-                {productState === 'Sown' ? <Button> Move Location </Button> : null}
-                {productState !== 'Sent to Manufacturer'?  <Button> Destroy !</Button>: null}
+                <section className={'action-panel-list-section'}>
+
+
+                    <section>
+                        <h3> Primary Actions</h3>
+                        {setList()}
+                    </section>
+                    <section className={'secondary-actions-section'}>
+                        <h3>Secondary Actions</h3>
+                        {productState === 'Sown' ?
+                            <Button className={'btn-warning move-location'}> MOVE LOCATION </Button> : null}
+                        {productState !== 'Sent to Manufacturer' ?
+                            <Button className={'btn-danger destroy-crop'}> DESTROY CROP</Button> : null}
+                    </section>
+                </section>
             </Col>
             <Col md={9}>
                 <section className={'action-panel-form-section'}>

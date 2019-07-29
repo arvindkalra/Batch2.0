@@ -108,7 +108,17 @@
   max-height: 360px;
   overflow-y: scroll;
 }
+.product-status-section{
 
+  .progress{
+    height: 50px;
+    border-radius: 0;
+  }
+  .progress-bar{
+    font-style: italic;
+    font-size: 2em;
+  }
+}
 .ready-for-harvest {
   color: $green;
   .key-color {
@@ -151,13 +161,16 @@
 
 }
 section{
-  margin-bottom: 50px;
+  //margin-bottom: 50px;
 }
 
 
 ul.action-panel-list{
 
     list-style: none;
+  li{
+    margin-bottom: 10px;
+  }
     li.current-status{
       cursor: none;
       color:green;
@@ -173,12 +186,54 @@ ul.action-panel-list{
   }
   li.active{
     cursor: pointer;
+    font-weight: bolder;
   }
 
 }
 
-
+$min-height:300px;
 .action-panel-form-section{
+  h1{
+    border-bottom:1px solid $grey ;
+    margin-bottom: 40px;
+
+  }
   border: 1px dashed $grey;
   padding: 50px;
+  min-height: $min-height;
 }
+
+.action-panel-list-section{
+  //border: 1px dashed $grey;
+  min-height: $min-height;
+  position: relative;
+  h3{
+    padding-left: 4px;
+  }
+
+
+}
+
+.product-info-tab{
+  margin-bottom: 20px;
+}
+.secondary-actions-section{
+  .btn{
+    border-radius: 0;
+    color:white;
+
+  }
+}
+.destroy-crop{
+  position: absolute;
+  bottom: 0;
+  right:0px;
+  width: 50%;
+}
+.move-location{
+  position: absolute;
+  bottom: 0;
+  left:0px;
+  width: 50%;
+}
+

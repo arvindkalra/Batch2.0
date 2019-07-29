@@ -5,7 +5,7 @@ import Col from "react-bootstrap/Col";
 import Navbar from "react-bootstrap/Navbar";
 import Button from "react-bootstrap/Button";
 import SideBar from "./SideBar";
-
+import '../assets/stylesheets/layout.scss';
 
 
 const Layout = ({children}) => {
@@ -37,7 +37,7 @@ const Layout = ({children}) => {
                 <Col>
 
                     <Navbar>
-                        <Button onClick={toggleSideBar} > <span className="navbar-toggler-icon"></span>  </Button>
+                        <Button onClick={toggleSideBar} className={'sidebar-toggle-button'} > <span className="navbar-toggler-icon"></span>  </Button>
                         <Navbar.Brand href="/">
                             Batch
                         </Navbar.Brand>
