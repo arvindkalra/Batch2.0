@@ -1,0 +1,84 @@
+@import "colors";
+@import "utils";
+
+
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 20%;
+  height: 100%;
+  background-color: #5d80ae;
+  z-index: 2;
+  color:white;
+  //display: none;
+  transition: 0.1s all linear;
+  padding: 5px;
+
+}
+
+.overlay {
+  background: rgba(40, 44, 52, 0.57);
+  z-index: 4;
+  position: absolute;
+  left: 20%;
+  width: 80%;
+  height: 100%;
+  top: 0;
+  overflow-y: hidden;
+
+
+
+}
+
+h1.title{
+  text-align: center;
+  border-bottom: 1px solid $grey;
+}
+
+.close-sidebar {
+  float: right;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  padding: 0px 6px;
+  span{
+    color:white;
+    font-weight: bolder;
+    font-size: 2em;
+  }
+
+  &:focus {
+    outline: none;
+
+  }
+
+}
+
+.sidebar-list{
+  list-style: none;
+  margin-left: 0;
+  margin-bottom: 0;
+  padding-left: 0;
+  text-align: left;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 80%;
+
+
+  li{
+
+    margin: 40px auto 0 auto;
+    width: 150px;
+    max-width: 100%;
+
+  .fas{
+    margin-right: 5px;
+    position: relative;
+    left: 0;
+
+  }
+  }
+}

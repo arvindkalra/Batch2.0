@@ -3,40 +3,41 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Navbar from "react-bootstrap/Navbar";
-import {connectToMetamask} from "../dbController/init";
-import {getFarmerDetails} from "../dbController/farmerRole";
+import Button from "react-bootstrap/Button";
+import SideBar from "./SideBar";
+
 
 
 const Layout = ({children}) => {
 
 
     const [farmerDetails, setFarmerDetails] = useState('');
+    const [showSideBar, setShowSideBar] = useState(false);
+    const [overlayDisplay,setOverlayDisplay] = useState('none');
+    const closeSideBar= () => {
+        setShowSideBar(false);
+        setOverlayDisplay('none');
+    }
+    const toggleSideBar = (e)=> {
+        e.preventDefault();
+        e.stopPropagation();
+        setShowSideBar(true);
+        setOverlayDisplay('block');
 
-    useEffect(() => {
-        let connectedToMetaMask = localStorage.getItem("connectedToMetaMask");
-        // if (!connectedToMetaMask) {
-        //
-        //     connectToMetamask().then(() => {
-        //
-        //         return getFarmerDetails()
-        //     }).then(farmerObject => {
-        //         setFarmerDetails(farmerObject);
-        //         localStorage.setItem('connectedToMetaMask', true);
-        //         console.log(connectedToMetaMask);
-        //
-        //         console.log(farmerObject);
-        //     })
-        // }
+    }
 
-    }, []);
+
 
     return (
 
         <Container fluid={true}>
+            {showSideBar? <SideBar closeSideBar={closeSideBar} />:null}
+
             <Row>
                 <Col>
 
                     <Navbar>
+                        <Button onClick={toggleSideBar} > <span className="navbar-toggler-icon"></span>  </Button>
                         <Navbar.Brand href="/">
                             Batch
                         </Navbar.Brand>
@@ -48,8 +49,11 @@ const Layout = ({children}) => {
                     </Navbar>
                 </Col>
             </Row>
+            <div className={'overlay'} style={{display:overlayDisplay}} >
 
+            </div>
             {children}
+
 
 
         </Container>

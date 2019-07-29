@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { setBreadcrumb } from "../../helpers";
-import '../laboratory.scss';
+import '../../assets/stylesheets/laboratory.scss';
 import PendingReportTable from "./PendingReportTable";
 import AlreadyTestedReportTable from "./AlreadyTestedReportTable";
 import ProgressBar from "react-bootstrap/ProgressBar";
