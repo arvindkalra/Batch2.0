@@ -29,7 +29,7 @@ export function connectToMetamask() {
           createContractInstance();
           resolve(true);
         })
-        .catch((err) => {
+        .catch(err => {
           reject(err);
         });
     } else if (!window.web3) {
@@ -141,15 +141,18 @@ export function harvestStates(id) {
       return "harvested";
 
     case 4:
-      return "tested";
+      return "Sent To Lab";
 
     case 5:
-      return "sent";
+      return "tested";
 
     case 6:
-      return "dispatched";
+      return "sent";
 
     case 7:
+      return "dispatched";
+
+    case 8:
       return "delivered";
 
     default:
@@ -181,6 +184,6 @@ export function setNewObjectOfUsers(object) {
 
 export function getUsersObject() {
   return makeLabTransaction("getUsersHash").then(hash => {
-    getJsonFromIPFS(hash);
+    return getJsonFromIPFS(hash);
   });
 }

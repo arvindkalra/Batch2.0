@@ -446,10 +446,6 @@ export default {
                     "type": "uint256"
                 },
                 {
-                    "name": "labAddress",
-                    "type": "address"
-                },
-                {
                     "name": "buid",
                     "type": "uint256"
                 },
@@ -459,6 +455,28 @@ export default {
                 }
             ],
             "name": "plantHarvestedByFarmer",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "buid",
+                    "type": "uint256"
+                },
+                {
+                    "name": "labAddress",
+                    "type": "address"
+                },
+                {
+                    "name": "hash",
+                    "type": "string"
+                }
+            ],
+            "name": "sendToLab",
             "outputs": [],
             "payable": false,
             "stateMutability": "nonpayable",

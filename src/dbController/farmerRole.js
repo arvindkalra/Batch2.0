@@ -37,6 +37,12 @@ export function seedSownByFarmer(details) {
   });
 }
 
+export function sendToLaboratory(buid, labAddress, details) {
+  return uploadJsonToIPFS(details).then(hash => {
+    return makeChainTransaction("sendToLab", buid, labAddress, hash);
+  });
+}
+
 export function locationMovedByFarmer(buid, details) {
   return new Promise((resolve, reject) => {
     uploadJsonToIPFS(details).then(hash => {
