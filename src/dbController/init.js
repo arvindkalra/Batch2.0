@@ -172,3 +172,15 @@ export function packetStates(id) {
       return "lost";
   }
 }
+
+export function setNewObjectOfUsers(object) {
+  return uploadJsonToIPFS(object).then(hash => {
+    makeLabTransaction("setUserHash", hash);
+  });
+}
+
+export function getUsersObject() {
+  return makeLabTransaction("getUsersHash").then(hash => {
+    getJsonFromIPFS(hash);
+  });
+}
