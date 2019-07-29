@@ -1,7 +1,7 @@
 import React from 'react';
 import Layout from "../Layout";
 import ManufacturerDashboard from "./ManufacturerDashboard";
-import "../manufacturer.scss";
+import "../../assets/stylesheets/manufacturer.scss";
 
 const Manufacturer = ({location}) => {
     return (

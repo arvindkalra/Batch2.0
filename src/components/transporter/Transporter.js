@@ -1,7 +1,7 @@
 import React from 'react';
 import Layout from "../Layout";
 import TransporterDashboard from "./TransporterDashboard";
-import "../transporter.scss";
+import "../../assets/stylesheets/transporter.scss";
 
 const Transporter = ({location}) => {
     return (

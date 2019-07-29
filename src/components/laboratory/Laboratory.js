@@ -1,6 +1,6 @@
 import React from 'react';
 
-import '../laboratory.scss';
+import '../../assets/stylesheets/laboratory.scss';
 
 import Layout from "../Layout";
 import LabDashboard from "./LabDashboard";

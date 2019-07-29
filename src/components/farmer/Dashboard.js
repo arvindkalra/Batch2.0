@@ -2,15 +2,17 @@ import React from 'react';
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import ProgressBar from 'react-bootstrap/ProgressBar';
-import Breadcrumb from 'react-bootstrap/Breadcrumb';
+
 import ProductTable from "./ProductTable";
 import BarGraph from "./BarGraph";
 import {setBreadcrumb} from "../../helpers";
+
 
 const Dashboard = (props) => {
 
 
     return (<>
+
             <Row className={'title'}>
                 <Col>
                     <h1>Product Details</h1>

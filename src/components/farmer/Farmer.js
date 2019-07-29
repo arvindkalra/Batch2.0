@@ -1,6 +1,6 @@
 import React from 'react';
 
-import '../farmer.scss';
+import '../../assets/stylesheets/farmer.scss';
 import Dashboard from "./Dashboard";
 
 import Layout from "../Layout";
