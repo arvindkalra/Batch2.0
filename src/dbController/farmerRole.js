@@ -1,6 +1,7 @@
 import {
   getJsonFromIPFS,
-  harvestStates, makeChainTransaction,
+  harvestStates,
+  makeChainTransaction,
   OWN_ADDRESS,
   uploadJsonToIPFS
 } from "./init";
@@ -84,6 +85,31 @@ export function sellHarvestByFarmer(
       )
         .then(resolve)
         .catch(reject);
+    });
+  });
+}
+
+export function getSeedUnitDetais(buid) {
+  return new Promise((resolve, reject) => {
+    return makeChainTransaction("getSeedUnitDetails", buid).then(object => {
+      object = object.valueOf();
+      let addresses = object[0];
+      let integers = object[1];
+      let latestHash = object[2];
+
+      getJsonFromIPFS(latestHash).then(obj => {
+        let rowObj = {
+          buid: buid,
+          details: obj,
+          farmerAddress: addresses[0],
+          manufacturerAddress: addresses[1],
+          laboratoryAddress: addresses[2],
+          transporterAddress: addresses[3],
+          amountHarvested: integers[0].toNumber(),
+          currentState: harvestStates(integers[2].toNumber())
+        };
+        resolve(rowObj);
+      });
     });
   });
 }

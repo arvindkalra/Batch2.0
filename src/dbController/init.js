@@ -29,8 +29,8 @@ export function connectToMetamask() {
           createContractInstance();
           resolve(true);
         })
-        .catch(() => {
-          reject();
+        .catch((err) => {
+          reject(err);
         });
     } else if (!window.web3) {
       alert("Install Metamask");
