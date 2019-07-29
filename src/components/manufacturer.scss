@@ -17,3 +17,22 @@
     height: 300px;
   }
 }
+
+.manufacturer-actions {
+  border: 1px dashed black;
+  padding: 50px;
+  .action-info{
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  button{
+    width: 20%;
+  }
+}
+
+.harvest-detail-section-manufacturer{
+  text-align: center;
+  h4 {
+    margin-bottom: 10px;
+  }
+}

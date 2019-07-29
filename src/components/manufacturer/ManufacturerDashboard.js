@@ -10,7 +10,10 @@ const ManufacturerDashboard = ({ location }) => {
   const [availableArray, setAvailableArray] = useState([]);
   const [packetsReadyForDispatch, setPacketsReadyForDispatch] = useState([]);
   const [availableGraphData, setAvailableGraphData] = useState({});
-  const [packetsManufacturedGraphData, setPacketsManufacturedGraphData] = useState({});
+  const [
+    packetsManufacturedGraphData,
+    setPacketsManufacturedGraphData
+  ] = useState({});
   useEffect(() => {
     getDataForManufacturer();
   }, []);
@@ -25,14 +28,14 @@ const ManufacturerDashboard = ({ location }) => {
         dateHarvested: "1st May"
       },
       {
-        buid: 1,
+        buid: 2,
         farmerName: "Pokemon",
         plantName: "Gundza",
         amountLeft: 100,
         dateHarvested: "1st May"
       },
       {
-        buid: 1,
+        buid: 3,
         farmerName: "Pokemon",
         plantName: "Gundza",
         amountLeft: 100,
@@ -79,10 +82,10 @@ const ManufacturerDashboard = ({ location }) => {
       Skypey: 800
     });
     setPacketsManufacturedGraphData({
-      Preroll : 2000,
+      Preroll: 2000,
       Edible: 1200,
       Patches: 800
-    })
+    });
   };
   return (
     <>
@@ -99,24 +102,22 @@ const ManufacturerDashboard = ({ location }) => {
           </section>
         </Col>
         <Col md={6}>
-          <section className={"manufacturer-graph"}>
-            <h3>Packets Manufactured of Each Type</h3>
-            <ManufacturerBarGraph data={packetsManufacturedGraphData} />
-          </section>
-        </Col>
-      </Row>
-
-      {/*Two tables for available raw material and packets made ready for dispatch*/}
-      <Row>
-        <Col>
           <section className={"report-table-section"}>
             <h3>Available Raw Material</h3>
             <AvailableRawMaterialTable array={availableArray} />
           </section>
         </Col>
       </Row>
+
+      {/*Two tables for available raw material and packets made ready for dispatch*/}
       <Row>
-        <Col>
+        <Col md={6}>
+          <section className={"manufacturer-graph"}>
+            <h3>Packets Manufactured of Each Type</h3>
+            <ManufacturerBarGraph data={packetsManufacturedGraphData} />
+          </section>
+        </Col>
+        <Col md={6}>
           <section className={"report-table-section"}>
             <h3>Created Packets</h3>
             <ManufacturedPacketsTable array={packetsReadyForDispatch} />

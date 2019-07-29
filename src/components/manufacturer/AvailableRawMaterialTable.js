@@ -1,29 +1,38 @@
 import React from "react";
 import Table from "react-bootstrap/Table";
-import AvailableRawMaterialRow from "./AvailableRawMaterialRow";
+import { Link } from "react-router-dom";
 
 const AvailableRawMaterialTable = ({ array }) => {
-  return (<>
+  return (
+    <>
       <Table>
-          <thead>
-            <tr>
-                <th>Batch Id</th>
-                <th>Farmer Name</th>
-                <th>Plant Name</th>
-                <th>Amount Left</th>
-                <th>Date Harvested</th>
-                <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-          {array.map((element, id) =>{
-              return(
-                  <AvailableRawMaterialRow values={element} key={id + '' + element.buid}/>
-              )
+        <thead>
+          <tr>
+            <th>Batch Id</th>
+            <th>Farmer Name</th>
+            <th>Plant Name</th>
+          </tr>
+        </thead>
+        <tbody>
+          {array.map((element, id) => {
+            return (
+              <tr key={id + "" + element.buid}>
+                <td>{element.buid}</td>
+                <td>
+                  <Link to={`/manufacturer/harvests/${element.buid}`}>
+                    {element.farmerName}
+                  </Link>
+                </td>
+                <td><Link to={`/manufacturer/harvests/${element.buid}`}>
+                  {element.plantName}
+                </Link></td>
+              </tr>
+            );
           })}
-          </tbody>
+        </tbody>
       </Table>
-  </>);
+    </>
+  );
 };
 
 export default AvailableRawMaterialTable;

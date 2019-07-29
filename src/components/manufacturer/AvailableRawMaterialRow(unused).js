@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "react-bootstrap/Button";
 
-const AvailableRawMaterialRow = ({ values }) => {
+const AvailableRawMaterialRowUnused = ({ values }) => {
   return (
     <tr>
       <td>{values.buid}</td>
@@ -16,4 +16,4 @@ const AvailableRawMaterialRow = ({ values }) => {
   );
 };
 
-export default AvailableRawMaterialRow;
+export default AvailableRawMaterialRowUnused;
