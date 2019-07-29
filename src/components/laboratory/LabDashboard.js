@@ -117,7 +117,7 @@ const LabDashboard = props => {
       <Row>
         <Col>
           <section className={'report-table-section'}>
-            <h3>Already Tested</h3>
+            <h3>Completed Tests</h3>
             <AlreadyTestedReportTable array={testedReportsArray} />
           </section>
         </Col>

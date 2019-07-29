@@ -90,7 +90,7 @@ const ReportForm = () => {
                                 <Col md={12}>
                                     <Form.Group controlId={'cbd-content'}>
                                         <Form.Label>
-                                            CBDMAX
+                                            CBD MAX
                                         </Form.Label>
                                         <Form.Control type={'number'} placeholder={'Enter the CBD content'}
                                                       onChange={e => {

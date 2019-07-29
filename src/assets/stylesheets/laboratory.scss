@@ -41,6 +41,9 @@
   .lab-details-section{
     border-left: 4px solid black;
     padding-left: 10px;
+    p.lab-details{
+      font-weight: bold;
+    }
 
   }
 }
@@ -58,3 +61,6 @@
       }
     }
   }
+h1.title{
+  border-bottom: 0px;
+}
