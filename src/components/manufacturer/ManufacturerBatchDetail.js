@@ -26,8 +26,8 @@ const ManufacturerBatchDetail = props => {
       farmerName: "Bob the Builder",
       farmerAddress: "1245 Skyline Blvd, Oakland CA 94611",
       currentStatus: "delivered",
-      amountAlreadyUsed: 50,
-      amountLeft: 50
+      amountAlreadyUsed: 70,
+      amountLeft: 30
     });
   };
 
@@ -36,16 +36,6 @@ const ManufacturerBatchDetail = props => {
       <Row>
         <Col>
           {setBreadcrumb(`/manufacturer/harvests/${batchInfo.plantName}`)}
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <section className={"product-image-section"}>
-            <img
-              src="https://www.ilovegrowingmarijuana.com/wp-content/uploads/2017/05/Trinity.jpg"
-              alt=""
-            />
-          </section>
         </Col>
       </Row>
       <section
@@ -77,23 +67,23 @@ const ManufacturerBatchDetail = props => {
             <p>{batchInfo.dateHarvested}</p>
           </Col>
           <Col md={4} className={"data-info-box"}>
-            <h4>Amount Harvested</h4>
-            <p>{batchInfo.amountHarvested}</p>
+            <h4>Units of Raw Material Bought</h4>
+            <p>{batchInfo.amountHarvested} Pounds</p>
           </Col>
-          <Col className={"data-info-box"}>
-            <h4>Amount Already Used</h4>
-            <p>{batchInfo.amountAlreadyUsed}</p>
+          <Col md={4} className={"data-info-box"}>
+            <h4>Date of Testing</h4>
+            <p>{batchInfo.dateTested}</p>
           </Col>
           <Col md={4} className={"data-info-box"}>
             <h4>Nutrients</h4>
-            <p>{batchInfo.dateTested}</p>
+            <p>{batchInfo.nutrients}</p>
           </Col>
         </Row>
       </section>
       <section className={"manufacturer-actions container-fluid"}>
         <Row>
           {batchInfo.currentStatus === "delivered" ? (
-            <ManufacturerActionPanel left={batchInfo.amountLeft} />
+            <ManufacturerActionPanel left={batchInfo.amountLeft} total={batchInfo.amountHarvested}/>
           ) : (
             <div className={"delivery-notification-manufacturer"}>
               The Harvest Unit is yet to be delivered by the transporter
