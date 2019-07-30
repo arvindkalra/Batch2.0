@@ -47,8 +47,3 @@ export const getSeedProgress = status => {
     }
 };
 
-
-
-export const changeSeedState = functionName => {
-    farmerFunctions[functionName]();
-}

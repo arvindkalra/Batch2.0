@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -6,23 +6,9 @@ import Navbar from "react-bootstrap/Navbar";
 import Button from "react-bootstrap/Button";
 import SideBar from "./SideBar";
 import '../assets/stylesheets/layout.scss';
-import {connectToMetamask} from "../dbController/init";
 
 
 const Layout = ({children}) => {
-
-
-    useEffect(()=>{
-        const isConnectedToMetamask = localStorage.getItem('connnectedToMetaMask');
-        if(!isConnectedToMetamask){
-
-        connectToMetamask().then(
-            localStorage.setItem('connectedToMetaMask',true)
-
-        )
-        }
-    },[]);
-
 
     // const [farmerDetails, setFarmerDetails] = useState('');
     const [showSideBar, setShowSideBar] = useState(false);

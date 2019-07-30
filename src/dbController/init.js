@@ -142,7 +142,7 @@ export function harvestStates(id) {
       return "harvested";
 
     case 4:
-      return "Sent To Lab";
+      return "Sent to Lab";
 
     case 5:
       return "tested";
@@ -188,3 +188,21 @@ export function getUsersObject() {
     return getJsonFromIPFS(hash);
   });
 }
+
+
+export const checkMined = (txHash , cb) => {
+  let interval = setInterval(() => {
+    web3.eth.getTransactionReceipt(txHash, function(err, receipt) {
+      if (err) throw err;
+      console.log("Checked");
+      if (receipt !== null) {
+        console.log("Mined");
+        clearInterval(interval);
+        cb();
+
+      }
+    });
+
+  },500)
+
+};

@@ -55,7 +55,6 @@ export function locationMovedByFarmer(buid, details) {
 
 export function plantHarvestedByFarmer(
   amountHarvest,
-  labAddress,
   buid,
   details
 ) {
@@ -64,7 +63,6 @@ export function plantHarvestedByFarmer(
       makeChainTransaction(
         "plantHarvestedByFarmer",
         amountHarvest,
-        labAddress,
         buid,
         hash
       )

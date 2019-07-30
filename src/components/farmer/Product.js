@@ -19,16 +19,16 @@ const Product = (props) => {
         connectToMetamask().then(()=>{
             console.log('connected to metamask');
 
-            // getSeedUnitDetais(buid).then(seedDetails => {
-            //     console.log(seedDetails);
-            //     const seedProgress = getSeedProgress(seedDetails.currentState);
-            //     setProductStatus({state: seedDetails.currentState.captialize(), progress: seedProgress});
-            //     setSeedObject(seedDetails);
-            //
-            //
-            // })
+            getSeedUnitDetais(buid).then(seedDetails => {
+                console.log(seedDetails);
+                const seedProgress = getSeedProgress(seedDetails.currentState);
+                setProductStatus({state: seedDetails.currentState.captialize(), progress: seedProgress});
+                setSeedObject(seedDetails);
+
+
+            })
         })
-    },[props, transactionIsMining]);
+    },[transactionIsMining]);
 
     const [productStatus, setProductStatus] = useState({state: '', progress: 0});
     const [seedObject, setSeedObject] = useState({details: {}});
@@ -148,7 +148,7 @@ const Product = (props) => {
 
             </Row>
             <Row>
-                <ActionPanel productState={productStatus.state} setProductStatus={(newProductStatus) => {setProductStatus(newProductStatus)}} />
+                <ActionPanel seedObj={seedObject} productState={productStatus.state} setProductStatus={(newProductStatus) => {setProductStatus(newProductStatus)}} />
             </Row>
 
 

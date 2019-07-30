@@ -5,23 +5,56 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Notification from "../Notification";
 import {changeSeedState} from "../../helpers";
+import {plantHarvestedByFarmer, sendToLaboratory} from "../../dbController/farmerRole";
+import {checkMined} from "../../dbController/init";
 
-const ActionForm = ({productState, setProductStatus}) => {
+const ActionForm = ({productState, setProductStatus, seedObj}) => {
 
     const [showNotification, setShowNotification] = useState(false);
     const [notificationMessage, setNotificationMessage] = useState('');
+    const [formFieldValue, setFormFieldValue] = useState('');
+    const [labName, setLabName] = useState('Green Labs LLC');
 
 
-    const handleClick = (e, newState, newProgress, notificationMessage, functionName, args) => {
+    const handleClick = (e, notificationMessage) => {
         e.preventDefault();
         e.stopPropagation();
-        changeSeedState();
+
         setNotificationMessage(notificationMessage);
-        setShowNotification(true);
+
         // setProductStatus({state: newState, progress: newProgress});
 
 
     };
+    const sendHarvestReport = e => {
+        e.preventDefault();
+        e.stopPropagation();
+        seedObj.details.harvestTime = new Date().toDateString();
+        plantHarvestedByFarmer(formFieldValue, seedObj.buid, seedObj.details).then((hash)=>{
+            setNotificationMessage(" the tx is mining");
+            setShowNotification(true);
+            checkMined(hash , ()=> {
+            setNotificationMessage(" the harvest report is submitted")
+
+            window.location.reload();
+
+            })
+        })
+    }
+
+    const sendToLab = e => {
+        e.preventDefault();
+        e.stopPropagation();
+        seedObj.details.sentToLabOn = new Date().toDateString();
+        sendToLaboratory(seedObj.buid,'0x627306090abaB3A6e1400e9345bC60c78a8BEf57', seedObj.details).then( hash => {
+            setNotificationMessage(" tx mining");
+            setShowNotification(true);
+            checkMined(hash, ()=> {
+                window.location.reload()
+            })
+        })
+    }
+
     const setForm = () => {
         if (productState === 'Sown') {
             return (
@@ -34,19 +67,15 @@ const ActionForm = ({productState, setProductStatus}) => {
                             <Form.Label>
                                 Harvested Amount
                             </Form.Label>
-                            <Form.Control type={'number'} placeholder={'Enter the amount harvested in pounds'}
-                                          onChange={e => {
-                                              localStorage.setItem('harvest-amount', e.target.value)
-                                          }}/>
+                            <Form.Control type={'number'} placeholder={'Enter the amount harvested in pounds'} onChange={e =>{setFormFieldValue(e.target.value)}}
+                            />
 
                         </Form.Group>
 
 
                     </Col>
                     <Col md={12}>
-                        <Button type={'submit'} onClick={(e) => {
-                            handleClick(e, 'Harvested', 40, 'The harvest Report has been submitted ')
-                        }}>
+                        <Button type={'submit'} onClick={sendHarvestReport}>
                             Submit Report
 
                         </Button>
@@ -65,7 +94,7 @@ const ActionForm = ({productState, setProductStatus}) => {
                             <Form.Label>
                                 Select Lab
                             </Form.Label>
-                            <Form.Control as={'select'} required>
+                            <Form.Control as={'select'} required onChange={ e => {setLabName(e.target.value)}} >
                                 <option value="">Green Labs LLC</option>
                                 <option value="">LIME Labs INC</option>
 
@@ -75,9 +104,7 @@ const ActionForm = ({productState, setProductStatus}) => {
 
                     </Col>
                     <Col md={12}>
-                        <Button type={'submit'} onClick={(e) => {
-                            handleClick(e, 'Sent to Lab', 80, 'The sample has been sent to the lab')
-                        }}>
+                        <Button type={'submit'} onClick={sendToLab}>
                             Send To Lab
 
                         </Button>
