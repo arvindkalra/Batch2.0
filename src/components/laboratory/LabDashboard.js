@@ -14,7 +14,7 @@ const LabDashboard = props => {
   const [numPending, setNumPending] = useState(0);
   const [numApproved, setNumApproved] = useState(0);
   useEffect(() => {
-    console.log("use effect called");
+
     getRowsForLab();
   }, []);
 

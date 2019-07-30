@@ -1,6 +1,6 @@
 import React from 'react';
 import Breadcrumb from "react-bootstrap/Breadcrumb";
-
+import * as farmerFunctions from './dbController/farmerRole';
 
 String.prototype.captialize = function(){
     let str = this.valueOf();
@@ -17,7 +17,6 @@ export const setBreadcrumb = url => {
     arr = arr.map(x => x.captialize());
 
     let count = arr.length;
-    console.log(arr);
     return(
         <Breadcrumb>
             {arr.map((urlItem, index)=>{
@@ -33,3 +32,23 @@ export const setBreadcrumb = url => {
 
 };
 
+
+export const getSeedProgress = status => {
+    switch (status) {
+        case 'sown':
+            return 20;
+        case 'harvested':
+            return 50;
+        case 'tested':
+            return 80;
+        case 'sent':
+            return 100;
+
+    }
+};
+
+
+
+export const changeSeedState = functionName => {
+    farmerFunctions[functionName]();
+}

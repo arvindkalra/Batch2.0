@@ -4,25 +4,27 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Notification from "../Notification";
+import {changeSeedState} from "../../helpers";
 
 const ActionForm = ({productState, setProductStatus}) => {
 
     const [showNotification, setShowNotification] = useState(false);
-    const [notificationMessage, setNotificationMessage] = useState('')
+    const [notificationMessage, setNotificationMessage] = useState('');
 
 
-    const handleClick = (e, newState, newProgress, notificationMessage) => {
+    const handleClick = (e, newState, newProgress, notificationMessage, functionName, args) => {
         e.preventDefault();
         e.stopPropagation();
+        changeSeedState();
         setNotificationMessage(notificationMessage);
         setShowNotification(true);
-        setProductStatus({state: newState, progress: newProgress});
+        // setProductStatus({state: newState, progress: newProgress});
 
 
     };
     const setForm = () => {
-        if(productState === 'Sown'){
-            return(
+        if (productState === 'Sown') {
+            return (
 
                 <Row>
                     <Col md={12}>
@@ -30,16 +32,21 @@ const ActionForm = ({productState, setProductStatus}) => {
                         <Form.Group>
 
                             <Form.Label>
-                               Harvested Amount
+                                Harvested Amount
                             </Form.Label>
-                            <Form.Control type={'number'} placeholder={'Enter the amount harvested in pounds'} />
+                            <Form.Control type={'number'} placeholder={'Enter the amount harvested in pounds'}
+                                          onChange={e => {
+                                              localStorage.setItem('harvest-amount', e.target.value)
+                                          }}/>
 
                         </Form.Group>
 
 
                     </Col>
                     <Col md={12}>
-                        <Button type={'submit'} onClick={(e)=>{ handleClick(e, 'Harvested', 40, 'The harvest Report has been submitted ' )}}>
+                        <Button type={'submit'} onClick={(e) => {
+                            handleClick(e, 'Harvested', 40, 'The harvest Report has been submitted ')
+                        }}>
                             Submit Report
 
                         </Button>
@@ -68,7 +75,9 @@ const ActionForm = ({productState, setProductStatus}) => {
 
                     </Col>
                     <Col md={12}>
-                        <Button type={'submit'} onClick={(e)=>{ handleClick(e, 'Sent to Lab', 80, 'The sample has been sent to the lab' )}}>
+                        <Button type={'submit'} onClick={(e) => {
+                            handleClick(e, 'Sent to Lab', 80, 'The sample has been sent to the lab')
+                        }}>
                             Send To Lab
 
                         </Button>
@@ -81,8 +90,8 @@ const ActionForm = ({productState, setProductStatus}) => {
                     Please wait for the lab tests before you can fill in a harvest report
                 </p>
             )
-        }else if(productState === 'Lab Test Approved'){
-            return(
+        } else if (productState === 'Lab Test Approved') {
+            return (
                 <Row>
                     <Col md={12}>
                         <Form.Group>
@@ -98,7 +107,9 @@ const ActionForm = ({productState, setProductStatus}) => {
                     </Col>
                     <Col md={12}>
 
-                        <Button type={'submit'} onClick={(e)=>{ handleClick(e, 'Sent to Manufacturer', 100, 'The harvest has been sent to the manufacturer' )}}>
+                        <Button type={'submit'} onClick={(e) => {
+                            handleClick(e, 'Sent to Manufacturer', 100, 'The harvest has been sent to the manufacturer')
+                        }}>
                             Send to Manufacturer
 
                         </Button>
@@ -106,8 +117,8 @@ const ActionForm = ({productState, setProductStatus}) => {
                 </Row>
 
             )
-        }else if(productState === 'Sent to Manufacturer'){
-            return(
+        } else if (productState === 'Sent to Manufacturer') {
+            return (
                 <p>
                     This product has been successfully harvested and sent to the manufacturer
                 </p>

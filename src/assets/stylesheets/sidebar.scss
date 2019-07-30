@@ -8,7 +8,7 @@
   top: 0;
   width: 20%;
   height: 100%;
-  background-color: #5d80ae;
+  background-color: #32353d;
   z-index: 2;
   color:white;
   //display: none;
@@ -32,8 +32,10 @@
 }
 
 h1.title{
-  text-align: center;
+  padding-left: 8px;
+  padding-bottom: 10px;
   border-bottom: 1px solid $grey;
+  font-size: 30px;
 }
 
 .close-sidebar {
@@ -41,11 +43,11 @@ h1.title{
   cursor: pointer;
   background: transparent;
   border: none;
-  padding: 0px 6px;
+  padding: 0px 2px;
   span{
     color:white;
     font-weight: bolder;
-    font-size: 2em;
+    font-size: 1.4em;
   }
 
   &:focus {
@@ -56,22 +58,15 @@ h1.title{
 }
 
 .sidebar-list{
-  list-style: none;
-  margin-left: 0;
-  margin-bottom: 0;
-  padding-left: 0;
-  text-align: left;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  @extend .vertical-centered-list;
   height: 80%;
 
 
   li{
 
     margin: 40px auto 0 auto;
-    width: 150px;
+    width: 200px;
+
     max-width: 100%;
 
   .fas{
@@ -80,5 +75,32 @@ h1.title{
     left: 0;
 
   }
+  }
+}
+
+.sidebar-profile-section{
+  border-bottom: 1px solid $grey;
+  padding-bottom: 10px;
+    img{
+      border-radius: 4px;
+      max-width: 100%;
+    }
+  .sidebar-profile-details{
+      
+    span.name{
+      font-weight: bolder;
+    }
+  }
+}
+
+.sidebar-footer-section{
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  width: 100%;
+  padding-bottom:10px ;
+  ul{
+    @extend .horizontal-list;
+
   }
 }

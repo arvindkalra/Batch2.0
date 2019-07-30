@@ -8,3 +8,24 @@
 .btn{
   border-radius: 0;
 }
+.vertical-centered-list{
+  list-style: none;
+  margin-left: 0;
+  margin-bottom: 0;
+  padding-left: 0;
+  text-align: left;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.horizontal-list{
+  list-style: none;
+  margin-left: 0;
+  margin-bottom: 0;
+  padding-left: 0;
+  justify-content: space-around;
+
+
+  display: flex;
+}

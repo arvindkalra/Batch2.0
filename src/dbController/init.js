@@ -53,6 +53,7 @@ function createContractInstance() {
 
 export function makeChainTransaction(functionName, ...args) {
   return new Promise((resolve, reject) => {
+  console.log("inside make chain transaction");
     Chain_Instance[functionName](
       ...args,
       { from: OWN_ADDRESS, gasPrice: web3.toWei(1000, "gwei") },

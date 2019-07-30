@@ -102,6 +102,7 @@ export function getSeedUnitDetais(buid) {
       let addresses = object[0];
       let integers = object[1];
       let latestHash = object[2];
+      console.log(addresses, integers, latestHash );
 
       getJsonFromIPFS(latestHash).then(obj => {
         let rowObj = {

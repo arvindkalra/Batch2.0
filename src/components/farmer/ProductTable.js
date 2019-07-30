@@ -30,7 +30,7 @@ const ProductTable = () => {
             <tbody>
                 <tr>
                     <td>1</td>
-                    <td className={'product-name ready-for-harvest'}  > <Link to={'/farmer/products/gundza'} > Gundza </Link>  </td>
+                    <td className={'product-name ready-for-harvest'}  > <Link to={'/farmer/products/1'} > Gundza </Link>  </td>
                     <td>04/23/19</td>
                     {/*<td>00PPQQRRSS</td>*/}
                     <td>100</td>

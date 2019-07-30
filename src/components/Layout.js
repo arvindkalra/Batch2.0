@@ -6,14 +6,27 @@ import Navbar from "react-bootstrap/Navbar";
 import Button from "react-bootstrap/Button";
 import SideBar from "./SideBar";
 import '../assets/stylesheets/layout.scss';
+import {connectToMetamask} from "../dbController/init";
 
 
 const Layout = ({children}) => {
 
 
+    useEffect(()=>{
+        const isConnectedToMetamask = localStorage.getItem('connnectedToMetaMask');
+        if(!isConnectedToMetamask){
+
+        connectToMetamask().then(
+            localStorage.setItem('connectedToMetaMask',true)
+
+        )
+        }
+    },[]);
+
+
     const [farmerDetails, setFarmerDetails] = useState('');
-    const [showSideBar, setShowSideBar] = useState(false);
-    const [overlayDisplay,setOverlayDisplay] = useState('none');
+    const [showSideBar, setShowSideBar] = useState(true);
+    const [overlayDisplay,setOverlayDisplay] = useState('block');
     const closeSideBar= () => {
         setShowSideBar(false);
         setOverlayDisplay('none');

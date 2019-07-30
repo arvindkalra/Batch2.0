@@ -1,19 +1,42 @@
-import React,{useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Layout from "../Layout";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import ProgressBar from 'react-bootstrap/ProgressBar';
-import {setBreadcrumb} from "../../helpers";
+import {getSeedProgress, setBreadcrumb} from "../../helpers";
 import ActionPanel from "../actionPanel/ActionPanel";
+import {getSeedUnitDetais} from "../../dbController/farmerRole";
+import {connectToMetamask} from "../../dbController/init";
 
 const Product = (props) => {
-    console.log(props);
-    const [productStatus, setProductStatus] = useState({state: 'Sown', progress: 20})
+
+
+    const [transactionIsMining, setTransactionIsMining] = useState(false);
+
+
+    useEffect(()=>{
+        const buid = parseInt(props.match.params.product);
+        connectToMetamask().then(()=>{
+            console.log('connected to metamask');
+
+            // getSeedUnitDetais(buid).then(seedDetails => {
+            //     console.log(seedDetails);
+            //     const seedProgress = getSeedProgress(seedDetails.currentState);
+            //     setProductStatus({state: seedDetails.currentState.captialize(), progress: seedProgress});
+            //     setSeedObject(seedDetails);
+            //
+            //
+            // })
+        })
+    },[props, transactionIsMining]);
+
+    const [productStatus, setProductStatus] = useState({state: '', progress: 0});
+    const [seedObject, setSeedObject] = useState({details: {}});
     return (
         <Layout>
             <Row className={'title'}>
                 <Col>
-                    <h1> Product Name:  {props.match.params.product.captialize()} </h1>
+                    <h1> Product Name:   </h1>
                 </Col>
 
             </Row>
@@ -36,31 +59,31 @@ const Product = (props) => {
                             <Col md={4} className={'product-info-tab'}>
                                 <h2>Lineage</h2>
                                 <p>
-                                    Urkle
+                                    {seedObject.details.lineage}
                                 </p>
                             </Col>
                             <Col md={4} className={'product-info-tab'}>
                                 <h2>Flowering Time</h2>
                                 <p>
-                                    65 Days
+                                    {seedObject.details.floweringTime}
                                 </p>
                             </Col>
                             <Col md={4} className={'product-info-tab'}>
                                 <h2>Current Location</h2>
                                 <p>
-                                    Greenhouse
+                                    {seedObject.details.currentLocation}
                                 </p>
                             </Col>
                             <Col md={{span:4, offset:2}} className={'product-info-tab'}>
                                 <h2>Soil Type</h2>
                                 <p>
-                                    Slightly acidic
+                                    {seedObject.details.soilType}
                                 </p>
                             </Col>
                             <Col md={{span:4}} className={'product-info-tab'}>
                                 <h2>Nutrients</h2>
                                 <p>
-                                    HomerJbio
+                                    {seedObject.details.nutrients}
                                 </p>
                             </Col>
 
@@ -80,7 +103,7 @@ const Product = (props) => {
                                     Date Planted
                                 </h2>
                                 <p>
-                                    04/23/19
+                                    {seedObject.details.datePlanted}
                                 </p>
 
                             </Col>
@@ -91,7 +114,7 @@ const Product = (props) => {
                                 </h2>
                                 <p>
 
-                                #00PPQQRRSS
+                                #{seedObject.buid}
                                 </p>
                             </Col>
                             <Col>
@@ -99,7 +122,7 @@ const Product = (props) => {
                                     Quantity
                                 </h2>
                                 <p>
-                                    100
+                                    {seedObject.details.seedCount}
                                 </p>
 
                             </Col>
