@@ -110,14 +110,14 @@ const LabDashboard = props => {
         <Col md={6}>
           <section className={'report-table-section'}>
             <h3>Pending Tests</h3>
-            <PendingReportTable array={pendingReportsArray} />
+            <PendingReportTable array={pendingReportsArray}  seedObj />
           </section>
         </Col>
 
         <Col md={6}>
           <section className={'report-table-section'}>
             <h3>Completed Tests</h3>
-            <AlreadyTestedReportTable array={testedReportsArray} />
+            <AlreadyTestedReportTable array={testedReportsArray}  />
           </section>
         </Col>
       </Row>
