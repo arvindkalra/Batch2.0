@@ -20,48 +20,50 @@ const LabDashboard = props => {
 
   let getRowsForLab = () => {
     setPendingReportsArray([
-      {
-        buid: 1,
-        farmerName: "Arvind Kalra",
-        plantName: "Gundza",
-        amount: 100,
-        dateHarvested: "1st May"
-      },
-      {
-        buid: 2,
-        farmerName: "Arvind Kalra",
-
-        plantName: "Gundza",
-        amount: 100,
-        dateHarvested: "1st May"
-      },
-      {
-        buid: 3,
-        farmerName: "Arvind Kalra",
-        amount: 100,
-        plantName: "Gundza",
-        dateHarvested: "1st May"
-      }
+      [
+        1,
+        "Arvind Kalra",
+        "Gundza",
+        100,
+        "1st May",
+          "Upload Report"
+      ],
+      [
+        2,
+        "Arvind Kalra",
+        "Gundza",
+        100,
+        "1st May",
+        "Upload Report"
+      ],
+      [
+        3,
+        "Arvind Kalra",
+        100,
+        "Gundza",
+        "1st May",
+        "Upload Report"
+      ]
     ]);
     setTestedReportsArray([
-      {
-        buid: 1,
-        plantName: "Gundza",
-        farmerName: "Arvind Kalra",
-        amount: 100,
-        dateHarvested: "1st May",
-        dateTested: "5th May",
-        result: "Approved"
-      },
-      {
-        buid: 1,
-        farmerName: "Arvind Kalra",
-        amount: 100,
-        plantName: "Gundza",
-        dateHarvested: "1st May",
-        dateTested: "5th May",
-        result: "Rejected"
-      }
+      [
+        1,
+        "Arvind Kalra",
+        "Gundza",
+        100,
+        "1st May",
+        "5th May",
+        "Approved"
+      ],
+      [
+        1,
+        "Arvind Kalra",
+        "Gundza",
+        100,
+        "1st May",
+        "5th May",
+        "Rejected"
+      ]
     ]);
     setNumPending(3);
     setNumTested(2);
@@ -77,29 +79,27 @@ const LabDashboard = props => {
       <Row>
         <Col md={6}>
           <section className={"status-tab"}>
-            <h3 className={"status-tab-title"}>Pending Status</h3>
+            <h3 className={"status-tab-title"}>Pending Tests</h3>
 
             <ProgressBar
               now={(numPending / (numPending + numTested)) * 100}
               label={`${(numPending / (numPending + numTested)) * 100}%`}
             />
             <p className={"status-tab-description"}>
-              {(numPending / (numPending + numTested)) * 100}% of plants are
-              still pending to be tested
+              {(numPending / (numPending + numTested)) * 100}% of tests are pending
             </p>
           </section>
         </Col>
         <Col md={6}>
           <section className={"status-tab"}>
-            <h3 className={"status-tab-title"}>Approved Status</h3>
+            <h3 className={"status-tab-title"}>Approved Samples</h3>
 
             <ProgressBar
               now={(numApproved / numTested) * 100}
               label={`${(numApproved / numTested) * 100}%`}
             />
             <p className={"status-tab-description"}>
-              {(numApproved / numTested) * 100}% of plants are approved and
-              others are rejected
+              {(numApproved / numTested) * 100}% of the tested samples were approved
             </p>
           </section>
         </Col>
@@ -107,21 +107,21 @@ const LabDashboard = props => {
 
       {/*Two tables for report requests and already done*/}
       <Row>
-        <Col>
+        <Col md={6}>
           <section className={'report-table-section'}>
-            <h3>Pending Requests</h3>
+            <h3>Pending Tests</h3>
             <PendingReportTable array={pendingReportsArray} />
           </section>
         </Col>
-      </Row>
-      <Row>
-        <Col>
+
+        <Col md={6}>
           <section className={'report-table-section'}>
-            <h3>Already Tested</h3>
+            <h3>Completed Tests</h3>
             <AlreadyTestedReportTable array={testedReportsArray} />
           </section>
         </Col>
       </Row>
+
     </>
   );
 };

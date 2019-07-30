@@ -20,60 +20,53 @@ const ManufacturerDashboard = ({ location }) => {
 
   let getDataForManufacturer = () => {
     setAvailableArray([
-      {
-        buid: 1,
-        farmerName: "Pokemon",
-        plantName: "Gundza",
-        amountLeft: 100,
-        dateHarvested: "1st May"
-      },
-      {
-        buid: 2,
-        farmerName: "Pokemon",
-        plantName: "Gundza",
-        amountLeft: 100,
-        dateHarvested: "1st May"
-      },
-      {
-        buid: 3,
-        farmerName: "Pokemon",
-        plantName: "Gundza",
-        amountLeft: 100,
-        dateHarvested: "1st May"
-      }
+      [
+        1,
+        "Pokemon",
+        100,
+        "Gundza"
+
+      ],
+
+        [2,
+        "Pokemon",
+        100,
+        "Gundza"
+        ]
+      ,
+      [
+       3,
+       "Pokemon",
+       100,
+       "Gundza"
+
+      ]
     ]);
 
     setPacketsReadyForDispatch([
-      {
-        puid: 1,
-        retailerName: "Shinchan",
-        transporterName: "Doraemon",
-        type: "Preroll",
-        productName: "Gummy Bear",
-        unitSize: "1.75g",
-        totalUnits: 10000,
-        currentStatus: "Packed"
-      },
-      {
-        puid: 1,
-        retailerName: "Shinchan",
-        transporterName: "Doraemon",
-        type: "Preroll",
-        productName: "Gummy Bear",
-        unitSize: "1.75g",
-        totalUnits: 10000,
-        currentStatus: "Packed"
-      },
-      {
-        puid: 1,
-        retailerName: "Shinchan",
-        transporterName: "Doraemon",
-        type: "Preroll",
-        productName: "Gummy Bear",
-        unitSize: "1.75g",
-        totalUnits: 10000,
-        currentStatus: "Packed"
-      }
+      [
+        1,
+
+        "Preroll",
+        "Gummy Bear",
+        "1.75g"
+
+      ],
+      [
+        1,
+
+        "Preroll",
+        "Gummy Bear",
+        "1.75g"
+      ],
+
+        [
+        1,
+
+        "Preroll",
+        "Gummy Bear",
+        "1.75g"]
+
     ]);
     setAvailableGraphData({
       Gondza: 1000,

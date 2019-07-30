@@ -24,9 +24,9 @@ const Layout = ({children}) => {
     },[]);
 
 
-    const [farmerDetails, setFarmerDetails] = useState('');
-    const [showSideBar, setShowSideBar] = useState(true);
-    const [overlayDisplay,setOverlayDisplay] = useState('block');
+    // const [farmerDetails, setFarmerDetails] = useState('');
+    const [showSideBar, setShowSideBar] = useState(false);
+    const [overlayDisplay,setOverlayDisplay] = useState('none');
     const closeSideBar= () => {
         setShowSideBar(false);
         setOverlayDisplay('none');

@@ -80,7 +80,8 @@ const ReportForm = () => {
                                         <Form.Label>
                                             THC MAX
                                         </Form.Label>
-                                        <Form.Control type={'number'} placeholder={'Enter the THC content'}
+                                        <Form.Control min={"0"} max={"100"} type={'number'}
+                                                      placeholder={'Enter the THC content'}
                                                       onChange={e => {
                                                           setThc(e.target.value)
                                                       }}/>
@@ -92,7 +93,8 @@ const ReportForm = () => {
                                         <Form.Label>
                                             CBDMAX
                                         </Form.Label>
-                                        <Form.Control type={'number'} placeholder={'Enter the CBD content'}
+                                        <Form.Control min={"0"} max={"100"} type={'number'}
+                                                      placeholder={'Enter the CBD content'}
                                                       onChange={e => {
                                                           setCbd(e.target.value)
                                                       }}/>
@@ -104,7 +106,8 @@ const ReportForm = () => {
                                         <Form.Label>
                                             Cannabiniods
                                         </Form.Label>
-                                        <Form.Control type={'number'} placeholder={'Enter the Cannabiniods content'}
+                                        <Form.Control min={"0"} max={"100"} type={'number'}
+                                                      placeholder={'Enter the Cannabiniods content'}
                                                       onChange={e => {
                                                           setCannabinoids(e.target.value)
                                                       }}/>

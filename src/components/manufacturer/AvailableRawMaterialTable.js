@@ -1,38 +1,14 @@
 import React from "react";
-import Table from "react-bootstrap/Table";
-import { Link } from "react-router-dom";
+import TableLayout from "../tables/TableLayout";
 
-const AvailableRawMaterialTable = ({ array }) => {
-  return (
-    <>
-      <Table>
-        <thead>
-          <tr>
-            <th>Batch Id</th>
-            <th>Farmer Name</th>
-            <th>Plant Name</th>
-          </tr>
-        </thead>
-        <tbody>
-          {array.map((element, id) => {
-            return (
-              <tr key={id + "" + element.buid}>
-                <td>{element.buid}</td>
-                <td>
-                  <Link to={`/manufacturer/harvests/${element.buid}`}>
-                    {element.farmerName}
-                  </Link>
-                </td>
-                <td><Link to={`/manufacturer/harvests/${element.buid}`}>
-                  {element.plantName}
-                </Link></td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </Table>
-    </>
-  );
+const AvailableRawMaterialTable = ({array}) => {
+    console.log(array);
+    const tableHead = ['Batch Id', 'Farmer Name', 'Amount','Plant Name'];
+    return (
+        <>
+            <TableLayout tableHead={tableHead} rows={array}/>
+        </>
+    );
 };
 
 export default AvailableRawMaterialTable;
