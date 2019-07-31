@@ -17,6 +17,7 @@ const HarvestShipmentRow = ({value, rowObj}) => {
     };
 
     return (
+
         <tr>
             <td>{value.buid}</td>
             <td>{value.senderCompany}</td>

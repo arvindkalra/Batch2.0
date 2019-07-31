@@ -3,30 +3,31 @@ import Table from "react-bootstrap/Table";
 import TableHead from "./TableHead";
 import TableRow from "./TableRow";
 
-const TableLayout = ({tableHead, rows, tableParams}) => {
+const TableLayout = (props) => {
 
+    // tableHead, rows, tableParams
 
     const [tablehead, setTableHead] = useState([]);
     const [tableRows, setTableRows] = useState([]);
 
     useEffect(()=>{
-        setTableHead(tableHead);
-    },[tableHead]);
+        setTableHead(props.tableHead);
+    },[props.tableHead]);
 
     useEffect(()=>{
-        setTableRows(rows);
-    },[rows]);
+        setTableRows(props.rows);
+    },[props.rows]);
     return (
         <Table responsive>
 
 
-            <TableHead tableHead={tableHead}/>
+            <TableHead tableHead={props.tableHead}/>
 
             <tbody>
             {
                 tableRows.map((row,index) => {
                     return (
-                        <TableRow key={index} tableRow={row} rowDetails={tableParams[row[0]]} />
+                        <TableRow key={index} tableRow={row} rowDetails={!props.tableParams? undefined: props.tableParams[row[0]] } />
                     )
                 })
             }
