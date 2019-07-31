@@ -537,6 +537,10 @@ export default {
                     "type": "uint256"
                 },
                 {
+                    "name": "harvestAmount",
+                    "type": "uint256"
+                },
+                {
                     "name": "latestHash",
                     "type": "string"
                 }

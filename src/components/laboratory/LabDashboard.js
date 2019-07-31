@@ -13,7 +13,7 @@ import { getFarmerDetails } from "../../dbController/farmerRole";
 const LabDashboard = props => {
   const [pendingReportsArray, setPendingReportsArray] = useState([]);
   const [testedReportsArray, setTestedReportsArray] = useState([]);
-  const [numTested, setNumTested] = useState(1);
+  const [numTested, setNumTested] = useState(0);
   const [numPending, setNumPending] = useState(0);
   const [numApproved, setNumApproved] = useState(0);
   const [seedObjArr, setSeedObjArr] = useState({});
@@ -35,7 +35,7 @@ const LabDashboard = props => {
               row.uid,
               name,
               row.details.plantName,
-              100,
+              row.harvestAmount,
               row.details.sentToLabOn,
               "Upload Report"
             ];
@@ -47,7 +47,7 @@ const LabDashboard = props => {
               row.uid,
               name,
               row.details.plantName,
-              120,
+              row.harvestAmount,
               row.details.harvestTime,
               row.details.testedOn,
               "Rejected"
@@ -60,7 +60,7 @@ const LabDashboard = props => {
               row.uid,
               name,
               row.details.plantName,
-              120,
+              row.harvestAmount,
               row.details.harvestTime,
               row.details.testedOn,
               "Approved"

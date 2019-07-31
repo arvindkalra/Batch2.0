@@ -45,15 +45,15 @@ export function uploadReport(buid, details, isApproved) {
 }
 
 export function getRowsForLaboratory(rowCallback) {
-// TODO return harvest amount in the obj
   let handleRow = (obj, uid) => {
     obj = obj.valueOf();
     // console.log(obj);
-    getJsonFromIPFS(obj[2]).then(details => {
+    getJsonFromIPFS(obj[3]).then(details => {
       rowCallback({
         uid,
         details,
         currentState: harvestStates(obj[1].toNumber()),
+        harvestAmount: obj[2].toNumber(),
         farmerAddress: obj[0]
       });
     });
