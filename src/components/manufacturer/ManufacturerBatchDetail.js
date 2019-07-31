@@ -16,28 +16,7 @@ const ManufacturerBatchDetail = props => {
     let buid = props.match.params.buid;
     connectToMetamask().then(()=>{
       fetchHarvestUnitDetailsUsingBUID(buid).then((object) => {
-        // amountAlreadyUsed: 0
-        // amountCreated: 0
-        // currentState: "sown"
-        // details:
-        // currentLocation: "Green House"
-        // datePlanted: "12/1/2019"
-        // deliveryTime: "Wed Jul 31 2019"
-        // dispatchTime: "Wed Jul 31 2019"
-        // farmerToManufacturerPrice: "10"
-        // floweringTime: "65 Days"
-        // harvestTime: "Wed Jul 31 2019"
-        // lineage: "Urkle"
-        // nutrients: "homerJbio"
-        // plantName: "Mongo"
-        // seedCount: "100"
-        // sentToLabOn: "Wed Jul 31 2019"
-        // sentToManufacturerOn: "Wed Jul 31 2019"
-        // soilType: "slightly acidic"
-        // testedOn: "Wed Jul 31 2019"
-        // farmerAddress: "0x627306090abab3a6e1400e9345bc60c78a8bef57"
-        // transporterAddress: "0x0000000000000000000000000000000000000000"
-        // uid: "1"
+
         console.log(object);
         getFarmerDetails(object.farmerAddress).then(farmerObj => {
           setPrevDetails(object);
@@ -58,7 +37,7 @@ const ManufacturerBatchDetail = props => {
         });
       });
     });
-    // getBatchInfoUsingBuid(buid);
+
   }, []);
 
   let getBatchInfoUsingBuid = buid => {
