@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { setBreadcrumb } from "../../helpers";
-import '../../assets/stylesheets/laboratory.scss';
+import "../../assets/stylesheets/laboratory.scss";
 import PendingReportTable from "./PendingReportTable";
 import AlreadyTestedReportTable from "./AlreadyTestedReportTable";
 import ProgressBar from "react-bootstrap/ProgressBar";
-import {connectToMetamask} from "../../dbController/init";
-import {getRowsForLaboratory} from "../../dbController/laboratoryRole";
-import {getFarmerDetails} from "../../dbController/farmerRole";
+import { connectToMetamask } from "../../dbController/init";
+import { getRowsForLaboratory } from "../../dbController/laboratoryRole";
+import { getFarmerDetails } from "../../dbController/farmerRole";
 
 const LabDashboard = props => {
   const [pendingReportsArray, setPendingReportsArray] = useState([]);
@@ -18,37 +18,60 @@ const LabDashboard = props => {
   const [numApproved, setNumApproved] = useState(0);
   const [seedObjArr, setSeedObjArr] = useState({});
   useEffect(() => {
-    console.log("lab dash board use effect")
-    connectToMetamask().then(()=>{
-      getRowsForLaboratory((row)=>{
+    console.log("lab dash board use effect");
+    connectToMetamask().then(() => {
+      getRowsForLaboratory(row => {
         console.log(row);
         let tempPendingReports = pendingReportsArray;
         let tempTestedReports = testedReportsArray;
         let rowArr;
-        getFarmerDetails(row.farmerAddress).then(({name}) => {
+        getFarmerDetails(row.farmerAddress).then(({ name }) => {
           let tempSeedObjArr = seedObjArr;
           tempSeedObjArr[row.uid.toString()] = row;
           setSeedObjArr(tempSeedObjArr);
 
-            if(row.currentState === 'Sent to Lab'){
-              rowArr = [row.uid, name, row.details.plantName, 100, row.details.sentToLabOn , 'Upload Report'];
-              tempPendingReports.push(rowArr);
-              setPendingReportsArray([...tempPendingReports]);
-
-
-            }else if(row.currentState === 'discarded'){
-              rowArr = [row.uid, name, row.details.plantName, 120, row.details.harvestTime, row.details.testedOn, 'Rejected' ]
-              tempTestedReports.push(rowArr);
-              setTestedReportsArray([...tempTestedReports]);
-
-            }else{
-              rowArr = [row.uid, name, row.details.plantName, 120, row.details.harvestTime, row.details.testedOn, 'Approved' ]
-              tempTestedReports.push(rowArr);
-              setTestedReportsArray([...tempTestedReports]);
-            }
-            // TODO if the report was submitted , push to tempTestedReports
-            console.log('inside get farmer details', rowArr);
-        })
+          if (row.currentState === "Sent to Lab") {
+            rowArr = [
+              row.uid,
+              name,
+              row.details.plantName,
+              100,
+              row.details.sentToLabOn,
+              "Upload Report"
+            ];
+            tempPendingReports.push(rowArr);
+            setPendingReportsArray([...tempPendingReports]);
+            setNumPending(numPending + 1);
+          } else if (row.currentState === "discarded") {
+            rowArr = [
+              row.uid,
+              name,
+              row.details.plantName,
+              120,
+              row.details.harvestTime,
+              row.details.testedOn,
+              "Rejected"
+            ];
+            tempTestedReports.push(rowArr);
+            setTestedReportsArray([...tempTestedReports]);
+            setNumTested(numTested + 1);
+          } else {
+            rowArr = [
+              row.uid,
+              name,
+              row.details.plantName,
+              120,
+              row.details.harvestTime,
+              row.details.testedOn,
+              "Approved"
+            ];
+            tempTestedReports.push(rowArr);
+            setTestedReportsArray([...tempTestedReports]);
+            setNumTested(numTested + 1);
+            setNumApproved(numApproved + 1);
+          }
+          console.log("inside get farmer details", rowArr);
+        });
 
         // tempState.push(row);
         // setPendingReportsArray([...tempState]);
@@ -62,59 +85,19 @@ const LabDashboard = props => {
         // seedCount: "100"
         // sentToLabOn: "Wed Jul 31 2019"
         // soilType: "slightly acidic"
-
       });
     });
-
-
   }, []);
 
   let getRowsForLab = () => {
     setPendingReportsArray([
-      [
-        1,
-        "Arvind Kalra",
-        "Gundza",
-        100,
-        "1st May",
-          "Upload Report"
-      ],
-      [
-        2,
-        "Arvind Kalra",
-        "Gundza",
-        100,
-        "1st May",
-        "Upload Report"
-      ],
-      [
-        3,
-        "Arvind Kalra",
-        100,
-        "Gundza",
-        "1st May",
-        "Upload Report"
-      ]
+      [1, "Arvind Kalra", "Gundza", 100, "1st May", "Upload Report"],
+      [2, "Arvind Kalra", "Gundza", 100, "1st May", "Upload Report"],
+      [3, "Arvind Kalra", 100, "Gundza", "1st May", "Upload Report"]
     ]);
     setTestedReportsArray([
-      [
-        1,
-        "Arvind Kalra",
-        "Gundza",
-        100,
-        "1st May",
-        "5th May",
-        "Approved"
-      ],
-      [
-        1,
-        "Arvind Kalra",
-        "Gundza",
-        100,
-        "1st May",
-        "5th May",
-        "Rejected"
-      ]
+      [1, "Arvind Kalra", "Gundza", 100, "1st May", "5th May", "Approved"],
+      [1, "Arvind Kalra", "Gundza", 100, "1st May", "5th May", "Rejected"]
     ]);
     setNumPending(3);
     setNumTested(2);
@@ -137,7 +120,8 @@ const LabDashboard = props => {
               label={`${(numPending / (numPending + numTested)) * 100}%`}
             />
             <p className={"status-tab-description"}>
-              {(numPending / (numPending + numTested)) * 100}% of tests are pending
+              {(numPending / (numPending + numTested)) * 100}% of tests are
+              pending
             </p>
           </section>
         </Col>
@@ -150,7 +134,8 @@ const LabDashboard = props => {
               label={`${(numApproved / numTested) * 100}%`}
             />
             <p className={"status-tab-description"}>
-              {(numApproved / numTested) * 100}% of the tested samples were approved
+              {(numApproved / numTested) * 100}% of the tested samples were
+              approved
             </p>
           </section>
         </Col>
@@ -159,20 +144,25 @@ const LabDashboard = props => {
       {/*Two tables for report requests and already done*/}
       <Row>
         <Col md={6}>
-          <section className={'report-table-section'}>
+          <section className={"report-table-section"}>
             <h3>Pending Tests</h3>
-            <PendingReportTable array={pendingReportsArray}  seedObjArr={seedObjArr} />
+            <PendingReportTable
+              array={pendingReportsArray}
+              seedObjArr={seedObjArr}
+            />
           </section>
         </Col>
 
         <Col md={6}>
-          <section className={'report-table-section'}>
+          <section className={"report-table-section"}>
             <h3>Completed Tests</h3>
-            <AlreadyTestedReportTable array={testedReportsArray} seedObjArr={seedObjArr} />
+            <AlreadyTestedReportTable
+              array={testedReportsArray}
+              seedObjArr={seedObjArr}
+            />
           </section>
         </Col>
       </Row>
-
     </>
   );
 };
