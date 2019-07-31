@@ -26,7 +26,7 @@ const TableLayout = ({tableHead, rows, tableParams}) => {
             {
                 tableRows.map((row,index) => {
                     return (
-                        <TableRow key={index} tableRow={row} />
+                        <TableRow key={index} tableRow={row} rowDetails={tableParams[row[0]]} />
                     )
                 })
             }

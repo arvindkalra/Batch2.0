@@ -53,7 +53,8 @@ const ActionForm = ({productState, setProductStatus, seedObj}) => {
                 window.location.reload()
             })
         })
-    }
+    };
+    // TODO: submit buttom disable on click until transaction hash is recived
 
     const setForm = () => {
         if (productState === 'Sown') {

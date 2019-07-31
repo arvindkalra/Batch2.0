@@ -6,6 +6,9 @@ import '../../assets/stylesheets/laboratory.scss';
 import PendingReportTable from "./PendingReportTable";
 import AlreadyTestedReportTable from "./AlreadyTestedReportTable";
 import ProgressBar from "react-bootstrap/ProgressBar";
+import {connectToMetamask} from "../../dbController/init";
+import {getRowsForLaboratory} from "../../dbController/laboratoryRole";
+import {getFarmerDetails} from "../../dbController/farmerRole";
 
 const LabDashboard = props => {
   const [pendingReportsArray, setPendingReportsArray] = useState([]);
@@ -13,9 +16,57 @@ const LabDashboard = props => {
   const [numTested, setNumTested] = useState(1);
   const [numPending, setNumPending] = useState(0);
   const [numApproved, setNumApproved] = useState(0);
+  const [seedObjArr, setSeedObjArr] = useState({});
   useEffect(() => {
+    console.log("lab dash board use effect")
+    connectToMetamask().then(()=>{
+      getRowsForLaboratory((row)=>{
+        console.log(row);
+        let tempPendingReports = pendingReportsArray;
+        let tempTestedReports = testedReportsArray;
+        let rowArr;
+        getFarmerDetails(row.farmerAddress).then(({name}) => {
+          let tempSeedObjArr = seedObjArr;
+          tempSeedObjArr[row.uid.toString()] = row;
+          setSeedObjArr(tempSeedObjArr);
 
-    getRowsForLab();
+            if(row.currentState === 'Sent to Lab'){
+              rowArr = [row.uid, name, row.details.plantName, 100, row.details.sentToLabOn , 'Upload Report'];
+              tempPendingReports.push(rowArr);
+              setPendingReportsArray([...tempPendingReports]);
+
+
+            }else if(row.currentState === 'discarded'){
+              rowArr = [row.uid, name, row.details.plantName, 120, row.details.harvestTime, row.details.testedOn, 'Rejected' ]
+              tempTestedReports.push(rowArr);
+              setTestedReportsArray([...tempTestedReports]);
+
+            }else{
+              rowArr = [row.uid, name, row.details.plantName, 120, row.details.harvestTime, row.details.testedOn, 'Approved' ]
+              tempTestedReports.push(rowArr);
+              setTestedReportsArray([...tempTestedReports]);
+            }
+            // TODO if the report was submitted , push to tempTestedReports
+            console.log('inside get farmer details', rowArr);
+        })
+
+        // tempState.push(row);
+        // setPendingReportsArray([...tempState]);
+        // currentLocation: "Green House"
+        // datePlanted: "12/1/2019"
+        // floweringTime: "65 Days"
+        // harvestTime: "Wed Jul 31 2019"
+        // lineage: "Urkle"
+        // nutrients: "homerJbio"
+        // plantName: "Mango"
+        // seedCount: "100"
+        // sentToLabOn: "Wed Jul 31 2019"
+        // soilType: "slightly acidic"
+
+      });
+    });
+
+
   }, []);
 
   let getRowsForLab = () => {
@@ -110,14 +161,14 @@ const LabDashboard = props => {
         <Col md={6}>
           <section className={'report-table-section'}>
             <h3>Pending Tests</h3>
-            <PendingReportTable array={pendingReportsArray}  seedObj />
+            <PendingReportTable array={pendingReportsArray}  seedObjArr={seedObjArr} />
           </section>
         </Col>
 
         <Col md={6}>
           <section className={'report-table-section'}>
             <h3>Completed Tests</h3>
-            <AlreadyTestedReportTable array={testedReportsArray}  />
+            <AlreadyTestedReportTable array={testedReportsArray} seedObjArr={seedObjArr} />
           </section>
         </Col>
       </Row>

@@ -145,7 +145,7 @@ export function harvestStates(id) {
       return "Sent to Lab";
 
     case 5:
-      return "tested";
+      return "Lab Test Approved";
 
     case 6:
       return "sent";

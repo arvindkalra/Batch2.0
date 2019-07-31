@@ -14,9 +14,9 @@ const Product = (props) => {
     const [transactionIsMining, setTransactionIsMining] = useState(false);
 
 
-    useEffect(()=>{
+    useEffect(() => {
         const buid = parseInt(props.match.params.product);
-        connectToMetamask().then(()=>{
+        connectToMetamask().then(() => {
             console.log('connected to metamask');
 
             getSeedUnitDetais(buid).then(seedDetails => {
@@ -28,15 +28,16 @@ const Product = (props) => {
 
             })
         })
-    },[transactionIsMining]);
-
+    }, [transactionIsMining]);
+// TODO progress not showing properly for sent to lab
     const [productStatus, setProductStatus] = useState({state: '', progress: 0});
     const [seedObject, setSeedObject] = useState({details: {}});
     return (
         <Layout>
             <Row className={'title'}>
                 <Col>
-                    <h1> Product Name:   </h1>
+                    <h1> Product Name: {seedObject.details.plantName}  </h1>
+
                 </Col>
 
             </Row>
@@ -74,13 +75,13 @@ const Product = (props) => {
                                     {seedObject.details.currentLocation}
                                 </p>
                             </Col>
-                            <Col md={{span:4, offset:2}} className={'product-info-tab'}>
+                            <Col md={{span: 4, offset: 2}} className={'product-info-tab'}>
                                 <h2>Soil Type</h2>
                                 <p>
                                     {seedObject.details.soilType}
                                 </p>
                             </Col>
-                            <Col md={{span:4}} className={'product-info-tab'}>
+                            <Col md={{span: 4}} className={'product-info-tab'}>
                                 <h2>Nutrients</h2>
                                 <p>
                                     {seedObject.details.nutrients}
@@ -110,11 +111,11 @@ const Product = (props) => {
                             <Col md={4}>
                                 <h2>
 
-                                Batch Id
+                                    Batch Id
                                 </h2>
                                 <p>
 
-                                #{seedObject.buid}
+                                    #{seedObject.buid}
                                 </p>
                             </Col>
                             <Col>
@@ -135,11 +136,12 @@ const Product = (props) => {
                         <h3 className="status-tab-title">
                             Product Status
                         </h3>
-                        <ProgressBar striped variant="success" now={productStatus.progress} label={productStatus.state} />
-                        {productStatus.state ==='Sown'?<p>
-                            Current Location:<span className={'info'}> Outdoor  </span>
-                        </p>: null }
 
+                        <ProgressBar striped variant="success" now={productStatus.progress}
+                                     label={productStatus.state}/>
+                        {productStatus.state === 'Sown' ? <p>
+                            Current Location:<span className={'info'}> Outdoor  </span>
+                        </p> : null}
 
 
                     </section>
@@ -148,7 +150,10 @@ const Product = (props) => {
 
             </Row>
             <Row>
-                <ActionPanel seedObj={seedObject} productState={productStatus.state} setProductStatus={(newProductStatus) => {setProductStatus(newProductStatus)}} />
+                <ActionPanel seedObj={seedObject} productState={productStatus.state}
+                             setProductStatus={(newProductStatus) => {
+                                 setProductStatus(newProductStatus)
+                             }}/>
             </Row>
 
 

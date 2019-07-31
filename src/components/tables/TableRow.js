@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import Button from "react-bootstrap/Button";
 import FormModal from "./FormModal";
 
-const TableRow = ({tableRow}) => {
+const TableRow = ({tableRow, rowDetails}) => {
+
 
     const [row, setRow] = useState([]);
     useEffect(() => {
         setRow(tableRow);
-        console.log("inside table row useeffect", tableRow);
+
     }, [tableRow]);
 
 
@@ -17,7 +17,7 @@ const TableRow = ({tableRow}) => {
             case 'approved':
                 return 'approve';
             case 'rejected':
-                return 'reject'
+                return 'reject';
             default:
                 return ''
         }
@@ -26,7 +26,7 @@ const TableRow = ({tableRow}) => {
         let d = data.toString().toLowerCase();
         switch (d) {
             case 'upload report':
-                return(<FormModal buttonText={data} />)
+                return (<FormModal formDetails={rowDetails} tableRow={tableRow} buttonText={data}/>);
             default:
                 return data
 

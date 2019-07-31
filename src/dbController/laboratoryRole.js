@@ -30,6 +30,7 @@ export function uploadReport(buid, details, isApproved) {
   return new Promise((resolve, reject) => {
     uploadJsonToIPFS(details)
       .then(hash => {
+        console.log(buid, hash, isApproved);
         makeChainTransaction(
           "plantAcceptedByLaboratory",
           buid,
@@ -44,6 +45,7 @@ export function uploadReport(buid, details, isApproved) {
 }
 
 export function getRowsForLaboratory(rowCallback) {
+// TODO return harvest amount in the obj
   let handleRow = (obj, uid) => {
     obj = obj.valueOf();
     // console.log(obj);

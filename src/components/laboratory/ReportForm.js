@@ -6,11 +6,36 @@ import Button from "react-bootstrap/Button";
 
 
 import LabBarGraph from "./LabBarGraph";
+import {connectToMetamask} from "../../dbController/init";
+import {uploadReport} from "../../dbController/laboratoryRole";
 
-const ReportForm = () => {
+const ReportForm = ({formDetails}) => {
     const [thc, setThc] = useState(0);
     const [cbd, setCbd] = useState(0);
     const [cannabinoids, setCannabinoids] = useState(0);
+    const [labResult, setLabResult] = useState(true);
+
+    const handleSelect = e => {
+        if(e.target.value =='Passed'){
+            setLabResult(true);
+        }else{
+            setLabResult(false);
+        }
+    }
+
+    const handleClick = e => {
+        e.preventDefault();
+        e.stopPropagation();
+        let details = formDetails.details;
+        details.thc = thc;
+        details.cbd = cbd;
+        details.cannabinoids = cannabinoids;
+        details.testedOn = new Date().toDateString();
+        console.log(labResult)
+        connectToMetamask().then(()=>{
+            uploadReport(formDetails.uid, details, labResult);
+        })
+    };
 
     return (
         <section>
@@ -119,7 +144,7 @@ const ReportForm = () => {
                                         <Form.Label>
                                             Test Result
                                         </Form.Label>
-                                        <Form.Control as={'select'}>
+                                        <Form.Control as={'select'} onClick={handleSelect}>
                                             <option value="">Passed</option>
                                             <option value=""> Failed</option>
 
@@ -129,7 +154,7 @@ const ReportForm = () => {
                                 </Col>
                                 <Col md={12}>
 
-                                    <Button type={'submit'}> Submit Report </Button>
+                                    <Button type={'submit'} onClick={handleClick}> Submit Report </Button>
                                 </Col>
 
                             </Row>

@@ -5,7 +5,9 @@ import Button from "react-bootstrap/Button";
 
 
 
-const FormModal = ({buttonText}) => {
+const FormModal = ({buttonText, formDetails, tableRow}) => {
+
+    console.log(formDetails, tableRow);
 const [showModal, setShowModal] = useState(false)
     return (
         <>
@@ -13,7 +15,7 @@ const [showModal, setShowModal] = useState(false)
             <Modal show={showModal} size={'xl'} onHide={()=>{setShowModal(false)}}>
 
                 <Modal.Body>
-                    <ReportForm/>
+                    <ReportForm formDetails={formDetails}/>
 
                 </Modal.Body>
             </Modal>
