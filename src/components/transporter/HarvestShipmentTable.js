@@ -2,7 +2,7 @@ import React from 'react';
 import Table from "react-bootstrap/Table";
 import HarvestShipmentRow from "./HarvestShipmentRow";
 
-const HarvestShipmentTable = ({array}) => {
+const HarvestShipmentTable = ({array, rowObjArr}) => {
     return (
         <Table responsive>
             <thead>
@@ -18,7 +18,7 @@ const HarvestShipmentTable = ({array}) => {
             </thead>
             <tbody>
             {array.map((element, id) => {
-                return <HarvestShipmentRow value={element} key={id + '' + element.buid}/>
+                return <HarvestShipmentRow value={element} key={id + '' + element.buid} rowObj={rowObjArr[element.buid]} />
             })}
             </tbody>
         </Table>
