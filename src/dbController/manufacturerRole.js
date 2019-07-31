@@ -1,10 +1,13 @@
 import {
   getJsonFromIPFS,
-  harvestStates, makeChainTransaction,
+  harvestStates,
+  makeChainTransaction,
   makeTransaction,
-  OWN_ADDRESS, packetStates,
+  OWN_ADDRESS,
+  packetStates,
   uploadJsonToIPFS
 } from "./init";
+import { throwStatement } from "@babel/types";
 
 export function setManufacturerDetails(details) {
   return new Promise((resolve, reject) => {
@@ -18,11 +21,40 @@ export function setManufacturerDetails(details) {
 
 export function getManufacturerDetails(address) {
   return new Promise((resolve, reject) => {
-    makeChainTransaction("getManufacturerDetails", address ? address : OWN_ADDRESS)
+    makeChainTransaction(
+      "getManufacturerDetails",
+      address ? address : OWN_ADDRESS
+    )
       .then(hash => {
         return getJsonFromIPFS(hash);
       })
       .then(resolve)
+      .catch(reject);
+  });
+}
+
+export function fetchHarvestUnitDetailsUsingBUID(buid) {
+  return new Promise((resolve, reject) => {
+    makeChainTransaction("getHarvestDetailsByManufacturer", buid)
+      .then(obj => {
+        obj = obj.valueOf();
+        let integers = obj[0];
+        let addresses = obj[1];
+        let latestHash = obj[2];
+        getJsonFromIPFS(latestHash)
+          .then(details => {
+            resolve({
+              uid: buid,
+              details,
+              amountCreated: integers[0].toNumber(),
+              amountAlreadyUsed: integers[1].toNumber(),
+              currentState: harvestStates(integers[2].toNumber()),
+              farmerAddress: addresses[0],
+              transporterAddress: addresses[1]
+            });
+          })
+          .catch(reject);
+      })
       .catch(reject);
   });
 }

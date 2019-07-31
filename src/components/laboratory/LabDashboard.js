@@ -117,10 +117,10 @@ const LabDashboard = props => {
 
             <ProgressBar
               now={(numPending / (numPending + numTested)) * 100}
-              label={`${(numPending / (numPending + numTested)) * 100}%`}
+              label={`${numPending === 0 ? 0 : (numPending / (numPending + numTested)) * 100}%`}
             />
             <p className={"status-tab-description"}>
-              {(numPending / (numPending + numTested)) * 100}% of tests are
+              {numPending === 0 ? 0 : (numPending / (numPending + numTested)) * 100}% of tests are
               pending
             </p>
           </section>
@@ -131,10 +131,10 @@ const LabDashboard = props => {
 
             <ProgressBar
               now={(numApproved / numTested) * 100}
-              label={`${(numApproved / numTested) * 100}%`}
+              label={`${numApproved === 0 ? 0 : (numApproved / numTested) * 100}%`}
             />
             <p className={"status-tab-description"}>
-              {(numApproved / numTested) * 100}% of the tested samples were
+              {numApproved === 0 ? 0 : (numApproved / numTested) * 100}% of the tested samples were
               approved
             </p>
           </section>

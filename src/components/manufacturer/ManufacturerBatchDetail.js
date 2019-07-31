@@ -4,13 +4,61 @@ import Col from "react-bootstrap/Col";
 import { setBreadcrumb } from "../../helpers";
 import Layout from "../Layout";
 import ManufacturerActionPanel from "../actionPanel/ManufacturerActionPanel";
+import {fetchHarvestUnitDetailsUsingBUID} from "../../dbController/manufacturerRole";
+import {connectToMetamask} from "../../dbController/init";
+import {getFarmerDetails} from "../../dbController/farmerRole";
 
 const ManufacturerBatchDetail = props => {
   const [batchInfo, setBatchInfo] = useState({});
+  const [prevDetails, setPrevDetails] = useState({});
   useEffect(() => {
     // Fetch the buid from the params
     let buid = props.match.params.buid;
-    getBatchInfoUsingBuid(buid);
+    connectToMetamask().then(()=>{
+      fetchHarvestUnitDetailsUsingBUID(buid).then((object) => {
+        // amountAlreadyUsed: 0
+        // amountCreated: 0
+        // currentState: "sown"
+        // details:
+        // currentLocation: "Green House"
+        // datePlanted: "12/1/2019"
+        // deliveryTime: "Wed Jul 31 2019"
+        // dispatchTime: "Wed Jul 31 2019"
+        // farmerToManufacturerPrice: "10"
+        // floweringTime: "65 Days"
+        // harvestTime: "Wed Jul 31 2019"
+        // lineage: "Urkle"
+        // nutrients: "homerJbio"
+        // plantName: "Mongo"
+        // seedCount: "100"
+        // sentToLabOn: "Wed Jul 31 2019"
+        // sentToManufacturerOn: "Wed Jul 31 2019"
+        // soilType: "slightly acidic"
+        // testedOn: "Wed Jul 31 2019"
+        // farmerAddress: "0x627306090abab3a6e1400e9345bc60c78a8bef57"
+        // transporterAddress: "0x0000000000000000000000000000000000000000"
+        // uid: "1"
+        console.log(object);
+        getFarmerDetails(object.farmerAddress).then(farmerObj => {
+          setPrevDetails(object);
+          setBatchInfo({
+            buid: object.uid,
+            plantName: object.details.plantName,
+            plantType: object.details.lineage,
+            dateHarvested: object.details.harvestTime,
+            nutrients: object.details.nutrients,
+            dateTested: object.details.testedOn,
+            farmerName: farmerObj.name,
+            farmerAddress: farmerObj.companyName,
+            currentStatus: object.currentState,
+            amountAlreadyUsed: object.amountAlreadyUsed,
+            amountHarvested: object.amountCreated,
+            amountLeft: (object.amountCreated - object.amountAlreadyUsed)
+          })
+        });
+      });
+    });
+    // getBatchInfoUsingBuid(buid);
   }, []);
 
   let getBatchInfoUsingBuid = buid => {
@@ -51,7 +99,7 @@ const ManufacturerBatchDetail = props => {
             <p>{batchInfo.farmerName}</p>
           </Col>
           <Col md={4} className={"data-info-box"}>
-            <h4>Farmer Address</h4>
+            <h4>Farmer Company</h4>
             <p>{batchInfo.farmerAddress}</p>
           </Col>
           <Col md={4} className={"data-info-box"}>
@@ -59,7 +107,7 @@ const ManufacturerBatchDetail = props => {
             <p>{batchInfo.plantName}</p>
           </Col>
           <Col md={4} className={"data-info-box"}>
-            <h4>Plant Type</h4>
+            <h4>Lineage</h4>
             <p>{batchInfo.plantType}</p>
           </Col>
           <Col md={4} className={"data-info-box"}>
@@ -83,7 +131,11 @@ const ManufacturerBatchDetail = props => {
       <section className={"manufacturer-actions container-fluid"}>
         <Row>
           {batchInfo.currentStatus === "delivered" ? (
-            <ManufacturerActionPanel left={batchInfo.amountLeft} total={batchInfo.amountHarvested}/>
+            <ManufacturerActionPanel
+              left={batchInfo.amountLeft}
+              total={batchInfo.amountHarvested}
+              prevDetails={prevDetails}
+            />
           ) : (
             <div className={"delivery-notification-manufacturer"}>
               The Harvest Unit is yet to be delivered by the transporter

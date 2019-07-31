@@ -5,7 +5,7 @@ import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import ProgressBar from "react-bootstrap/ProgressBar";
 
-const ManufacturerActionPanel = ({ left, total }) => {
+const ManufacturerActionPanel = ({ left, total, prevDetails }) => {
   return (
     <Col>
       <div className={"action-info"}>
