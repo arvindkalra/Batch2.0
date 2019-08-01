@@ -8,7 +8,7 @@ import {packetsManufactured} from "../../dbController/manufacturerRole";
 
 const ManufacturerActionPanel = ({left, total, prevDetails}) => {
 
-    const [materialUsed, setMaterialUsed] = useState('10');
+    const [materialUsed, setMaterialUsed] = useState('1');
     const [packetsMade, setPacketsMade] = useState('10');
     const [packetSize, setPacketSize] = useState('1.75g');
     const [packetName, setPacketName] = useState('gummy');
@@ -19,11 +19,13 @@ const ManufacturerActionPanel = ({left, total, prevDetails}) => {
     const handleClick = e => {
         e.preventDefault();
         e.stopPropagation();
-        prevDetails.details.packetSize = packetSize;
-        prevDetails.details.packetName = packetName;
-        prevDetails.details.productType = productType;
-        prevDetails.details.packedOn = new Date().toDateString;
-        packetsManufactured(prevDetails.uid, parseInt(packetsMade), parseInt(materialUsed), '0x627306090abaB3A6e1400e9345bC60c78a8BEf57', '0x627306090abaB3A6e1400e9345bC60c78a8BEf57', prevDetails.details)
+        let packetObj = {}
+        packetObj.packetSize = packetSize;
+        packetObj.packetName = packetName;
+        packetObj.productType = productType;
+        packetObj.packedOn = new Date().toDateString;
+
+        packetsManufactured(prevDetails.uid, parseInt(packetsMade), parseInt(materialUsed), '0x627306090abaB3A6e1400e9345bC60c78a8BEf57', '0x627306090abaB3A6e1400e9345bC60c78a8BEf57', packetObj).then(console.log)
     };
 
 
