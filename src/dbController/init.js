@@ -103,11 +103,13 @@ export function fetchEntireChain(buid) {
 }
 
 export function uploadJsonToIPFS(_json) {
+  console.log("Uploading");
   return new Promise((resolve, reject) => {
     let buffer = Buffer.from(JSON.stringify(_json));
     ipfsNode
       .add(buffer)
       .then(response => {
+        console.log("uplaoded");
         resolve(response[0].path);
       })
       .catch(reject);

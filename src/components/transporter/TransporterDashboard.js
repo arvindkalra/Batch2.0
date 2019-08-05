@@ -8,16 +8,18 @@ import {getTransportUnitDetails} from "../../dbController/transporterRole";
 import {connectToMetamask} from "../../dbController/init";
 import {getFarmerDetails} from "../../dbController/farmerRole";
 import {getManufacturerDetails} from "../../dbController/manufacturerRole";
+import {getRetailerDetails} from "../../dbController/retailerRole";
 
 const TransporterDashboard = ({location}) => {
     const [harvestShipments, setHarvestShipments] = useState([]);
     const [packagedShipments, setPackagedShipments] = useState([]);
     const [harvestRowObjArr, setHarvestRowObjArr] = useState({});
+    const [packageRowObjArr, setPackageObjRowArr] = useState({});
     useEffect(() => {
         connectToMetamask().then(() => {
             let tempHarvestShipments = harvestShipments;
+            let tempPackagedShipment = packagedShipments;
             getTransportUnitDetails(true, (row) => {
-                console.log(row);
                 let tempRow = harvestRowObjArr;
                 tempRow[row.uid] = row;
                 setHarvestRowObjArr(tempRow);
@@ -25,6 +27,9 @@ const TransporterDashboard = ({location}) => {
                 rowObj.buid = row.uid;
                 getFarmerDetails(row.senderAddress).then((farmerObj) => {
                     getManufacturerDetails(row.receiverAddress).then((manufacturerObj) => {
+                        if(row.currentState === 'delivered'){
+                            return;
+                        }
                         rowObj.senderCompany = farmerObj.name;
                         rowObj.receiverCompany = manufacturerObj.name;
                         rowObj.amount = row.amount;
@@ -38,12 +43,36 @@ const TransporterDashboard = ({location}) => {
 
 
             });
-        })
+            getTransportUnitDetails(false, (row) => {
+                console.log(row);
+                // amount: 10
+                // currentState: "packed"
+                let tempRow = packageRowObjArr;
+                tempRow[row.uid] = row;
+                setPackageObjRowArr(tempRow);
+                let rowObj = {};
+                rowObj.puid = row.uid;
+                getManufacturerDetails(row.senderAddress).then(manufacturerObj => {
+                    getRetailerDetails(row.receiverAddress).then(retailerObj => {
+                        if(row.currentState === 'delivered' || row.currentState === 'lost'){
+                            return;
+                        }
+                        rowObj.senderCompany = manufacturerObj.name;
+                        rowObj.receiverCompany = retailerObj.name;
+                        rowObj.amount = row.amount + ' Units';
+                        rowObj.currentStatus = row.currentState;
+                        rowObj.dispatchTime = row.details.dispatchTime;
+
+                        tempPackagedShipment.push(rowObj);
+                        setPackagedShipments([...tempPackagedShipment]);
+                    });
+                });
+            });
+        });
     }, []);
 
 
     // let getDataForTransporter = () => {
-
     //   setPackagedShipments([
     //     {
     //       puid: 1,
@@ -70,6 +99,7 @@ const TransporterDashboard = ({location}) => {
     //     }
     //   ]);
     // };
+
     return (
         <>
             <Row>
@@ -89,7 +119,7 @@ const TransporterDashboard = ({location}) => {
                 <Col>
                     <section className={"shipment-section"}>
                         <h3>Current Shipments (Packets)</h3>
-                        <PackagedShipmentTable array={packagedShipments} />
+                        <PackagedShipmentTable array={packagedShipments} rowObjArr={packageRowObjArr}/>
                     </section>
                 </Col>
             </Row>

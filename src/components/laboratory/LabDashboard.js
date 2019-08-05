@@ -20,6 +20,9 @@ const LabDashboard = props => {
   useEffect(() => {
     console.log("lab dash board use effect");
     connectToMetamask().then(() => {
+      let tempNumPending = numPending;
+      let tempNumApproved = numApproved;
+      let tempNumTested = numTested;
       getRowsForLaboratory(row => {
         console.log(row);
         let tempPendingReports = pendingReportsArray;
@@ -41,7 +44,8 @@ const LabDashboard = props => {
             ];
             tempPendingReports.push(rowArr);
             setPendingReportsArray([...tempPendingReports]);
-            setNumPending(numPending + 1);
+            tempNumPending = tempNumPending + 1;
+            setNumPending(tempNumPending);
           } else if (row.currentState === "discarded") {
             rowArr = [
               row.uid,
@@ -54,7 +58,8 @@ const LabDashboard = props => {
             ];
             tempTestedReports.push(rowArr);
             setTestedReportsArray([...tempTestedReports]);
-            setNumTested(numTested + 1);
+            tempNumTested += 1;
+            setNumTested(tempNumTested);
           } else {
             rowArr = [
               row.uid,
@@ -67,10 +72,11 @@ const LabDashboard = props => {
             ];
             tempTestedReports.push(rowArr);
             setTestedReportsArray([...tempTestedReports]);
-            setNumTested(numTested + 1);
-            setNumApproved(numApproved + 1);
+            tempNumTested += 1;
+            tempNumApproved += 1;
+            setNumTested(tempNumTested);
+            setNumApproved(tempNumApproved);
           }
-          console.log("inside get farmer details", rowArr);
         });
 
         // tempState.push(row);
@@ -116,12 +122,28 @@ const LabDashboard = props => {
             <h3 className={"status-tab-title"}>Pending Tests</h3>
 
             <ProgressBar
-              now={(numPending / (numPending + numTested)) * 100}
-              label={`${numPending === 0 ? 0 : (numPending / (numPending + numTested)) * 100}%`}
+              now={
+                numPending === 0
+                  ? 0
+                  : Math.round(
+                      (numPending / (numPending + numTested)) * 100 * 100
+                    ) / 100
+              }
+              label={`${
+                numPending === 0
+                  ? 0
+                  : Math.round(
+                      (numPending / (numPending + numTested)) * 100 * 100
+                    ) / 100
+              }%`}
             />
             <p className={"status-tab-description"}>
-              {numPending === 0 ? 0 : (numPending / (numPending + numTested)) * 100}% of tests are
-              pending
+              {numPending === 0
+                ? 0
+                : Math.round(
+                    (numPending / (numPending + numTested)) * 100 * 100
+                  ) / 100}
+              % of tests are pending
             </p>
           </section>
         </Col>
@@ -130,12 +152,22 @@ const LabDashboard = props => {
             <h3 className={"status-tab-title"}>Approved Samples</h3>
 
             <ProgressBar
-              now={(numApproved / numTested) * 100}
-              label={`${numApproved === 0 ? 0 : (numApproved / numTested) * 100}%`}
+              now={
+                numApproved === 0
+                  ? 0
+                  : Math.round((numApproved / numTested) * 100 * 100) / 100
+              }
+              label={`${
+                numApproved === 0
+                  ? 0
+                  : Math.round((numApproved / numTested) * 100 * 100) / 100
+              }%`}
             />
             <p className={"status-tab-description"}>
-              {numApproved === 0 ? 0 : (numApproved / numTested) * 100}% of the tested samples were
-              approved
+              {numApproved === 0
+                ? 0
+                : Math.round((numApproved / numTested) * 100 * 100) / 100}
+              % of the tested samples were approved
             </p>
           </section>
         </Col>

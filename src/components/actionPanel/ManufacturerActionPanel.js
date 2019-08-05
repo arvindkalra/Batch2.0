@@ -8,22 +8,23 @@ import {packetsManufactured} from "../../dbController/manufacturerRole";
 
 const ManufacturerActionPanel = ({left, total, prevDetails}) => {
 
-    const [materialUsed, setMaterialUsed] = useState('1');
-    const [packetsMade, setPacketsMade] = useState('10');
-    const [packetSize, setPacketSize] = useState('1.75g');
-    const [packetName, setPacketName] = useState('gummy');
-    const [productType, setProductType] = useState('preroll2')
+    const [materialUsed, setMaterialUsed] = useState('');
+    const [packetsMade, setPacketsMade] = useState('');
+    const [packetSize, setPacketSize] = useState('');
+    const [packetName, setPacketName] = useState('');
+    const [productType, setProductType] = useState('');
     const [retailerName, setRetailerName] = useState('');
     const [transporterName, setTransporterName] = useState('');
 
     const handleClick = e => {
         e.preventDefault();
         e.stopPropagation();
-        let packetObj = {}
+        let packetObj = {};
         packetObj.packetSize = packetSize;
         packetObj.packetName = packetName;
         packetObj.productType = productType;
-        packetObj.packedOn = new Date().toDateString;
+        packetObj['packedOn'] = new Date().toDateString();
+        console.log(packetObj);
 
         packetsManufactured(prevDetails.uid, parseInt(packetsMade), parseInt(materialUsed), '0x627306090abaB3A6e1400e9345bC60c78a8BEf57', '0x627306090abaB3A6e1400e9345bC60c78a8BEf57', packetObj).then(console.log)
     };
