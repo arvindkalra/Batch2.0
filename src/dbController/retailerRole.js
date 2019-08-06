@@ -61,6 +61,23 @@ export function sellPacketsToBuyer(puid, buyerAddress, amount, details) {
   });
 }
 
+export function getPacketUnitDetailsForRetailer(puid) {
+  return new Promise((resolve, reject) => {
+    makeChainTransaction("getSellingUnitDetail", puid).then((obj) => {
+      obj = obj.valueOf();
+      getJsonFromIPFS(obj[3]).then(details => {
+        resolve({
+          details,
+          uid: puid,
+          totalPackets: obj[0].toNumber(),
+          packetsSold: obj[1].toNumber(),
+          currentState: packetStates(obj[2].toNumber())
+        });
+      });
+    }).catch(reject);
+  });
+}
+
 export function getRowsForRetailer(rowCallback) {
   makeChainTransaction("getSellingUnits")
     .then(array => {
