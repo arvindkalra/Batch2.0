@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Col from "react-bootstrap/Col";
 import {setBreadcrumb} from "../../helpers";
 import Row from "react-bootstrap/Row";
@@ -7,6 +7,11 @@ import '../../assets/stylesheets/App.scss';
 import Table from "react-bootstrap/Table";
 
 const RetailerDashboard = ({location}) => {
+
+    useEffect(()=> {
+
+    }, []);
+
     return (
         <>
             <Row>

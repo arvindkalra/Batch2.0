@@ -17,11 +17,21 @@ const PackagedShipmentTable = ({ array, rowObjArr }) => {
         </tr>
       </thead>
       <tbody>
-        {array.map((element, id) => {
-          return (
-            <PackagedShipmentRow value={element} key={id + "" + element.puid} rowObj={rowObjArr[element.puid]}/>
-          );
-        })}
+        {array.length === 0 ? (
+          <tr className={"no-pending-shipment"}>
+            <td colSpan={7}>You do not have any pending shipments</td>
+          </tr>
+        ) : (
+          array.map((element, id) => {
+            return (
+              <PackagedShipmentRow
+                value={element}
+                key={id + "" + element.puid}
+                rowObj={rowObjArr[element.puid]}
+              />
+            );
+          })
+        )}
       </tbody>
     </Table>
   );

@@ -16,11 +16,11 @@ const RetailerActionForm = ({puid}) => {
         e.preventDefault();
         e.stopPropagation();
         getConsumerDetails(address).then(obj => {
-            console.log(obj)
-            // obj.purchases.push({puid, amount, sellingPrice, tax});
-            // sellPacketsToBuyer(puid, address, amount, obj).then(txHash => {
-            //     console.log(txHash)
-            // })
+            console.log(obj);
+            obj.purchases.push({puid, amount, sellingPrice, tax, purchasedOn: new Date().toDateString()});
+            sellPacketsToBuyer(puid, address, amount, obj).then(txHash => {
+                console.log(txHash)
+            })
         })
 
 

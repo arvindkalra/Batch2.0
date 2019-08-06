@@ -82,12 +82,22 @@ export function fetchEntireChain(buid) {
   return new Promise((resolve, reject) => {
     let packetsHash = "";
     let harvestHash = "";
+    let addresses = [];
     let rv = {};
     makeChainTransaction("fetchEntireChain", buid)
       .then(data => {
         data = data.valueOf();
         packetsHash = data[0];
         harvestHash = data[1];
+        addresses = data[2];
+        rv = {
+          farmerAddress : addresses[0],
+          laboratoryAddress: addresses[1],
+          manufacturerAddress: addresses[2],
+          farmerToManufacturerTransporterAddress: addresses[3],
+          retailerAddress: addresses[4],
+          manufacturerToRetailerTransporter: addresses[5]
+        };
         return getJsonFromIPFS(packetsHash);
       })
       .then(details => {

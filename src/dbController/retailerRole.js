@@ -63,31 +63,34 @@ export function sellPacketsToBuyer(puid, buyerAddress, amount, details) {
 
 export function getPacketUnitDetailsForRetailer(puid) {
   return new Promise((resolve, reject) => {
-    makeChainTransaction("getSellingUnitDetail", puid).then((obj) => {
-      obj = obj.valueOf();
-      getJsonFromIPFS(obj[3]).then(details => {
-        resolve({
-          details,
-          uid: puid,
-          totalPackets: obj[0].toNumber(),
-          packetsSold: obj[1].toNumber(),
-          currentState: packetStates(obj[2].toNumber())
+    makeChainTransaction("getSellingUnitDetail", puid)
+      .then(obj => {
+        obj = obj.valueOf();
+        getJsonFromIPFS(obj[3]).then(details => {
+          resolve({
+            details,
+            uid: puid,
+            totalPackets: obj[0].toNumber(),
+            packetsSold: obj[1].toNumber(),
+            currentState: packetStates(obj[2].toNumber())
+          });
         });
-      });
-    }).catch(reject);
+      })
+      .catch(reject);
   });
 }
 
-export function getRowsForRetailer(rowCallback) {
+export function getRowsForRetailer(rowCallback, rowsLimit) {
   makeChainTransaction("getSellingUnits")
     .then(array => {
       array = array.valueOf();
-      array.forEach(val => {
-        val = val.toNumber();
+      let limit = rowsLimit ? array.length - rowsLimit : 0;
+      for (let i = array.length - 1; i >= limit && i >= 0; i--) {
+        let val = array[i].toNumber();
         makeChainTransaction("getSellingUnitDetail", val)
           .then(x => handleObject(x, val))
           .catch(handleError);
-      });
+      }
     })
     .catch(handleError);
 

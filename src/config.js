@@ -859,6 +859,10 @@ export default {
                 {
                     "name": "harvestHash",
                     "type": "string"
+                },
+                {
+                    "name": "addresses",
+                    "type": "address[6]"
                 }
             ],
             "payable": false,

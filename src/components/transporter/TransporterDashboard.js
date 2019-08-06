@@ -32,7 +32,7 @@ const TransporterDashboard = ({location}) => {
                         }
                         rowObj.senderCompany = farmerObj.name;
                         rowObj.receiverCompany = manufacturerObj.name;
-                        rowObj.amount = row.amount;
+                        rowObj.amount = row.amount + ' Pounds';
                         rowObj.dispatchTime = row.details.dispatchTime;
 
                         rowObj.currentStatus = row.currentState === 'sent' ? 'packed' : row.currentState;
