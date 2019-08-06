@@ -79,7 +79,23 @@
     }
   }
 }
+.product-details-section{
+  padding-top: 30px;
+  border-bottom: 2px solid $grey;
+  text-align: center;
 
+}
+$min-height:300px;
+.action-panel-form-section{
+  h1{
+    border-bottom:1px solid $grey ;
+    margin-bottom: 40px;
+
+  }
+  border: 1px dashed $grey;
+  padding: 50px;
+  min-height: $min-height;
+}
 
 .status-tab{
   p.status-tab-description{
