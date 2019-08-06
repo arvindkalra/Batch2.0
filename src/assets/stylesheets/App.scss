@@ -1,3 +1,5 @@
+@import "utils";
+@import "colors";
 .App {
   text-align: center;
 }
@@ -18,6 +20,19 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+
+
+
+.status-tab{
+  p.status-tab-description{
+    color: $darkblue;
+    font-weight: bold;
+  }
+  border: 1px solid $grey;
+  padding:30px;
+  margin-bottom: 20px;
+}
+
 
 .App-link {
   color: #61dafb;

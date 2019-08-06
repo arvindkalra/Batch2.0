@@ -94,15 +94,6 @@
   h3.status-tab-title{
     font-weight: bolder;
   }
-.status-tab{
-  p.status-tab-description{
-    color: $darkblue;
-    font-weight: bold;
-  }
-  border: 1px solid $grey;
-  padding:30px;
-  margin-bottom: 20px;
-}
 
 .product-table-dashboard{
   max-height: 360px;
@@ -159,9 +150,6 @@
   border-bottom: 2px solid $grey;
   text-align: center;
 
-}
-section{
-  //margin-bottom: 50px;
 }
 
 
@@ -237,3 +225,23 @@ $min-height:300px;
   width: 50%;
 }
 
+.profile-section{
+  .profile-image-section{
+    padding: 30px;
+    img{
+      max-width: 100%;
+    }
+  }
+  .form-group{
+    padding: 30px;
+  }
+  .custom-file-label{
+    margin:60px auto;
+    width: 80%;
+
+  }
+  button[type='submit']{
+    display: block;
+    margin: 0 auto;
+  }
+}
