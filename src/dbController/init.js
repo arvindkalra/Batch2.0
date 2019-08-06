@@ -101,11 +101,19 @@ export function fetchEntireChain(buid) {
         return getJsonFromIPFS(packetsHash);
       })
       .then(details => {
-        rv = { ...rv, ...details };
+        let packetsDispatchTime = details.dispatchTime;
+        let packetsDeliveryTime = details.deliveryTime;
+        delete details['dispatchTime'];
+        delete details['deliveryTime'];
+        rv = { ...rv, ...details, packetsDeliveryTime, packetsDispatchTime};
         return getJsonFromIPFS(harvestHash);
       })
       .then(details => {
-        rv = { ...rv, ...details };
+        let harvestDispatchTime = details.dispatchTime;
+        let harvestDeliveryTime = details.deliveryTime;
+        delete details['dispatchTime'];
+        delete details['deliveryTime'];
+        rv = { ...rv, ...details, harvestDeliveryTime, harvestDispatchTime};
         resolve(rv);
       })
       .catch(reject);
