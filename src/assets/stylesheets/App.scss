@@ -21,6 +21,64 @@
   color: white;
 }
 
+.dashboard-section{
+  border: 1px solid $grey;
+  height:370px;
+
+
+  h3.section-title{
+    color: $grey;
+    padding: 10px;
+    border-bottom: 1px solid $grey;
+  }
+}
+
+
+
+.table-section {
+
+  .see-all{
+    width: 100%;
+    text-align: center;
+  }
+
+  padding: 10px;
+
+  .table-key {
+    margin-right: 30px;
+    border: 1px solid $grey;
+
+    ul {
+      list-style: none;
+      padding-left: 0;
+      margin: 0 20px;
+
+      li {
+
+        .key-color {
+          margin-right: 10px;
+          display: inline-block;
+          $s: 10px;
+          width: $s;
+          height: $s;
+        }
+
+
+      }
+    }
+  }
+
+  .table {
+    .product-name {
+      font-weight: bold;
+    }
+    thead{
+      th{
+        border-top: none;
+      }
+    }
+  }
+}
 
 
 .status-tab{

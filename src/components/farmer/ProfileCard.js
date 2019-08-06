@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState, useEffect} from 'react';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from "react-bootstrap/Form";
@@ -10,13 +10,16 @@ const ProfileCard = () => {
     const [name, setName] = useState('');
     const [companyName, setCompanyName] = useState('');
     const [address, setAddress] = useState('');
-    const [license, setLicense] = useState('')
+    const [license, setLicense] = useState('');
 
     const handleClick = e =>{
         e.preventDefault();
         e.stopPropagation();
         // setFarmerDetails({name,companyName,address, license:"license goes here"});
-    }
+    };
+    useEffect(()=>{
+        // TODO get farmer details and set them as values for state variables
+    })
     return (
         <section className={'profile-section'}>
             <Row>
@@ -33,7 +36,7 @@ const ProfileCard = () => {
                                   <Form.Label>
                                       Name
                                   </Form.Label>
-                                  <Form.Control type={'text'} placeholder={'Enter the name as it appears on your license'} onChange={e => {setName(e.target.Value)}} />
+                                  <Form.Control type={'text'} placeholder={'Enter the name as it appears on your license'} onChange={e => {setName(e.target.value)}} value={name} />
                               </Form.Group>
                             </Col>
                             <Col md={6}>
@@ -41,7 +44,7 @@ const ProfileCard = () => {
                                     <Form.Label>
                                         Company Name
                                     </Form.Label>
-                                    <Form.Control type={'text'} placeholder={'Enter the name of your company as it appears on your license'} onChange={e => {setCompanyName(e.target.Value)}} />
+                                    <Form.Control type={'text'} placeholder={'Enter the name of your company as it appears on your license'} onChange={e => {setCompanyName(e.target.value)}} value={companyName} />
                                 </Form.Group>
 
                             </Col>
@@ -50,7 +53,7 @@ const ProfileCard = () => {
                                     <Form.Label>
                                         Farm Location
                                     </Form.Label>
-                                    <Form.Control type={'textarea'} placeholder={'Enter the address of your farm as it appears on your license'} onChange={e => {setAddress(e.target.Value)}} />
+                                    <Form.Control type={'textarea'} placeholder={'Enter the address of your farm as it appears on your license'} onChange={e => {setAddress(e.target.value)}} value={address} />
                                 </Form.Group>
 
                             </Col>

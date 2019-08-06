@@ -28,6 +28,10 @@ const SideBar = ({closeSideBar}) => {
 
                     <ul className={'sidebar-list'}>
                         <li>
+                            <i className="fas fa-user-circle"></i>
+                            Profile
+                        </li>
+                        <li>
                             <i className="fas fa-tachometer-alt"></i>
                             DASHBOARD
                         </li>
