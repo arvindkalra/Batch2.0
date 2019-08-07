@@ -32,3 +32,11 @@
     }
   }
 }
+
+label.custom-file-label{
+  width: 96%;
+  margin: 0 auto;
+  &::after{
+    content: "Upload";
+  }
+}

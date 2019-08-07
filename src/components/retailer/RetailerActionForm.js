@@ -94,6 +94,15 @@ const RetailerActionForm = ({puid}) => {
                                 {/*</Form.Group>*/}
                             </Col>
                             <Col md={12}>
+                                <Form.Group controlId={'age-proof'}>
+                                    <Form.Label className={'custom-file-label'}>
+                                        Customer ID-proof
+                                    </Form.Label>
+                                    <Form.Control className={'custom-file-input'} type={'file'} placeholder={'Upload the customer\'s id proof'} />
+
+                                </Form.Group>
+                            </Col>
+                            <Col md={12}>
                                 <Button type={"submit"} onClick={handleClick}>
                                     Confirm Sale{" "}
                                 </Button>
