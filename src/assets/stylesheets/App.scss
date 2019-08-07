@@ -78,6 +78,8 @@
       }
     }
   }
+
+
 }
 .product-details-section{
   padding-top: 30px;
@@ -108,9 +110,28 @@ $min-height:300px;
 }
 
 
+
+.qr-code-wrapper{
+  width: 400px;
+  margin: 0 auto;
+}
+
+p.description{
+  text-align: center;
+  padding-left: 200px;
+  padding-right: 200px;
+  font-size: 1.2em;
+}
+
+
+
 .App-link {
   color: #61dafb;
 }
+
+
+
+
 
 @keyframes App-logo-spin {
   from {

@@ -10,6 +10,7 @@ import Transporter from "./transporter/Transporter";
 import ManufacturerBatchDetail from "./manufacturer/ManufacturerBatchDetail";
 import Retailer from "./retailer/Retailer";
 import RetailProduct from "./retailer/RetailProduct";
+import TrackProduct from "./TrackProduct";
 const AppRouter = () => {
     return (
         <Router>
@@ -23,6 +24,7 @@ const AppRouter = () => {
             <Route exact path={'/manufacturer/harvests/:buid'} component={ManufacturerBatchDetail}/>
             <Route exact path={'/retailer/dashboard'} component={Retailer} />
             <Route exact path={'/retailer/products/:id'} component={RetailProduct} />
+            <Route exact path={'/journey/:id'} component={TrackProduct} />
         </Router>
     );
 };

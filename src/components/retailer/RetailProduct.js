@@ -116,6 +116,10 @@ const RetailProduct = (props) => {
           <Col md={12}>
             <section className={"action-panel-form-section"}>
               <h1>Action Panel</h1>
+              <p className={'description'}>
+                Use the panel below to generate a reciept of the sale
+              </p>
+
               <RetailerActionForm puid={batchId} />
             </section>
           </Col>

@@ -1,0 +1,34 @@
+@import "utils";
+@import "colors";
+
+.retail-receipt-section{
+  background-color: #6e7480;
+  border-radius: 10px;
+  @extend .shadow-box;
+  color: white;
+  h1{
+    padding-left: 20px;
+    padding-top: 10px;
+  }
+
+  ul{
+    font-family: 'monospace';
+    list-style: none;
+    ul{
+      margin-top: 10px;
+      padding-left: 0;
+    }
+    h6{
+      font-weight: bold;
+    }
+    li{
+      border-bottom: 1px solid white;
+      span{
+        float: right;
+        margin-right: 10px;
+        text-align: left;
+      }
+
+    }
+  }
+}

@@ -18,7 +18,7 @@ const ReportForm = ({formDetails}) => {
     const handleSelect = e => {
         if(e.target.value =='Passed'){
             setLabResult(true);
-        }else{
+        }else if(e.target.value ==='Failed'){
             setLabResult(false);
         }
     }
