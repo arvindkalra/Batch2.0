@@ -46,26 +46,23 @@ export function sendToLaboratory(buid, labAddress, details) {
 export function locationMovedByFarmer(buid, details) {
   return new Promise((resolve, reject) => {
     uploadJsonToIPFS(details).then(hash => {
-      makeChainTransaction("movedLocationByFarmer", buid, hash)
+      makeChainTransaction("changeState", buid, hash, 2, 0)
         .then(resolve)
         .catch(reject);
     });
   });
 }
 
-export function plantHarvestedByFarmer(
-  amountHarvest,
-  buid,
-  details
-) {
+export function plantDestroyedByFarmer(buid, amount, details) {
+  return uploadJsonToIPFS(details).then(hash => {
+    return makeChainTransaction("changeState", buid, hash, 10, amount);
+  });
+}
+
+export function plantHarvestedByFarmer(amountHarvest, buid, details) {
   return new Promise((resolve, reject) => {
     uploadJsonToIPFS(details).then(hash => {
-      makeChainTransaction(
-        "plantHarvestedByFarmer",
-        amountHarvest,
-        buid,
-        hash
-      )
+      makeChainTransaction("plantHarvestedByFarmer", amountHarvest, buid, hash)
         .then(resolve)
         .catch(reject);
     });
@@ -100,7 +97,7 @@ export function getSeedUnitDetais(buid) {
       let addresses = object[0];
       let integers = object[1];
       let latestHash = object[2];
-      console.log(addresses, integers, latestHash );
+      console.log(addresses, integers, latestHash);
 
       getJsonFromIPFS(latestHash).then(obj => {
         let rowObj = {

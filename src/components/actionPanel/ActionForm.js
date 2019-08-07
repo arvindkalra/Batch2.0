@@ -6,18 +6,27 @@ import Button from "react-bootstrap/Button";
 import Notification from "../Notification";
 import { changeSeedState } from "../../helpers";
 import {
-    plantHarvestedByFarmer, sellHarvestByFarmer,
-    sendToLaboratory
+  plantDestroyedByFarmer,
+  plantHarvestedByFarmer,
+  sellHarvestByFarmer,
+  sendToLaboratory
 } from "../../dbController/farmerRole";
 import { checkMined } from "../../dbController/init";
 
-const ActionForm = ({ productState, setProductStatus, seedObj }) => {
+const ActionForm = ({
+  productState,
+  setProductStatus,
+  seedObj,
+  destroyRequested, cancelDestroyRequest
+}) => {
   const [showNotification, setShowNotification] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState("");
   const [formFieldValue, setFormFieldValue] = useState("");
   const [labName, setLabName] = useState("Green Labs LLC");
   const [sellingPrice, setSellingPrice] = useState("");
-
+  const [detroyQuantity, setDestroyQuantity] = useState(0);
+  const [destroyCompanyName, setDestroyCompanyName] = useState("Company A");
+  const [destroyReason, setDestroyReason] = useState("");
   const handleClick = (e, notificationMessage) => {
     e.preventDefault();
     e.stopPropagation();
@@ -65,14 +74,87 @@ const ActionForm = ({ productState, setProductStatus, seedObj }) => {
     e.stopPropagation();
     seedObj.details.sentToManufacturerOn = new Date().toDateString();
     seedObj.details.farmerToManufacturerPrice = sellingPrice;
-    let transporter = '0x627306090abaB3A6e1400e9345bC60c78a8BEf57';
-    let manufacturer = '0x627306090abaB3A6e1400e9345bC60c78a8BEf57';
-    sellHarvestByFarmer(seedObj.buid, manufacturer, transporter, seedObj.details).then(console.log);
+    let transporter = "0x627306090abaB3A6e1400e9345bC60c78a8BEf57";
+    let manufacturer = "0x627306090abaB3A6e1400e9345bC60c78a8BEf57";
+    sellHarvestByFarmer(
+      seedObj.buid,
+      manufacturer,
+      transporter,
+      seedObj.details
+    ).then(console.log);
   };
   // TODO: submit buttom disable on click until transaction hash is recived
 
+  const destroyCrop = e => {
+    e.preventDefault();
+    e.stopPropagation();
+    seedObj.details.quantarineCompanyName = destroyCompanyName;
+    seedObj.details.destroyReason = destroyReason;
+    seedObj.details.destroyQuantity = detroyQuantity;
+    plantDestroyedByFarmer(seedObj.buid, detroyQuantity, seedObj.details).then(
+      txHash => {
+        checkMined(txHash, () => {
+          window.location.reload();
+        });
+      }
+    );
+  };
+
   const setForm = () => {
-    if (productState === "Sown") {
+    if (destroyRequested) {
+      return (
+        <Row>
+          <Col md={12}>
+            <Form.Group>
+              <Form.Label>Quantity</Form.Label>
+              <Form.Control
+                type={"number"}
+                placeholder={"Enter the amount crop destroyed in pounds"}
+                onChange={e => {
+                  setDestroyQuantity(e.target.value);
+                }}
+              />
+            </Form.Group>
+          </Col>
+          <Col md={12}>
+            <Form.Group>
+              <Form.Label>Company Name</Form.Label>
+              <Form.Control
+                as={"select"}
+                onChange={e => {
+                  setDestroyCompanyName(e.target.value);
+                }}
+              >
+                <option>Company A</option>
+                <option>Company B</option>
+              </Form.Control>
+            </Form.Group>
+          </Col>
+          <Col md={12}>
+            <Form.Group>
+              <Form.Label>Destroy Reason</Form.Label>
+              <Form.Control
+                type={'textarea'}
+                placeholder={'Enter the reason for destroying'}
+                onChange={e => {
+                  setDestroyReason(e.target.value);
+                }}
+              />
+            </Form.Group>
+          </Col>
+          <Col md={2}>
+            <Button type={"submit"} onClick={destroyCrop}>
+              Destroy
+            </Button>
+          </Col>
+          <Col md={1}>
+            <Button type={"submit"} className={'btn-danger'} onClick={cancelDestroyRequest}>
+              Cancel
+            </Button>
+          </Col>
+        </Row>
+      );
+    } else if (productState === "Sown") {
       return (
         <Row>
           <Col md={12}>

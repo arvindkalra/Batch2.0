@@ -1,12 +1,12 @@
 import React from 'react';
 import Row from "react-bootstrap/Row";
 
-const Products = () => {
+const ProductsUnused = () => {
     return (
         <Row>
-            
+
         </Row>
     );
 };
 
-export default Products;
+export default ProductsUnused;

@@ -168,13 +168,16 @@ export function harvestStates(id) {
       return "Lab Test Approved";
 
     case 6:
-      return "sent";
+      return "Sent to Manufacturer";
 
     case 7:
       return "dispatched";
 
     case 8:
       return "delivered";
+
+    case 10:
+      return "destroyed by farmer";
 
     default:
       return "discarded";

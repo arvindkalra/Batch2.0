@@ -430,9 +430,17 @@ export default {
                 {
                     "name": "hash",
                     "type": "string"
+                },
+                {
+                    "name": "state",
+                    "type": "uint256"
+                },
+                {
+                    "name": "amount",
+                    "type": "uint256"
                 }
             ],
-            "name": "movedLocationByFarmer",
+            "name": "changeState",
             "outputs": [],
             "payable": false,
             "stateMutability": "nonpayable",

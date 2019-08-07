@@ -140,7 +140,7 @@ const Product = (props) => {
                         <ProgressBar striped variant="success" now={productStatus.progress}
                                      label={productStatus.state}/>
                         {productStatus.state === 'Sown' ? <p>
-                            Current Location:<span className={'info'}> Outdoor  </span>
+                            Current Location:<span className={'info'}>{seedObject.details.location}</span>
                         </p> : null}
 
 
