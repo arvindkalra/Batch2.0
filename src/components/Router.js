@@ -11,13 +11,17 @@ import ManufacturerBatchDetail from "./manufacturer/ManufacturerBatchDetail";
 import Retailer from "./retailer/Retailer";
 import RetailProduct from "./retailer/RetailProduct";
 import TrackProduct from "./TrackProduct";
+import NewHarvest from "./farmer/NewHarvest";
+import Products from "./farmer/Products";
 const AppRouter = () => {
     return (
         <Router>
             <Route exact path={'/'} component={App} />
             <Route exact path={'/farmer/dashboard'} component={Farmer} />
             <Route exact path={'/farmer/about'} component={About} />
+            <Route exact path={'/farmer/add-new-harvest'} component={NewHarvest} />
             <Route exact path={'/farmer/products/:product'} component={Product}  />
+            <Route exact path={'/farmer/products'} component={Products} />
             <Route exact path={'/laboratory/dashboard'} component={Laboratory}/>
             <Route exact path={'/manufacturer/dashboard'} component={Manufacturer}/>
             <Route exact path={'/transporter/dashboard'} component={Transporter}/>
