@@ -58,3 +58,14 @@ export const getTotalFare = (sellingPrice, quantity) => {
 
 };
 
+
+export const setLabelsForGraphs = (item, obj) => {
+    console.log(item, obj);
+
+    const datasetIndex = item.index;
+    console.log(datasetIndex)
+    const data = obj.datasets[0].data[datasetIndex];
+    const labelText = obj.labels[datasetIndex];
+    return(labelText +": " + data+ "%")
+
+}
