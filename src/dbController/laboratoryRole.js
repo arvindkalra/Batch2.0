@@ -1,6 +1,7 @@
 import {
   getJsonFromIPFS,
-  harvestStates, makeChainTransaction, makeLabTransaction,
+  harvestStates,
+  makeLaboratoryTransaction, makeStorageTransaction,
   OWN_ADDRESS,
   uploadJsonToIPFS
 } from "./init";
@@ -8,7 +9,7 @@ import {
 export function setLaboratoryDetails(details) {
   return new Promise((resolve, reject) => {
     uploadJsonToIPFS(details).then(hash => {
-      makeLabTransaction("setLaboratoryDetails", hash)
+      makeLaboratoryTransaction("setLaboratoryDetails", hash)
         .then(resolve)
         .catch(reject);
     });
@@ -17,7 +18,10 @@ export function setLaboratoryDetails(details) {
 
 export function getLaboratoryDetails(address) {
   return new Promise((resolve, reject) => {
-    makeLabTransaction("getLaboratoryDetails", address ? address : OWN_ADDRESS)
+    makeLaboratoryTransaction(
+      "getLaboratoryDetails",
+      address ? address : OWN_ADDRESS
+    )
       .then(hash => {
         return getJsonFromIPFS(hash);
       })
@@ -26,16 +30,21 @@ export function getLaboratoryDetails(address) {
   });
 }
 
-export function uploadReport(buid, details, isApproved) {
+export function uploadReport(
+  harvestUnitId,
+  farmerAddress,
+  details,
+  isApproved
+) {
   return new Promise((resolve, reject) => {
     uploadJsonToIPFS(details)
       .then(hash => {
-        console.log(buid, hash, isApproved);
-        makeChainTransaction(
-          "plantAcceptedByLaboratory",
-          buid,
+        makeLaboratoryTransaction(
+          "uploadReport",
+          harvestUnitId,
           hash,
-          isApproved ? 1 : 0
+          isApproved ? 1 : 0,
+          farmerAddress
         )
           .then(resolve)
           .catch(reject);
@@ -59,12 +68,12 @@ export function getRowsForLaboratory(rowCallback) {
     });
   };
   let handleError = () => {};
-  makeChainTransaction("fetchReportsForLaboratory")
+  makeLaboratoryTransaction("fetchReportRequests")
     .then(array => {
       array = array.valueOf();
       array.forEach(val => {
         val = val.toNumber();
-        makeChainTransaction("fetchReportDetails", val)
+        makeStorageTransaction("getHarvestUnit", val)
           .then(x => handleRow(x, val))
           .catch(handleError);
       });
