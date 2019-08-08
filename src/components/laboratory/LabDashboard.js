@@ -188,7 +188,7 @@ const LabDashboard = props => {
                 </Col>
                 <Col md={6}>
                     <section className={'lab-dashboard-section'}>
-                        <h3> Tests Passed in Year 2018-2019 </h3>
+                        <h3> % of Samples Approved in Year 2018-2019 </h3>
                         <BarGraph1/>
 
                     </section>
