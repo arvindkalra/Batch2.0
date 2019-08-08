@@ -5,7 +5,7 @@ import Col from "react-bootstrap/Col";
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import {getSeedProgress, setBreadcrumb} from "../../helpers";
 import ActionPanel from "../actionPanel/ActionPanel";
-import {getSeedUnitDetais} from "../../dbController/farmerRole";
+import {getSeedUnitDetails} from "../../dbController/farmerRole";
 import {connectToMetamask} from "../../dbController/init";
 
 const Product = (props) => {
@@ -19,7 +19,7 @@ const Product = (props) => {
         connectToMetamask().then(() => {
             console.log('connected to metamask');
 
-            getSeedUnitDetais(buid).then(seedDetails => {
+            getSeedUnitDetails(buid).then(seedDetails => {
                 console.log(seedDetails);
                 const seedProgress = getSeedProgress(seedDetails.currentState);
                 setProductStatus({state: seedDetails.currentState.captialize(), progress: seedProgress});

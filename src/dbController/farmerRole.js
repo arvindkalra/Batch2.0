@@ -1,7 +1,7 @@
 import {
   getJsonFromIPFS,
   harvestStates,
-  makeChainTransaction,
+  makeFarmerTransaction, makeStorageTransaction,
   OWN_ADDRESS,
   uploadJsonToIPFS
 } from "./init";
@@ -9,7 +9,7 @@ import {
 export function setFarmerDetails(details) {
   return new Promise((resolve, reject) => {
     uploadJsonToIPFS(details).then(hash => {
-      makeChainTransaction("setFarmerDetails", hash)
+      makeFarmerTransaction("setFarmerDetails", hash)
         .then(resolve)
         .catch(reject);
     });
@@ -18,7 +18,7 @@ export function setFarmerDetails(details) {
 
 export function getFarmerDetails(address) {
   return new Promise((resolve, reject) => {
-    makeChainTransaction("getFarmerDetails", address ? address : OWN_ADDRESS)
+    makeFarmerTransaction("getFarmerDetails", address ? address : OWN_ADDRESS)
       .then(hash => {
         return getJsonFromIPFS(hash);
       })
@@ -30,39 +30,50 @@ export function getFarmerDetails(address) {
 export function seedSownByFarmer(details) {
   return new Promise((resolve, reject) => {
     uploadJsonToIPFS(details).then(hash => {
-      makeChainTransaction("seedsSownByFarmer", hash)
+      makeFarmerTransaction("seedsSown", hash)
         .then(resolve)
         .catch(reject);
     });
   });
 }
 
-export function sendToLaboratory(buid, labAddress, details) {
+export function sendToLaboratory(
+  harvestUnitId,
+  labAddress,
+  transporterAddress,
+  details
+) {
   return uploadJsonToIPFS(details).then(hash => {
-    return makeChainTransaction("sendToLab", buid, labAddress, hash);
+    return makeFarmerTransaction(
+      "sendToLabForTest",
+      harvestUnitId,
+      hash,
+      labAddress,
+      transporterAddress
+    );
   });
 }
 
-export function locationMovedByFarmer(buid, details) {
+export function locationMovedByFarmer(harvestUnitId, currentState, details) {
   return new Promise((resolve, reject) => {
     uploadJsonToIPFS(details).then(hash => {
-      makeChainTransaction("changeState", buid, hash, 2, 0)
+      makeFarmerTransaction("moveLocation", harvestUnitId, hash, currentState)
         .then(resolve)
         .catch(reject);
     });
   });
 }
 
-export function plantDestroyedByFarmer(buid, amount, details) {
+export function plantDestroyedByFarmer(harvestUnitId, details) {
   return uploadJsonToIPFS(details).then(hash => {
-    return makeChainTransaction("changeState", buid, hash, 10, amount);
+    return makeFarmerTransaction("destroyCrop", harvestUnitId, hash);
   });
 }
 
-export function plantHarvestedByFarmer(amountHarvest, buid, details) {
+export function plantHarvestedByFarmer(harvestUnitId, details) {
   return new Promise((resolve, reject) => {
     uploadJsonToIPFS(details).then(hash => {
-      makeChainTransaction("plantHarvestedByFarmer", amountHarvest, buid, hash)
+      makeFarmerTransaction("plantHarvest", harvestUnitId, hash)
         .then(resolve)
         .catch(reject);
     });
@@ -70,19 +81,19 @@ export function plantHarvestedByFarmer(amountHarvest, buid, details) {
 }
 
 export function sellHarvestByFarmer(
-  buid,
+  harvestUnitId,
   manufacturerAddress,
   transporterAddress,
   details
 ) {
   return new Promise((resolve, reject) => {
     uploadJsonToIPFS(details).then(hash => {
-      makeChainTransaction(
-        "sellHarvestByFarmer",
-        buid,
-        manufacturerAddress,
+      makeFarmerTransaction(
+        "packForDelivery",
+        harvestUnitId,
+        hash,
         transporterAddress,
-        hash
+        manufacturerAddress
       )
         .then(resolve)
         .catch(reject);
@@ -90,25 +101,20 @@ export function sellHarvestByFarmer(
   });
 }
 
-export function getSeedUnitDetais(buid) {
+export function getSeedUnitDetails(harvestUnitId) {
   return new Promise((resolve, reject) => {
-    return makeChainTransaction("getSeedUnitDetails", buid).then(object => {
+    return makeStorageTransaction("getHarvestUnit", harvestUnitId).then(object => {
       object = object.valueOf();
-      let addresses = object[0];
-      let integers = object[1];
-      let latestHash = object[2];
-      console.log(addresses, integers, latestHash);
+      let currentOwner = object[0];
+      let latestHash = object[1];
+      let currentState = object[2].toNumber();
 
       getJsonFromIPFS(latestHash).then(obj => {
         let rowObj = {
-          buid: buid,
+          harvestUnitId: harvestUnitId,
+          currentOwner,
           details: obj,
-          farmerAddress: addresses[0],
-          manufacturerAddress: addresses[1],
-          laboratoryAddress: addresses[2],
-          transporterAddress: addresses[3],
-          amountHarvested: integers[0].toNumber(),
-          currentState: harvestStates(integers[2].toNumber())
+          currentState: harvestStates(currentState)
         };
         resolve(rowObj);
       });
@@ -117,12 +123,12 @@ export function getSeedUnitDetais(buid) {
 }
 
 export function getRowsForFarmer(rowObject) {
-  makeChainTransaction("fetchSeedsForFarmer")
+  makeFarmerTransaction("fetchSeeds")
     .then(array => {
       array = array.valueOf();
       for (let i = 0; i < array.length; i++) {
         let uid = array[i].toNumber();
-        makeChainTransaction("getSeedUnitDetails", uid)
+        makeStorageTransaction("getHarvestUnit", uid)
           .then(x => handleObject(x, uid))
           .catch(handleError);
       }
@@ -131,21 +137,17 @@ export function getRowsForFarmer(rowObject) {
 
   function handleObject(object, uid) {
     object = object.valueOf();
-    let addresses = object[0];
-    let integers = object[1];
-    let latestHash = object[2];
+    let currentOwner = object[0];
+    let latestHash = object[1];
+    let currentState = object[2].toNumber();
 
     getJsonFromIPFS(latestHash)
       .then(obj => {
         let rowObj = {
-          uid,
+          harvestUnitId: uid,
+          currentOwner,
           details: obj,
-          farmerAddress: addresses[0],
-          manufacturerAddress: addresses[1],
-          laboratoryAddress: addresses[2],
-          transporterAddress: addresses[3],
-          amountHarvested: integers[0].toNumber(),
-          currentState: harvestStates(integers[2].toNumber())
+          currentState: harvestStates(currentState)
         };
         rowObject(rowObj);
       })

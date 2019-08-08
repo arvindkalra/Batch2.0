@@ -9,13 +9,23 @@ export const ipfsNode = new IPFS({
 
 export let web3;
 // export const NETWORK_NAME = config.NETWORK_NAME;
-export let CHAIN_ADDRESS = config.CHAIN_ADDRESS;
-export let LAB_ADDRESS = config.LAB_ADDRESS;
 export let OWN_ADDRESS;
-export let Chain_Abi = config.CHAIN_ABI;
-export let Chain_Instance;
-export let Lab_Abi = config.LAB_ABI;
-export let Lab_Instance;
+
+let STORAGE;
+let FARMER;
+let LABORATORY;
+let TRANSPORTER;
+let MANUFACTURER;
+let RETAILER;
+let DISTRIBUTOR;
+
+export function makeChainTransaction() {
+  //
+}
+
+export function makeLabTransaction() {
+  //
+}
 
 export function connectToMetamask() {
   return new Promise((resolve, reject) => {
@@ -46,35 +56,101 @@ export function connectToMetamask() {
 }
 
 function createContractInstance() {
-  Chain_Instance = web3.eth.contract(Chain_Abi).at(CHAIN_ADDRESS);
-  Lab_Instance = web3.eth.contract(Lab_Abi).at(LAB_ADDRESS);
-  console.log("Contract Instance", Chain_Instance, Lab_Instance);
+  STORAGE = web3.eth.contract(config.STORAGE).at(config.STORAGE_ADDRESS);
+  FARMER = web3.eth.contract(config.FARMER).at(config.FARMER_ADDRESS);
+  LABORATORY = web3.eth
+    .contract(config.LABORATORY)
+    .at(config.LABORATORY_ADDRESS);
+  TRANSPORTER = web3.eth
+    .contract(config.TRANSPORTER)
+    .at(config.TRANSPORTER_ADDRESS);
+  MANUFACTURER = web3.eth
+    .contract(config.MANUFACTURER)
+    .at(config.MANUFACTURER_ADDRESS);
+  RETAILER = web3.eth.contract(config.RETAILER).at(config.RETAILER_ADDRESS);
+  DISTRIBUTOR = web3.eth
+    .contract(config.DISTRIBUTOR)
+    .at(config.DISTRIBUTOR_ADDRESS);
 }
 
-export function makeChainTransaction(functionName, ...args) {
+export function makeStorageTransaction(functionName, ...args) {
   return new Promise((resolve, reject) => {
-  console.log("inside make chain transaction");
-    Chain_Instance[functionName](
-      ...args,
-      { from: OWN_ADDRESS, gasPrice: web3.toWei(1000, "gwei") },
-      function(err, result) {
-        if (err) reject(err);
-        resolve(result);
-      }
-    );
+    STORAGE[functionName](...args, { from: OWN_ADDRESS }, function(
+      err,
+      result
+    ) {
+      if (err) reject(err);
+      resolve(result);
+    });
   });
 }
 
-export function makeLabTransaction(functionName, ...args) {
+export function makeFarmerTransaction(functionName, ...args) {
   return new Promise((resolve, reject) => {
-    Lab_Instance[functionName](
-      ...args,
-      { from: OWN_ADDRESS, gasPrice: web3.toWei(1000, "gwei") },
-      function(err, result) {
-        if (err) reject(err);
-        resolve(result);
-      }
-    );
+    FARMER[functionName](...args, { from: OWN_ADDRESS }, function(err, result) {
+      if (err) reject(err);
+      resolve(result);
+    });
+  });
+}
+
+export function makeLaboratoryTransaction(functionName, ...args) {
+  return new Promise((resolve, reject) => {
+    LABORATORY[functionName](...args, { from: OWN_ADDRESS }, function(
+      err,
+      result
+    ) {
+      if (err) reject(err);
+      resolve(result);
+    });
+  });
+}
+
+export function makeTransporterTransaction(functionName, ...args) {
+  return new Promise((resolve, reject) => {
+    TRANSPORTER[functionName](...args, { from: OWN_ADDRESS }, function(
+      err,
+      result
+    ) {
+      if (err) reject(err);
+      resolve(result);
+    });
+  });
+}
+
+export function makeManufacturerTransaction(functionName, ...args) {
+  return new Promise((resolve, reject) => {
+    MANUFACTURER[functionName](...args, { from: OWN_ADDRESS }, function(
+      err,
+      result
+    ) {
+      if (err) reject(err);
+      resolve(result);
+    });
+  });
+}
+
+export function makeDistributorTransaction(functionName, ...args) {
+  return new Promise((resolve, reject) => {
+    DISTRIBUTOR[functionName](...args, { from: OWN_ADDRESS }, function(
+      err,
+      result
+    ) {
+      if (err) reject(err);
+      resolve(result);
+    });
+  });
+}
+
+export function makeRetailerTransaction(functionName, ...args) {
+  return new Promise((resolve, reject) => {
+    RETAILER[functionName](...args, { from: OWN_ADDRESS }, function(
+      err,
+      result
+    ) {
+      if (err) reject(err);
+      resolve(result);
+    });
   });
 }
 
@@ -91,7 +167,7 @@ export function fetchEntireChain(buid) {
         harvestHash = data[1];
         addresses = data[2];
         rv = {
-          farmerAddress : addresses[0],
+          farmerAddress: addresses[0],
           laboratoryAddress: addresses[1],
           manufacturerAddress: addresses[2],
           farmerToManufacturerTransporterAddress: addresses[3],
@@ -103,17 +179,17 @@ export function fetchEntireChain(buid) {
       .then(details => {
         let packetsDispatchTime = details.dispatchTime;
         let packetsDeliveryTime = details.deliveryTime;
-        delete details['dispatchTime'];
-        delete details['deliveryTime'];
-        rv = { ...rv, ...details, packetsDeliveryTime, packetsDispatchTime};
+        delete details["dispatchTime"];
+        delete details["deliveryTime"];
+        rv = { ...rv, ...details, packetsDeliveryTime, packetsDispatchTime };
         return getJsonFromIPFS(harvestHash);
       })
       .then(details => {
         let harvestDispatchTime = details.dispatchTime;
         let harvestDeliveryTime = details.deliveryTime;
-        delete details['dispatchTime'];
-        delete details['deliveryTime'];
-        rv = { ...rv, ...details, harvestDeliveryTime, harvestDispatchTime};
+        delete details["dispatchTime"];
+        delete details["deliveryTime"];
+        rv = { ...rv, ...details, harvestDeliveryTime, harvestDispatchTime };
         resolve(rv);
       })
       .catch(reject);
@@ -151,33 +227,53 @@ export function hexToAscii(hex) {
 }
 
 export function harvestStates(id) {
+  let rv = {
+    value: id
+  };
   switch (id) {
     case 1:
-      return "sown";
+      rv.status = "Sown";
+      return rv;
 
     case 2:
-      return "moved";
+      rv.status = "Harvested";
+      return rv;
 
     case 3:
-      return "harvested";
+      rv.status = "Sent to Lab";
+      return rv;
 
     case 4:
-      return "Sent to Lab";
+      rv.status = "Sample Dispatched for Laboratory";
+      return rv;
 
     case 5:
-      return "Lab Test Approved";
+      rv.status = "Sample Delivered to Laboratory";
+      return rv;
 
     case 6:
-      return "Sent to Manufacturer";
+      rv.status = "Test Approved";
+      return rv;
 
     case 7:
-      return "dispatched";
+      rv.status = "Packed to be sent to Manufacturer";
+      return rv;
 
     case 8:
-      return "delivered";
+      rv.status = "Harvest Dispatched to Manufacturer";
+      return rv;
+
+    case 9:
+      rv.status = "Harvest Delivered to Manufacturer";
+      return rv;
 
     case 10:
-      return "destroyed by farmer";
+      rv.status = "Test Failed";
+      return rv;
+
+    case 11:
+      rv.status = "Crop Destroyed by Farmer";
+      return rv;
 
     default:
       return "discarded";
@@ -200,20 +296,7 @@ export function packetStates(id) {
   }
 }
 
-export function setNewObjectOfUsers(object) {
-  return uploadJsonToIPFS(object).then(hash => {
-    makeLabTransaction("setUserHash", hash);
-  });
-}
-
-export function getUsersObject() {
-  return makeLabTransaction("getUsersHash").then(hash => {
-    return getJsonFromIPFS(hash);
-  });
-}
-
-
-export const checkMined = (txHash , cb) => {
+export const checkMined = (txHash, cb) => {
   let interval = setInterval(() => {
     web3.eth.getTransactionReceipt(txHash, function(err, receipt) {
       if (err) throw err;
@@ -222,10 +305,7 @@ export const checkMined = (txHash , cb) => {
         console.log("Mined");
         clearInterval(interval);
         cb();
-
       }
     });
-
-  },500)
-
+  }, 500);
 };
