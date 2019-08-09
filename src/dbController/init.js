@@ -1,6 +1,7 @@
 import config from "../config.js";
 import IPFS from "ipfs-http-client";
 
+
 const URL = "http://localhost:5001";
 
 // export const ipfsNode = new IPFS("ipfs.infura.io", "5001", {
@@ -12,7 +13,7 @@ const URL = "http://localhost:5001";
 // });
 
 export let web3;
-// export const NETWORK_NAME = config.NETWORK_NAME;
+
 export let OWN_ADDRESS;
 
 let STORAGE;

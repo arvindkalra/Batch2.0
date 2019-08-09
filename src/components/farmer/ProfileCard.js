@@ -7,15 +7,15 @@ import {setFarmerDetails} from "../../dbController/farmerRole";
 
 const ProfileCard = () => {
 
-    const [name, setName] = useState('');
-    const [companyName, setCompanyName] = useState('');
-    const [address, setAddress] = useState('');
-    const [license, setLicense] = useState('');
+    const [name, setName] = useState('Peter Willams');
+    const [companyName, setCompanyName] = useState('Awesome Farmers');
+    const [address, setAddress] = useState('route 66');
+    const [license, setLicense] = useState('abcd');
 
     const handleClick = e =>{
         e.preventDefault();
         e.stopPropagation();
-        // setFarmerDetails({name,companyName,address, license:"license goes here"});
+        setFarmerDetails({name,companyName,address, license});
     };
     useEffect(()=>{
         // TODO get farmer details and set them as values for state variables
