@@ -118,7 +118,7 @@ export function packetsManufactured(
 ) {
   let harvestHash;
   let productHash;
-  return uploadJsonToIPFS(harvestObjectdetailsUpdated)
+  return uploadJsonToIPFS(harvestObjectDetailsUpdated)
     .then(hash => {
       harvestHash = hash;
       return uploadJsonToIPFS(productObjectDetailsNew);
