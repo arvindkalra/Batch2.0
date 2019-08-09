@@ -1,7 +1,7 @@
 import config from "../config.js";
 import IPFS from "ipfs-http-client";
 
-const URL = "http://localhost:5001/add";
+const URL = "http://localhost:5001";
 
 // export const ipfsNode = new IPFS("ipfs.infura.io", "5001", {
 //   protocol: "https",
@@ -212,7 +212,7 @@ export function uploadJsonToIPFS(_json) {
     //     resolve(response[0].path);
     //   })
     //   .catch(reject);
-    fetch(URL, {
+    fetch(URL + "/add", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -237,7 +237,7 @@ export function getJsonFromIPFS(_path) {
     //     resolve(JSON.parse(content.toString()));
     //   })
     //   .catch(reject);
-    fetch(URL, {
+    fetch(URL + "/get", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
