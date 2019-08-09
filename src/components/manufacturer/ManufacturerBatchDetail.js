@@ -4,7 +4,7 @@ import Col from "react-bootstrap/Col";
 import { setBreadcrumb } from "../../helpers";
 import Layout from "../Layout";
 import ManufacturerActionPanel from "../actionPanel/ManufacturerActionPanel";
-import {fetchHarvestUnitDetailsUsingBUID} from "../../dbController/manufacturerRole";
+import {fetchHarvestUnitDetailsUsingUID} from "../../dbController/manufacturerRole";
 import {connectToMetamask} from "../../dbController/init";
 import {getFarmerDetails} from "../../dbController/farmerRole";
 
@@ -15,7 +15,7 @@ const ManufacturerBatchDetail = props => {
     // Fetch the buid from the params
     let buid = props.match.params.buid;
     connectToMetamask().then(()=>{
-      fetchHarvestUnitDetailsUsingBUID(buid).then((object) => {
+      fetchHarvestUnitDetailsUsingUID(buid).then((object) => {
 
         console.log(object);
         getFarmerDetails(object.farmerAddress).then(farmerObj => {

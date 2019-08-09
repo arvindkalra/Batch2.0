@@ -38,7 +38,7 @@ function handleObject(object, uid) {
       .then(details => {
         resolve({
           currentOwner: object[0],
-          harvestUnitId: uid,
+          uid,
           details,
           currentState: harvestStates(object[2].toNumber())
         });

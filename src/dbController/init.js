@@ -281,18 +281,29 @@ export function harvestStates(id) {
 }
 
 export function packetStates(id) {
+  let rv = {
+    value: id
+  };
   switch (id) {
     case 1:
-      return "packed";
+      rv.status = "Packed By Manufacturer";
+      return rv;
 
     case 2:
-      return "dispatched";
+      rv.status = "Allotted to Distributor and Transporter";
+      return rv;
 
     case 3:
-      return "delivered";
+      rv.status = "Dispatched by Transporter";
+      return rv;
+
+    case 4:
+      rv.status = "Delivered by Transporter";
+      return rv;
 
     default:
-      return "lost";
+      rv.status = "Lost in Transit";
+      return rv;
   }
 }
 
