@@ -1,11 +1,15 @@
 import config from "../config.js";
 import IPFS from "ipfs-http-client";
 
-export const ipfsNode = new IPFS({
-  host: "ipfs.infura.io",
-  port: 5001,
-  protocol: "https"
-});
+const URL = "http://localhost:5001/add";
+
+// export const ipfsNode = new IPFS("ipfs.infura.io", "5001", {
+//   protocol: "https",
+//   headers: {
+//     "Access-Control-Allow-Origin": "*",
+//     "Access-Control-Allow-Methods": '["PUT", "POST", "GET"]'
+//   }
+// });
 
 export let web3;
 // export const NETWORK_NAME = config.NETWORK_NAME;
@@ -196,29 +200,56 @@ export function fetchEntireChain(buid) {
   });
 }
 
+// TODO upload ipfs to change for ipfs
 export function uploadJsonToIPFS(_json) {
   console.log("Uploading");
   return new Promise((resolve, reject) => {
-    let buffer = Buffer.from(JSON.stringify(_json));
-    ipfsNode
-      .add(buffer)
+    // let buffer = Buffer.from(JSON.stringify(_json));
+    // ipfsNode
+    //   .add(buffer)
+    //   .then(response => {
+    //     console.log("uplaoded");
+    //     resolve(response[0].path);
+    //   })
+    //   .catch(reject);
+    fetch(URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ object: _json })
+    })
       .then(response => {
-        console.log("uplaoded");
-        resolve(response[0].path);
+        return response.json();
       })
-      .catch(reject);
+      .then(result => {
+        resolve(result.hash);
+      });
   });
 }
 
 export function getJsonFromIPFS(_path) {
   return new Promise((resolve, reject) => {
-    ipfsNode
-      .get("/ipfs/" + _path)
+    // ipfsNode
+    //   .get("/ipfs/" + _path)
+    //   .then(response => {
+    //     let content = response[0].content;
+    //     resolve(JSON.parse(content.toString()));
+    //   })
+    //   .catch(reject);
+    fetch(URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ hash: _path })
+    })
       .then(response => {
-        let content = response[0].content;
-        resolve(JSON.parse(content.toString()));
+        return response.json();
       })
-      .catch(reject);
+      .then(result => {
+        resolve(result.object);
+      });
   });
 }
 
