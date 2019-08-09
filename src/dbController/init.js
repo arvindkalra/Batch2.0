@@ -307,7 +307,8 @@ export function harvestStates(id) {
       return rv;
 
     default:
-      return "discarded";
+      rv.status = "Discarded";
+      return rv;
   }
 }
 
@@ -322,6 +323,33 @@ export function packetStates(id) {
 
     case 2:
       rv.status = "Allotted to Distributor and Transporter";
+      return rv;
+
+    case 3:
+      rv.status = "Dispatched by Transporter";
+      return rv;
+
+    case 4:
+      rv.status = "Delivered by Transporter";
+      return rv;
+
+    default:
+      rv.status = "Lost in Transit";
+      return rv;
+  }
+}
+
+export function batchStates(id) {
+  let rv = {
+    value: id
+  };
+  switch (id) {
+    case 1:
+      rv.status = "Batch Created By Distributor";
+      return rv;
+
+    case 2:
+      rv.status = "Allotted to Retailer and Transporter";
       return rv;
 
     case 3:

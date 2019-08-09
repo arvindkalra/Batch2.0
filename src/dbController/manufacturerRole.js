@@ -34,7 +34,7 @@ export function getManufacturerDetails(address) {
 
 export function fetchHarvestUnitDetailsUsingUID(harvestUnitId) {
   return new Promise((resolve, reject) => {
-    makeManufacturerTransaction("getHarvestUnit", harvestUnitId)
+    makeStorageTransaction("getHarvestUnit", harvestUnitId)
       .then(obj => {
         return handleObject(obj, harvestUnitId, true);
       })
@@ -45,7 +45,7 @@ export function fetchHarvestUnitDetailsUsingUID(harvestUnitId) {
 
 export function fetchProductUnitDetailsUsingUID(productUnitId) {
   return new Promise((resolve, reject) => {
-    makeManufacturerTransaction("getProductUnit", productUnitId)
+    makeStorageTransaction("getProductUnit", productUnitId)
       .then(obj => {
         return handleObject(obj, productUnitId, false);
       })
@@ -76,13 +76,15 @@ function handleObject(obj, uid, isHarvest) {
     obj = obj.valueOf();
     let currentOwner = obj[0];
     let latestHash = obj[1];
-    let stateVariable = obj[2];
+    let stateVariable = obj[2].toNumber();
     getJsonFromIPFS(latestHash)
       .then(details => {
         resolve({
           uid,
           details,
-          currentState: isHarvest ? harvestStates(stateVariable): packetStates(stateVariable),
+          currentState: isHarvest
+            ? harvestStates(stateVariable)
+            : packetStates(stateVariable),
           currentOwner
         });
       })

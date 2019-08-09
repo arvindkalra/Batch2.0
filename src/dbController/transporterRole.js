@@ -3,7 +3,7 @@ import {
   harvestStates,
   makeStorageTransaction,
   makeTransporterTransaction,
-  OWN_ADDRESS,
+  OWN_ADDRESS, packetStates,
   uploadJsonToIPFS
 } from "./init";
 
@@ -40,7 +40,7 @@ function handleObject(object, uid) {
           currentOwner: object[0],
           uid,
           details,
-          currentState: harvestStates(object[2].toNumber())
+          currentState: packetStates(object[2].toNumber())
         });
       })
       .catch(reject);

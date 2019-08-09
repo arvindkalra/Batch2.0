@@ -1,7 +1,8 @@
 import {
   getJsonFromIPFS,
   harvestStates,
-  makeLaboratoryTransaction, makeStorageTransaction,
+  makeLaboratoryTransaction,
+  makeStorageTransaction,
   OWN_ADDRESS,
   uploadJsonToIPFS
 } from "./init";
@@ -57,13 +58,12 @@ export function getRowsForLaboratory(rowCallback) {
   let handleRow = (obj, uid) => {
     obj = obj.valueOf();
     // console.log(obj);
-    getJsonFromIPFS(obj[3]).then(details => {
+    getJsonFromIPFS(obj[1]).then(details => {
       rowCallback({
         uid,
         details,
-        currentState: harvestStates(obj[1].toNumber()),
-        harvestAmount: obj[2].toNumber(),
-        farmerAddress: obj[0]
+        currentOwner: obj[0],
+        currentState: harvestStates(obj[2].toNumber())
       });
     });
   };
