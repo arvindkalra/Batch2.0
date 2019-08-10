@@ -29,20 +29,26 @@ function createHash(obj) {
   return multihash.toString();
 }
 
-app.use('/', function (req, res, next) {
-  console.log(req.body);
-  next();
-});
+let headers = {};
+headers["Access-Control-Allow-Origin"] = "*";
+headers["Access-Control-Allow-Methods"] = "POST, GET, PUT, DELETE, OPTIONS";
+headers["Access-Control-Allow-Credentials"] = false;
+headers["Access-Control-Max-Age"] = "86400"; // 24 hours
+headers["Access-Control-Allow-Headers"] =
+  "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept";
 
 app.post("/add", function(req, res) {
   let object = req.body.object;
+  console.log(object);
   let hash = createHash(object);
   ipfsObject[hash] = object;
+  res.header(headers);
   res.send({ hash });
 });
 
 app.post("/get", function(req, res) {
   let hash = req.body.hash;
+  console.log(hash);
   res.send({ object: ipfsObject[hash] });
 });
 

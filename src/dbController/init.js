@@ -1,7 +1,8 @@
 import config from "../config.js";
+import Web3 from 'web3';
 import IPFS from "ipfs-http-client";
 
-const URL = "http://localhost:5001";
+const URL = "http://192.168.0.104:5001";
 
 // export const ipfsNode = new IPFS("ipfs.infura.io", "5001", {
 //   protocol: "https",
@@ -37,9 +38,9 @@ export function connectToMetamask() {
       window.ethereum
         .enable()
         .then(address => {
-          OWN_ADDRESS = address[0];
+          web3 = new Web3(window.ethereum);
+          OWN_ADDRESS = address ? address[0] :  web3.eth.accounts[0];
           console.log(OWN_ADDRESS);
-          web3 = window.web3;
           createContractInstance();
           resolve(true);
         })
