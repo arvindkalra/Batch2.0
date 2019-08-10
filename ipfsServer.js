@@ -29,6 +29,11 @@ function createHash(obj) {
   return multihash.toString();
 }
 
+app.use('/', function (req, res, next) {
+  console.log(req.body);
+  next();
+});
+
 app.post("/add", function(req, res) {
   let object = req.body.object;
   let hash = createHash(object);

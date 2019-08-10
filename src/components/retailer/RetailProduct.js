@@ -6,7 +6,7 @@ import Row from "react-bootstrap/Row";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import RetailerActionForm from "./RetailerActionForm";
 import { connectToMetamask } from "../../dbController/init";
-import { getPacketUnitDetailsForRetailer } from "../../dbController/retailerRole";
+import {fetchBatchUnitDetailsUsingUID} from "../../dbController/distributorRole";
 
 // currentState: "delivered"
 // details:
@@ -31,7 +31,7 @@ const RetailProduct = (props) => {
     connectToMetamask().then(txHash => {
       console.log(props);
       let puid = props.match.params.id;
-      getPacketUnitDetailsForRetailer(puid).then(obj => {
+      fetchBatchUnitDetailsUsingUID(puid).then(obj => {
         console.log(obj.totalPackets);
         setBatchId(obj.uid);
         setCurrentState(obj.currentState);
