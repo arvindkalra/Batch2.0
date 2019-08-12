@@ -28,27 +28,30 @@ const TransporterDashboard = ({ location }) => {
       let tempHarvestShipments = harvestShipments;
       let tempPackagedShipment = packagedShipments;
       let tempSampleShipments = sampleShipments;
-      getTransportUnitDetails(true, row => {
+      getFarmToFactoryConsignments(row => {
+        console.log(row);
         let tempRow = harvestRowObjArr;
         tempRow[row.uid] = row;
         setHarvestRowObjArr(tempRow);
         let rowObj = {};
         rowObj.buid = row.uid;
-        getFarmerDetails(row.senderAddress).then(farmerObj => {
-          getManufacturerDetails(row.receiverAddress).then(manufacturerObj => {
-            if (row.currentState === "delivered") {
-              return;
-            }
-            rowObj.senderCompany = farmerObj.name;
-            rowObj.receiverCompany = manufacturerObj.name;
-            rowObj.amount = row.amount + " Pounds";
-            rowObj.dispatchTime = row.details.dispatchTime;
+        getFarmerDetails(row.details.farmerAddress).then(farmerObj => {
+          getManufacturerDetails(row.details.manufacturerAddress).then(
+            manufacturerObj => {
+              if (row.currentState.value >= 9) {
+                return;
+              }
+              rowObj.uid = row.uid;
+              rowObj.senderCompany = farmerObj.name;
+              rowObj.receiverCompany = manufacturerObj.name;
+              rowObj.amount = row.details.totalHarvestAmount + " Pounds";
+              rowObj.dispatchTime = row.details.farmToFactoryConsignmentDispatchTime;
 
-            rowObj.currentStatus =
-              row.currentState === "sent" ? "packed" : row.currentState;
-            tempHarvestShipments.push(rowObj);
-            setHarvestShipments([...tempHarvestShipments]);
-          });
+              rowObj.currentStatus = row.currentState;
+              tempHarvestShipments.push(rowObj);
+              setHarvestShipments([...tempHarvestShipments]);
+            }
+          );
         });
       });
       getTransportUnitDetails(false, row => {
@@ -96,7 +99,7 @@ const TransporterDashboard = ({ location }) => {
               rowObj.senderCompany = farmerName;
               rowObj.receiverCompany = name;
               rowObj.currentStatus = row.currentState;
-              rowObj.dispatchTime = row.details.dispatchTime;
+              rowObj.dispatchTime = row.details.labSampleConsignmentDispatchTime;
               tempSampleShipments.push(rowObj);
               setSampleShipment([...tempSampleShipments]);
             }

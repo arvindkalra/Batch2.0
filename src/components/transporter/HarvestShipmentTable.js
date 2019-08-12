@@ -26,8 +26,8 @@ const HarvestShipmentTable = ({ array, rowObjArr }) => {
             return (
               <HarvestShipmentRow
                 value={element}
-                key={id + "" + element.buid}
-                rowObj={rowObjArr[element.buid]}
+                key={id + "" + element.uid}
+                rowObj={rowObjArr[element.uid]}
               />
             );
           })

@@ -108,7 +108,7 @@ export function getFarmToFactoryConsignments(rowCallback) {
       let x = array[i].toNumber();
       makeStorageTransaction("getHarvestUnit", x)
         .then(o => {
-          return handleObject(o, x);
+          return handleObject(o, x, true);
         })
         .then(rowCallback)
         .catch(handleError);

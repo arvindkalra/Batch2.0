@@ -12,7 +12,7 @@ const SampleShipmentRow = ({ value, rowObj }) => {
     e.preventDefault();
     e.stopPropagation();
     if (value.currentStatus.value === 3) {
-      rowObj.details.dispatchTime = new Date().toLocaleString();
+      rowObj.details.labSampleConsignmentDispatchTime  = new Date().toLocaleString();
       dispatchLabSampleConsignment(
         value.uid,
         rowObj.details.laboratoryAddress,
@@ -21,7 +21,7 @@ const SampleShipmentRow = ({ value, rowObj }) => {
         checkMined(txHash, () => window.location.reload());
       });
     } else {
-      rowObj.details.deliveryTime = new Date().toLocaleString();
+      rowObj.details.labSampleConsignmentDeliveryTime = new Date().toLocaleString();
       deliverLabSampleConsignment(
         value.uid,
         rowObj.details.laboratoryAddress,
