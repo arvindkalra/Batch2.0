@@ -60,7 +60,7 @@ const ActionForm = ({
     seedObj.details.sentToLabOn = new Date().toDateString();
     seedObj.details.laboratoryAddress =
       "0x627306090abaB3A6e1400e9345bC60c78a8BEf57";
-    seedObj.details.transporterAddress =
+    seedObj.details.farmToLabConsignmentTransporterAddress =
       "0x627306090abaB3A6e1400e9345bC60c78a8BEf57";
     sendToLaboratory(
       seedObj.harvestUnitId,
@@ -79,16 +79,20 @@ const ActionForm = ({
   const sendToManufacturer = e => {
     e.preventDefault();
     e.stopPropagation();
-    seedObj.details.sentToManufacturerOn = new Date().toDateString();
+    seedObj.details.sentToManufacturerOn = new Date().toLocaleString();
     seedObj.details.farmerToManufacturerPrice = sellingPrice;
     let transporter = "0x627306090abaB3A6e1400e9345bC60c78a8BEf57";
     let manufacturer = "0x627306090abaB3A6e1400e9345bC60c78a8BEf57";
+    seedObj.details.manufacturerAddress = manufacturer;
+    seedObj.details.farmToFactoryConsignmentTransporterAddress = transporter;
     sellHarvestByFarmer(
-      seedObj.buid,
+      seedObj.harvestUnitId,
       manufacturer,
       transporter,
       seedObj.details
-    ).then(console.log);
+    ).then(hash => {
+      checkMined(hash, () => window.location.reload());
+    });
   };
   // TODO: submit buttom disable on click until transaction hash is recived
 
@@ -98,11 +102,9 @@ const ActionForm = ({
     seedObj.details.quantarineCompanyName = destroyCompanyName;
     seedObj.details.destroyReason = destroyReason;
     seedObj.details.destroyQuantity = detroyQuantity;
-    plantDestroyedByFarmer(seedObj.buid, detroyQuantity, seedObj.details).then(
-      txHash => {
-        checkMined(txHash, () => {
-          window.location.reload();
-        });
+    plantDestroyedByFarmer(seedObj.harvestUnitId, seedObj.details).then(
+      hash => {
+        checkMined(hash => window.location.reload());
       }
     );
   };

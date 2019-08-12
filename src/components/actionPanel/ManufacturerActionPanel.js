@@ -49,7 +49,7 @@ const ManufacturerActionPanel = ({ left, total, prevDetails }) => {
           <Form.Group>
             <Form.Label>Units of Raw Material Left For Use</Form.Label>
             <ProgressBar
-              now={(left / total) * 100}
+              now={((left / total) * 100).toFixed(2)}
               label={`${left} Pounds`}
               striped
             />
