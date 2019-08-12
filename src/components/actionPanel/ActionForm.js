@@ -4,7 +4,6 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Notification from "../Notification";
-import { changeSeedState } from "../../helpers";
 import {
   plantDestroyedByFarmer,
   plantHarvestedByFarmer,
@@ -17,12 +16,14 @@ const ActionForm = ({
   productState,
   setProductStatus,
   seedObj,
-  destroyRequested, cancelDestroyRequest
+  destroyRequested,
+  cancelDestroyRequest
 }) => {
   const [showNotification, setShowNotification] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState("");
   const [formFieldValue, setFormFieldValue] = useState("");
   const [labName, setLabName] = useState("Green Labs LLC");
+  const [transporterName, setTransporterName] = useState("Transporter A");
   const [sellingPrice, setSellingPrice] = useState("");
   const [detroyQuantity, setDestroyQuantity] = useState(0);
   const [destroyCompanyName, setDestroyCompanyName] = useState("Company A");
@@ -39,7 +40,8 @@ const ActionForm = ({
     e.preventDefault();
     e.stopPropagation();
     seedObj.details.harvestTime = new Date().toDateString();
-    plantHarvestedByFarmer(formFieldValue, seedObj.buid, seedObj.details).then(
+    seedObj.details.totalHarvestAmount = formFieldValue;
+    plantHarvestedByFarmer(seedObj.harvestUnitId, seedObj.details).then(
       hash => {
         setNotificationMessage(" the tx is mining");
         setShowNotification(true);
@@ -56,8 +58,13 @@ const ActionForm = ({
     e.preventDefault();
     e.stopPropagation();
     seedObj.details.sentToLabOn = new Date().toDateString();
+    seedObj.details.laboratoryAddress =
+      "0x627306090abaB3A6e1400e9345bC60c78a8BEf57";
+    seedObj.details.transporterAddress =
+      "0x627306090abaB3A6e1400e9345bC60c78a8BEf57";
     sendToLaboratory(
-      seedObj.buid,
+      seedObj.harvestUnitId,
+      "0x627306090abaB3A6e1400e9345bC60c78a8BEf57",
       "0x627306090abaB3A6e1400e9345bC60c78a8BEf57",
       seedObj.details
     ).then(hash => {
@@ -134,8 +141,8 @@ const ActionForm = ({
             <Form.Group>
               <Form.Label>Destroy Reason</Form.Label>
               <Form.Control
-                type={'textarea'}
-                placeholder={'Enter the reason for destroying'}
+                type={"textarea"}
+                placeholder={"Enter the reason for destroying"}
                 onChange={e => {
                   setDestroyReason(e.target.value);
                 }}
@@ -148,13 +155,17 @@ const ActionForm = ({
             </Button>
           </Col>
           <Col md={1}>
-            <Button type={"submit"} className={'btn-danger'} onClick={cancelDestroyRequest}>
+            <Button
+              type={"submit"}
+              className={"btn-danger"}
+              onClick={cancelDestroyRequest}
+            >
               Cancel
             </Button>
           </Col>
         </Row>
       );
-    } else if (productState === "Sown") {
+    } else if (productState.value === 1) {
       return (
         <Row>
           <Col md={12}>
@@ -178,7 +189,7 @@ const ActionForm = ({
       );
     }
 
-    if (productState === "Harvested") {
+    if (productState.value === 2) {
       return (
         <Row>
           <Col md={12}>
@@ -197,19 +208,34 @@ const ActionForm = ({
             </Form.Group>
           </Col>
           <Col md={12}>
+            <Form.Group>
+              <Form.Label>Select Transporter</Form.Label>
+              <Form.Control
+                as={"select"}
+                required
+                onChange={e => {
+                  setTransporterName(e.target.value);
+                }}
+              >
+                <option value="">Transporter A</option>
+                <option value="">Transporter B</option>
+              </Form.Control>
+            </Form.Group>
+          </Col>
+          <Col md={12}>
             <Button type={"submit"} onClick={sendToLab}>
               Send To Lab
             </Button>
           </Col>
         </Row>
       );
-    } else if (productState === "Sent to Lab") {
+    } else if (productState.value === 3) {
       return (
         <p>
           Please wait for the lab tests before you can fill in a harvest report
         </p>
       );
-    } else if (productState === "Lab Test Approved") {
+    } else if (productState.value === 6) {
       return (
         <Row>
           <Col md={12}>
@@ -243,7 +269,7 @@ const ActionForm = ({
           </Col>
         </Row>
       );
-    } else if (productState === "Sent to Manufacturer") {
+    } else if (productState.value === 7) {
       return (
         <p>
           This product has been successfully harvested and sent to the

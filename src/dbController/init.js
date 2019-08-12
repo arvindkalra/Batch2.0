@@ -216,7 +216,8 @@ export function uploadJsonToIPFS(_json) {
     fetch(URL + "/add", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*"
       },
       body: JSON.stringify({ object: _json })
     })

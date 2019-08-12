@@ -35,13 +35,17 @@ export const setBreadcrumb = url => {
 // TODO set seed progress for discarded
 export const getSeedProgress = status => {
     switch (status) {
-        case 'sown':
+        case 1:
             return 20;
-        case 'harvested':
+        case 2:
             return 50;
-        case 'Lab Test Approved':
+        case 3:
+            return 60;
+        case 6:
             return 80;
-        case 'sent':
+        case 7:
+        case 8:
+        case 9:
             return 100;
 
     }

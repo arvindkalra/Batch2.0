@@ -8,7 +8,7 @@ const ActionPanel = ({ productState, setProductStatus, seedObj }) => {
   const [destroyRequested, setDestroyRequested] = useState(false);
 
   const setList = () => {
-    if (productState === "Sown") {
+    if (productState.value === 1) {
       return (
         <ul className={"action-panel-list"}>
           <li className={"current-status"}>Sown</li>
@@ -25,7 +25,7 @@ const ActionPanel = ({ productState, setProductStatus, seedObj }) => {
           <li className={"inactive"}>Send to Manufacturer</li>
         </ul>
       );
-    } else if (productState === "Harvested") {
+    } else if (productState.value === 2) {
       return (
         <ul className={"action-panel-list"}>
           <li className={"current-status"}>Sown</li>
@@ -42,7 +42,7 @@ const ActionPanel = ({ productState, setProductStatus, seedObj }) => {
           <li className={"inactive"}>Send to Manufacturer</li>
         </ul>
       );
-    } else if (productState === "Sent to Lab") {
+    } else if (productState.value >= 3 && productState.value < 6) {
       return (
         <ul className={"action-panel-list"}>
           <li className={"current-status"}>Sown</li>
@@ -51,7 +51,7 @@ const ActionPanel = ({ productState, setProductStatus, seedObj }) => {
           <li className={"inactive"}>Send to Manufacturer</li>
         </ul>
       );
-    } else if (productState === "Lab Test Approved") {
+    } else if (productState.value === 6) {
       return (
         <ul className={"action-panel-list"}>
           <li className={"current-status"}>Sown</li>
@@ -61,7 +61,7 @@ const ActionPanel = ({ productState, setProductStatus, seedObj }) => {
           <li className={"active"}>Send to Manufacturer</li>
         </ul>
       );
-    } else if (productState === "Sent to Manufacturer") {
+    } else if (productState >= 7) {
       return (
         <ul className={"action-panel-list"}>
           <li className={"current-status"}>Sown</li>
@@ -89,15 +89,13 @@ const ActionPanel = ({ productState, setProductStatus, seedObj }) => {
           </section>
           <section className={"secondary-actions-section"}>
             <h3>Secondary Actions</h3>
-            {productState === "Sown" ? (
+            {productState.value === 1 ? (
               <Button className={"btn-warning move-location"}>
                 {" "}
                 MOVE LOCATION{" "}
               </Button>
             ) : null}
-            {productState !== "Sent to Manufacturer" &&
-            productState !== "Dispatched" &&
-            productState !== "Delivered" ? (
+            {productState.value < 7 ? (
               <Button
                 className={"btn-danger destroy-crop"}
                 onClick={handleDestroy}

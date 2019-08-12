@@ -3,6 +3,9 @@ const app = express();
 const bodyParser = require("body-parser");
 const crypto = require("crypto");
 const bs58 = require("bs58");
+const cors = require("cors");
+
+app.use(cors());
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));

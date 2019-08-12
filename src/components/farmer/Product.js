@@ -17,13 +17,11 @@ const Product = (props) => {
     useEffect(() => {
         const buid = parseInt(props.match.params.product);
         connectToMetamask().then(() => {
-            console.log('connected to metamask');
 
             getSeedUnitDetails(buid).then(seedDetails => {
                 console.log(seedDetails);
-                const seedProgress = getSeedProgress(seedDetails.currentState);
-                setProductStatus({state: seedDetails.currentState.captialize(), progress: seedProgress});
                 setSeedObject(seedDetails);
+                setProductStatus(seedDetails.currentState);
 
 
             })
@@ -115,7 +113,7 @@ const Product = (props) => {
                                 </h2>
                                 <p>
 
-                                    #{seedObject.buid}
+                                    #{seedObject.harvestUnitId}
                                 </p>
                             </Col>
                             <Col>
@@ -137,9 +135,9 @@ const Product = (props) => {
                             Product Status
                         </h3>
 
-                        <ProgressBar striped variant="success" now={productStatus.progress}
-                                     label={productStatus.state}/>
-                        {productStatus.state === 'Sown' ? <p>
+                        <ProgressBar striped variant="success" now={getSeedProgress(productStatus.value)}
+                                     label={productStatus.status}/>
+                        {productStatus.status === 'Sown' ? <p>
                             Current Location:<span className={'info'}>{seedObject.details.location}</span>
                         </p> : null}
 
@@ -150,7 +148,7 @@ const Product = (props) => {
 
             </Row>
             <Row>
-                <ActionPanel seedObj={seedObject} productState={productStatus.state}
+                <ActionPanel seedObj={seedObject} productState={productStatus}
                              setProductStatus={(newProductStatus) => {
                                  setProductStatus(newProductStatus)
                              }}/>
