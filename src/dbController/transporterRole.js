@@ -3,7 +3,8 @@ import {
   harvestStates,
   makeStorageTransaction,
   makeTransporterTransaction,
-  OWN_ADDRESS, packetStates,
+  OWN_ADDRESS,
+  packetStates,
   uploadJsonToIPFS
 } from "./init";
 
@@ -31,7 +32,7 @@ export function getTransporterDetails(address) {
   });
 }
 
-function handleObject(object, uid) {
+function handleObject(object, uid, isHarvest) {
   return new Promise((resolve, reject) => {
     object = object.valueOf();
     getJsonFromIPFS(object[1])
@@ -40,7 +41,9 @@ function handleObject(object, uid) {
           currentOwner: object[0],
           uid,
           details,
-          currentState: packetStates(object[2].toNumber())
+          currentState: isHarvest
+            ? harvestStates(object[2].toNumber())
+            : packetStates(object[2].toNumber())
         });
       })
       .catch(reject);
@@ -58,7 +61,7 @@ export function getLabSampleConsignments(rowCallback) {
       let x = array[i].toNumber();
       makeStorageTransaction("getHarvestUnit", x)
         .then(o => {
-          return handleObject(o, x);
+          return handleObject(o, x, true);
         })
         .then(rowCallback)
         .catch(handleError);
