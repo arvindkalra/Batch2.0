@@ -1,17 +1,19 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import TableLayout from "../tables/TableLayout";
 
-const PendingReportTable = ({head, array,seedObjArr}) => {
-    const [tableHead, setTableHead] = useState(['Batch Id', 'Farmer Name', 'Plant Name', 'Amount', 'Date Harvested', 'Action']);
-    const [tableRows, setTableRows] = useState([]);
+const PendingReportTable = ({ array, seedObjArr }) => {
+  const tableHead = [
+    "Batch Id",
+    "Farmer Name",
+    "Plant Name",
+    "Amount",
+    "Date Harvested",
+    "Action"
+  ];
 
-    useEffect(() => {
-        setTableRows(array);
-    }, [array]);
-    return (
-        <TableLayout tableHead={tableHead} rows={tableRows} tableParams={seedObjArr}/>
-
-    );
+  return (
+    <TableLayout tableHead={tableHead} rows={array} tableParams={seedObjArr} />
+  );
 };
 
 export default PendingReportTable;
