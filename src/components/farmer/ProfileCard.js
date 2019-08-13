@@ -13,7 +13,7 @@ const ProfileCard = () => {
     const [name, setName] = useState('Peter Willams');
     const [companyName, setCompanyName] = useState('Awesome Farmers');
     const [address, setAddress] = useState('route 66');
-    const [license, setLicense] = useState('abcd');
+    const [license, setLicense] = useState('');
     const [profileImage, setProfileImage] = useState('https://picsum.photos/id/1074/480');
     const profileImageSetterRef = useRef(null);
     const profileImageRef = useRef(null);
@@ -31,6 +31,11 @@ const ProfileCard = () => {
             })
         })
     }, []);
+
+    const openLicense = e => {
+        e.target.download = 'test_download.pdf'
+    }
+
     const handleClick = e => {
         e.preventDefault();
         e.stopPropagation();
@@ -43,10 +48,19 @@ const ProfileCard = () => {
         fileToString(e.target.files[0]).then(result => {
             console.log(result);
             const imagePath = result;
-            console.log(imagePath);
+
             setProfileImage(imagePath);
         })
-        // profileImageRef.current.src = imagePath;
+
+    };
+
+    const handleLicenseUpload = e => {
+
+        fileToString((e.target.files[0])).then(result => {
+            console.log(result);
+            setLicense(result);
+
+        })
     };
 
     const uploadProfileImage = e => {
@@ -119,13 +133,18 @@ const ProfileCard = () => {
                             </Col>
                             <Col md={6}>
                                 <Form.Group controlId={'farmer-license'}>
-                                    <Form.Label className={'custom-file-label'}>
-                                        License
-                                    </Form.Label>
-                                    <Form.Control className={'custom-file-input'} type={'file'}
-                                                  placeholder={'Enter your License Number'} onChange={e => {
-                                        setLicense(e.target.files[0])
-                                    }}/>
+
+                                    {license ? <a href={license} target={'_blank'} onClick={openLicense} > view license </a> :
+                                        <>
+                                            <Form.Label className={'custom-file-label'}>
+                                                License
+                                            </Form.Label>
+                                            <Form.Control className={'custom-file-input'} type={'file'}
+                                                          placeholder={'Enter your License Number'}
+                                                          onChange={handleLicenseUpload}/>
+                                        </>}
+
+
                                 </Form.Group>
 
                             </Col>
