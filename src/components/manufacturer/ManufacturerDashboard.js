@@ -26,7 +26,7 @@ const ManufacturerDashboard = ({location}) => {
                 rowArray.push(harvestObject.uid);
                 getFarmerDetails(harvestObject.farmerAddress).then(farmerObject => {
                     rowArray.push(farmerObject.name);
-                    rowArray.push(harvestObject.amountCreated);
+                    rowArray.push(harvestObject.details.totalHarvestAmount);
                     rowArray.push(harvestObject.details.plantName);
                     tempAvailableArray.push(rowArray);
                     setAvailableArray([...tempAvailableArray]);

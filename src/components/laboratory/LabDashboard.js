@@ -60,7 +60,9 @@ const LabDashboard = props => {
             setTestedReportsArray([...tempTestedReports]);
             tempNumTested += 1;
             setNumTested(tempNumTested);
-          } else {
+          }else if(row.currentState.value === 3 || row.currentState.value === 4 ){
+            // do nothing
+          }else {
             rowArr = [
               row.uid,
               name,
