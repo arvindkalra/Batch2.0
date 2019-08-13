@@ -16,7 +16,6 @@
 
 }
 
-
 .title {
   h1 {
     color: $green;
@@ -227,7 +226,9 @@ $min-height:300px;
     color:white;
     font-weight: bold;
       text-transform: capitalize;
-
+    &:hover{
+      text-decoration: none;
+    }
     }
   }
 }

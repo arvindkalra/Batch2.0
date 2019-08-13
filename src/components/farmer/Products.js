@@ -18,10 +18,6 @@ const Products = ({location}) => {
             <Row>
                 <Col md={12}>
                     <CompleteProductsTable/>
-
-                    <Col md={{span: 4, offset: 4}}>
-                        <p className={'center-align'}>Load more</p>
-                    </Col>
                 </Col>
 
             </Row>
