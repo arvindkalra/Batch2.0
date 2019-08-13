@@ -125,11 +125,6 @@ const Dashboard = props => {
 
   return (
     <>
-      <Row className={"title"}>
-        <Col>
-          <h1>Product Details</h1>
-        </Col>
-      </Row>
       <Row>
         <Col>{setBreadcrumb(props.location.pathname)}</Col>
       </Row>
@@ -164,7 +159,7 @@ const Dashboard = props => {
         </Col>
       </Row>
       <Row>
-        <Col md={6} className={"table-col"}>
+        <Col md={12} className={"table-col"}>
           <section className={"dashboard-section"}>
             <h3 className={"section-title"}>Currently Sown Seeds</h3>
 
@@ -173,6 +168,10 @@ const Dashboard = props => {
             </div>
           </section>
         </Col>
+
+      </Row>
+
+      <Row>
         <Col md={{ span: 6 }} className={"chart-col"}>
           <section className="dashboard-section">
             <Row>
@@ -187,9 +186,6 @@ const Dashboard = props => {
             </Row>
           </section>
         </Col>
-      </Row>
-
-      <Row>
         <Col md={6} className={"chart-col"}>
           <section className={"dashboard-section"}>
             <Row>

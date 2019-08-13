@@ -20,7 +20,11 @@ const ProductTable = ({ rows, showForMore }) => {
             return (
               <tr key={id}>
                 <td>{element.harvestUnitId}</td>
-                <td>{element.plantName}</td>
+                <td>
+                  <Link to={`/farmer/products/${element.harvestUnitId}`}>
+                    {element.plantName}
+                  </Link>
+                </td>
                 <td>{element.datePlanted}</td>
                 <td>{element.seedCount}</td>
               </tr>
