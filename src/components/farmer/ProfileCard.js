@@ -1,4 +1,4 @@
-import React,{useState, useEffect} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from "react-bootstrap/Form";
@@ -11,40 +11,77 @@ const ProfileCard = () => {
     const [companyName, setCompanyName] = useState('Awesome Farmers');
     const [address, setAddress] = useState('route 66');
     const [license, setLicense] = useState('abcd');
-
-    const handleClick = e =>{
+    const [profileImage, setProfileImage] =useState('https://picsum.photos/id/1074/480')
+    const profileImageSetterRef = useRef(null);
+    const profileImageRef = useRef(null)
+    const handleClick = e => {
         e.preventDefault();
         e.stopPropagation();
-        setFarmerDetails({name,companyName,address, license});
+        setFarmerDetails({name, companyName, address, license, profileImage}).then((txHash)=>{
+            console.log(txHash)
+            console.log("details upadted")
+        })
     };
-    useEffect(()=>{
+    const handleImageUpload = e => {
+        const imagePath = URL.createObjectURL(e.target.files[0]);
+        console.log(imagePath);
+        // profileImageRef.current.src = imagePath;
+        setProfileImage(imagePath);
+    }
+
+    const uploadProfileImage = e => {
+        profileImageSetterRef.current.click()
+    }
+
+    useEffect(() => {
         // TODO get farmer details and set them as values for state variables
-    })
+    });
     return (
         <section className={'profile-section'}>
+                    <Form>
             <Row>
                 <Col md={4}>
                     <section className={'profile-image-section'}>
-                    <img src="https://picsum.photos/id/1074/480" alt="" className={'profile-image'}/>
+                        <img src={profileImage} alt="" className={'profile-image'}   ref={profileImageRef} />
+                        <div className={'image-overlay'} onClick={uploadProfileImage}>
+
+                             <Form.Control type={'file'} className={'hidden'} ref={profileImageSetterRef}  onChange={handleImageUpload} />
+
+                            <section className={'upload-button-section'}>
+                            <p> Upload New Image</p>
+                            <p>
+                            <i className="fas fa-camera"></i>
+                            </p>
+                            </section>
+
+                        </div>
+
                     </section>
                 </Col>
                 <Col md={8}>
-                    <Form>
                         <Row>
                             <Col md={6}>
-                              <Form.Group controlId={'farmer-name'}>
-                                  <Form.Label>
-                                      Name
-                                  </Form.Label>
-                                  <Form.Control type={'text'} placeholder={'Enter the name as it appears on your license'} onChange={e => {setName(e.target.value)}} value={name} />
-                              </Form.Group>
+                                <Form.Group controlId={'farmer-name'}>
+                                    <Form.Label>
+                                        Name
+                                    </Form.Label>
+                                    <Form.Control type={'text'}
+                                                  placeholder={'Enter the name as it appears on your license'}
+                                                  onChange={e => {
+                                                      setName(e.target.value)
+                                                  }} value={name}/>
+                                </Form.Group>
                             </Col>
                             <Col md={6}>
                                 <Form.Group controlId={'farmer-company-name'}>
                                     <Form.Label>
                                         Company Name
                                     </Form.Label>
-                                    <Form.Control type={'text'} placeholder={'Enter the name of your company as it appears on your license'} onChange={e => {setCompanyName(e.target.value)}} value={companyName} />
+                                    <Form.Control type={'text'}
+                                                  placeholder={'Enter the name of your company as it appears on your license'}
+                                                  onChange={e => {
+                                                      setCompanyName(e.target.value)
+                                                  }} value={companyName}/>
                                 </Form.Group>
 
                             </Col>
@@ -53,29 +90,36 @@ const ProfileCard = () => {
                                     <Form.Label>
                                         Farm Location
                                     </Form.Label>
-                                    <Form.Control type={'textarea'} placeholder={'Enter the address of your farm as it appears on your license'} onChange={e => {setAddress(e.target.value)}} value={address} />
+                                    <Form.Control type={'textarea'}
+                                                  placeholder={'Enter the address of your farm as it appears on your license'}
+                                                  onChange={e => {
+                                                      setAddress(e.target.value)
+                                                  }} value={address}/>
                                 </Form.Group>
 
                             </Col>
                             <Col md={6}>
-                                <Form.Group controlId={'farmer-license'} >
+                                <Form.Group controlId={'farmer-license'}>
                                     <Form.Label className={'custom-file-label'}>
                                         License
                                     </Form.Label>
-                                    <Form.Control className={'custom-file-input'} type={'file'} placeholder={'Enter your License Number'} onChange={e =>{setLicense(e.target.files[0])}} />
+                                    <Form.Control className={'custom-file-input'} type={'file'}
+                                                  placeholder={'Enter your License Number'} onChange={e => {
+                                        setLicense(e.target.files[0])
+                                    }}/>
                                 </Form.Group>
 
                             </Col>
-                            <Col md={{span:4, offset:4}}>
-                                <Button type={'submit'} onClick={handleClick} > Save Details </Button>
+                            <Col md={{span: 4, offset: 4}}>
+                                <Button type={'submit'} onClick={handleClick}> Save Details </Button>
                             </Col>
                         </Row>
-                    </Form>
                 </Col>
 
             </Row>
-</section>
-)
+                    </Form>
+        </section>
+    )
 };
 
 export default ProfileCard;
