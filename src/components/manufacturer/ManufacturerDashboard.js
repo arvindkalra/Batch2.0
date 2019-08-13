@@ -82,14 +82,14 @@ const ManufacturerDashboard = ({ location }) => {
       {/*Graph showing available raw material*/}
       <Row>
         <Col md={6}>
-          <section className={"manufacturer-graph"}>
-            <h3>Available Raw Material for Each Plant</h3>
+          <section className={"manufacturer-graph dashboard-section"}>
+            <h3 className={'section-title'}>Available Raw Material</h3>
             <ManufacturerBarGraph data={availableGraphData} />
           </section>
         </Col>
         <Col md={6}>
-          <section className={"report-table-section"}>
-            <h3>Available Raw Material</h3>
+          <section className={"report-table-section dashboard-section"}>
+            <h3 className={'section-title'}>Available Raw Material</h3>
             <AvailableRawMaterialTable array={availableArray} />
           </section>
         </Col>
@@ -98,15 +98,15 @@ const ManufacturerDashboard = ({ location }) => {
       {/*Two tables for available raw material and packets made ready for dispatch*/}
       <Row>
         <Col md={6}>
-          <section className={"manufacturer-graph"}>
-            <h3>Packets Manufactured of Each Type</h3>
-            <ManufacturerBarGraph data={packetsManufacturedGraphData} />
+          <section className={"report-table-section dashboard-section"}>
+            <h3 className={'section-title'}>Created Packets</h3>
+            <ManufacturedPacketsTable array={packetsReadyForDispatch} />
           </section>
         </Col>
         <Col md={6}>
-          <section className={"report-table-section"}>
-            <h3>Created Packets</h3>
-            <ManufacturedPacketsTable array={packetsReadyForDispatch} />
+          <section className={"manufacturer-graph dashboard-section"}>
+            <h3 className={'section-title'}>Products Manufactured in 2018-19</h3>
+            <ManufacturerBarGraph data={packetsManufacturedGraphData} />
           </section>
         </Col>
       </Row>

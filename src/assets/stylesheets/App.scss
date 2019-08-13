@@ -1,35 +1,20 @@
 @import "utils";
 @import "colors";
-.App {
-  text-align: center;
-}
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
 
 .dashboard-section{
   border: 1px solid $grey;
   height:370px;
+  margin-bottom: 30px;
+
 
 
   h3.section-title{
-    color: $grey;
-    padding: 10px;
-    border-bottom: 1px solid $grey;
+    text-transform: uppercase;
+    color: $darkblue;
+    text-align: center;
+    margin: 2%;
+    font-size: 1.6em;
   }
 }
 
@@ -125,6 +110,37 @@ p.description{
 
 
 
+
+
+
+
+
+// default react css
+
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+
+
 .App-link {
   color: #61dafb;
 }
@@ -140,4 +156,8 @@ p.description{
   to {
     transform: rotate(360deg);
   }
+}
+
+p.center-align{
+  text-align: center;
 }
