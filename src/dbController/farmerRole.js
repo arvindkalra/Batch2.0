@@ -1,7 +1,8 @@
 import {
   getJsonFromIPFS,
   harvestStates,
-  makeFarmerTransaction, makeStorageTransaction,
+  makeFarmerTransaction,
+  makeStorageTransaction,
   OWN_ADDRESS,
   uploadJsonToIPFS
 } from "./init";
@@ -103,22 +104,24 @@ export function sellHarvestByFarmer(
 
 export function getSeedUnitDetails(harvestUnitId) {
   return new Promise((resolve, reject) => {
-    return makeStorageTransaction("getHarvestUnit", harvestUnitId).then(object => {
-      object = object.valueOf();
-      let currentOwner = object[0];
-      let latestHash = object[1];
-      let currentState = object[2].toNumber();
+    return makeStorageTransaction("getHarvestUnit", harvestUnitId).then(
+      object => {
+        object = object.valueOf();
+        let currentOwner = object[0];
+        let latestHash = object[1];
+        let currentState = object[2].toNumber();
 
-      getJsonFromIPFS(latestHash).then(obj => {
-        let rowObj = {
-          harvestUnitId: harvestUnitId,
-          currentOwner,
-          details: obj,
-          currentState: harvestStates(currentState)
-        };
-        resolve(rowObj);
-      });
-    });
+        getJsonFromIPFS(latestHash).then(obj => {
+          let rowObj = {
+            harvestUnitId: harvestUnitId,
+            currentOwner,
+            details: obj,
+            currentState: harvestStates(currentState)
+          };
+          resolve(rowObj);
+        });
+      }
+    );
   });
 }
 
@@ -126,7 +129,7 @@ export function getRowsForFarmer(rowObject) {
   makeFarmerTransaction("fetchSeeds")
     .then(array => {
       array = array.valueOf();
-      for (let i = 0; i < array.length; i++) {
+      for (let i = array.length - 1; i >= 0; i--) {
         let uid = array[i].toNumber();
         makeStorageTransaction("getHarvestUnit", uid)
           .then(x => handleObject(x, uid))
