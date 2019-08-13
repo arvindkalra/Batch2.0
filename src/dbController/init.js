@@ -2,7 +2,7 @@ import config from "../config.js";
 import Web3 from 'web3';
 import IPFS from "ipfs-http-client";
 
-const URL = "http://192.168.0.104:5001";
+const URL = "http://10.5.50.46:5001";
 
 // export const ipfsNode = new IPFS("ipfs.infura.io", "5001", {
 //   protocol: "https",

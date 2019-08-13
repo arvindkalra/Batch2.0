@@ -9,16 +9,16 @@ import {connectToMetamask} from "../../dbController/init";
 import {getFarmerDetails} from "../../dbController/farmerRole";
 
 const ManufacturerBatchDetail = props => {
-  const [batchInfo, setBatchInfo] = useState({});
+  const [batchInfo, setBatchInfo] = useState({currentStatus : {value : 0, status: 'Temp'}});
   const [prevDetails, setPrevDetails] = useState({});
   useEffect(() => {
     // Fetch the buid from the params
     let buid = props.match.params.buid;
     connectToMetamask().then(()=>{
       fetchHarvestUnitDetailsUsingUID(buid).then((object) => {
-
         console.log(object);
         getFarmerDetails(object.farmerAddress).then(farmerObj => {
+          let alreadyUsed = object.details.totalHarvestUsed ? object.details.totalHarvestUsed : 0;
           setPrevDetails(object);
           setBatchInfo({
             buid: object.uid,
@@ -30,33 +30,15 @@ const ManufacturerBatchDetail = props => {
             farmerName: farmerObj.name,
             farmerAddress: farmerObj.companyName,
             currentStatus: object.currentState,
-            amountAlreadyUsed: object.amountAlreadyUsed,
-            amountHarvested: object.amountCreated,
-            amountLeft: (object.amountCreated - object.amountAlreadyUsed)
+            amountAlreadyUsed: alreadyUsed,
+            amountHarvested: object.details.totalHarvestAmount,
+            amountLeft: (object.details.totalHarvestAmount - alreadyUsed)
           })
         });
       });
     });
 
   }, []);
-
-  let getBatchInfoUsingBuid = buid => {
-    // Call web3 for info
-    setBatchInfo({
-      buid: 1,
-      plantName: "Gundza",
-      plantType: "Indica",
-      dateHarvested: "1st May",
-      amountHarvested: 100,
-      nutrients: "Dry Nutrients",
-      dateTested: "5th May",
-      farmerName: "Bob the Builder",
-      farmerAddress: "1245 Skyline Blvd, Oakland CA 94611",
-      currentStatus: "delivered",
-      amountAlreadyUsed: 70,
-      amountLeft: 30
-    });
-  };
 
   return (
     <Layout>
@@ -109,7 +91,7 @@ const ManufacturerBatchDetail = props => {
       </section>
       <section className={"manufacturer-actions container-fluid"}>
         <Row>
-          {batchInfo.currentStatus === "delivered" ? (
+          {batchInfo.currentStatus.value >= 9 ? (
             <ManufacturerActionPanel
               left={batchInfo.amountLeft}
               total={batchInfo.amountHarvested}

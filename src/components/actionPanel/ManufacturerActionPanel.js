@@ -5,7 +5,7 @@ import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import { packetsManufactured } from "../../dbController/manufacturerRole";
-import {checkMined} from "../../dbController/init";
+import { checkMined } from "../../dbController/init";
 
 const ManufacturerActionPanel = ({ left, total, prevDetails }) => {
   const [materialUsed, setMaterialUsed] = useState("");
@@ -19,23 +19,22 @@ const ManufacturerActionPanel = ({ left, total, prevDetails }) => {
   const handleClick = e => {
     e.preventDefault();
     e.stopPropagation();
-    let packetObj = {};
-    packetObj.packetSize = packetSize;
-    packetObj.packetName = packetName;
-    packetObj.productType = productType;
-    packetObj["packedOn"] = new Date().toDateString();
-    packetObj["buid"] = prevDetails.uid;
-    packetsManufactured(
-      prevDetails.uid,
-      parseInt(packetsMade),
-      parseInt(materialUsed),
-      "0x627306090abaB3A6e1400e9345bC60c78a8BEf57",
-      "0x627306090abaB3A6e1400e9345bC60c78a8BEf57",
-      packetObj
-    ).then(txHash => {
-        checkMined(txHash, () => {
-            window.location.reload();
-        })
+    let packetObj = {
+      packetSize,
+      packetName,
+      productType,
+      packedOn: new Date().toLocaleString(),
+      harvestUnitId: prevDetails.uid,
+      totalPacketsManufactured: packetsMade
+    };
+    prevDetails.details.totalHarvestUsed = materialUsed;
+    if (left < materialUsed) {
+      alert("You Don't have enough RAW MATERIAL.!");
+      return;
+    }
+    console.log(prevDetails.details);
+    packetsManufactured(prevDetails.uid, prevDetails.details, packetObj).then(hash => {
+      checkMined(hash, () => window.location.reload());
     });
   };
 
