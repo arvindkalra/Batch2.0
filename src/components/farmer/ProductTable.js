@@ -1,6 +1,9 @@
 import React from "react";
 import Table from "react-bootstrap/Table";
 import { Link } from "react-router-dom";
+import Button from "react-bootstrap/Button";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 const ProductTable = ({ rows, showForMore }) => {
   console.log(rows);
@@ -12,7 +15,7 @@ const ProductTable = ({ rows, showForMore }) => {
             <th>Unit Id</th>
             <th>Product Name</th>
             <th>Date Planted</th>
-            <th>Seed Count</th>
+            <th>Seeds Sown</th>
           </tr>
         </thead>
         <tbody>
@@ -25,25 +28,31 @@ const ProductTable = ({ rows, showForMore }) => {
                     {element.plantName}
                   </Link>
                 </td>
-                <td>{element.datePlanted}</td>
+                <td>{element.datePlanted.split(',')[0]}</td>
                 <td>{element.seedCount}</td>
               </tr>
             );
           })}
         </tbody>
       </Table>
-      <ul className={"table-links-list"}>
-        {showForMore ? (
-          <li>
-            <Link to={"/all-products"}>See all harvests </Link>
-          </li>
-        ) : (
-          <></>
-        )}
-        <li>
-          <Link to={"/farmer/add-new-harvest"}> Add a new harvest</Link>
-        </li>
-      </ul>
+      <Row>
+          <Col>
+              <ul className={"table-links-list"}>
+                  {showForMore ? (
+                      <li>
+                          <Link to={"/products"}>See all harvests </Link>
+                      </li>
+                  ) : (
+                      <></>
+                  )}
+                  <li>
+                      <Button type={'primary'}>
+                          <Link to={"/farmer/add-new-harvest"}> Add a new harvest</Link>
+                      </Button>
+                  </li>
+              </ul>
+          </Col>
+      </Row>
     </>
   );
 };

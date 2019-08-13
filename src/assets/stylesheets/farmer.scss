@@ -213,5 +213,21 @@ $min-height:300px;
 }
 
 .table-links-list{
+  padding: 0;
   list-style: none;
+  li:first-child{
+    @extend .center-align-text;
+  }
+  li:last-child{
+    button{
+      margin: 1px;
+    }
+    a{
+
+    color:white;
+    font-weight: bold;
+      text-transform: capitalize;
+
+    }
+  }
 }

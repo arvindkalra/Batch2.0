@@ -54,6 +54,12 @@
   }
 
   .table {
+     td{
+      a{
+        color: $blue;
+        font-weight: bold;
+      }
+    }
     .product-name {
       font-weight: bold;
     }

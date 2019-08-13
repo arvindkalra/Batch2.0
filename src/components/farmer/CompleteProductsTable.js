@@ -1,8 +1,25 @@
-import React from 'react';
+import React,{useEffect, useState} from 'react';
 import {Link} from "react-router-dom";
 import Table from "react-bootstrap/Table";
+import {getRowsForFarmer} from "../../dbController/farmerRole";
+import {connectToMetamask} from "../../dbController/init";
 
 const CompleteProductsTable = () => {
+    const [rows, setRows]  =useState([])
+    useEffect(()=> {
+        connectToMetamask().then(()=>{
+            let tempRows = rows;
+        getRowsForFarmer((rowObj)=>{
+            tempRows.push(rowObj);
+            setRows(tempRows);
+            console.log(rows)
+
+        })
+
+        })
+    },[])
+
+
     return (
         <Table responsive>
             <thead>
