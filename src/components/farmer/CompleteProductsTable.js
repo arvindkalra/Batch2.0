@@ -47,7 +47,7 @@ const CompleteProductsTable = () => {
             <tbody>
             <tr>
                 <td>1</td>
-                <td className={'product-name ready-for-harvest'}><Link to={'/farmer/products/6'}> Gundza </Link></td>
+                <td ><Link to={'/farmer/products/6'}> Gundza </Link></td>
                 <td>04/23/19</td>
                 {/*<td>00PPQQRRSS</td>*/}
                 <td>100</td>
@@ -57,7 +57,7 @@ const CompleteProductsTable = () => {
             </tr>
             <tr>
                 <td>2</td>
-                <td className={'product-name harvested'}>Ruddee</td>
+                <td >Ruddee</td>
                 <td>04/24/19</td>
                 {/*<td>00AABBCCDD</td>*/}
                 <td>100</td>

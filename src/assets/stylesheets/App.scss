@@ -1,6 +1,17 @@
 @import "utils";
 @import "colors";
 
+.jumbotron{
+  h1,h4{
+    text-align: center;
+  }
+}
+.login-section{
+  p.description{
+    @extend .center-align-text
+  }
+}
+
 
 .dashboard-section{
   border: 1px solid $grey;
