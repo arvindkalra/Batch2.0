@@ -73,3 +73,14 @@ export const setLabelsForGraphs = (item, obj) => {
     return(labelText +": " + data+ "%")
 
 }
+
+export const fileToString = (file) => {
+    return new Promise((resolve, reject) => {
+    console.log(file);
+        const reader = new FileReader();
+        reader.readAsDataURL(file)
+        reader.onload= () => {resolve(reader.result)}
+    })
+
+
+}
