@@ -29,7 +29,7 @@ const AppRouter = () => {
             {/*lab routes*/}
             <Route exact path={'/laboratory/dashboard'} component={Laboratory}/>
             <Route exact path={'/laboratory/about'} component={About}/>
-            <Route exact path={'/laboratory/report/:id'} component={Report} />
+            <Route exact path={'/laboratory/report/:id'} component={Report}/>
             {/*manufacturer router*/}
             <Route exact path={'/manufacturer/dashboard'} component={Manufacturer}/>
             <Route exact path={'/manufacturer/harvests/:buid'} component={ManufacturerBatchDetail}/>

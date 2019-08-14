@@ -1,20 +1,22 @@
-.info{
+.info {
   font-weight: bolder;
 }
 
-.center-align-text{
+.center-align-text {
   text-align: center;
 }
-.no-scroll{
+
+.no-scroll {
   overflow: hidden;
   position: fixed;
 }
 
 
-.btn{
+.btn {
   border-radius: 0;
 }
-.vertical-centered-list{
+
+.vertical-centered-list {
   list-style: none;
   margin-left: 0;
   margin-bottom: 0;
@@ -25,7 +27,8 @@
   flex-direction: column;
   justify-content: center;
 }
-.horizontal-list{
+
+.horizontal-list {
   list-style: none;
   margin-left: 0;
   margin-bottom: 0;
@@ -37,6 +40,6 @@
 }
 
 
-.shadow-box{
+.shadow-box {
   box-shadow: 0 0 10px 10px #eee;
 }

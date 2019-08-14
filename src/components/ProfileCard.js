@@ -20,27 +20,27 @@ const ProfileCard = ({role}) => {
     const profileImageRef = useRef(null);
     useEffect(() => {
         connectToMetamask().then(() => {
-            if(role ==='farmer'){
+            if (role === 'farmer') {
 
-            getFarmerDetails('0x627306090abaB3A6e1400e9345bC60c78a8BEf57').then(farmerObj => {
-                console.log(farmerObj);
-                setName(farmerObj.name);
-                setCompanyName(farmerObj.companyName);
-                setAddress(farmerObj.address);
-                setLicense(farmerObj.license);
+                getFarmerDetails('0x627306090abaB3A6e1400e9345bC60c78a8BEf57').then(farmerObj => {
+                    console.log(farmerObj);
+                    setName(farmerObj.name);
+                    setCompanyName(farmerObj.companyName);
+                    setAddress(farmerObj.address);
+                    setLicense(farmerObj.license);
 
-                setProfileImage(farmerObj.profileImage)
+                    setProfileImage(farmerObj.profileImage)
 
-            })
-            }else if(role ==='laboratory'){
+                })
+            } else if (role === 'laboratory') {
                 getLaboratoryDetails('0x627306090abaB3A6e1400e9345bC60c78a8BEf57').then(labObject => {
                     setName(labObject.name);
                     setCompanyName(labObject.companyName);
                     setAddress(labObject.address);
                     setLicense(labObject.license);
-                    if(labObject.profileImage){
+                    if (labObject.profileImage) {
 
-                    setProfileImage(labObject.profileImage)
+                        setProfileImage(labObject.profileImage)
                     }
                 })
             }
@@ -49,18 +49,18 @@ const ProfileCard = ({role}) => {
 
     const openLicense = e => {
         e.target.download = 'test_download.pdf'
-    }
+    };
 
     const handleClick = e => {
         e.preventDefault();
         e.stopPropagation();
-        if(role === 'farmer'){
+        if (role === 'farmer') {
 
-        setFarmerDetails({name, companyName, address, license, profileImage}).then((txHash) => {
-            console.log(txHash);
-            console.log("details upadted")
-        })
-        }else if(role === 'laboratory'){
+            setFarmerDetails({name, companyName, address, license, profileImage}).then((txHash) => {
+                console.log(txHash);
+                console.log("details upadted")
+            })
+        } else if (role === 'laboratory') {
             setLaboratoryDetails({name, companyName, address, license, profileImage}).then(txHash => {
                 console.log(txHash)
             })
@@ -158,7 +158,8 @@ const ProfileCard = ({role}) => {
                             <Col md={6}>
                                 <Form.Group controlId={'license'}>
 
-                                    {license ? <a href={license} target={'_blank'} onClick={openLicense} > view license </a> :
+                                    {license ?
+                                        <a href={license} target={'_blank'} onClick={openLicense}> view license </a> :
                                         <>
                                             <Form.Label className={'custom-file-label'}>
                                                 License
