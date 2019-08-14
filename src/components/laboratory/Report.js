@@ -9,16 +9,16 @@ import Table from "react-bootstrap/Table";
 import LabBarGraph from "./LabBarGraph";
 
 const Report = ({location, match}) => {
-    const [seedObject, setSeedObject] = useState({details: {}, currentState:{value: ''}});
+    const [seedObject, setSeedObject] = useState({details: {}, currentState: {value: ''}});
 
     const getTestResult = seedObject => {
-        if(seedObject.currentState.value >=6 && seedObject.currentState.value <=9){
+        if (seedObject.currentState.value >= 6 && seedObject.currentState.value <= 9) {
             return 'Approved'
 
-        }else if(seedObject.currentState.value ===10){
+        } else if (seedObject.currentState.value === 10) {
             return 'Rejected'
         }
-    }
+    };
     useEffect(() => {
 
         const buid = parseInt(match.params.id);
@@ -72,7 +72,7 @@ const Report = ({location, match}) => {
             <section className={'product-report-section'}>
                 <Row>
                     <Col md={12}>
-                        <h1 >
+                        <h1>
                             Test Results
                         </h1>
                         <ul className={'horizontal-list'}>
@@ -100,24 +100,24 @@ const Report = ({location, match}) => {
                             <h2>Test Report</h2>
                             <Table responsive>
                                 <thead>
-                                    <tr>
-                                       <th>
-                                           Test Name
-                                       </th>
-                                        <th>
-                                            Result
-                                        </th>
-                                        <th>
-                                            Reference Range
-                                        </th>
+                                <tr>
+                                    <th>
+                                        Test Name
+                                    </th>
+                                    <th>
+                                        Result
+                                    </th>
+                                    <th>
+                                        Reference Range
+                                    </th>
 
-                                    </tr>
+                                </tr>
                                 </thead>
                                 <tbody>
                                 <tr>
                                     <td> Cannabinoids</td>
                                     <td> {seedObject.details.cannabionoids} </td>
-                                    <td>  4-5% </td>
+                                    <td> 4-5%</td>
                                 </tr>
                                 <tr>
                                     <td>
@@ -150,11 +150,12 @@ const Report = ({location, match}) => {
                                 <span> Notes:</span> <br/>
                                 <ul>
                                     <li>
-                                The sample was rejected because of dangerous levels of cbd and thc found in it
+                                        The sample was rejected because of dangerous levels of cbd and thc found in it
 
                                     </li>
                                     <li>
-                                        The sample color suggests untimely harvset due to which it cannot be sold in the market
+                                        The sample color suggests untimely harvset due to which it cannot be sold in the
+                                        market
                                     </li>
                                 </ul>
                             </p>
@@ -162,7 +163,7 @@ const Report = ({location, match}) => {
 
                         </section>
                     </Col>
-                    <Col md={6} >
+                    <Col md={6}>
                         <section className={'report-graph-section'}>
                             <h2>
                                 Molecular composition of the Sample

@@ -13,12 +13,18 @@ import Row from "react-bootstrap/Row";
 //     ]
 // };
 const colors = [
-  "#b3e5fc",
-  "#81d4fa",
-  "#4fc3f7",
-  "#29b6f6",
-  "#03a9f4",
-  "#039be5"
+  "#e3f2fd",
+  "#bbdefb",
+  "#90caf9",
+  "#64b5f6",
+  "#42a5f5",
+  "#2196f3",
+  "#1e88e5",
+  "#1976d2",
+  "#1565c0",
+  "#448aff",
+  "#2979ff",
+  "#2962ff"
 ];
 const BarGraph = ({ ObjectToShow }) => {
   const [dataArray, setDataArray] = useState([]);
@@ -35,14 +41,10 @@ const BarGraph = ({ ObjectToShow }) => {
     scales: {
       yAxes: [
         {
-          display: false,
+          display: true,
           gridLines: {
             display: true,
-            drawBorder: false
-          },
-          ticks: {
-            suggestedMin: 0,
-            suggestedMax: 100
+            drawBorder: true
           }
         }
       ],

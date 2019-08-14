@@ -9,6 +9,10 @@ import ProgressBar from "react-bootstrap/ProgressBar";
 import {connectToMetamask} from "../../dbController/init";
 import {getRowsForLaboratory} from "../../dbController/laboratoryRole";
 import {getFarmerDetails} from "../../dbController/farmerRole";
+import Accordion from "react-bootstrap/Accordion";
+import Card from "react-bootstrap/Card";
+import PieChart1 from "./graphs/PieChart1";
+import BarGraph from "../farmer/graphs/dashboard/BarGraph";
 
 const LabDashboard = props => {
     const [pendingReportsArray, setPendingReportsArray] = useState([]);
@@ -17,6 +21,19 @@ const LabDashboard = props => {
     const [numPending, setNumPending] = useState(0);
     const [numApproved, setNumApproved] = useState(0);
     const [seedObjArr, setSeedObjArr] = useState({});
+    const [objectForBarGraph, setObjectForBarGraph] = useState({
+        Jan: 10,
+        Feb: 12,
+        Mar: 4,
+        April: 23,
+        June: 12,
+        July: 14,
+        Aug: 12,
+        Sep: 3,
+        Oct: 34,
+        Nov: 15,
+        Dec: 37
+    });
     useEffect(() => {
         console.log("lab dash board use effect");
         connectToMetamask().then(() => {
@@ -83,6 +100,18 @@ const LabDashboard = props => {
                     }
                 });
 
+                // tempState.push(row);
+                // setPendingReportsArray([...tempState]);
+                // currentLocation: "Green House"
+                // datePlanted: "12/1/2019"
+                // floweringTime: "65 Days"
+                // harvestTime: "Wed Jul 31 2019"
+                // lineage: "Urkle"
+                // nutrients: "homerJbio"
+                // plantName: "Mango"
+                // seedCount: "100"
+                // sentToLabOn: "Wed Jul 31 2019"
+                // soilType: "slightly acidic"
             });
         });
     }, []);
@@ -94,10 +123,8 @@ const LabDashboard = props => {
             </Row>
 
             <Row>
-                <Col md={6}>
+                <Col md={12}>
                     <section className={"status-tab"}>
-                        <h3 className={"status-tab-title"}>Pending Tests</h3>
-
                         <ProgressBar
                             now={
                                 numPending === 0
@@ -113,64 +140,80 @@ const LabDashboard = props => {
                                     (numPending / (numPending + numTested)) * 100 * 100
                                 ) / 100
                             }%`}
+                            striped
                         />
                         <p className={"status-tab-description"}>
-                            {numPending === 0
-                                ? 0
-                                : Math.round(
-                                (numPending / (numPending + numTested)) * 100 * 100
-                            ) / 100}
-                            % of tests are pending
+                            {numPending} Plant Samples are Pending to be Tested
                         </p>
                     </section>
                 </Col>
+            </Row>
+            <Row>
+                <Col md={12}>
+                    <Accordion>
+                        <Card>
+                            <Card.Header>
+                                <Accordion.Toggle as={Card.Header} variant="link" eventKey="0">
+                                    Pending Tests
+                                </Accordion.Toggle>
+                            </Card.Header>
+                            <Accordion.Collapse eventKey="0">
+                                <Card.Body>
+                                    <section className={"report-table-section"}>
+                                        {pendingReportsArray.length !== 0 ? (
+                                            <PendingReportTable
+                                                array={pendingReportsArray}
+                                                seedObjArr={seedObjArr}
+                                            />
+                                        ) : (
+                                            <div>You Don't have any harvest samples to be tested</div>
+                                        )}
+                                    </section>
+                                </Card.Body>
+                            </Accordion.Collapse>
+                        </Card>
+                        <Card>
+                            <Card.Header>
+                                <Accordion.Toggle as={Card.Header} variant="link" eventKey="1">
+                                    Completed Tests
+                                </Accordion.Toggle>
+                            </Card.Header>
+                            <Accordion.Collapse eventKey="1">
+                                <Card.Body>
+                                    <section className={"report-table-section"}>
+                                        {testedReportsArray.length !== 0 ? (
+                                            <AlreadyTestedReportTable
+                                                array={testedReportsArray}
+                                                seedObjArr={seedObjArr}
+                                            />
+                                        ) : (
+                                            <div>You Have Not Tested any Report Yet</div>
+                                        )}
+                                    </section>
+                                </Card.Body>
+                            </Accordion.Collapse>
+                        </Card>
+                    </Accordion>
+                </Col>
+            </Row>
+            <Row>
                 <Col md={6}>
                     <section className={"status-tab"}>
                         <h3 className={"status-tab-title"}>Approved Samples</h3>
-
-                        <ProgressBar
-                            now={
-                                numApproved === 0
-                                    ? 0
-                                    : Math.round((numApproved / numTested) * 100 * 100) / 100
-                            }
-                            label={`${
-                                numApproved === 0
-                                    ? 0
-                                    : Math.round((numApproved / numTested) * 100 * 100) / 100
-                            }%`}
+                        <PieChart1
+                            numRejected={numTested - numApproved}
+                            numApproved={numApproved}
                         />
-                        <p className={"status-tab-description"}>
-                            {numApproved === 0
-                                ? 0
-                                : Math.round((numApproved / numTested) * 100 * 100) / 100}
-                            % of the tested samples were approved
-                        </p>
+                    </section>
+                </Col>
+                <Col md={6}>
+                    <section className={"status-tab"}>
+                        <h3 className={"status-tab-title"}>Monthly Approval in Year 2018-19</h3>
+                        <BarGraph ObjectToShow={objectForBarGraph}/>
                     </section>
                 </Col>
             </Row>
-
-            <Row>
-                <Col md={6}>
-                    <section className={"report-table-section"}>
-                        <h3>Pending Tests</h3>
-                        <PendingReportTable
-                            array={pendingReportsArray}
-                            seedObjArr={seedObjArr}
-                        />
-                    </section>
-                </Col>
-
-                <Col md={6}>
-                    <section className={"report-table-section"}>
-                        <h3>Completed Tests</h3>
-                        <AlreadyTestedReportTable
-                            array={testedReportsArray}
-                            seedObjArr={seedObjArr}
-                        />
-                    </section>
-                </Col>
-            </Row>
+            {/*Two tables for report requests and already done*/}
         </>
     );
 };

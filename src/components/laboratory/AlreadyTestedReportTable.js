@@ -9,9 +9,9 @@ const AlreadyTestedReportTable = props => {
 
         console.log("use effect called", props);
     }, [props]);
-    useEffect(()=>{
+    useEffect(() => {
         setTableHead(['Batch Id', 'Farmer Name', 'Plant Name', 'Amount', 'Date Harvested', 'Date Tested', 'Report Result'])
-    },[]);
+    }, []);
 
     return (
 

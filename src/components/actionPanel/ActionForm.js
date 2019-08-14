@@ -39,7 +39,7 @@ const ActionForm = ({
   const sendHarvestReport = e => {
     e.preventDefault();
     e.stopPropagation();
-    seedObj.details.harvestTime = new Date().toDateString();
+    seedObj.details.harvestTime = new Date().toLocaleString();
     seedObj.details.totalHarvestAmount = formFieldValue;
     plantHarvestedByFarmer(seedObj.harvestUnitId, seedObj.details).then(
       hash => {
