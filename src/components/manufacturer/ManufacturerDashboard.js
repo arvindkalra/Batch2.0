@@ -20,7 +20,7 @@ const ManufacturerDashboard = ({location}) => {
     useEffect(() => {
         connectToMetamask().then(() => {
             fetchHarvestUnitsByManufacturer(harvestObject => {
-                console.log(harvestObject);
+
                 let tempAvailableArray = availableArray;
                 let rowArray = [];
                 rowArray.push(harvestObject.uid);

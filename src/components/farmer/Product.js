@@ -19,7 +19,7 @@ const Product = (props) => {
         connectToMetamask().then(() => {
 
             getSeedUnitDetails(buid).then(seedDetails => {
-                console.log(seedDetails);
+
                 setSeedObject(seedDetails);
                 setProductStatus(seedDetails.currentState);
 
@@ -135,7 +135,8 @@ const Product = (props) => {
                             Product Status
                         </h3>
 
-                        <ProgressBar striped variant={productStatus.value ===10? 'danger': 'Success'} now={getSeedProgress(productStatus.value)}
+                        <ProgressBar striped variant={productStatus.value === 10 ? 'danger' : 'Success'}
+                                     now={getSeedProgress(productStatus.value)}
                                      label={productStatus.status}/>
                         {productStatus.status === 'Sown' ? <p>
                             Current Location:<span className={'info'}>{seedObject.details.location}</span>

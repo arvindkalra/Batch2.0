@@ -29,7 +29,7 @@ const Layout = ({children}) => {
 
     return (
 
-        <Container fluid={true}>
+        <Container fluid={true} className={showSideBar? 'no-scroll': null} >
             {showSideBar? <SideBar closeSideBar={closeSideBar} />:null}
 
             <Row>

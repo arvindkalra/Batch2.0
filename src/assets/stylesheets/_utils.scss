@@ -5,7 +5,10 @@
 .center-align-text{
   text-align: center;
 }
-
+.no-scroll{
+  overflow: hidden;
+  position: fixed;
+}
 
 
 .btn{

@@ -9,7 +9,6 @@ const ActionPanel = ({productState, setProductStatus, seedObj}) => {
 
 
     const setList = () => {
-        console.log(productState.value);
         if (productState.value === 1) {
             return (
                 <ul className={"action-panel-list"}>
