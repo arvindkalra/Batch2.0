@@ -72,6 +72,20 @@
 
 
 }
+
+
+
+.product-status-section{
+
+  .progress{
+    height: 50px;
+    border-radius: 0;
+  }
+  .progress-bar{
+    font-style: italic;
+    font-size: 2em;
+  }
+}
 .product-details-section{
   padding-top: 30px;
   border-bottom: 2px solid $grey;

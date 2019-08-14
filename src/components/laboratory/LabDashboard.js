@@ -124,7 +124,10 @@ const LabDashboard = props => {
 
             <Row>
                 <Col md={12}>
-                    <section className={"status-tab"}>
+                    <section className={"product-status-section status-tab"}>
+                        <h3 className="status-tab-title">
+                            Pending Tests
+                        </h3>
                         <ProgressBar
                             now={
                                 numPending === 0
