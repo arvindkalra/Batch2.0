@@ -9,6 +9,8 @@ import ProgressBar from "react-bootstrap/ProgressBar";
 import { connectToMetamask } from "../../dbController/init";
 import { getRowsForLaboratory } from "../../dbController/laboratoryRole";
 import { getFarmerDetails } from "../../dbController/farmerRole";
+import Accordion from "react-bootstrap/Accordion";
+import Card from "react-bootstrap/Card";
 
 const LabDashboard = props => {
   const [pendingReportsArray, setPendingReportsArray] = useState([]);
@@ -60,9 +62,12 @@ const LabDashboard = props => {
             setTestedReportsArray([...tempTestedReports]);
             tempNumTested += 1;
             setNumTested(tempNumTested);
-          }else if(row.currentState.value === 3 || row.currentState.value === 4 ){
+          } else if (
+            row.currentState.value === 3 ||
+            row.currentState.value === 4
+          ) {
             // do nothing
-          }else {
+          } else {
             rowArr = [
               row.uid,
               name,
@@ -162,24 +167,51 @@ const LabDashboard = props => {
 
       {/*Two tables for report requests and already done*/}
       <Row>
-        <Col md={6}>
-          <section className={"report-table-section"}>
-            <h3>Pending Tests</h3>
-            <PendingReportTable
-              array={pendingReportsArray}
-              seedObjArr={seedObjArr}
-            />
-          </section>
-        </Col>
-
-        <Col md={6}>
-          <section className={"report-table-section"}>
-            <h3>Completed Tests</h3>
-            <AlreadyTestedReportTable
-              array={testedReportsArray}
-              seedObjArr={seedObjArr}
-            />
-          </section>
+        <Col md={12}>
+          <Accordion>
+            <Card>
+              <Card.Header>
+                <Accordion.Toggle as={Card.Header} variant="link" eventKey="0">
+                  Pending Tests
+                </Accordion.Toggle>
+              </Card.Header>
+              <Accordion.Collapse eventKey="0">
+                <Card.Body>
+                  <section className={"report-table-section"}>
+                    {pendingReportsArray.length !== 0 ? (
+                      <PendingReportTable
+                        array={pendingReportsArray}
+                        seedObjArr={seedObjArr}
+                      />
+                    ) : (
+                      <div>You Don't have any harvest samples to be tested</div>
+                    )}
+                  </section>
+                </Card.Body>
+              </Accordion.Collapse>
+            </Card>
+            <Card>
+              <Card.Header>
+                <Accordion.Toggle as={Card.Header} variant="link" eventKey="1">
+                  Completed Tests
+                </Accordion.Toggle>
+              </Card.Header>
+              <Accordion.Collapse eventKey="1">
+                <Card.Body>
+                  <section className={"report-table-section"}>
+                    {testedReportsArray.length !== 0 ? (
+                      <AlreadyTestedReportTable
+                        array={testedReportsArray}
+                        seedObjArr={seedObjArr}
+                      />
+                    ) : (
+                      <div>You Have Not Tested any Report Yet</div>
+                    )}
+                  </section>
+                </Card.Body>
+              </Accordion.Collapse>
+            </Card>
+          </Accordion>
         </Col>
       </Row>
     </>

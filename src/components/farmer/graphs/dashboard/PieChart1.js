@@ -1,15 +1,19 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Doughnut } from "react-chartjs-2";
 import { setLabelsForGraphs } from "../../../../helpers";
 
 const PieChart1 = ({ numSown, numInventory, numSold }) => {
+  const [total, setTotal] = useState(numSold + numSown + numInventory);
+  useEffect(() => {
+    setTotal(numSold + numSown + numInventory);
+  }, [numInventory, numSown, numSold]);
   const labels = [
     "Plants To Be Harvested",
     "Plants in Inventory",
     "Plants Already Sold"
   ];
   const backgrounds = ["#FF6384", "#36A2EB", "#007f02"];
-  console.log(numSown, numInventory, numSold);
+
   const options = {
     legend: {
       position: "left"
@@ -28,7 +32,11 @@ const PieChart1 = ({ numSown, numInventory, numSold }) => {
         labels: labels,
         datasets: [
           {
-            data: [numSown, numInventory, numSold],
+            data: [
+              ((numSown / total) * 100).toFixed(2),
+              ((numInventory / total) * 100).toFixed(2),
+              ((numSold / total) * 100).toFixed(2)
+            ],
             backgroundColor: backgrounds
           }
         ]

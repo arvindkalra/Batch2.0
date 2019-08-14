@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Pie } from "react-chartjs-2";
 import { setLabelsForGraphs } from "../../../../helpers";
 
 const PieChart3 = ({ numHarvested, numDestroyed }) => {
+  const [total, setTotal] = useState(numHarvested + numDestroyed);
+  useEffect(() => {
+    setTotal(numHarvested + numDestroyed);
+  }, [numDestroyed, numHarvested]);
   const options = {
     legend: {
       position: "left"
@@ -22,7 +26,10 @@ const PieChart3 = ({ numHarvested, numDestroyed }) => {
 
         datasets: [
           {
-            data: [numHarvested, numDestroyed],
+            data: [
+              ((numHarvested / total) * 100).toFixed(2),
+              ((numDestroyed / total) * 100).toFixed(2)
+            ],
             backgroundColor: ["#007f02", "#ff0034"],
             hoverBackgroundColor: ["#007f02", "#ff0034"]
           }
