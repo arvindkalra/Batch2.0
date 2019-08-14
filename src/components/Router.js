@@ -3,7 +3,7 @@ import {BrowserRouter as Router, Route} from "react-router-dom";
 import App from "../App";
 import Farmer from "./farmer/Farmer";
 import Product from "./farmer/Product";
-import About from './farmer/About';
+import About from './About';
 import Laboratory from './laboratory/Laboratory';
 import Manufacturer from "./manufacturer/Manufacturer";
 import Transporter from "./transporter/Transporter";
@@ -28,6 +28,7 @@ const AppRouter = () => {
             <Route exact path={'/farmer/products'} component={Products}/>
             {/*lab routes*/}
             <Route exact path={'/laboratory/dashboard'} component={Laboratory}/>
+            <Route exact path={'/laboratory/about'} component={About}/>
             <Route exact path={'/laboratory/report/:id'} component={Report} />
             {/*manufacturer router*/}
             <Route exact path={'/manufacturer/dashboard'} component={Manufacturer}/>
