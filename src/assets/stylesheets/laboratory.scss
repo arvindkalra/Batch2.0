@@ -59,3 +59,20 @@
       }
     }
   }
+
+  .card {
+    margin: 10px;
+    border-radius: 10px!important;
+    .card-header{
+      border: none;
+      background-color: #e9ecef;
+      text-align: center;
+      text-transform: uppercase;
+    }
+    &:hover{
+      cursor: pointer;
+    }
+  }
+  canvas{
+    height: 242px!important;
+  }

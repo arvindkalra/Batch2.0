@@ -11,6 +11,8 @@ import { getRowsForLaboratory } from "../../dbController/laboratoryRole";
 import { getFarmerDetails } from "../../dbController/farmerRole";
 import Accordion from "react-bootstrap/Accordion";
 import Card from "react-bootstrap/Card";
+import PieChart1 from "./graphs/PieChart1";
+import BarGraph from "../farmer/graphs/dashboard/BarGraph";
 
 const LabDashboard = props => {
   const [pendingReportsArray, setPendingReportsArray] = useState([]);
@@ -19,6 +21,19 @@ const LabDashboard = props => {
   const [numPending, setNumPending] = useState(0);
   const [numApproved, setNumApproved] = useState(0);
   const [seedObjArr, setSeedObjArr] = useState({});
+  const [objectForBarGraph, setObjectForBarGraph] = useState({
+    Jan: 10,
+    Feb: 12,
+    Mar: 4,
+    April: 23,
+    June: 12,
+    July: 14,
+    Aug: 12,
+    Sep: 3,
+    Oct: 34,
+    Nov: 15,
+    Dec: 37
+  });
   useEffect(() => {
     console.log("lab dash board use effect");
     connectToMetamask().then(() => {
@@ -109,10 +124,8 @@ const LabDashboard = props => {
       </Row>
 
       <Row>
-        <Col md={6}>
+        <Col md={12}>
           <section className={"status-tab"}>
-            <h3 className={"status-tab-title"}>Pending Tests</h3>
-
             <ProgressBar
               now={
                 numPending === 0
@@ -128,44 +141,14 @@ const LabDashboard = props => {
                       (numPending / (numPending + numTested)) * 100 * 100
                     ) / 100
               }%`}
+              striped
             />
             <p className={"status-tab-description"}>
-              {numPending === 0
-                ? 0
-                : Math.round(
-                    (numPending / (numPending + numTested)) * 100 * 100
-                  ) / 100}
-              % of tests are pending
-            </p>
-          </section>
-        </Col>
-        <Col md={6}>
-          <section className={"status-tab"}>
-            <h3 className={"status-tab-title"}>Approved Samples</h3>
-
-            <ProgressBar
-              now={
-                numApproved === 0
-                  ? 0
-                  : Math.round((numApproved / numTested) * 100 * 100) / 100
-              }
-              label={`${
-                numApproved === 0
-                  ? 0
-                  : Math.round((numApproved / numTested) * 100 * 100) / 100
-              }%`}
-            />
-            <p className={"status-tab-description"}>
-              {numApproved === 0
-                ? 0
-                : Math.round((numApproved / numTested) * 100 * 100) / 100}
-              % of the tested samples were approved
+              {numPending} Plant Samples are Pending to be Tested
             </p>
           </section>
         </Col>
       </Row>
-
-      {/*Two tables for report requests and already done*/}
       <Row>
         <Col md={12}>
           <Accordion>
@@ -214,6 +197,24 @@ const LabDashboard = props => {
           </Accordion>
         </Col>
       </Row>
+      <Row>
+        <Col md={6}>
+          <section className={"status-tab"}>
+            <h3 className={"status-tab-title"}>Approved Samples</h3>
+            <PieChart1
+              numRejected={numTested - numApproved}
+              numApproved={numApproved}
+            />
+          </section>
+        </Col>
+        <Col md={6}>
+          <section className={"status-tab"}>
+            <h3 className={"status-tab-title"}>Monthly Approval in Year 2018-19</h3>
+            <BarGraph ObjectToShow={objectForBarGraph} />
+          </section>
+        </Col>
+      </Row>
+      {/*Two tables for report requests and already done*/}
     </>
   );
 };
