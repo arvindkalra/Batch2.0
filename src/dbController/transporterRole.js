@@ -55,17 +55,28 @@ function handleError(err) {
 }
 
 export function getLabSampleConsignments(rowCallback) {
-  makeTransporterTransaction("getFarmerToLabConsignments").then(array => {
-    array = array.valueOf();
-    for (let i = 0; i < array.length; i++) {
-      let x = array[i].toNumber();
-      makeStorageTransaction("getHarvestUnit", x)
-        .then(o => {
-          return handleObject(o, x, true);
-        })
-        .then(rowCallback)
-        .catch(handleError);
-    }
+  return new Promise((resolve, reject) => {
+    makeTransporterTransaction("getFarmerToLabConsignments").then(array => {
+      array = array.valueOf();
+      for (let i = 0; i < array.length; i++) {
+        let x = array[i].toNumber();
+        makeStorageTransaction("getHarvestUnit", x)
+          .then(o => {
+            return handleObject(o, x, true);
+          })
+          .then(x => {
+            rowCallback(x);
+            complete(i, array.length - 1);
+          })
+          .catch(handleError);
+      }
+
+      function complete(iteration, max) {
+        if (iteration === max) {
+          resolve();
+        }
+      }
+    });
   });
 }
 
@@ -102,17 +113,28 @@ export function deliverLabSampleConsignment(
 }
 
 export function getFarmToFactoryConsignments(rowCallback) {
-  makeTransporterTransaction("getFarmerToFactoryConsignments").then(array => {
-    array = array.valueOf();
-    for (let i = 0; i < array.length; i++) {
-      let x = array[i].toNumber();
-      makeStorageTransaction("getHarvestUnit", x)
-        .then(o => {
-          return handleObject(o, x, true);
-        })
-        .then(rowCallback)
-        .catch(handleError);
-    }
+  return new Promise((resolve, reject) => {
+    makeTransporterTransaction("getFarmerToFactoryConsignments").then(array => {
+      array = array.valueOf();
+      for (let i = 0; i < array.length; i++) {
+        let x = array[i].toNumber();
+        makeStorageTransaction("getHarvestUnit", x)
+          .then(o => {
+            return handleObject(o, x, true);
+          })
+          .then(x => {
+            rowCallback(x);
+            completed(i, array.length - 1);
+          })
+          .catch(handleError);
+      }
+
+      function completed(iteration, max) {
+        if (iteration === max) {
+          resolve();
+        }
+      }
+    });
   });
 }
 
