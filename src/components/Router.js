@@ -14,6 +14,7 @@ import TrackProduct from "./TrackProduct";
 import NewHarvest from "./farmer/NewHarvest";
 import Products from "./farmer/Products";
 import Distributor from "./distributor/Distributor";
+import Report from "./laboratory/Report";
 
 const AppRouter = () => {
     return (
@@ -27,6 +28,7 @@ const AppRouter = () => {
             <Route exact path={'/farmer/products'} component={Products}/>
             {/*lab routes*/}
             <Route exact path={'/laboratory/dashboard'} component={Laboratory}/>
+            <Route exact path={'/laboratory/report/:id'} component={Report} />
             {/*manufacturer router*/}
             <Route exact path={'/manufacturer/dashboard'} component={Manufacturer}/>
             <Route exact path={'/manufacturer/harvests/:buid'} component={ManufacturerBatchDetail}/>

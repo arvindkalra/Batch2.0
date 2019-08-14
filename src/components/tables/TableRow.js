@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import FormModal from "./FormModal";
-
+import {Link} from 'react-router-dom'
 const TableRow = ({tableRow, rowDetails}) => {
 
 
@@ -23,10 +23,13 @@ const TableRow = ({tableRow, rowDetails}) => {
         }
     };
     const getDataTag = data => {
+
         let d = data.toString().toLowerCase();
         switch (d) {
             case 'upload report':
                 return (<FormModal formDetails={rowDetails} tableRow={tableRow} buttonText={data}/>);
+            case 'view report':
+                return (<Link reportInfo={tableRow} to={`/laboratory/report/${tableRow[0]}`}>View Report </Link>);
             default:
                 return data
 
