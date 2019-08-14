@@ -99,19 +99,6 @@ const LabDashboard = props => {
                         setNumApproved(tempNumApproved);
                     }
                 });
-
-                // tempState.push(row);
-                // setPendingReportsArray([...tempState]);
-                // currentLocation: "Green House"
-                // datePlanted: "12/1/2019"
-                // floweringTime: "65 Days"
-                // harvestTime: "Wed Jul 31 2019"
-                // lineage: "Urkle"
-                // nutrients: "homerJbio"
-                // plantName: "Mango"
-                // seedCount: "100"
-                // sentToLabOn: "Wed Jul 31 2019"
-                // soilType: "slightly acidic"
             });
         });
     }, []);
