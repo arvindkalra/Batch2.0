@@ -8,6 +8,7 @@ import ManufacturerBarGraph from "./ManufacturerBarGraph";
 import {fetchHarvestUnitsByManufacturer} from "../../dbController/manufacturerRole";
 import {connectToMetamask} from "../../dbController/init";
 import {getFarmerDetails} from "../../dbController/farmerRole";
+import BarGraph from "../farmer/graphs/dashboard/BarGraph";
 
 const ManufacturerDashboard = ({location}) => {
     const [availableArray, setAvailableArray] = useState([]);
@@ -25,54 +26,59 @@ const ManufacturerDashboard = ({location}) => {
                 let rowArray = [];
                 rowArray.push(harvestObject.uid);
                 getFarmerDetails(harvestObject.farmerAddress).then(farmerObject => {
+                    console.log(harvestObject);
                     rowArray.push(farmerObject.name);
                     rowArray.push(harvestObject.details.totalHarvestAmount);
                     rowArray.push(harvestObject.details.plantName);
+                    let harvestUsed = harvestObject.details.totalHarvestUsed ? harvestObject.details.totalHarvestUsed : 0;
+                    let leftAmount = harvestObject.details.totalHarvestAmount - harvestUsed;
                     tempAvailableArray.push(rowArray);
                     setAvailableArray([...tempAvailableArray]);
-                    setAvailableGraphData({
-                        Gondza: 1000,
-                        Tazie: 500,
-                        Sansa: 750,
-                        Skypey: 800
-                    });
-                    setPacketsManufacturedGraphData({
-                        Preroll: 2000,
-                        Edible: 1200,
-                        Patches: 800
-                    });
+                    addToAvailableGraphData(harvestObject.details.plantName, leftAmount);
                 });
             });
         });
-        // getDataForManufacturer();
     }, []);
 
-    let getDataForManufacturer = () => {
-        setAvailableArray([
-            [1, "Pokemon", 100, "Gundza"],
+    function addToAvailableGraphData(plantName, availability) {
+        let tempBarObject = availableGraphData;
+        if (tempBarObject[plantName]) {
+            let old = tempBarObject[plantName];
+            tempBarObject[plantName] = old + availability;
+        } else {
+            tempBarObject[plantName] = availability;
+        }
+        console.log(tempBarObject);
+        setAvailableGraphData(tempBarObject);
+    }
 
-            [2, "Pokemon", 100, "Gundza"],
-            [3, "Pokemon", 100, "Gundza"]
-        ]);
+    // let getDataForManufacturer = () => {
+    //     setAvailableArray([
+    //         [1, "Pokemon", 100, "Gundza"],
+    //
+    //         [2, "Pokemon", 100, "Gundza"],
+    //         [3, "Pokemon", 100, "Gundza"]
+    //     ]);
+    //
+    //     setPacketsReadyForDispatch([
+    //         [1, "Preroll", "Gummy Bear", "1.75g"],
+    //         [1, "Preroll", "Gummy Bear", "1.75g"],
+    //
+    //         [1, "Preroll", "Gummy Bear", "1.75g"]
+    //     ]);
+    //     setAvailableGraphData({
+    //         Gondza: 1000,
+    //         Tazie: 500,
+    //         Sansa: 750,
+    //         Skypey: 800
+    //     });
+    //     setPacketsManufacturedGraphData({
+    //         Preroll: 2000,
+    //         Edible: 1200,
+    //         Patches: 800
+    //     });
+    // };
 
-        setPacketsReadyForDispatch([
-            [1, "Preroll", "Gummy Bear", "1.75g"],
-            [1, "Preroll", "Gummy Bear", "1.75g"],
-
-            [1, "Preroll", "Gummy Bear", "1.75g"]
-        ]);
-        setAvailableGraphData({
-            Gondza: 1000,
-            Tazie: 500,
-            Sansa: 750,
-            Skypey: 800
-        });
-        setPacketsManufacturedGraphData({
-            Preroll: 2000,
-            Edible: 1200,
-            Patches: 800
-        });
-    };
     return (
         <>
             <Row>
@@ -84,7 +90,7 @@ const ManufacturerDashboard = ({location}) => {
                 <Col md={6}>
                     <section className={"manufacturer-graph dashboard-section"}>
                         <h3 className={'section-title'}>Available Raw Material</h3>
-                        <ManufacturerBarGraph data={availableGraphData}/>
+                        <BarGraph ObjectToShow={availableGraphData}/>
                     </section>
                 </Col>
                 <Col md={6}>

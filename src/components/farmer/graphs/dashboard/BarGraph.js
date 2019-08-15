@@ -45,6 +45,9 @@ const BarGraph = ({ ObjectToShow }) => {
           gridLines: {
             display: true,
             drawBorder: true
+          },
+          ticks: {
+            suggestedMin: 0
           }
         }
       ],
@@ -74,7 +77,12 @@ const BarGraph = ({ ObjectToShow }) => {
     <Row>
       <Col md={12}>
         <Bar
-          data={{ datasets: [{ data: dataArray, label: graphLabel, backgroundColor: colors }], labels: labels }}
+          data={{
+            datasets: [
+              { data: dataArray, label: graphLabel, backgroundColor: colors }
+            ],
+            labels: labels
+          }}
           options={options}
         />
       </Col>
