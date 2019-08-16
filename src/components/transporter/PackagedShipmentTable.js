@@ -26,8 +26,8 @@ const PackagedShipmentTable = ({ array, rowObjArr }) => {
             return (
               <PackagedShipmentRow
                 value={element}
-                key={id + "" + element.puid}
-                rowObj={rowObjArr[element.puid]}
+                key={id + "" + element.uid}
+                rowObj={rowObjArr[element.uid]}
               />
             );
           })

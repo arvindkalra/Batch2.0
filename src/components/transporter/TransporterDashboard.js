@@ -5,6 +5,7 @@ import Row from "react-bootstrap/Row";
 import HarvestShipmentTable from "./HarvestShipmentTable";
 import PackagedShipmentTable from "./PackagedShipmentTable";
 import {
+  getFactoryToDistributorConsignments,
   getFarmToFactoryConsignments,
   getLabSampleConsignments,
   getTransportUnitDetails
@@ -17,6 +18,7 @@ import { getLaboratoryDetails } from "../../dbController/laboratoryRole";
 import SampleShipmentTable from "./SampleShipmentTable";
 import Accordion from "react-bootstrap/Accordion";
 import Card from "react-bootstrap/Card";
+import {getDistributorDetails} from "../../dbController/distributorRole";
 
 const TransporterDashboard = ({ location }) => {
   const [harvestShipments, setHarvestShipments] = useState([]);
@@ -31,7 +33,6 @@ const TransporterDashboard = ({ location }) => {
       let tempPackagedShipment = packagedShipments;
       let tempSampleShipments = sampleShipments;
       getFarmToFactoryConsignments(row => {
-        console.log(row);
         let tempRow = harvestRowObjArr;
         tempRow[row.uid] = row;
         setHarvestRowObjArr(tempRow);
@@ -57,35 +58,7 @@ const TransporterDashboard = ({ location }) => {
           );
         });
       });
-      getTransportUnitDetails(false, row => {
-        // amount: 10
-        // currentState: "packed"
-        let tempRow = packageRowObjArr;
-        tempRow[row.uid] = row;
-        setPackageObjRowArr(tempRow);
-        let rowObj = {};
-        rowObj.puid = row.uid;
-        getManufacturerDetails(row.senderAddress).then(manufacturerObj => {
-          getRetailerDetails(row.receiverAddress).then(retailerObj => {
-            if (
-              row.currentState === "delivered" ||
-              row.currentState === "lost"
-            ) {
-              return;
-            }
-            rowObj.senderCompany = manufacturerObj.name;
-            rowObj.receiverCompany = retailerObj.name;
-            rowObj.amount = row.amount + " Units";
-            rowObj.currentStatus = row.currentState;
-            rowObj.dispatchTime = row.details.dispatchTime;
-
-            tempPackagedShipment.push(rowObj);
-            setPackagedShipments([...tempPackagedShipment]);
-          });
-        });
-      });
       getLabSampleConsignments(row => {
-        console.log(row);
         let tempRow = sampleRowObjArr;
         tempRow[row.uid] = row;
         setSampleRowObjArr(tempRow);
@@ -109,6 +82,31 @@ const TransporterDashboard = ({ location }) => {
             }
           });
       });
+      getFactoryToDistributorConsignments(row => {
+        console.log(row);
+        let tempRow = packageRowObjArr;
+        tempRow[row.uid] = row;
+        setPackageObjRowArr(tempRow);
+        let rowObj = {};
+        let manufacturerAddress = row.details.manufacturerAddress || "0x627306090abaB3A6e1400e9345bC60c78a8BEf57";
+        let manufacturerName;
+        getManufacturerDetails(manufacturerAddress).then(({name}) => {
+          manufacturerName = name;
+          return getDistributorDetails(row.details.distributorAddress).then(({name}) => {
+            if (row.currentState.value < 4) {
+              rowObj.uid = row.uid;
+              rowObj.senderCompany = manufacturerName;
+              rowObj.receiverCompany = name;
+              rowObj.currentStatus = row.currentState;
+              rowObj.dispatchTime =
+                  row.details.manufacturerToDistributorDispatchTime;
+              rowObj.amount = row.details.totalPacketsManufactured;
+              tempPackagedShipment.push(rowObj);
+              setPackagedShipments([...tempPackagedShipment]);
+            }
+          })
+        })
+      })
     });
   }, []);
 

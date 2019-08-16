@@ -8,7 +8,7 @@ import ReportForm from "../laboratory/ReportForm";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
-import {checkMined, connectToMetamask} from "../../dbController/init";
+import {checkMined, connectToMetamask, OWN_ADDRESS} from "../../dbController/init";
 import { sendProductToDistributor } from "../../dbController/manufacturerRole";
 
 const ManufacturedPacketsTable = ({ array }) => {
@@ -27,6 +27,7 @@ const ManufacturedPacketsTable = ({ array }) => {
     e.stopPropagation();
     let prevDetails = array[showModal.id].details;
     let newDetails = {
+      manufacturerAddress: OWN_ADDRESS,
       distributorAddress: "0x627306090abaB3A6e1400e9345bC60c78a8BEf57",
       manufacturerToDistributorTransporter: "0x627306090abaB3A6e1400e9345bC60c78a8BEf57",
       manufacturerToDistributorPrice: price,
