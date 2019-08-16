@@ -32,7 +32,7 @@ const AppRouter = () => {
             <Route exact path={'/laboratory/report/:id'} component={Report}/>
             {/*manufacturer router*/}
             <Route exact path={'/manufacturer/dashboard'} component={Manufacturer}/>
-            <Route exact path={'/manufacturer/harvests/:buid'} component={ManufacturerBatchDetail}/>
+            <Route exact path={'/manufacturer/harvest/:buid'} component={ManufacturerBatchDetail}/>
             {/*distributor routes*/}
             <Route exact path={'/distributor/dashboard'} component={Distributor}/>
             {/*transporter routes*/}
