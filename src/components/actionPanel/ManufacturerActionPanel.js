@@ -12,8 +12,6 @@ const ManufacturerActionPanel = ({ left, total, prevDetails }) => {
   const [packetsMade, setPacketsMade] = useState("");
   const [packetSize, setPacketSize] = useState("");
   const [productType, setProductType] = useState("Preroll");
-  const [retailerName, setRetailerName] = useState("");
-  const [transporterName, setTransporterName] = useState("");
 
   const handleClick = e => {
     e.preventDefault();
@@ -63,7 +61,7 @@ const ManufacturerActionPanel = ({ left, total, prevDetails }) => {
               type={"number"}
               placeholder={"Enter the amount harvested in pounds"}
               onChange={e => {
-                setMaterialUsed(e.target.value);
+                setMaterialUsed(parseInt(e.target.value));
               }}
             />
           </Form.Group>
@@ -75,7 +73,7 @@ const ManufacturerActionPanel = ({ left, total, prevDetails }) => {
               type={"number"}
               placeholder={"Enter the amount harvested in pounds"}
               onChange={e => {
-                setPacketsMade(e.target.value);
+                setPacketsMade(parseInt(e.target.value));
               }}
             />
           </Form.Group>
@@ -106,36 +104,6 @@ const ManufacturerActionPanel = ({ left, total, prevDetails }) => {
               <option value={"Edibles"}>Edibles</option>
               <option value={"Oils"}>Oils</option>
               <option value={"Concentrate"}>Concentrate</option>
-            </Form.Control>
-          </Form.Group>
-        </Col>
-        <Col md={6}>
-          <Form.Group>
-            <Form.Label>Retailer Name</Form.Label>
-            <Form.Control
-              as={"select"}
-              placeholder={"Enter the amount harvested in pounds"}
-              onChange={e => {
-                setRetailerName(e.target.value);
-              }}
-            >
-              <option value="">Retailer A</option>
-              <option value="">Retailer B</option>
-            </Form.Control>
-          </Form.Group>
-        </Col>
-        <Col md={6}>
-          <Form.Group>
-            <Form.Label>Transporter Name</Form.Label>
-            <Form.Control
-              as={"select"}
-              placeholder={"Enter the amount harvested in pounds"}
-              onChange={e => {
-                setTransporterName(e.target.value);
-              }}
-            >
-              <option value="">abcd</option>
-              <option value="">efgh</option>
             </Form.Control>
           </Form.Group>
         </Col>

@@ -5,7 +5,10 @@ import Row from "react-bootstrap/Row";
 import AvailableRawMaterialTable from "./AvailableRawMaterialTable";
 import ManufacturedPacketsTable from "./ManufacturedPacketsTable";
 import ManufacturerBarGraph from "./ManufacturerBarGraph";
-import {fetchHarvestUnitsByManufacturer, fetchPackagedUnitsByManufacturer} from "../../dbController/manufacturerRole";
+import {
+  fetchHarvestUnitsByManufacturer,
+  fetchPackagedUnitsByManufacturer
+} from "../../dbController/manufacturerRole";
 import { connectToMetamask } from "../../dbController/init";
 import { getFarmerDetails } from "../../dbController/farmerRole";
 import BarGraph from "../farmer/graphs/dashboard/BarGraph";
@@ -38,26 +41,49 @@ const ManufacturerDashboard = ({ location }) => {
             tempAvailableArray.push(rowArray);
             setAvailableArray([...tempAvailableArray]);
           }
-          addToAvailableGraphData(harvestObject.details.plantName, leftAmount);
+          addToGraphData(
+            harvestObject.details.plantName,
+            leftAmount,
+            availableGraphData,
+            setAvailableGraphData
+          );
         });
       });
 
+      let tempAvailablePackets = packetsReadyForDispatch;
       fetchPackagedUnitsByManufacturer(packageUnit => {
         console.log(packageUnit);
-      })
+        if (packageUnit.currentState.value === 1) {
+          let obj = {
+            productUnitId: packageUnit.uid,
+            productType: packageUnit.details.productType,
+            totalPacketsManufactured:
+              packageUnit.details.totalPacketsManufactured,
+            packetSize: packageUnit.details.packetSize,
+            details: packageUnit.details
+          };
+          tempAvailablePackets.push(obj);
+          setPacketsReadyForDispatch([...tempAvailablePackets]);
+        }
+        addToGraphData(
+          packageUnit.details.productType,
+          parseInt(packageUnit.details.totalPacketsManufactured),
+          packetsManufacturedGraphData,
+          setPacketsManufacturedGraphData
+        );
+      });
     });
   }, []);
 
-  function addToAvailableGraphData(plantName, availability) {
-    let tempBarObject = availableGraphData;
-    if (tempBarObject[plantName]) {
-      let old = tempBarObject[plantName];
-      tempBarObject[plantName] = old + availability;
+  function addToGraphData(which, howMuch, getter, setter) {
+    let tempBarObject = getter;
+    if (tempBarObject[which]) {
+      let old = tempBarObject[which];
+      tempBarObject[which] = old + howMuch;
     } else {
-      tempBarObject[plantName] = availability;
+      tempBarObject[which] = howMuch;
     }
-    console.log(tempBarObject);
-    setAvailableGraphData(tempBarObject);
+    setter(tempBarObject);
   }
 
   return (
@@ -95,7 +121,7 @@ const ManufacturerDashboard = ({ location }) => {
             <h3 className={"section-title"}>
               Products Manufactured in 2018-19
             </h3>
-            <ManufacturerBarGraph data={packetsManufacturedGraphData} />
+            <BarGraph ObjectToShow={packetsManufacturedGraphData} />
           </section>
         </Col>
       </Row>

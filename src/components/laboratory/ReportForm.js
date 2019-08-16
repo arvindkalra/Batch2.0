@@ -111,7 +111,7 @@ const ReportForm = ({ formDetails }) => {
                       type={"number"}
                       placeholder={"Enter the THC content"}
                       onChange={e => {
-                        setThc(e.target.value);
+                        setThc(parseInt(e.target.value));
                       }}
                     />
                   </Form.Group>
@@ -125,7 +125,7 @@ const ReportForm = ({ formDetails }) => {
                       type={"number"}
                       placeholder={"Enter the CBD content"}
                       onChange={e => {
-                        setCbd(e.target.value);
+                        setCbd(parseInt(e.target.value));
                       }}
                     />
                   </Form.Group>
@@ -139,7 +139,7 @@ const ReportForm = ({ formDetails }) => {
                       type={"number"}
                       placeholder={"Enter the Cannabiniods content"}
                       onChange={e => {
-                        setCannabinoids(e.target.value);
+                        setCannabinoids(parseInt(e.target.value));
                       }}
                     />
                   </Form.Group>

@@ -120,7 +120,7 @@ const ActionForm = ({
                                 type={"number"}
                                 placeholder={"Enter the amount crop destroyed in pounds"}
                                 onChange={e => {
-                                    setDestroyQuantity(e.target.value);
+                                    setDestroyQuantity(parseInt(e.target.value));
                                 }}
                             />
                         </Form.Group>
@@ -177,7 +177,7 @@ const ActionForm = ({
                                 type={"number"}
                                 placeholder={"Enter the amount harvested in pounds"}
                                 onChange={e => {
-                                    setFormFieldValue(e.target.value);
+                                    setFormFieldValue(parseInt(e.target.value));
                                 }}
                             />
                         </Form.Group>
