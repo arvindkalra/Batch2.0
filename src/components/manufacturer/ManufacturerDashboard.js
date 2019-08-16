@@ -5,7 +5,7 @@ import Row from "react-bootstrap/Row";
 import AvailableRawMaterialTable from "./AvailableRawMaterialTable";
 import ManufacturedPacketsTable from "./ManufacturedPacketsTable";
 import ManufacturerBarGraph from "./ManufacturerBarGraph";
-import { fetchHarvestUnitsByManufacturer } from "../../dbController/manufacturerRole";
+import {fetchHarvestUnitsByManufacturer, fetchPackagedUnitsByManufacturer} from "../../dbController/manufacturerRole";
 import { connectToMetamask } from "../../dbController/init";
 import { getFarmerDetails } from "../../dbController/farmerRole";
 import BarGraph from "../farmer/graphs/dashboard/BarGraph";
@@ -41,6 +41,10 @@ const ManufacturerDashboard = ({ location }) => {
           addToAvailableGraphData(harvestObject.details.plantName, leftAmount);
         });
       });
+
+      fetchPackagedUnitsByManufacturer(packageUnit => {
+        console.log(packageUnit);
+      })
     });
   }, []);
 

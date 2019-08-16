@@ -11,8 +11,7 @@ const ManufacturerActionPanel = ({ left, total, prevDetails }) => {
   const [materialUsed, setMaterialUsed] = useState("");
   const [packetsMade, setPacketsMade] = useState("");
   const [packetSize, setPacketSize] = useState("");
-  const [packetName, setPacketName] = useState("");
-  const [productType, setProductType] = useState("");
+  const [productType, setProductType] = useState("Preroll");
   const [retailerName, setRetailerName] = useState("");
   const [transporterName, setTransporterName] = useState("");
 
@@ -21,21 +20,24 @@ const ManufacturerActionPanel = ({ left, total, prevDetails }) => {
     e.stopPropagation();
     let packetObj = {
       packetSize,
-      packetName,
       productType,
       packedOn: new Date().toLocaleString(),
       harvestUnitId: prevDetails.uid,
       totalPacketsManufactured: packetsMade
     };
-    prevDetails.details.totalHarvestUsed = materialUsed;
+    console.log(packetObj);
+    let oldHarvestUsed = prevDetails.details.totalHarvestUsed ? prevDetails.details.totalHarvestUsed : 0;
+    prevDetails.details.totalHarvestUsed = parseInt(oldHarvestUsed) + parseInt(materialUsed);
     if (left < materialUsed) {
       alert("You Don't have enough RAW MATERIAL.!");
       return;
     }
     console.log(prevDetails.details);
-    packetsManufactured(prevDetails.uid, prevDetails.details, packetObj).then(hash => {
-      checkMined(hash, () => window.location.reload());
-    });
+    packetsManufactured(prevDetails.uid, prevDetails.details, packetObj).then(
+      hash => {
+        checkMined(hash, () => window.location.reload());
+      }
+    );
   };
 
   return (
@@ -94,24 +96,17 @@ const ManufacturerActionPanel = ({ left, total, prevDetails }) => {
           <Form.Group>
             <Form.Label>Product Type</Form.Label>
             <Form.Control
-              type={"text"}
-              placeholder={"enter the product type"}
+              as={"select"}
               onChange={e => {
                 setProductType(e.target.value);
               }}
-            />
-          </Form.Group>
-        </Col>
-        <Col md={6}>
-          <Form.Group>
-            <Form.Label>Packet Name</Form.Label>
-            <Form.Control
-              type={"text"}
-              placeholder={"Enter the amount harvested in pounds"}
-              onChange={e => {
-                setPacketName(e.target.value);
-              }}
-            />
+            >
+              <option value={"Preroll"}>Preroll</option>
+              <option value={"Flowers"}>Flower</option>
+              <option value={"Edibles"}>Edibles</option>
+              <option value={"Oils"}>Oils</option>
+              <option value={"Concentrate"}>Concentrate</option>
+            </Form.Control>
           </Form.Group>
         </Col>
         <Col md={6}>
@@ -124,12 +119,12 @@ const ManufacturerActionPanel = ({ left, total, prevDetails }) => {
                 setRetailerName(e.target.value);
               }}
             >
-              <option value="">abcd</option>
-              <option value="">efgh</option>
+              <option value="">Retailer A</option>
+              <option value="">Retailer B</option>
             </Form.Control>
           </Form.Group>
         </Col>
-        <Col md={{ span: 6, offset: 3 }}>
+        <Col md={6}>
           <Form.Group>
             <Form.Label>Transporter Name</Form.Label>
             <Form.Control
