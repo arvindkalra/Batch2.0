@@ -199,7 +199,7 @@ const LabDashboard = props => {
                 <Col md={6}>
                     <section className={"status-tab"}>
                         <h3 className={"status-tab-title"}>Monthly Approval in Year 2018-19</h3>
-                        <BarGraph ObjectToShow={objectForBarGraph}/>
+                        <BarGraph ObjectToShow={objectForBarGraph} label={"Approvals"}/>
                     </section>
                 </Col>
             </Row>

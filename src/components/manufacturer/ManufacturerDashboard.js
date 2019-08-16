@@ -25,7 +25,7 @@ const ManufacturerDashboard = ({ location }) => {
     connectToMetamask().then(() => {
       fetchHarvestUnitsByManufacturer(harvestObject => {
         let tempAvailableArray = availableArray;
-        getFarmerDetails(harvestObject.farmerAddress).then(farmerObject => {
+        getFarmerDetails(harvestObject.details.farmerAddress).then(farmerObject => {
           let harvestUsed = harvestObject.details.totalHarvestUsed
             ? harvestObject.details.totalHarvestUsed
             : 0;
@@ -97,7 +97,7 @@ const ManufacturerDashboard = ({ location }) => {
         <Col md={6}>
           <section className={"manufacturer-graph dashboard-section"}>
             <h3 className={"section-title"}>Available Raw Material</h3>
-            <BarGraph ObjectToShow={availableGraphData} />
+            <BarGraph ObjectToShow={availableGraphData} label={"Available Pounds"}/>
           </section>
         </Col>
         <Col md={6}>
@@ -121,7 +121,7 @@ const ManufacturerDashboard = ({ location }) => {
             <h3 className={"section-title"}>
               Products Manufactured in 2018-19
             </h3>
-            <BarGraph ObjectToShow={packetsManufacturedGraphData} />
+            <BarGraph ObjectToShow={packetsManufacturedGraphData} label={"Processed Units"}/>
           </section>
         </Col>
       </Row>

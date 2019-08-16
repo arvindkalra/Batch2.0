@@ -26,7 +26,8 @@ const colors = [
   "#2979ff",
   "#2962ff"
 ];
-const BarGraph = ({ ObjectToShow }) => {
+const BarGraph = ({ ObjectToShow, changed, label }) => {
+  let change = changed ? changed : JSON.stringify(ObjectToShow);
   const [dataArray, setDataArray] = useState([]);
   const [labels, setLabels] = useState([]);
   const options = {
@@ -62,7 +63,7 @@ const BarGraph = ({ ObjectToShow }) => {
       ]
     }
   };
-  const graphLabel = "Seeds Sown";
+  const graphLabel = label;
   useEffect(() => {
     console.log(ObjectToShow);
     let objectKeys = Object.keys(ObjectToShow);
@@ -72,7 +73,7 @@ const BarGraph = ({ ObjectToShow }) => {
       tempDataArray.push(ObjectToShow[objectKeys[i]]);
     }
     setDataArray(tempDataArray);
-  }, [JSON.stringify(ObjectToShow)]);
+  }, [JSON.stringify(ObjectToShow), change]);
   return (
     <Row>
       <Col md={12}>
