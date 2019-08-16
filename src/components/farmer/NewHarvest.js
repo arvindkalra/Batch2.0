@@ -5,7 +5,11 @@ import Col from "react-bootstrap/Col";
 import { setBreadcrumb } from "../../helpers";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import {checkMined, connectToMetamask, OWN_ADDRESS} from "../../dbController/init";
+import {
+  checkMined,
+  connectToMetamask,
+  OWN_ADDRESS
+} from "../../dbController/init";
 import { seedSownByFarmer } from "../../dbController/farmerRole";
 
 const NewHarvest = ({ location }) => {
@@ -33,9 +37,9 @@ const NewHarvest = ({ location }) => {
     };
     connectToMetamask().then(() => {
       seedSownByFarmer(objToBeUploaded).then(txHash => {
-          checkMined(txHash, () => {
-              window.location.href = '/farmer/dashboard';
-          })
+        checkMined(txHash, () => {
+          window.location.href = "/farmer/dashboard";
+        });
       });
     });
   }
@@ -140,11 +144,11 @@ const NewHarvest = ({ location }) => {
                       as={"select"}
                       onChange={e => setPlantName(e.target.value)}
                     >
-                      <option value="">Gundza</option>
-                      <option value="">Ruddee</option>
-                      <option value="">Tazzie</option>
-                      <option value="">Sansa</option>
-                      <option value="">Skypey</option>
+                      <option value="Gundza">Gundza</option>
+                      <option value="Ruddee">Ruddee</option>
+                      <option value="Tazzie">Tazzie</option>
+                      <option value="Sansa">Sansa</option>
+                      <option value="Skypey">Skypey</option>
                     </Form.Control>
                   </Form.Group>
                 </Col>

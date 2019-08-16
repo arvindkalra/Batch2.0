@@ -231,7 +231,7 @@ const Dashboard = props => {
               </Col>
               <Col md={{ span: 10, offset: 1 }}>
                 <PieChart3
-                  numHarvested={numSown + numHarvested + numSold}
+                  numHarvested={numHarvested + numSold}
                   numDestroyed={numDiscarded}
                 />
               </Col>
