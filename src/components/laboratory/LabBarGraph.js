@@ -24,7 +24,7 @@ const LabBarGraph = ({labels,dataArray}) => {
                 ticks: {
                     suggestedMin: 0,
                     beginAtZero: true,
-                    suggestedMax: 100
+                    suggestedMax: 20
                 }
             }],
             xAxes:[{

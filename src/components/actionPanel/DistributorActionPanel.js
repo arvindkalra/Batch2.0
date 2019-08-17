@@ -8,7 +8,10 @@ import { createBatchByDistributor } from "../../dbController/distributorRole";
 import { checkMined } from "../../dbController/init";
 
 const DistributorActionPanel = ({ left, total, prevDetails }) => {
-  const [materialUsed, setMaterialUsed] = useState("");
+  const [unitsPerPacket, setUnitsPerPacket] = useState(0);
+  const [numPackets, setNumPackets] = useState(0);
+  const [packetName, setPacketName] = useState("");
+  const [containerType, setContainerType] = useState("Box");
   const [retailerName, setRetailerName] = useState("Retailer A");
   const [transporterName, setTransporterName] = useState("Transporter A");
 
@@ -17,7 +20,10 @@ const DistributorActionPanel = ({ left, total, prevDetails }) => {
     e.stopPropagation();
     console.log(prevDetails.details);
     let batchObject = {
-      totalUnitsForSale: materialUsed,
+      totalUnitsForSale: numPackets,
+      unitsPerPacket,
+      packetName,
+      containerType,
       sentToRetailerOn: new Date().toLocaleString(),
       productUnitId: prevDetails.uid,
       distributorAddress: "0x627306090abaB3A6e1400e9345bC60c78a8BEf57",
@@ -28,8 +34,9 @@ const DistributorActionPanel = ({ left, total, prevDetails }) => {
     let oldUnitsUsed = prevDetails.details.totalPacketsUsed
       ? prevDetails.details.totalPacketsUsed
       : 0;
+    let materialUsed = unitsPerPacket * numPackets;
     prevDetails.details.totalPacketsUsed =
-      parseInt(oldUnitsUsed) + parseInt(materialUsed);
+      parseInt(oldUnitsUsed) + materialUsed;
     if (left < materialUsed) {
       alert("You Don't have enough Units to Be Sent.!");
       return;
@@ -41,7 +48,7 @@ const DistributorActionPanel = ({ left, total, prevDetails }) => {
       batchObject.retailerAddress,
       batchObject.distributorToRetailerTransporter
     ).then(hash => {
-      checkMined(hash, () => {});
+      checkMined(hash, () => window.location.reload());
     });
   };
 
@@ -56,23 +63,62 @@ const DistributorActionPanel = ({ left, total, prevDetails }) => {
             <Form.Label>Units to Product Available for Packaging</Form.Label>
             <ProgressBar
               now={((left / total) * 100).toFixed(2)}
-              label={`${left} Pounds`}
+              label={`${left} Units`}
               striped
             />
           </Form.Group>
         </Col>
-        <Col md={12}>
+        <Col md={6}>
           <Form.Group>
-            <Form.Label>Units of Product To Be Sent</Form.Label>
+            <Form.Label>Container Type</Form.Label>
+            <Form.Control
+              as={"select"}
+              onChange={e => {
+                setContainerType(e.target.value);
+              }}
+            >
+              <option value={"Box"}>Box</option>
+              <option value={"Packet"}>Packet</option>
+            </Form.Control>
+          </Form.Group>
+        </Col>
+        <Col md={6}>
+          <Form.Group>
+            <Form.Label>No of Units in Each Packet</Form.Label>
             <Form.Control
               type={"number"}
-              placeholder={"Enter the number of units used"}
               onChange={e => {
-                setMaterialUsed(parseInt(e.target.value));
+                setUnitsPerPacket(parseInt(e.target.value));
               }}
+              placeholder={"Enter the number of units in each packet"}
             />
           </Form.Group>
         </Col>
+        <Col md={6}>
+          <Form.Group>
+            <Form.Label>No of Packets Created</Form.Label>
+            <Form.Control
+              type={"number"}
+              onChange={e => {
+                setNumPackets(parseInt(e.target.value));
+              }}
+              placeholder={"Enter the number of packets created"}
+            />
+          </Form.Group>
+        </Col>
+        <Col md={6}>
+          <Form.Group>
+            <Form.Label>Packet Name</Form.Label>
+            <Form.Control
+              type={"text"}
+              onChange={e => {
+                setPacketName(e.target.value);
+              }}
+              placeholder={"Enter the name of the packet"}
+            />
+          </Form.Group>
+        </Col>
+
         <Col md={6}>
           <Form.Group>
             <Form.Label>Retailer Name</Form.Label>

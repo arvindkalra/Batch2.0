@@ -100,10 +100,7 @@ const ManufacturerActionPanel = ({ left, total, prevDetails }) => {
               }}
             >
               <option value={"Preroll"}>Preroll</option>
-              <option value={"Flowers"}>Flower</option>
               <option value={"Edibles"}>Edibles</option>
-              <option value={"Oils"}>Oils</option>
-              <option value={"Concentrate"}>Concentrate</option>
             </Form.Control>
           </Form.Group>
         </Col>
