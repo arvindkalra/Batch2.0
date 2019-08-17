@@ -77,29 +77,33 @@ export function sellPacketsToBuyer(
   });
 }
 
-export function getRowsForRetailer(rowCallback, rowsLimit) {
+export function getRowsForRetailer(rowCallbacks) {
   makeRetailerTransaction("getBatchUnits")
     .then(array => {
       array = array.valueOf();
-      let limit = rowsLimit ? array.length - rowsLimit : 0;
-      for (let i = array.length - 1; i >= limit && i >= 0; i--) {
+      for (let i = array.length - 1; i >= 0; i--) {
         let val = array[i].toNumber();
         makeStorageTransaction("getBatchUnit", val)
           .then(x => handleObject(x, val))
+          .then(rowCallbacks)
           .catch(handleError);
       }
     })
     .catch(handleError);
 
   function handleObject(obj, uid) {
-    obj = obj.valueOf();
-    getJsonFromIPFS(obj[1]).then(details => {
-      rowCallback({
-        details,
-        batchUnitId: uid,
-        currentState: batchStates(obj[2].toNumber()),
-        currentOwner: obj[0]
-      });
+    return new Promise((resolve, reject) => {
+      obj = obj.valueOf();
+      getJsonFromIPFS(obj[1])
+        .then(details => {
+          resolve({
+            details,
+            batchUnitId: uid,
+            currentState: batchStates(obj[2].toNumber()),
+            currentOwner: obj[0]
+          });
+        })
+        .catch(reject);
     });
   }
   function handleError(err) {

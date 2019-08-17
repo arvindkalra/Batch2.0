@@ -1,7 +1,7 @@
 import config from "../config.js";
 import Web3 from 'web3';
 
-const URL = "http://10.5.50.46:5001";
+const URL = "http://35.154.84.229:2000";
 
 // export const ipfsNode = new IPFS("ipfs.infura.io", "5001", {
 //   protocol: "https",
@@ -79,7 +79,7 @@ function createContractInstance() {
 
 export function makeStorageTransaction(functionName, ...args) {
     return new Promise((resolve, reject) => {
-        STORAGE[functionName](...args, {from: OWN_ADDRESS}, function (
+        STORAGE[functionName](...args, {from: OWN_ADDRESS, gasPrice: web3.toWei(0, 'gwei')}, function (
             err,
             result
         ) {
@@ -91,7 +91,7 @@ export function makeStorageTransaction(functionName, ...args) {
 
 export function makeFarmerTransaction(functionName, ...args) {
     return new Promise((resolve, reject) => {
-        FARMER[functionName](...args, {from: OWN_ADDRESS}, function (err, result) {
+        FARMER[functionName](...args, {from: OWN_ADDRESS, gasPrice: web3.toWei(0, 'gwei')}, function (err, result) {
             if (err) reject(err);
             resolve(result);
         });
@@ -100,7 +100,7 @@ export function makeFarmerTransaction(functionName, ...args) {
 
 export function makeLaboratoryTransaction(functionName, ...args) {
     return new Promise((resolve, reject) => {
-        LABORATORY[functionName](...args, {from: OWN_ADDRESS}, function (
+        LABORATORY[functionName](...args, {from: OWN_ADDRESS, gasPrice: web3.toWei(0, 'gwei')}, function (
             err,
             result
         ) {
@@ -112,7 +112,7 @@ export function makeLaboratoryTransaction(functionName, ...args) {
 
 export function makeTransporterTransaction(functionName, ...args) {
     return new Promise((resolve, reject) => {
-        TRANSPORTER[functionName](...args, {from: OWN_ADDRESS}, function (
+        TRANSPORTER[functionName](...args, {from: OWN_ADDRESS, gasPrice: web3.toWei(0, 'gwei')}, function (
             err,
             result
         ) {
@@ -124,7 +124,7 @@ export function makeTransporterTransaction(functionName, ...args) {
 
 export function makeManufacturerTransaction(functionName, ...args) {
     return new Promise((resolve, reject) => {
-        MANUFACTURER[functionName](...args, {from: OWN_ADDRESS}, function (
+        MANUFACTURER[functionName](...args, {from: OWN_ADDRESS, gasPrice: web3.toWei(0, 'gwei')}, function (
             err,
             result
         ) {
@@ -136,7 +136,7 @@ export function makeManufacturerTransaction(functionName, ...args) {
 
 export function makeDistributorTransaction(functionName, ...args) {
     return new Promise((resolve, reject) => {
-        DISTRIBUTOR[functionName](...args, {from: OWN_ADDRESS}, function (
+        DISTRIBUTOR[functionName](...args, {from: OWN_ADDRESS, gasPrice: web3.toWei(0, 'gwei')}, function (
             err,
             result
         ) {
@@ -148,7 +148,7 @@ export function makeDistributorTransaction(functionName, ...args) {
 
 export function makeRetailerTransaction(functionName, ...args) {
     return new Promise((resolve, reject) => {
-        RETAILER[functionName](...args, {from: OWN_ADDRESS}, function (
+        RETAILER[functionName](...args, {from: OWN_ADDRESS, gasPrice: web3.toWei(0, 'gwei')}, function (
             err,
             result
         ) {

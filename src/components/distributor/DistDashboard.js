@@ -27,7 +27,7 @@ const DistDashboard = ({ location }) => {
         console.log(rowObj);
         let manufacturerAddress =
           rowObj.details.manufacturerAddress ||
-          "0x627306090abaB3A6e1400e9345bC60c78a8BEf57";
+          "0x7949173E38cEf39e75E05D2d2C232FBE8BAe5E20";
         getManufacturerDetails(manufacturerAddress).then(({ name }) => {
           let packetsTransferred = rowObj.details.totalPacketsUsed
             ? rowObj.details.totalPacketsUsed

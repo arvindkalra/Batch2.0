@@ -28,8 +28,8 @@ const ManufacturedPacketsTable = ({ array }) => {
     let prevDetails = array[showModal.id].details;
     let newDetails = {
       manufacturerAddress: OWN_ADDRESS,
-      distributorAddress: "0x627306090abaB3A6e1400e9345bC60c78a8BEf57",
-      manufacturerToDistributorTransporter: "0x627306090abaB3A6e1400e9345bC60c78a8BEf57",
+      distributorAddress: "0x7949173E38cEf39e75E05D2d2C232FBE8BAe5E20",
+      manufacturerToDistributorTransporter: "0x7949173E38cEf39e75E05D2d2C232FBE8BAe5E20",
       manufacturerToDistributorPrice: price,
       sentToDistributorOn: new Date().toLocaleString()
     };

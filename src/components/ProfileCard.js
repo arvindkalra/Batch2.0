@@ -5,7 +5,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import {getFarmerDetails, setFarmerDetails} from "../dbController/farmerRole";
 import {fileToString} from "../helpers";
-import {connectToMetamask} from "../dbController/init";
+import {connectToMetamask, OWN_ADDRESS} from "../dbController/init";
 import {getLaboratoryDetails, setLaboratoryDetails} from "../dbController/laboratoryRole";
 
 const ProfileCard = ({role}) => {
@@ -22,7 +22,7 @@ const ProfileCard = ({role}) => {
         connectToMetamask().then(() => {
             if (role === 'farmer') {
 
-                getFarmerDetails('0x627306090abaB3A6e1400e9345bC60c78a8BEf57').then(farmerObj => {
+                getFarmerDetails(OWN_ADDRESS).then(farmerObj => {
                     console.log(farmerObj);
                     setName(farmerObj.name);
                     setCompanyName(farmerObj.companyName);
@@ -33,7 +33,7 @@ const ProfileCard = ({role}) => {
 
                 })
             } else if (role === 'laboratory') {
-                getLaboratoryDetails('0x627306090abaB3A6e1400e9345bC60c78a8BEf57').then(labObject => {
+                getLaboratoryDetails(OWN_ADDRESS).then(labObject => {
                     setName(labObject.name);
                     setCompanyName(labObject.companyName);
                     setAddress(labObject.address);

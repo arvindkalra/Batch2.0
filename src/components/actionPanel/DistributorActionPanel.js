@@ -26,10 +26,10 @@ const DistributorActionPanel = ({ left, total, prevDetails }) => {
       containerType,
       sentToRetailerOn: new Date().toLocaleString(),
       productUnitId: prevDetails.uid,
-      distributorAddress: "0x627306090abaB3A6e1400e9345bC60c78a8BEf57",
+      distributorAddress: "0x7949173E38cEf39e75E05D2d2C232FBE8BAe5E20",
       distributorToRetailerTransporter:
-        "0x627306090abaB3A6e1400e9345bC60c78a8BEf57",
-      retailerAddress: "0x627306090abaB3A6e1400e9345bC60c78a8BEf57"
+        "0x7949173E38cEf39e75E05D2d2C232FBE8BAe5E20",
+      retailerAddress: "0x7949173E38cEf39e75E05D2d2C232FBE8BAe5E20"
     };
     let oldUnitsUsed = prevDetails.details.totalPacketsUsed
       ? prevDetails.details.totalPacketsUsed

@@ -59,13 +59,13 @@ const ActionForm = ({
         e.stopPropagation();
         seedObj.details.sentToLabOn = new Date().toDateString();
         seedObj.details.laboratoryAddress =
-            "0x627306090abaB3A6e1400e9345bC60c78a8BEf57";
+            "0x7949173E38cEf39e75E05D2d2C232FBE8BAe5E20";
         seedObj.details.farmToLabConsignmentTransporterAddress =
-            "0x627306090abaB3A6e1400e9345bC60c78a8BEf57";
+            "0x7949173E38cEf39e75E05D2d2C232FBE8BAe5E20";
         sendToLaboratory(
             seedObj.harvestUnitId,
-            "0x627306090abaB3A6e1400e9345bC60c78a8BEf57",
-            "0x627306090abaB3A6e1400e9345bC60c78a8BEf57",
+            "0x7949173E38cEf39e75E05D2d2C232FBE8BAe5E20",
+            "0x7949173E38cEf39e75E05D2d2C232FBE8BAe5E20",
             seedObj.details
         ).then(hash => {
             setNotificationMessage(" tx mining");
@@ -81,8 +81,8 @@ const ActionForm = ({
         e.stopPropagation();
         seedObj.details.sentToManufacturerOn = new Date().toLocaleString();
         seedObj.details.farmerToManufacturerPrice = sellingPrice;
-        let transporter = "0x627306090abaB3A6e1400e9345bC60c78a8BEf57";
-        let manufacturer = "0x627306090abaB3A6e1400e9345bC60c78a8BEf57";
+        let transporter = "0x7949173E38cEf39e75E05D2d2C232FBE8BAe5E20";
+        let manufacturer = "0x7949173E38cEf39e75E05D2d2C232FBE8BAe5E20";
         seedObj.details.manufacturerAddress = manufacturer;
         seedObj.details.farmToFactoryConsignmentTransporterAddress = transporter;
         sellHarvestByFarmer(

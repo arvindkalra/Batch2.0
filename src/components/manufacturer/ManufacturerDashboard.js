@@ -21,33 +21,38 @@ const ManufacturerDashboard = ({ location }) => {
     packetsManufacturedGraphData,
     setPacketsManufacturedGraphData
   ] = useState({});
+  const [changed, setChanged] = useState(0);
   useEffect(() => {
+    let tempChanged = changed;
     connectToMetamask().then(() => {
       fetchHarvestUnitsByManufacturer(harvestObject => {
         let tempAvailableArray = availableArray;
-        getFarmerDetails(harvestObject.details.farmerAddress).then(farmerObject => {
-          let harvestUsed = harvestObject.details.totalHarvestUsed
-            ? harvestObject.details.totalHarvestUsed
-            : 0;
-          let leftAmount =
-            harvestObject.details.totalHarvestAmount - harvestUsed;
-          if (leftAmount > 0) {
-            let rowArray = {
-              harvestUnitId: harvestObject.uid,
-              farmerName: farmerObject.name,
-              pendingAmount: leftAmount,
-              plantName: harvestObject.details.plantName
-            };
-            tempAvailableArray.push(rowArray);
-            setAvailableArray([...tempAvailableArray]);
+        getFarmerDetails(harvestObject.details.farmerAddress).then(
+          farmerObject => {
+            let harvestUsed = harvestObject.details.totalHarvestUsed
+              ? harvestObject.details.totalHarvestUsed
+              : 0;
+            let leftAmount =
+              harvestObject.details.totalHarvestAmount - harvestUsed;
+            if (leftAmount > 0) {
+              let rowArray = {
+                harvestUnitId: harvestObject.uid,
+                farmerName: farmerObject.name,
+                pendingAmount: leftAmount,
+                plantName: harvestObject.details.plantName
+              };
+              tempAvailableArray.push(rowArray);
+              setAvailableArray([...tempAvailableArray]);
+            }
+            addToGraphData(
+              harvestObject.details.plantName,
+              leftAmount,
+              availableGraphData,
+              setAvailableGraphData,
+              ++tempChanged
+            );
           }
-          addToGraphData(
-            harvestObject.details.plantName,
-            leftAmount,
-            availableGraphData,
-            setAvailableGraphData
-          );
-        });
+        );
       });
 
       let tempAvailablePackets = packetsReadyForDispatch;
@@ -69,13 +74,14 @@ const ManufacturerDashboard = ({ location }) => {
           packageUnit.details.productType,
           parseInt(packageUnit.details.totalPacketsManufactured),
           packetsManufacturedGraphData,
-          setPacketsManufacturedGraphData
+          setPacketsManufacturedGraphData,
+          ++tempChanged
         );
       });
     });
   }, []);
 
-  function addToGraphData(which, howMuch, getter, setter) {
+  function addToGraphData(which, howMuch, getter, setter, tempChanged) {
     let tempBarObject = getter;
     if (tempBarObject[which]) {
       let old = tempBarObject[which];
@@ -83,6 +89,7 @@ const ManufacturerDashboard = ({ location }) => {
     } else {
       tempBarObject[which] = howMuch;
     }
+    setChanged(tempChanged);
     setter(tempBarObject);
   }
 
@@ -97,7 +104,10 @@ const ManufacturerDashboard = ({ location }) => {
         <Col md={6}>
           <section className={"manufacturer-graph dashboard-section"}>
             <h3 className={"section-title"}>Available Raw Material</h3>
-            <BarGraph ObjectToShow={availableGraphData} label={"Available Pounds"}/>
+            <BarGraph
+              ObjectToShow={availableGraphData}
+              label={"Available Pounds"}
+            />
           </section>
         </Col>
         <Col md={6}>
@@ -121,7 +131,10 @@ const ManufacturerDashboard = ({ location }) => {
             <h3 className={"section-title"}>
               Products Manufactured in 2018-19
             </h3>
-            <BarGraph ObjectToShow={packetsManufacturedGraphData} label={"Processed Units"}/>
+            <BarGraph
+              ObjectToShow={packetsManufacturedGraphData}
+              label={"Processed Units"}
+            />
           </section>
         </Col>
       </Row>

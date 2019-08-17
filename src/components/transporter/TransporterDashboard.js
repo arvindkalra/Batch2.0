@@ -92,7 +92,7 @@ const TransporterDashboard = ({ location }) => {
         let rowObj = {};
         let manufacturerAddress =
           row.details.manufacturerAddress ||
-          "0x627306090abaB3A6e1400e9345bC60c78a8BEf57";
+          "0x7949173E38cEf39e75E05D2d2C232FBE8BAe5E20";
         let manufacturerName;
         getManufacturerDetails(manufacturerAddress).then(({ name }) => {
           manufacturerName = name;
@@ -120,7 +120,7 @@ const TransporterDashboard = ({ location }) => {
         let rowObj = {};
         let distributorAddress =
           row.details.distributorAddress ||
-          "0x627306090abaB3A6e1400e9345bC60c78a8BEf57";
+          "0x7949173E38cEf39e75E05D2d2C232FBE8BAe5E20";
         let distributorName;
         getDistributorDetails(distributorAddress)
           .then(({ name }) => {
