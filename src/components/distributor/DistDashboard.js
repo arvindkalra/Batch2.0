@@ -44,7 +44,13 @@ const DistDashboard = ({ location }) => {
             tempAvailableArray.push(rowArray);
             setAvailablePackedProductsArray([...tempAvailableArray]);
           }
-          addToGraphData(rowObj.details.productType, left, availablePackedProductsGraph, setAvailablePackedProductsGraph, tempChanged);
+          addToGraphData(
+            rowObj.details.productType,
+            left,
+            availablePackedProductsGraph,
+            setAvailablePackedProductsGraph,
+            ++tempChanged
+          );
         });
       });
     });
@@ -59,7 +65,7 @@ const DistDashboard = ({ location }) => {
       tempBarObject[which] = howMuch;
     }
     setter(tempBarObject);
-    setChanged(tempChanged++);
+    setChanged(tempChanged);
   };
   return (
     <>
@@ -70,7 +76,11 @@ const DistDashboard = ({ location }) => {
         <Col md={6}>
           <section className={"manufacturer-graph dashboard-section"}>
             <h3 className={"section-title"}>Available Processed Products</h3>
-            <BarGraph ObjectToShow={availablePackedProductsGraph} changed={changed} label={"Processed Units"}/>
+            <BarGraph
+              ObjectToShow={availablePackedProductsGraph}
+              changed={changed}
+              label={"Processed Units"}
+            />
           </section>
         </Col>
         <Col md={6}>
