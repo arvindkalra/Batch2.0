@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import Col from "react-bootstrap/Col";
 import { setBreadcrumb } from "../../helpers";
 import Row from "react-bootstrap/Row";
-import HarvestShipmentTable from "./HarvestShipmentTable";
-import PackagedShipmentTable from "./PackagedShipmentTable";
 import {
   getDistributorToRetailerConsignments,
   getFactoryToDistributorConsignments,
@@ -16,7 +14,6 @@ import { getFarmerDetails } from "../../dbController/farmerRole";
 import { getManufacturerDetails } from "../../dbController/manufacturerRole";
 import { getRetailerDetails } from "../../dbController/retailerRole";
 import { getLaboratoryDetails } from "../../dbController/laboratoryRole";
-import SampleShipmentTable from "./SampleShipmentTable";
 import Accordion from "react-bootstrap/Accordion";
 import Card from "react-bootstrap/Card";
 import { getDistributorDetails } from "../../dbController/distributorRole";
@@ -137,7 +134,7 @@ const TransporterDashboard = ({ location }) => {
               rowObj.receiverCompany = name;
               rowObj.currentStatus = row.currentState;
               rowObj.dispatchTime =
-                row.details.manufacturerToDistributorDispatchTime;
+                row.details.distributorToRetailerDispatchTime;
               rowObj.amount = row.details.totalPacketsManufactured;
               tempRetailShipments.push(rowObj);
               setRetailShipments([...tempRetailShipments]);

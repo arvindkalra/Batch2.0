@@ -1,8 +1,8 @@
 import React from "react";
 import Table from "react-bootstrap/es/Table";
-import PackagedShipmentRow from "./PackagedShipmentRow";
+import PackagedShipmentRowUnused from "./PackagedShipmentRow (unused)";
 
-const PackagedShipmentTable = ({ array, rowObjArr }) => {
+const PackagedShipmentTableUnused = ({ array, rowObjArr }) => {
   return (
     <Table responsive>
       <thead>
@@ -24,7 +24,7 @@ const PackagedShipmentTable = ({ array, rowObjArr }) => {
         ) : (
           array.map((element, id) => {
             return (
-              <PackagedShipmentRow
+              <PackagedShipmentRowUnused
                 value={element}
                 key={id + "" + element.uid}
                 rowObj={rowObjArr[element.uid]}
@@ -37,4 +37,4 @@ const PackagedShipmentTable = ({ array, rowObjArr }) => {
   );
 };
 
-export default PackagedShipmentTable;
+export default PackagedShipmentTableUnused;

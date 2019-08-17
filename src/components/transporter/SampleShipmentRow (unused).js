@@ -7,7 +7,7 @@ import {
 import { checkMined } from "../../dbController/init";
 import Button from "react-bootstrap/Button";
 
-const SampleShipmentRow = ({ value, rowObj }) => {
+const SampleShipmentRowUnused = ({ value, rowObj }) => {
   let handleClick = e => {
     e.preventDefault();
     e.stopPropagation();
@@ -47,4 +47,4 @@ const SampleShipmentRow = ({ value, rowObj }) => {
   );
 };
 
-export default SampleShipmentRow;
+export default SampleShipmentRowUnused;

@@ -1,6 +1,5 @@
 import React from "react";
 import Table from "react-bootstrap/es/Table";
-import SampleShipmentRow from "./SampleShipmentRow";
 import ShipmentRow from "./ShipmentRow";
 
 const ShipmentTable = ({ array, rowObjArr, shipmentType }) => {

@@ -7,7 +7,7 @@ import {
 } from "../../dbController/transporterRole";
 import { checkMined } from "../../dbController/init";
 
-const PackagedShipmentRow = ({ value, rowObj }) => {
+const PackagedShipmentRowUnused = ({ value, rowObj }) => {
   let handleClick = e => {
     e.preventDefault();
     e.stopPropagation();
@@ -50,4 +50,4 @@ const PackagedShipmentRow = ({ value, rowObj }) => {
   );
 };
 
-export default PackagedShipmentRow;
+export default PackagedShipmentRowUnused;

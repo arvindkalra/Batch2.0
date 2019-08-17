@@ -1,8 +1,8 @@
 import React from "react";
 import Table from "react-bootstrap/Table";
-import HarvestShipmentRow from "./HarvestShipmentRow";
+import HarvestShipmentRowUnused from "./HarvestShipmentRow (unused)";
 
-const HarvestShipmentTable = ({ array, rowObjArr }) => {
+const HarvestShipmentTableUnused = ({ array, rowObjArr }) => {
   return (
     <Table responsive>
       <thead>
@@ -24,7 +24,7 @@ const HarvestShipmentTable = ({ array, rowObjArr }) => {
         ) : (
           array.map((element, id) => {
             return (
-              <HarvestShipmentRow
+              <HarvestShipmentRowUnused
                 value={element}
                 key={id + "" + element.uid}
                 rowObj={rowObjArr[element.uid]}
@@ -37,4 +37,4 @@ const HarvestShipmentTable = ({ array, rowObjArr }) => {
   );
 };
 
-export default HarvestShipmentTable;
+export default HarvestShipmentTableUnused;
