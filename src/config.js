@@ -530,7 +530,12 @@ export default {
                 }
             ],
             "name": "createBatchUnit",
-            "outputs": [],
+            "outputs": [
+                {
+                    "name": "buid",
+                    "type": "uint256"
+                }
+            ],
             "payable": false,
             "stateMutability": "nonpayable",
             "type": "function"
@@ -1765,12 +1770,34 @@ export default {
                 {
                     "name": "batchHash",
                     "type": "string"
+                },
+                {
+                    "name": "transporter",
+                    "type": "address"
+                },
+                {
+                    "name": "retailer",
+                    "type": "address"
                 }
             ],
             "name": "createBatch",
             "outputs": [],
             "payable": false,
             "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "getBatchUnits",
+            "outputs": [
+                {
+                    "name": "buids",
+                    "type": "uint256[]"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
             "type": "function"
         },
         {

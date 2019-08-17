@@ -67,7 +67,9 @@ export function fetchProductUnitsForDistributor(rowCallback) {
 export function createBatchByDistributor(
   productUnitId,
   productDetailsUpdated,
-  batchDetailsNew
+  batchDetailsNew,
+  retailerAddress,
+  transporterAddress
 ) {
   let productHash;
   return uploadJsonToIPFS(productDetailsUpdated)
@@ -80,7 +82,9 @@ export function createBatchByDistributor(
         "createBatch",
         productUnitId,
         productHash,
-        batchHash
+        batchHash,
+        transporterAddress,
+        retailerAddress
       );
     });
 }
