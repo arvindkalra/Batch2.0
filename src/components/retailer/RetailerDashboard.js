@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Col from "react-bootstrap/Col";
 import { setBreadcrumb } from "../../helpers";
 import Row from "react-bootstrap/Row";
@@ -7,15 +7,58 @@ import "../../assets/stylesheets/App.scss";
 import Table from "react-bootstrap/Table";
 import { connectToMetamask } from "../../dbController/init";
 import { getRowsForRetailer } from "../../dbController/retailerRole";
+import { fetchProductUnitDetailsUsingUID } from "../../dbController/manufacturerRole";
+import RetailerProductTable from "./RetailerProductTable";
 
 const RetailerDashboard = ({ location }) => {
+  const [inventoryTable, setInventoryTable] = useState([]);
+  const [showForMore, setShowForMore] = useState(false);
   useEffect(() => {
     connectToMetamask().then(() => {
+      let tempInventory = inventoryTable;
+      let tableRows = 0;
       getRowsForRetailer(row => {
-        console.log(row);
+        if (row.currentState.value === 4) {
+          if (tableRows < 3) {
+            tableRows++;
+            getObjectForRow(row).then(obj => {
+              if (obj) {
+                tempInventory.push(obj);
+                setInventoryTable([...tempInventory]);
+              }
+            });
+          }
+        } else {
+          setShowForMore(true);
+        }
       });
     });
   }, []);
+
+  function getObjectForRow(row) {
+    return new Promise((resolve, reject) => {
+      let unitsAlreadySold = row.details.totalUnitsAlreadySold
+        ? row.details.totalUnitsAlreadySold
+        : 0;
+      let left = row.details.totalUnitsForSale - unitsAlreadySold;
+      if (left <= 0 || row.currentState.value !== 4) {
+        resolve(null);
+        return;
+      }
+      fetchProductUnitDetailsUsingUID(parseInt(row.details.productUnitId))
+        .then(productDetails => {
+          let objToBeAdded = {
+            batchUnitId: row.batchUnitId,
+            productName: row.details.packetName,
+            left: left,
+            productType: productDetails.details.productType,
+            containerType: row.details.containerType
+          };
+          resolve(objToBeAdded);
+        })
+        .catch(reject);
+    });
+  }
 
   return (
     <>
@@ -41,48 +84,14 @@ const RetailerDashboard = ({ location }) => {
         </Col>
       </Row>
       <Row>
-        <Col md={6}>
+        <Col md={12}>
           <section className={"dashboard-section"}>
             <h3 className={"section-title"}>Inventory</h3>
             <section className={"table-section"}>
-              <Table>
-                <thead>
-                  <tr>
-                    <th>Batch Id</th>
-                    <th>Type</th>
-                    <th>Size</th>
-                    <th>Container</th>
-                    <th>S/N</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>00AABBCCDD</td>
-                    <td>Preroll</td>
-                    <td>3000</td>
-                    <td>Box</td>
-                    <td>129249252</td>
-                  </tr>
-                  <tr>
-                    <td>00AABBCCDD</td>
-                    <td>Preroll</td>
-                    <td>3000</td>
-                    <td>Box</td>
-                    <td>129249252</td>
-                  </tr>
-                  <tr>
-                    <td>00AABBCCDD</td>
-                    <td>Preroll</td>
-                    <td>3000</td>
-                    <td>Box</td>
-                    <td>129249252</td>
-                  </tr>
-                </tbody>
-              </Table>
-              <p className={"see-all"}>
-                {" "}
-                <a href={"/"}>See Complete Inventory</a>{" "}
-              </p>
+              <RetailerProductTable
+                rows={inventoryTable}
+                showForMore={showForMore}
+              />
             </section>
           </section>
         </Col>
