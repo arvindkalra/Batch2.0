@@ -33,15 +33,19 @@ const AppRouter = () => {
             <Route exact path={'/laboratory/report/:id'} component={Report}/>
             {/*manufacturer router*/}
             <Route exact path={'/manufacturer/dashboard'} component={Manufacturer}/>
+            <Route exact path={'/manufacturer/about'} component={About}/>
             <Route exact path={'/manufacturer/harvest/:buid'} component={ManufacturerBatchDetail}/>
             {/*distributor routes*/}
             <Route exact path={'/distributor/dashboard'} component={Distributor}/>
             <Route exact path={'/distributor/product/:buid'} component={DistributorProductDetail}/>
+            <Route exact path={'/distributor/about'} component={About}/>
             {/*transporter routes*/}
             <Route exact path={'/transporter/dashboard'} component={Transporter}/>
+            <Route exact path={'/transporter/about'} component={About}/>
             {/*retailer routes*/}
             <Route exact path={'/retailer/dashboard'} component={Retailer}/>
             <Route exact path={'/retailer/products/:id'} component={RetailProduct}/>
+            <Route exact path={'/retailer/about'} component={About}/>
             {/*miscellaneous*/}
             <Route exact path={'/journey/:id'} component={TrackProduct}/>
         </Router>

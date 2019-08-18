@@ -8,7 +8,7 @@ import SideBar from "./SideBar";
 import '../assets/stylesheets/layout.scss';
 
 
-const Layout = ({children}) => {
+const Layout = ({children, userName, profileImage}) => {
 
     // const [farmerDetails, setFarmerDetails] = useState('');
     const [showSideBar, setShowSideBar] = useState(false);
@@ -41,8 +41,8 @@ const Layout = ({children}) => {
                             Batch
                         </Navbar.Brand>
                         <Navbar.Collapse className={'justify-content-end'}>
-                            <Navbar.Text className={'profile-name'}>Peter Williams </Navbar.Text>
-                            <img src="https://picsum.photos/id/1074/50" alt="" className={'profile-image'}/>
+                            <Navbar.Text className={'profile-name'}> {userName||localStorage.getItem('name') || 'Loading...' } </Navbar.Text>
+                            <img src={ profileImage ||localStorage.getItem('profileImage') || "https://picsum.photos/id/1074/50"} alt="" className={'profile-image'}/>
 
                         </Navbar.Collapse>
                     </Navbar>

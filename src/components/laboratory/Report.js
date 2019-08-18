@@ -148,6 +148,7 @@ const Report = ({location, match}) => {
 
                             <p>
                                 <span> Notes:</span> <br/>
+                            </p>
                                 <ul>
                                     <li>
                                         The sample was rejected because of dangerous levels of cbd and thc found in it
@@ -158,7 +159,6 @@ const Report = ({location, match}) => {
                                         market
                                     </li>
                                 </ul>
-                            </p>
 
 
                         </section>
