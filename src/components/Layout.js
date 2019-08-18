@@ -13,6 +13,8 @@ const Layout = ({children, userName, profileImage}) => {
     // const [farmerDetails, setFarmerDetails] = useState('');
     const [showSideBar, setShowSideBar] = useState(false);
     const [overlayDisplay, setOverlayDisplay] = useState('none');
+    const [showNotication, setShowNotification] = useState(true)
+
     const closeSideBar = () => {
         setShowSideBar(false);
         setOverlayDisplay('none');
@@ -41,8 +43,11 @@ const Layout = ({children, userName, profileImage}) => {
                             Batch
                         </Navbar.Brand>
                         <Navbar.Collapse className={'justify-content-end'}>
-                            <Navbar.Text className={'profile-name'}> {userName||localStorage.getItem('name') || 'Loading...' } </Navbar.Text>
-                            <img src={ profileImage ||localStorage.getItem('profileImage') || "https://picsum.photos/id/1074/50"} alt="" className={'profile-image'}/>
+                            <Navbar.Text
+                                className={'profile-name'}> {userName || localStorage.getItem('name') || 'Loading...'} </Navbar.Text>
+                            <img
+                                src={profileImage || localStorage.getItem('profileImage') || "https://picsum.photos/id/1074/50"}
+                                alt="" className={'profile-image'}/>
 
                         </Navbar.Collapse>
                     </Navbar>
@@ -51,6 +56,7 @@ const Layout = ({children, userName, profileImage}) => {
             <div className={'overlay'} style={{display: overlayDisplay}}>
 
             </div>
+
             {children}
 
 

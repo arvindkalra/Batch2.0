@@ -11,17 +11,24 @@ import {
   OWN_ADDRESS
 } from "../../dbController/init";
 import { seedSownByFarmer } from "../../dbController/farmerRole";
+import Notification from "../Notification";
+import Loader from "../Loader";
 
-const NewHarvest = ({ location }) => {
+const NewHarvest = ({ location, history }) => {
   const [lineage, setLineage] = useState("line1");
   const [floweringTime, setFloweringTime] = useState("10-20 days");
   const [plantLocation, setPlantLocation] = useState("Green House");
   const [soilType, setSoilType] = useState("Slightly Acidic");
-  const [nutrients, setNutrients] = useState("");
-  const [seedCount, setSeedCount] = useState("");
+  const [nutrients, setNutrients] = useState("abcd, def ,ghi");
+  const [seedCount, setSeedCount] = useState("450");
   const [plantName, setPlantName] = useState("Gundza");
+  const [transactionMining, setTransactionMining] = useState(false);
+
+
+
 
   function handleClick(e) {
+
     e.preventDefault();
     e.stopPropagation();
     let objToBeUploaded = {
@@ -36,9 +43,15 @@ const NewHarvest = ({ location }) => {
       farmerAddress: OWN_ADDRESS
     };
     connectToMetamask().then(() => {
+      setTransactionMining(true);
+
+
       seedSownByFarmer(objToBeUploaded).then(txHash => {
         checkMined(txHash, () => {
-          window.location.href = "/farmer/dashboard";
+          // window.location.href = "/farmer/dashboard";
+          history.push('/farmer/dashboard');
+
+
         });
       });
     });
@@ -154,7 +167,7 @@ const NewHarvest = ({ location }) => {
                 </Col>
 
                 <Col md={12}>
-                  <Button type={"submit"} onClick={handleClick}>
+                  <Button disabled={transactionMining} type={"submit"} onClick={handleClick}>
                     {" "}
                     Register new Harvest{" "}
                   </Button>
@@ -164,6 +177,7 @@ const NewHarvest = ({ location }) => {
           </Col>
         </Row>
       </section>
+      {transactionMining? <Loader/>: null}
     </Layout>
   );
 };

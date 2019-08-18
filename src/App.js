@@ -52,7 +52,7 @@ function App() {
                         <Col md={12}>
                             <Form.Group>
                                 <p className={'description'}>
-                                    Choose your role from below
+                                    You are a ...
                                 </p>
                                 <Form.Control as={'select'} onChange={handleSelect}>
                                   <option value="">Select your role </option>
