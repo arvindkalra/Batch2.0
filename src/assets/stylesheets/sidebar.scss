@@ -10,7 +10,7 @@
   height: 100%;
   background-color: #32353d;
   z-index: 2;
-  color:white;
+  color: white;
   //display: none;
   transition: 0.1s all linear;
   padding: 5px;
@@ -20,7 +20,7 @@
 .overlay {
   background: rgba(40, 44, 52, 0.57);
   z-index: 4;
-  position: absolute;
+  position: fixed;
   left: 20%;
   width: 80%;
   height: 100%;
@@ -28,10 +28,9 @@
   overflow-y: hidden;
 
 
-
 }
 
-h1.title{
+h1.title {
   padding-left: 8px;
   padding-bottom: 10px;
   border-bottom: 1px solid $grey;
@@ -44,8 +43,9 @@ h1.title{
   background: transparent;
   border: none;
   padding: 0px 2px;
-  span{
-    color:white;
+
+  span {
+    color: white;
     font-weight: bolder;
     font-size: 1.4em;
   }
@@ -57,49 +57,52 @@ h1.title{
 
 }
 
-.sidebar-list{
+.sidebar-list {
   @extend .vertical-centered-list;
   height: 80%;
 
 
-  li{
+  li {
 
     margin: 40px auto 0 auto;
     width: 200px;
 
     max-width: 100%;
 
-  .fas{
-    margin-right: 5px;
-    position: relative;
-    left: 0;
+    .fas {
+      margin-right: 5px;
+      position: relative;
+      left: 0;
 
-  }
+    }
   }
 }
 
-.sidebar-profile-section{
+.sidebar-profile-section {
   border-bottom: 1px solid $grey;
   padding-bottom: 10px;
-    img{
-      border-radius: 4px;
-      max-width: 100%;
-    }
-  .sidebar-profile-details{
 
-    span.name{
+  img {
+    border-radius: 4px;
+    max-width: 100%;
+  }
+
+  .sidebar-profile-details {
+
+    span.name {
       font-weight: bolder;
     }
   }
 }
 
-.sidebar-footer-section{
+.sidebar-footer-section {
   bottom: 0;
   left: 0;
   position: absolute;
   width: 100%;
-  padding-bottom:10px ;
-  ul{
+  padding-bottom: 10px;
+
+  ul {
     @extend .horizontal-list;
 
   }

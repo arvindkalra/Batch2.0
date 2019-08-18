@@ -1,4 +1,5 @@
 import {
+  batchStates,
   getJsonFromIPFS,
   harvestStates,
   makeStorageTransaction,
@@ -32,7 +33,7 @@ export function getTransporterDetails(address) {
   });
 }
 
-function handleObject(object, uid, isHarvest) {
+function handleObject(object, uid, isHarvest, isBatch) {
   return new Promise((resolve, reject) => {
     object = object.valueOf();
     getJsonFromIPFS(object[1])
@@ -43,6 +44,8 @@ function handleObject(object, uid, isHarvest) {
           details,
           currentState: isHarvest
             ? harvestStates(object[2].toNumber())
+            : isBatch
+            ? batchStates(object[2].toNumber())
             : packetStates(object[2].toNumber())
         });
       })
@@ -55,17 +58,28 @@ function handleError(err) {
 }
 
 export function getLabSampleConsignments(rowCallback) {
-  makeTransporterTransaction("getFarmerToLabConsignments").then(array => {
-    array = array.valueOf();
-    for (let i = 0; i < array.length; i++) {
-      let x = array[i].toNumber();
-      makeStorageTransaction("getHarvestUnit", x)
-        .then(o => {
-          return handleObject(o, x, true);
-        })
-        .then(rowCallback)
-        .catch(handleError);
-    }
+  return new Promise((resolve, reject) => {
+    makeTransporterTransaction("getFarmerToLabConsignments").then(array => {
+      array = array.valueOf();
+      for (let i = 0; i < array.length; i++) {
+        let x = array[i].toNumber();
+        makeStorageTransaction("getHarvestUnit", x)
+          .then(o => {
+            return handleObject(o, x, true);
+          })
+          .then(x => {
+            rowCallback(x);
+            complete(i, array.length - 1);
+          })
+          .catch(handleError);
+      }
+
+      function complete(iteration, max) {
+        if (iteration === max) {
+          resolve();
+        }
+      }
+    });
   });
 }
 
@@ -102,17 +116,28 @@ export function deliverLabSampleConsignment(
 }
 
 export function getFarmToFactoryConsignments(rowCallback) {
-  makeTransporterTransaction("getFarmerToFactoryConsignments").then(array => {
-    array = array.valueOf();
-    for (let i = 0; i < array.length; i++) {
-      let x = array[i].toNumber();
-      makeStorageTransaction("getHarvestUnit", x)
-        .then(o => {
-          return handleObject(o, x, true);
-        })
-        .then(rowCallback)
-        .catch(handleError);
-    }
+  return new Promise((resolve, reject) => {
+    makeTransporterTransaction("getFarmerToFactoryConsignments").then(array => {
+      array = array.valueOf();
+      for (let i = 0; i < array.length; i++) {
+        let x = array[i].toNumber();
+        makeStorageTransaction("getHarvestUnit", x)
+          .then(o => {
+            return handleObject(o, x, true);
+          })
+          .then(x => {
+            rowCallback(x);
+            completed(i, array.length - 1);
+          })
+          .catch(handleError);
+      }
+
+      function completed(iteration, max) {
+        if (iteration === max) {
+          resolve();
+        }
+      }
+    });
   });
 }
 
@@ -203,9 +228,9 @@ export function getDistributorToRetailerConsignments(rowCallback) {
       array = array.valueOf();
       for (let i = 0; i < array.length; i++) {
         let x = array[i].toNumber();
-        makeStorageTransaction("getBatchUnit")
+        makeStorageTransaction("getBatchUnit", x)
           .then(o => {
-            return handleObject(o, x);
+            return handleObject(o, x, false, true);
           })
           .then(rowCallback)
           .catch(handleError);

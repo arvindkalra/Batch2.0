@@ -12,31 +12,31 @@ const Layout = ({children}) => {
 
     // const [farmerDetails, setFarmerDetails] = useState('');
     const [showSideBar, setShowSideBar] = useState(false);
-    const [overlayDisplay,setOverlayDisplay] = useState('none');
-    const closeSideBar= () => {
+    const [overlayDisplay, setOverlayDisplay] = useState('none');
+    const closeSideBar = () => {
         setShowSideBar(false);
         setOverlayDisplay('none');
-    }
-    const toggleSideBar = (e)=> {
+    };
+    const toggleSideBar = (e) => {
         e.preventDefault();
         e.stopPropagation();
         setShowSideBar(true);
         setOverlayDisplay('block');
 
-    }
-
+    };
 
 
     return (
 
-        <Container fluid={true}>
-            {showSideBar? <SideBar closeSideBar={closeSideBar} />:null}
+        <Container fluid={true} className={showSideBar ? 'no-scroll' : null}>
+            {showSideBar ? <SideBar closeSideBar={closeSideBar}/> : null}
 
             <Row>
                 <Col>
 
                     <Navbar>
-                        <Button onClick={toggleSideBar} className={'sidebar-toggle-button'} > <span className="navbar-toggler-icon"></span>  </Button>
+                        <Button onClick={toggleSideBar} className={'sidebar-toggle-button'}>
+                            <span className="navbar-toggler-icon">{""}</span> </Button>
                         <Navbar.Brand href="/">
                             Batch
                         </Navbar.Brand>
@@ -48,11 +48,10 @@ const Layout = ({children}) => {
                     </Navbar>
                 </Col>
             </Row>
-            <div className={'overlay'} style={{display:overlayDisplay}} >
+            <div className={'overlay'} style={{display: overlayDisplay}}>
 
             </div>
             {children}
-
 
 
         </Container>

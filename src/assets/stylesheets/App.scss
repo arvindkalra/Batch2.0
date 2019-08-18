@@ -13,14 +13,13 @@
 }
 
 
-.dashboard-section{
+.dashboard-section {
   border: 1px solid $grey;
-  height:370px;
+  height: 370px;
   margin-bottom: 30px;
 
 
-
-  h3.section-title{
+  h3.section-title {
     text-transform: uppercase;
     color: $darkblue;
     text-align: center;
@@ -30,10 +29,9 @@
 }
 
 
-
 .table-section {
 
-  .see-all{
+  .see-all {
     width: 100%;
     text-align: center;
   }
@@ -65,17 +63,19 @@
   }
 
   .table {
-     td{
-      a{
+    td {
+      a {
         color: $blue;
         font-weight: bold;
       }
     }
+
     .product-name {
       font-weight: bold;
     }
-    thead{
-      th{
+
+    thead {
+      th {
         border-top: none;
       }
     }
@@ -83,42 +83,60 @@
 
 
 }
-.product-details-section{
+
+
+.product-status-section {
+
+  .progress {
+    height: 50px;
+    border-radius: 0;
+  }
+
+  .progress-bar {
+    font-style: italic;
+    font-size: 2em;
+  }
+}
+
+.product-details-section {
   padding-top: 30px;
   border-bottom: 2px solid $grey;
   text-align: center;
 
 }
-$min-height:300px;
-.action-panel-form-section{
-  h1{
-    border-bottom:1px solid $grey ;
+
+$min-height: 300px;
+.action-panel-form-section {
+  h1 {
+    border-bottom: 1px solid $grey;
     margin-bottom: 40px;
 
   }
+
   border: 1px dashed $grey;
   padding: 50px;
   min-height: $min-height;
 }
 
-.status-tab{
-  p.status-tab-description{
+.status-tab {
+  p.status-tab-description {
     color: $darkblue;
     font-weight: bold;
   }
+
   border: 1px solid $grey;
-  padding:30px;
+  padding: 30px;
+  margin-top: 20px;
   margin-bottom: 20px;
 }
 
 
-
-.qr-code-wrapper{
+.qr-code-wrapper {
   width: 400px;
   margin: 0 auto;
 }
 
-p.description{
+p.description {
   text-align: center;
   padding-left: 200px;
   padding-right: 200px;
@@ -126,12 +144,9 @@ p.description{
 }
 
 
-
-
-.hidden{
+.hidden {
   display: none;
 }
-
 
 
 // default react css
@@ -159,13 +174,9 @@ p.description{
 }
 
 
-
 .App-link {
   color: #61dafb;
 }
-
-
-
 
 
 @keyframes App-logo-spin {
@@ -177,6 +188,6 @@ p.description{
   }
 }
 
-p.center-align{
+p.center-align {
   text-align: center;
 }

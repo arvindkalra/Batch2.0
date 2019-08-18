@@ -1,12 +1,12 @@
 export default {
     "NETWORK_NAME" : "Truffle",
-    "STORAGE_ADDRESS": "0xf12b5dd4ead5f743c6baa640b0216200e89b60da",
-    "FARMER_ADDRESS": "0x345ca3e014aaf5dca488057592ee47305d9b3e10",
-    "LABORATORY_ADDRESS": "0xf25186b5081ff5ce73482ad761db0eb0d25abfbf",
-    "TRANSPORTER_ADDRESS": "0x8f0483125fcb9aaaefa9209d8e9d7b9c8b9fb90f",
-    "MANUFACTURER_ADDRESS": "0x9fbda871d559710256a2502a2517b794b482db40",
-    "DISTRIBUTOR_ADDRESS": "0x2c2b9c9a4a25e24b174f26114e8926a9f2128fe4",
-    "RETAILER_ADDRESS": "0x30753e4a8aad7f8597332e813735def5dd395028",
+    "STORAGE_ADDRESS": "0xc244c13d2004871ad2eaa99d75b0b8d86f50d5fa",
+    "FARMER_ADDRESS": "0x24f18dd6c2d300d249cfccf5e2f825edd05dadcb",
+    "LABORATORY_ADDRESS": "0x5db68a0a1837dc06b89509bd436fea5de7e69ac7",
+    "TRANSPORTER_ADDRESS": "0x8952b04ec6a804bff80299c17e182e30bb6336b2",
+    "MANUFACTURER_ADDRESS": "0x9edd4cb8d079fb55cd8ec8d5a18e7849ff3eccb7",
+    "DISTRIBUTOR_ADDRESS": "0x59a658842fa8cb0e968143f0ca5ee9216635c686",
+    "RETAILER_ADDRESS": "0xa5df1c2d0ab0e1ebb3a6d057bd0db0f33e65b1ea",
     "STORAGE": [
         {
             "constant": false,
@@ -530,7 +530,12 @@ export default {
                 }
             ],
             "name": "createBatchUnit",
-            "outputs": [],
+            "outputs": [
+                {
+                    "name": "buid",
+                    "type": "uint256"
+                }
+            ],
             "payable": false,
             "stateMutability": "nonpayable",
             "type": "function"
@@ -1765,12 +1770,34 @@ export default {
                 {
                     "name": "batchHash",
                     "type": "string"
+                },
+                {
+                    "name": "transporter",
+                    "type": "address"
+                },
+                {
+                    "name": "retailer",
+                    "type": "address"
                 }
             ],
             "name": "createBatch",
             "outputs": [],
             "payable": false,
             "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "getBatchUnits",
+            "outputs": [
+                {
+                    "name": "buids",
+                    "type": "uint256[]"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
             "type": "function"
         },
         {

@@ -1,117 +1,145 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import Col from "react-bootstrap/Col";
-import {setBreadcrumb} from "../../helpers";
+import { setBreadcrumb } from "../../helpers";
 import Row from "react-bootstrap/Row";
 import AvailableRawMaterialTable from "./AvailableRawMaterialTable";
 import ManufacturedPacketsTable from "./ManufacturedPacketsTable";
 import ManufacturerBarGraph from "./ManufacturerBarGraph";
-import {fetchHarvestUnitsByManufacturer} from "../../dbController/manufacturerRole";
-import {connectToMetamask} from "../../dbController/init";
-import {getFarmerDetails} from "../../dbController/farmerRole";
+import {
+  fetchHarvestUnitsByManufacturer,
+  fetchPackagedUnitsByManufacturer
+} from "../../dbController/manufacturerRole";
+import { connectToMetamask } from "../../dbController/init";
+import { getFarmerDetails } from "../../dbController/farmerRole";
+import BarGraph from "../farmer/graphs/dashboard/BarGraph";
 
-const ManufacturerDashboard = ({location}) => {
-    const [availableArray, setAvailableArray] = useState([]);
-    const [packetsReadyForDispatch, setPacketsReadyForDispatch] = useState([]);
-    const [availableGraphData, setAvailableGraphData] = useState({});
-    const [
-        packetsManufacturedGraphData,
-        setPacketsManufacturedGraphData
-    ] = useState({});
-    useEffect(() => {
-        connectToMetamask().then(() => {
-            fetchHarvestUnitsByManufacturer(harvestObject => {
-                console.log(harvestObject);
-                let tempAvailableArray = availableArray;
-                let rowArray = [];
-                rowArray.push(harvestObject.uid);
-                getFarmerDetails(harvestObject.farmerAddress).then(farmerObject => {
-                    rowArray.push(farmerObject.name);
-                    rowArray.push(harvestObject.amountCreated);
-                    rowArray.push(harvestObject.details.plantName);
-                    tempAvailableArray.push(rowArray);
-                    setAvailableArray([...tempAvailableArray]);
-                    setAvailableGraphData({
-                        Gondza: 1000,
-                        Tazie: 500,
-                        Sansa: 750,
-                        Skypey: 800
-                    });
-                    setPacketsManufacturedGraphData({
-                        Preroll: 2000,
-                        Edible: 1200,
-                        Patches: 800
-                    });
-                });
-            });
-        });
-        // getDataForManufacturer();
-    }, []);
+const ManufacturerDashboard = ({ location }) => {
+  const [availableArray, setAvailableArray] = useState([]);
+  const [packetsReadyForDispatch, setPacketsReadyForDispatch] = useState([]);
+  const [availableGraphData, setAvailableGraphData] = useState({});
+  const [
+    packetsManufacturedGraphData,
+    setPacketsManufacturedGraphData
+  ] = useState({});
+  const [changed, setChanged] = useState(0);
+  useEffect(() => {
+    let tempChanged = changed;
+    connectToMetamask().then(() => {
+      fetchHarvestUnitsByManufacturer(harvestObject => {
+        let tempAvailableArray = availableArray;
+        getFarmerDetails(harvestObject.details.farmerAddress).then(
+          farmerObject => {
+            let harvestUsed = harvestObject.details.totalHarvestUsed
+              ? harvestObject.details.totalHarvestUsed
+              : 0;
+            let leftAmount =
+              harvestObject.details.totalHarvestAmount - harvestUsed;
+            if (leftAmount > 0) {
+              let rowArray = {
+                harvestUnitId: harvestObject.uid,
+                farmerName: farmerObject.name,
+                pendingAmount: leftAmount,
+                plantName: harvestObject.details.plantName
+              };
+              tempAvailableArray.push(rowArray);
+              setAvailableArray([...tempAvailableArray]);
+            }
+            addToGraphData(
+              harvestObject.details.plantName,
+              leftAmount,
+              availableGraphData,
+              setAvailableGraphData,
+              ++tempChanged
+            );
+          }
+        );
+      });
 
-    let getDataForManufacturer = () => {
-        setAvailableArray([
-            [1, "Pokemon", 100, "Gundza"],
+      let tempAvailablePackets = packetsReadyForDispatch;
+      fetchPackagedUnitsByManufacturer(packageUnit => {
+        console.log(packageUnit);
+        if (packageUnit.currentState.value === 1) {
+          let obj = {
+            productUnitId: packageUnit.uid,
+            productType: packageUnit.details.productType,
+            totalPacketsManufactured:
+              packageUnit.details.totalPacketsManufactured,
+            packetSize: packageUnit.details.packetSize,
+            details: packageUnit.details
+          };
+          tempAvailablePackets.push(obj);
+          setPacketsReadyForDispatch([...tempAvailablePackets]);
+        }
+        addToGraphData(
+          packageUnit.details.productType,
+          parseInt(packageUnit.details.totalPacketsManufactured),
+          packetsManufacturedGraphData,
+          setPacketsManufacturedGraphData,
+          ++tempChanged
+        );
+      });
+    });
+  }, []);
 
-            [2, "Pokemon", 100, "Gundza"],
-            [3, "Pokemon", 100, "Gundza"]
-        ]);
+  function addToGraphData(which, howMuch, getter, setter, tempChanged) {
+    let tempBarObject = getter;
+    if (tempBarObject[which]) {
+      let old = tempBarObject[which];
+      tempBarObject[which] = old + howMuch;
+    } else {
+      tempBarObject[which] = howMuch;
+    }
+    setChanged(tempChanged);
+    setter(tempBarObject);
+  }
 
-        setPacketsReadyForDispatch([
-            [1, "Preroll", "Gummy Bear", "1.75g"],
-            [1, "Preroll", "Gummy Bear", "1.75g"],
+  return (
+    <>
+      <Row>
+        <Col>{setBreadcrumb(location.pathname)}</Col>
+      </Row>
 
-            [1, "Preroll", "Gummy Bear", "1.75g"]
-        ]);
-        setAvailableGraphData({
-            Gondza: 1000,
-            Tazie: 500,
-            Sansa: 750,
-            Skypey: 800
-        });
-        setPacketsManufacturedGraphData({
-            Preroll: 2000,
-            Edible: 1200,
-            Patches: 800
-        });
-    };
-    return (
-        <>
-            <Row>
-                <Col>{setBreadcrumb(location.pathname)}</Col>
-            </Row>
+      {/*Graph showing available raw material*/}
+      <Row>
+        <Col md={6}>
+          <section className={"manufacturer-graph dashboard-section"}>
+            <h3 className={"section-title"}>Available Raw Material</h3>
+            <BarGraph
+              ObjectToShow={availableGraphData}
+              label={"Available Pounds"}
+            />
+          </section>
+        </Col>
+        <Col md={6}>
+          <section className={"report-table-section dashboard-section"}>
+            <h3 className={"section-title"}>Available Raw Material</h3>
+            <AvailableRawMaterialTable array={availableArray} />
+          </section>
+        </Col>
+      </Row>
 
-            {/*Graph showing available raw material*/}
-            <Row>
-                <Col md={6}>
-                    <section className={"manufacturer-graph dashboard-section"}>
-                        <h3 className={'section-title'}>Available Raw Material</h3>
-                        <ManufacturerBarGraph data={availableGraphData}/>
-                    </section>
-                </Col>
-                <Col md={6}>
-                    <section className={"report-table-section dashboard-section"}>
-                        <h3 className={'section-title'}>Available Raw Material</h3>
-                        <AvailableRawMaterialTable array={availableArray}/>
-                    </section>
-                </Col>
-            </Row>
-
-            {/*Two tables for available raw material and packets made ready for dispatch*/}
-            <Row>
-                <Col md={6}>
-                    <section className={"report-table-section dashboard-section"}>
-                        <h3 className={'section-title'}>Created Packets</h3>
-                        <ManufacturedPacketsTable array={packetsReadyForDispatch}/>
-                    </section>
-                </Col>
-                <Col md={6}>
-                    <section className={"manufacturer-graph dashboard-section"}>
-                        <h3 className={'section-title'}>Products Manufactured in 2018-19</h3>
-                        <ManufacturerBarGraph data={packetsManufacturedGraphData}/>
-                    </section>
-                </Col>
-            </Row>
-        </>
-    );
+      {/*Two tables for available raw material and packets made ready for dispatch*/}
+      <Row>
+        <Col md={6}>
+          <section className={"report-table-section dashboard-section"}>
+            <h3 className={"section-title"}>Created Packets</h3>
+            <ManufacturedPacketsTable array={packetsReadyForDispatch} />
+          </section>
+        </Col>
+        <Col md={6}>
+          <section className={"manufacturer-graph dashboard-section"}>
+            <h3 className={"section-title"}>
+              Products Manufactured in 2018-19
+            </h3>
+            <BarGraph
+              ObjectToShow={packetsManufacturedGraphData}
+              label={"Processed Units"}
+            />
+          </section>
+        </Col>
+      </Row>
+    </>
+  );
 };
 
 export default ManufacturerDashboard;

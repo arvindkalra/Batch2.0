@@ -3,7 +3,7 @@ import {BrowserRouter as Router, Route} from "react-router-dom";
 import App from "../App";
 import Farmer from "./farmer/Farmer";
 import Product from "./farmer/Product";
-import About from './farmer/About';
+import About from './About';
 import Laboratory from './laboratory/Laboratory';
 import Manufacturer from "./manufacturer/Manufacturer";
 import Transporter from "./transporter/Transporter";
@@ -14,6 +14,8 @@ import TrackProduct from "./TrackProduct";
 import NewHarvest from "./farmer/NewHarvest";
 import Products from "./farmer/Products";
 import Distributor from "./distributor/Distributor";
+import Report from "./laboratory/Report";
+import DistributorProductDetail from "./distributor/DistributorProductDetail";
 
 const AppRouter = () => {
     return (
@@ -27,11 +29,14 @@ const AppRouter = () => {
             <Route exact path={'/farmer/products'} component={Products}/>
             {/*lab routes*/}
             <Route exact path={'/laboratory/dashboard'} component={Laboratory}/>
+            <Route exact path={'/laboratory/about'} component={About}/>
+            <Route exact path={'/laboratory/report/:id'} component={Report}/>
             {/*manufacturer router*/}
             <Route exact path={'/manufacturer/dashboard'} component={Manufacturer}/>
-            <Route exact path={'/manufacturer/harvests/:buid'} component={ManufacturerBatchDetail}/>
+            <Route exact path={'/manufacturer/harvest/:buid'} component={ManufacturerBatchDetail}/>
             {/*distributor routes*/}
             <Route exact path={'/distributor/dashboard'} component={Distributor}/>
+            <Route exact path={'/distributor/product/:buid'} component={DistributorProductDetail}/>
             {/*transporter routes*/}
             <Route exact path={'/transporter/dashboard'} component={Transporter}/>
             {/*retailer routes*/}

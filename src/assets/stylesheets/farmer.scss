@@ -16,7 +16,6 @@
 
 }
 
-
 .title {
   h1 {
     color: $green;
@@ -24,71 +23,68 @@
 }
 
 
+.chart-section {
 
-.chart-section{
-
-  div{
+  div {
     height: 300px;
     //width: 200px;
 
   }
-  .graph-details{
 
-  ul{
-    list-style: none;
-  }
-  h5{
-    color: $grey;
-  }
+  .graph-details {
+
+    ul {
+      list-style: none;
+    }
+
+    h5 {
+      color: $grey;
+    }
   }
 }
-  h3.status-tab-title{
-    font-weight: bolder;
-  }
 
-.product-table-dashboard{
+h3.status-tab-title {
+  font-weight: bolder;
+}
+
+.product-table-dashboard {
   max-height: 360px;
   overflow-y: scroll;
 }
-.product-status-section{
 
-  .progress{
-    height: 50px;
-    border-radius: 0;
-  }
-  .progress-bar{
-    font-style: italic;
-    font-size: 2em;
-  }
-}
 .ready-for-harvest {
   color: $green;
+
   .key-color {
 
     background-color: $green;
   }
 
 }
-.lab-tested{
+
+.lab-tested {
   color: $pink;
-  .key-color{
+
+  .key-color {
     background-color: $pink;
   }
 }
-.harvested{
+
+.harvested {
   color: $blue;
-  .key-color{
+
+  .key-color {
     background-color: $blue;
   }
 }
 
-.product-modal{
+.product-modal {
   width: 900px;
 
 }
 
-.product-image-section{
-  img{
+.product-image-section {
+  img {
     width: 500px;
     height: 500px;
     display: block;
@@ -97,73 +93,80 @@
 }
 
 
+ul.action-panel-list {
 
-ul.action-panel-list{
+  list-style: none;
 
-    list-style: none;
-  li{
+  li {
     margin-bottom: 10px;
   }
-    li.current-status{
-      cursor: none;
-      color:green;
 
-      &:before{
-        content: '✓';
-        margin-right: 4px;
-      }
+  li.current-status {
+    cursor: none;
+    color: green;
+
+    &:before {
+      content: '✓';
+      margin-right: 4px;
     }
-  li.inactive{
+  }
+
+  li.inactive {
     color: $grey;
     cursor: not-allowed;
   }
-  li.active{
+
+  li.active {
     cursor: pointer;
     font-weight: bolder;
   }
 
 }
 
-$min-height:300px;
+$min-height: 300px;
 
 
-.action-panel-list-section{
+.action-panel-list-section {
   //border: 1px dashed $grey;
   min-height: $min-height;
   position: relative;
-  h3{
+
+  h3 {
     padding-left: 4px;
   }
 
 
 }
 
-.product-info-tab{
+.product-info-tab {
   margin-bottom: 20px;
 }
-.secondary-actions-section{
-  .btn{
+
+.secondary-actions-section {
+  .btn {
     border-radius: 0;
-    color:white;
+    color: white;
 
   }
 }
-.destroy-crop{
+
+.destroy-crop {
   position: absolute;
   bottom: 0;
-  right:0px;
-  width: 50%;
-}
-.move-location{
-  position: absolute;
-  bottom: 0;
-  left:0px;
+  right: 0px;
   width: 50%;
 }
 
-.profile-section{
-  .profile-image-section{
-    .image-overlay{
+.move-location {
+  position: absolute;
+  bottom: 0;
+  left: 0px;
+  width: 50%;
+}
+
+.profile-section {
+  .profile-image-section {
+    .image-overlay {
       //background: rgba(0, 0, 0, 0.09);
       display: none;
       position: absolute;
@@ -171,63 +174,77 @@ $min-height:300px;
       top: 0;
       height: 100%;
       width: 100%;
-      .upload-button-section{
+
+      .upload-button-section {
         margin-top: 180px;
-          p{
-            text-align: center;
-            font-weight: bold;
-            color: white;
-            font-size: 1.2em;
-          }
+
+        p {
+          text-align: center;
+          font-weight: bold;
+          color: white;
+          font-size: 1.2em;
+        }
       }
     }
+
     transition: all 0.1s linear;
 
-    &:hover{
+    &:hover {
       opacity: 0.8;
 
-      .image-overlay{
+      .image-overlay {
         display: block;
         cursor: pointer;
       }
     }
+
     padding: 30px;
-    img{
+
+    img {
       max-width: 100%;
     }
   }
-  .form-group{
+
+  .form-group {
     padding: 30px;
   }
-  .custom-file-label{
-    margin:60px auto;
+
+  .custom-file-label {
+    margin: 60px auto;
     width: 80%;
     color: grey;
 
 
   }
-  button[type='submit']{
+
+  button[type='submit'] {
     display: block;
     margin: 0 auto;
   }
 }
 
-.table-links-list{
+.table-links-list {
   padding: 0;
   list-style: none;
-  li:first-child{
+
+  li:first-child {
     @extend .center-align-text;
   }
-  li:last-child{
-    button{
+
+  li:last-child {
+    button {
       margin: 1px;
     }
-    a{
 
-    color:white;
-    font-weight: bold;
+    a {
+
+      color: white;
+      font-weight: bold;
       text-transform: capitalize;
 
+      &:hover {
+        text-decoration: none;
+      }
     }
   }
 }

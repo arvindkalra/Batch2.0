@@ -1,15 +1,15 @@
-import React,{useEffect} from 'react';
-import Layout from "../Layout";
-import {setBreadcrumb} from "../../helpers";
+import React, {useEffect} from 'react';
+import Layout from "./Layout";
+import {setBreadcrumb} from "../helpers";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import ProfileCard from "./ProfileCard";
-import {connectToMetamask} from "../../dbController/init";
+import {connectToMetamask} from "../dbController/init";
 
 const About = (props) => {
-    useEffect(()=> {
+    useEffect(() => {
         connectToMetamask()
-    })
+    });
 
     return (
         <Layout>
@@ -26,7 +26,7 @@ const About = (props) => {
                     </p>
                 </Col>
                 <Col md={12}>
-                    <ProfileCard/>
+                    <ProfileCard role={props.location.pathname.split('/')[1]}/>
                 </Col>
             </Row>
         </Layout>

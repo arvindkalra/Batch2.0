@@ -3,11 +3,12 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import {getFarmerDetails, setFarmerDetails} from "../../dbController/farmerRole";
-import {fileToString} from "../../helpers";
-import {connectToMetamask} from "../../dbController/init";
+import {getFarmerDetails, setFarmerDetails} from "../dbController/farmerRole";
+import {fileToString} from "../helpers";
+import {connectToMetamask, OWN_ADDRESS} from "../dbController/init";
+import {getLaboratoryDetails, setLaboratoryDetails} from "../dbController/laboratoryRole";
 
-const ProfileCard = () => {
+const ProfileCard = ({role}) => {
 
 
     const [name, setName] = useState('Peter Willams');
@@ -19,30 +20,52 @@ const ProfileCard = () => {
     const profileImageRef = useRef(null);
     useEffect(() => {
         connectToMetamask().then(() => {
+            if (role === 'farmer') {
 
-            getFarmerDetails('0x627306090abaB3A6e1400e9345bC60c78a8BEf57').then(farmerObj => {
-                console.log(farmerObj);
-                setName(farmerObj.name);
-                setCompanyName(farmerObj.companyName);
-                setAddress(farmerObj.address);
-                setLicense(farmerObj.license);
-                setProfileImage(farmerObj.profileImage)
+                getFarmerDetails(OWN_ADDRESS).then(farmerObj => {
+                    console.log(farmerObj);
+                    setName(farmerObj.name);
+                    setCompanyName(farmerObj.companyName);
+                    setAddress(farmerObj.address);
+                    setLicense(farmerObj.license);
 
-            })
+                    setProfileImage(farmerObj.profileImage)
+
+                })
+            } else if (role === 'laboratory') {
+                getLaboratoryDetails(OWN_ADDRESS).then(labObject => {
+                    setName(labObject.name);
+                    setCompanyName(labObject.companyName);
+                    setAddress(labObject.address);
+                    setLicense(labObject.license);
+                    if (labObject.profileImage) {
+
+                        setProfileImage(labObject.profileImage)
+                    }
+                })
+            }
         })
     }, []);
 
     const openLicense = e => {
         e.target.download = 'test_download.pdf'
-    }
+    };
 
     const handleClick = e => {
         e.preventDefault();
         e.stopPropagation();
-        setFarmerDetails({name, companyName, address, license, profileImage}).then((txHash) => {
-            console.log(txHash);
-            console.log("details upadted")
-        })
+        if (role === 'farmer') {
+
+            setFarmerDetails({name, companyName, address, license, profileImage}).then((txHash) => {
+                console.log(txHash);
+                console.log("details upadted")
+            })
+        } else if (role === 'laboratory') {
+            setLaboratoryDetails({name, companyName, address, license, profileImage}).then(txHash => {
+                console.log(txHash)
+            })
+        }
+
     };
     const handleImageUpload = e => {
         fileToString(e.target.files[0]).then(result => {
@@ -119,22 +142,24 @@ const ProfileCard = () => {
 
                             </Col>
                             <Col md={6}>
-                                <Form.Group controlId={'farmer-farm-address'}>
+
+                                <Form.Group controlId={'address'}>
                                     <Form.Label>
-                                        Farm Location
+                                        Address
                                     </Form.Label>
-                                    <Form.Control type={'textarea'}
-                                                  placeholder={'Enter the address of your farm as it appears on your license'}
+                                    <Form.Control type={'text'}
+                                                  placeholder={'Enter Your Address'}
                                                   onChange={e => {
                                                       setAddress(e.target.value)
-                                                  }} value={address}/>
+                                                  }} value={address || ''}/>
                                 </Form.Group>
 
                             </Col>
                             <Col md={6}>
-                                <Form.Group controlId={'farmer-license'}>
+                                <Form.Group controlId={'license'}>
 
-                                    {license ? <a href={license} target={'_blank'} onClick={openLicense} > view license </a> :
+                                    {license ?
+                                        <a href={license} target={'_blank'} onClick={openLicense}> view license </a> :
                                         <>
                                             <Form.Label className={'custom-file-label'}>
                                                 License

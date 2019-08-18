@@ -30,12 +30,12 @@ const Dashboard = props => {
     let tableRows = 0;
     let tempRowsArray = rowsArray;
     let tempStatusObj = {
-      numSown : 0,
-      numHarvested : 0,
-      numSold : 0,
-      numApproved : 0,
-      numRejected : 0,
-      numDiscarded : 0
+      numSown: 0,
+      numHarvested: 0,
+      numSold: 0,
+      numApproved: 0,
+      numRejected: 0,
+      numDiscarded: 0
     };
     getRowsForFarmer(rowObject => {
       console.log(rowObject);
@@ -54,13 +54,19 @@ const Dashboard = props => {
           objToBeAdded.plantName,
           parseInt(objToBeAdded.seedCount)
         );
-        tempStatusObj = setNumStatusObject(rowObject.currentState.value, tempStatusObj);
+        tempStatusObj = setNumStatusObject(
+          rowObject.currentState.value,
+          tempStatusObj
+        );
       } else {
         addToBarObject(
           rowObject.details.plantName,
           parseInt(rowObject.details.seedCount)
         );
-        tempStatusObj = setNumStatusObject(rowObject.currentState.value, tempStatusObj);
+        tempStatusObj = setNumStatusObject(
+          rowObject.currentState.value,
+          tempStatusObj
+        );
         setShowForMoreRows(true);
       }
     });
@@ -168,7 +174,6 @@ const Dashboard = props => {
             </div>
           </section>
         </Col>
-
       </Row>
 
       <Row>
@@ -180,8 +185,24 @@ const Dashboard = props => {
               </Col>
               <Col md={{ span: 10, offset: 1 }}>
                 <div className={"chart-section"}>
-                  <BarGraph ObjectToShow={barGraphObject} />
+                  <BarGraph ObjectToShow={barGraphObject} label={"Seeds Sown"}/>
                 </div>
+              </Col>
+            </Row>
+          </section>
+        </Col>
+
+        <Col md={6} className={"chart-col"}>
+          <section className={"dashboard-section"}>
+            <Row>
+              <Col>
+                <h3 className={"section-title"}>Lab test Reports in 2018-19</h3>
+              </Col>
+              <Col md={{ span: 10, offset: 1 }}>
+                <PieChart2
+                  numApproved={numApproved}
+                  numRejected={numRejected}
+                />
               </Col>
             </Row>
           </section>
@@ -202,27 +223,17 @@ const Dashboard = props => {
             </Row>
           </section>
         </Col>
-
         <Col md={6} className={"chart-col"}>
           <section className={"dashboard-section"}>
             <Row>
               <Col>
-                <h3 className={"section-title"}>Lab test Reports</h3>
+                <h3 className={"section-title"}>Crops Harvested in 2018-19</h3>
               </Col>
               <Col md={{ span: 10, offset: 1 }}>
-                <PieChart2 numApproved={numApproved} numRejected={numRejected}/>
-              </Col>
-            </Row>
-          </section>
-        </Col>
-        <Col md={6} className={"chart-col"}>
-          <section className={"dashboard-section"}>
-            <Row>
-              <Col>
-                <h3 className={"section-title"}>Harvested Crops</h3>
-              </Col>
-              <Col md={{ span: 10, offset: 1 }}>
-                <PieChart3 numHarvested={numSown + numHarvested + numSold} numDestroyed={numDiscarded}/>
+                <PieChart3
+                  numHarvested={numHarvested + numSold}
+                  numDestroyed={numDiscarded}
+                />
               </Col>
             </Row>
           </section>

@@ -1,16 +1,15 @@
 import React from "react";
 import Table from "react-bootstrap/es/Table";
-import PackagedShipmentRow from "./PackagedShipmentRow";
+import ShipmentRow from "./ShipmentRow";
 
-const PackagedShipmentTable = ({ array, rowObjArr }) => {
+const ShipmentTable = ({ array, rowObjArr, shipmentType }) => {
   return (
     <Table responsive>
       <thead>
         <tr>
-          <th>Packet Id</th>
+          <th>Unique Identifier</th>
           <th>Sender Name</th>
           <th>Receiver Name</th>
-          <th>Amount</th>
           <th>Dispatch Time</th>
           <th>Current Status</th>
           <th>Action</th>
@@ -24,10 +23,11 @@ const PackagedShipmentTable = ({ array, rowObjArr }) => {
         ) : (
           array.map((element, id) => {
             return (
-              <PackagedShipmentRow
+              <ShipmentRow
                 value={element}
-                key={id + "" + element.puid}
-                rowObj={rowObjArr[element.puid]}
+                key={id + "" + element.uid}
+                rowObj={rowObjArr[element.uid]}
+                shipmentType={shipmentType}
               />
             );
           })
@@ -37,4 +37,4 @@ const PackagedShipmentTable = ({ array, rowObjArr }) => {
   );
 };
 
-export default PackagedShipmentTable;
+export default ShipmentTable;

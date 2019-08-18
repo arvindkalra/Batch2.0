@@ -7,7 +7,7 @@ import {
 } from "../../dbController/transporterRole";
 import { checkMined } from "../../dbController/init";
 
-const HarvestShipmentRow = ({ value, rowObj }) => {
+const HarvestShipmentRowUnused = ({ value, rowObj }) => {
   const handleClick = e => {
     e.preventDefault();
     e.stopPropagation();
@@ -51,4 +51,4 @@ const HarvestShipmentRow = ({ value, rowObj }) => {
   );
 };
 
-export default HarvestShipmentRow;
+export default HarvestShipmentRowUnused;

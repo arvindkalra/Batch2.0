@@ -46,6 +46,8 @@ export const getSeedProgress = status => {
         case 8:
         case 9:
             return 100;
+        case 10:
+            return 100;
 
     }
 };
@@ -67,20 +69,22 @@ export const setLabelsForGraphs = (item, obj) => {
     console.log(item, obj);
 
     const datasetIndex = item.index;
-    console.log(datasetIndex)
+    console.log(datasetIndex);
     const data = obj.datasets[0].data[datasetIndex];
     const labelText = obj.labels[datasetIndex];
-    return(labelText +": " + data+ "%")
+    return (labelText + ": " + data + "%")
 
-}
+};
 
 export const fileToString = (file) => {
     return new Promise((resolve, reject) => {
-    console.log(file);
+        console.log(file);
         const reader = new FileReader();
-        reader.readAsDataURL(file)
-        reader.onload= () => {resolve(reader.result)}
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+            resolve(reader.result)
+        }
     })
 
 
-}
+};

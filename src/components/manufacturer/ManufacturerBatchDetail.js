@@ -17,7 +17,7 @@ const ManufacturerBatchDetail = props => {
     connectToMetamask().then(()=>{
       fetchHarvestUnitDetailsUsingUID(buid).then((object) => {
         console.log(object);
-        getFarmerDetails(object.farmerAddress).then(farmerObj => {
+        getFarmerDetails(object.details.farmerAddress).then(farmerObj => {
           let alreadyUsed = object.details.totalHarvestUsed ? object.details.totalHarvestUsed : 0;
           setPrevDetails(object);
           setBatchInfo({

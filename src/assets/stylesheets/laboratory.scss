@@ -17,11 +17,11 @@
     text-align: center;
   }
 
-  .approve{
+  .approve {
     color: green;
   }
 
-  .reject{
+  .reject {
     color: red;
   }
 
@@ -32,30 +32,91 @@
 }
 
 
-.lab-header-section{
+.lab-header-section {
   border-bottom: 1px solid $grey;
-  h1.title{
+
+  h1.title {
     text-align: center;
     padding-top: 30px;
     font-size: 50px;
   }
-  .lab-details-section{
+
+  .lab-details-section {
     border-left: 4px solid black;
     padding-left: 10px;
 
   }
 }
-  .lab-product-details-section{
-    ul{
-      display: flex;
-      justify-content: space-around;
-      margin-left: 0;
-      padding-left:0;
-      li{
-        display: inline-block;
+
+.lab-product-details-section {
+  ul {
+    display: flex;
+    justify-content: space-around;
+    margin-left: 0;
+    padding-left: 0;
+
+    li {
+      display: inline-block;
 
 
+      font-weight: bold;
+    }
+  }
+}
+
+.product-report-section {
+  h1 {
+    font-size: 4em;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    text-align: center;
+    border-bottom: 1px solid $grey;
+  }
+
+  section {
+    margin-top: 20px;
+
+    border: 1px solid $grey;
+    padding: 30px;
+
+    p {
+      margin-top: 30px;
+
+      span {
+        font-weight: bold;
+      }
+    }
+
+    h2 {
+
+    }
+  }
+
+  ul {
+    li {
+      span {
         font-weight: bold;
       }
     }
   }
+}
+
+.card {
+  margin: 10px;
+  border-radius: 10px !important;
+
+  .card-header {
+    border: none;
+    background-color: #e9ecef;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+canvas {
+  min-height: 242px !important;
+}

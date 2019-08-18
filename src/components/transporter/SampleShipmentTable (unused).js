@@ -1,8 +1,8 @@
 import React from 'react';
 import Table from "react-bootstrap/es/Table";
-import SampleShipmentRow from "./SampleShipmentRow";
+import SampleShipmentRowUnused from "./SampleShipmentRow (unused)";
 
-const SampleShipmentTable = ({ array, rowObjArr }) => {
+const SampleShipmentTableUnused = ({ array, rowObjArr }) => {
     return (
         <Table responsive>
             <thead>
@@ -23,7 +23,7 @@ const SampleShipmentTable = ({ array, rowObjArr }) => {
             ) : (
                 array.map((element, id) => {
                     return (
-                        <SampleShipmentRow
+                        <SampleShipmentRowUnused
                             value={element}
                             key={id + "" + element.uid}
                             rowObj={rowObjArr[element.uid]}
@@ -36,4 +36,4 @@ const SampleShipmentTable = ({ array, rowObjArr }) => {
     );
 };
 
-export default SampleShipmentTable;
+export default SampleShipmentTableUnused;

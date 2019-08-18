@@ -40,14 +40,14 @@ const ProductTable = ({ rows, showForMore }) => {
               <ul className={"table-links-list"}>
                   {showForMore ? (
                       <li>
-                          <Link to={"/products"}>See all harvests </Link>
+                          <Link to={"/farmer/products"}>See all harvests </Link>
                       </li>
                   ) : (
                       <></>
                   )}
                   <li>
                       <Button type={'primary'}>
-                          <Link to={"/farmer/add-new-harvest"}> Add a new harvest</Link>
+                          <Link to={"/farmer/add-new-harvest"}> Add a new Plant</Link>
                       </Button>
                   </li>
               </ul>

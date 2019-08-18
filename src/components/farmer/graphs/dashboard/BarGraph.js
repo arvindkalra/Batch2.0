@@ -13,14 +13,21 @@ import Row from "react-bootstrap/Row";
 //     ]
 // };
 const colors = [
-  "#b3e5fc",
-  "#81d4fa",
-  "#4fc3f7",
-  "#29b6f6",
-  "#03a9f4",
-  "#039be5"
+  "#e3f2fd",
+  "#bbdefb",
+  "#90caf9",
+  "#64b5f6",
+  "#42a5f5",
+  "#2196f3",
+  "#1e88e5",
+  "#1976d2",
+  "#1565c0",
+  "#448aff",
+  "#2979ff",
+  "#2962ff"
 ];
-const BarGraph = ({ ObjectToShow }) => {
+const BarGraph = ({ ObjectToShow, changed, label }) => {
+  let change = changed ? changed : JSON.stringify(ObjectToShow);
   const [dataArray, setDataArray] = useState([]);
   const [labels, setLabels] = useState([]);
   const options = {
@@ -35,14 +42,13 @@ const BarGraph = ({ ObjectToShow }) => {
     scales: {
       yAxes: [
         {
-          display: false,
+          display: true,
           gridLines: {
             display: true,
-            drawBorder: false
+            drawBorder: true
           },
           ticks: {
-            suggestedMin: 0,
-            suggestedMax: 100
+            suggestedMin: 0
           }
         }
       ],
@@ -57,7 +63,7 @@ const BarGraph = ({ ObjectToShow }) => {
       ]
     }
   };
-  const graphLabel = "Seeds Sown";
+  const graphLabel = label;
   useEffect(() => {
     console.log(ObjectToShow);
     let objectKeys = Object.keys(ObjectToShow);
@@ -67,12 +73,17 @@ const BarGraph = ({ ObjectToShow }) => {
       tempDataArray.push(ObjectToShow[objectKeys[i]]);
     }
     setDataArray(tempDataArray);
-  }, [JSON.stringify(ObjectToShow)]);
+  }, [JSON.stringify(ObjectToShow), change]);
   return (
     <Row>
       <Col md={12}>
         <Bar
-          data={{ datasets: [{ data: dataArray, label: graphLabel, backgroundColor: colors }], labels: labels }}
+          data={{
+            datasets: [
+              { data: dataArray, label: graphLabel, backgroundColor: colors }
+            ],
+            labels: labels
+          }}
           options={options}
         />
       </Col>

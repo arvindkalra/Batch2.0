@@ -65,7 +65,7 @@ const RetailerActionForm = ({puid}) => {
                                         type={"number"}
                                         placeholder={"Enter the Quantity you want to Sell"}
                                         onChange={e => {
-                                            setAmount(e.target.value);
+                                            setAmount(parseInt(e.target.value));
                                         }}
                                     />
                                 </Form.Group>
@@ -77,7 +77,7 @@ const RetailerActionForm = ({puid}) => {
                                         type={"number"}
                                         placeholder={"Enter the selling price"}
                                         onChange={e => {
-                                            setSellingPrice(e.target.value);
+                                            setSellingPrice(parseInt(e.target.value));
                                         }}
                                     />
                                 </Form.Group>

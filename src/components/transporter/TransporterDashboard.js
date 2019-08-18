@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import Col from "react-bootstrap/Col";
 import { setBreadcrumb } from "../../helpers";
 import Row from "react-bootstrap/Row";
-import HarvestShipmentTable from "./HarvestShipmentTable";
-import PackagedShipmentTable from "./PackagedShipmentTable";
 import {
+  getDistributorToRetailerConsignments,
+  getFactoryToDistributorConsignments,
   getFarmToFactoryConsignments,
   getLabSampleConsignments,
   getTransportUnitDetails
@@ -14,7 +14,10 @@ import { getFarmerDetails } from "../../dbController/farmerRole";
 import { getManufacturerDetails } from "../../dbController/manufacturerRole";
 import { getRetailerDetails } from "../../dbController/retailerRole";
 import { getLaboratoryDetails } from "../../dbController/laboratoryRole";
-import SampleShipmentTable from "./SampleShipmentTable";
+import Accordion from "react-bootstrap/Accordion";
+import Card from "react-bootstrap/Card";
+import { getDistributorDetails } from "../../dbController/distributorRole";
+import ShipmentTable from "./ShipmentTable";
 
 const TransporterDashboard = ({ location }) => {
   const [harvestShipments, setHarvestShipments] = useState([]);
@@ -23,13 +26,15 @@ const TransporterDashboard = ({ location }) => {
   const [packageRowObjArr, setPackageObjRowArr] = useState({});
   const [sampleShipments, setSampleShipment] = useState([]);
   const [sampleRowObjArr, setSampleRowObjArr] = useState({});
+  const [retailShipments, setRetailShipments] = useState([]);
+  const [retailRowObjArr, setRetailRowObjArr] = useState({});
   useEffect(() => {
     connectToMetamask().then(() => {
       let tempHarvestShipments = harvestShipments;
       let tempPackagedShipment = packagedShipments;
       let tempSampleShipments = sampleShipments;
+      let tempRetailShipments = retailShipments;
       getFarmToFactoryConsignments(row => {
-        console.log(row);
         let tempRow = harvestRowObjArr;
         tempRow[row.uid] = row;
         setHarvestRowObjArr(tempRow);
@@ -45,7 +50,8 @@ const TransporterDashboard = ({ location }) => {
               rowObj.senderCompany = farmerObj.name;
               rowObj.receiverCompany = manufacturerObj.name;
               rowObj.amount = row.details.totalHarvestAmount + " Pounds";
-              rowObj.dispatchTime = row.details.farmToFactoryConsignmentDispatchTime;
+              rowObj.dispatchTime =
+                row.details.farmToFactoryConsignmentDispatchTime;
 
               rowObj.currentStatus = row.currentState;
               tempHarvestShipments.push(rowObj);
@@ -54,35 +60,7 @@ const TransporterDashboard = ({ location }) => {
           );
         });
       });
-      getTransportUnitDetails(false, row => {
-        // amount: 10
-        // currentState: "packed"
-        let tempRow = packageRowObjArr;
-        tempRow[row.uid] = row;
-        setPackageObjRowArr(tempRow);
-        let rowObj = {};
-        rowObj.puid = row.uid;
-        getManufacturerDetails(row.senderAddress).then(manufacturerObj => {
-          getRetailerDetails(row.receiverAddress).then(retailerObj => {
-            if (
-              row.currentState === "delivered" ||
-              row.currentState === "lost"
-            ) {
-              return;
-            }
-            rowObj.senderCompany = manufacturerObj.name;
-            rowObj.receiverCompany = retailerObj.name;
-            rowObj.amount = row.amount + " Units";
-            rowObj.currentStatus = row.currentState;
-            rowObj.dispatchTime = row.details.dispatchTime;
-
-            tempPackagedShipment.push(rowObj);
-            setPackagedShipments([...tempPackagedShipment]);
-          });
-        });
-      });
       getLabSampleConsignments(row => {
-        console.log(row);
         let tempRow = sampleRowObjArr;
         tempRow[row.uid] = row;
         setSampleRowObjArr(tempRow);
@@ -99,9 +77,67 @@ const TransporterDashboard = ({ location }) => {
               rowObj.senderCompany = farmerName;
               rowObj.receiverCompany = name;
               rowObj.currentStatus = row.currentState;
-              rowObj.dispatchTime = row.details.labSampleConsignmentDispatchTime;
+              rowObj.dispatchTime =
+                row.details.labSampleConsignmentDispatchTime;
               tempSampleShipments.push(rowObj);
               setSampleShipment([...tempSampleShipments]);
+            }
+          });
+      });
+      getFactoryToDistributorConsignments(row => {
+        console.log(row);
+        let tempRow = packageRowObjArr;
+        tempRow[row.uid] = row;
+        setPackageObjRowArr(tempRow);
+        let rowObj = {};
+        let manufacturerAddress =
+          row.details.manufacturerAddress ||
+          "0x7949173E38cEf39e75E05D2d2C232FBE8BAe5E20";
+        let manufacturerName;
+        getManufacturerDetails(manufacturerAddress).then(({ name }) => {
+          manufacturerName = name;
+          return getDistributorDetails(row.details.distributorAddress).then(
+            ({ name }) => {
+              if (row.currentState.value < 4) {
+                rowObj.uid = row.uid;
+                rowObj.senderCompany = manufacturerName;
+                rowObj.receiverCompany = name;
+                rowObj.currentStatus = row.currentState;
+                rowObj.dispatchTime =
+                  row.details.manufacturerToDistributorDispatchTime;
+                rowObj.amount = row.details.totalPacketsManufactured;
+                tempPackagedShipment.push(rowObj);
+                setPackagedShipments([...tempPackagedShipment]);
+              }
+            }
+          );
+        });
+      });
+      getDistributorToRetailerConsignments(row => {
+        let tempRow = retailRowObjArr;
+        tempRow[row.uid] = row;
+        setRetailRowObjArr(tempRow);
+        let rowObj = {};
+        let distributorAddress =
+          row.details.distributorAddress ||
+          "0x7949173E38cEf39e75E05D2d2C232FBE8BAe5E20";
+        let distributorName;
+        getDistributorDetails(distributorAddress)
+          .then(({ name }) => {
+            distributorName = name;
+            return getRetailerDetails(row.details.retailerAddress);
+          })
+          .then(({ name }) => {
+            if (row.currentState.value < 4) {
+              rowObj.uid = row.uid;
+              rowObj.senderCompany = distributorName;
+              rowObj.receiverCompany = name;
+              rowObj.currentStatus = row.currentState;
+              rowObj.dispatchTime =
+                row.details.distributorToRetailerDispatchTime;
+              rowObj.amount = row.details.totalPacketsManufactured;
+              tempRetailShipments.push(rowObj);
+              setRetailShipments([...tempRetailShipments]);
             }
           });
       });
@@ -144,36 +180,105 @@ const TransporterDashboard = ({ location }) => {
 
       {/*Tables for showing current shipments*/}
       <Row>
-        <Col>
-          <section className={"shipment-section"}>
-            <h3>Current Shipments (Harvests)</h3>
-            <HarvestShipmentTable
-              array={harvestShipments}
-              rowObjArr={harvestRowObjArr}
-            />
-          </section>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <section className={"shipment-section"}>
-            <h3>Current Shipments (Packets)</h3>
-            <PackagedShipmentTable
-              array={packagedShipments}
-              rowObjArr={packageRowObjArr}
-            />
-          </section>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <section className={"shipment-section"}>
-            <h3>Current Shipments (Laboratory Samples)</h3>
-            <SampleShipmentTable
-              array={sampleShipments}
-              rowObjArr={sampleRowObjArr}
-            />
-          </section>
+        <Col md={12}>
+          <Accordion>
+            <Card>
+              <Card.Header>
+                <Accordion.Toggle as={Card.Header} variant="link" eventKey="0">
+                  Harvest Shipments ( Grower -> Manufacturer )
+                </Accordion.Toggle>
+              </Card.Header>
+              <Accordion.Collapse eventKey="0">
+                <Card.Body>
+                  <section className={"shipment-section"}>
+                    {harvestShipments.length !== 0 ? (
+                      <ShipmentTable
+                        array={harvestShipments}
+                        rowObjArr={harvestRowObjArr}
+                        shipmentType={"harvest"}
+                      />
+                    ) : (
+                      <div>
+                        You don't have any pending shipment consignments
+                      </div>
+                    )}
+                  </section>
+                </Card.Body>
+              </Accordion.Collapse>
+            </Card>
+            <Card>
+              <Card.Header>
+                <Accordion.Toggle as={Card.Header} variant="link" eventKey="1">
+                  Product Shipments ( Manufacturer -> Distributor )
+                </Accordion.Toggle>
+              </Card.Header>
+              <Accordion.Collapse eventKey="1">
+                <Card.Body>
+                  <section className={"shipment-section"}>
+                    {packagedShipments.length !== 0 ? (
+                      <ShipmentTable
+                        array={packagedShipments}
+                        rowObjArr={packageRowObjArr}
+                        shipmentType={"product"}
+                      />
+                    ) : (
+                      <div>
+                        You don't have any pending shipment consignments
+                      </div>
+                    )}
+                  </section>
+                </Card.Body>
+              </Accordion.Collapse>
+            </Card>
+            <Card>
+              <Card.Header>
+                <Accordion.Toggle as={Card.Header} variant="link" eventKey="2">
+                  Laboratory Sample Shipments ( Grower -> Laboratory )
+                </Accordion.Toggle>
+              </Card.Header>
+              <Accordion.Collapse eventKey="2">
+                <Card.Body>
+                  <section className={"shipment-section"}>
+                    {sampleShipments.length !== 0 ? (
+                      <ShipmentTable
+                        array={sampleShipments}
+                        rowObjArr={sampleRowObjArr}
+                        shipmentType={"sample"}
+                      />
+                    ) : (
+                      <div>
+                        You don't have any pending shipment consignments
+                      </div>
+                    )}
+                  </section>
+                </Card.Body>
+              </Accordion.Collapse>
+            </Card>
+            <Card>
+              <Card.Header>
+                <Accordion.Toggle as={Card.Header} variant="link" eventKey="3">
+                  Retail Shipments ( Distributor -> Retailer )
+                </Accordion.Toggle>
+              </Card.Header>
+              <Accordion.Collapse eventKey="3">
+                <Card.Body>
+                  <section className={"shipment-section"}>
+                    {retailShipments.length !== 0 ? (
+                      <ShipmentTable
+                        array={retailShipments}
+                        rowObjArr={retailRowObjArr}
+                        shipmentType={"retail"}
+                      />
+                    ) : (
+                      <div>
+                        You don't have any pending shipment consignments
+                      </div>
+                    )}
+                  </section>
+                </Card.Body>
+              </Accordion.Collapse>
+            </Card>
+          </Accordion>
         </Col>
       </Row>
     </>

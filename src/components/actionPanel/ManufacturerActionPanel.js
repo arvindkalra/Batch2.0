@@ -11,31 +11,31 @@ const ManufacturerActionPanel = ({ left, total, prevDetails }) => {
   const [materialUsed, setMaterialUsed] = useState("");
   const [packetsMade, setPacketsMade] = useState("");
   const [packetSize, setPacketSize] = useState("");
-  const [packetName, setPacketName] = useState("");
-  const [productType, setProductType] = useState("");
-  const [retailerName, setRetailerName] = useState("");
-  const [transporterName, setTransporterName] = useState("");
+  const [productType, setProductType] = useState("Preroll");
 
   const handleClick = e => {
     e.preventDefault();
     e.stopPropagation();
     let packetObj = {
       packetSize,
-      packetName,
       productType,
       packedOn: new Date().toLocaleString(),
       harvestUnitId: prevDetails.uid,
       totalPacketsManufactured: packetsMade
     };
-    prevDetails.details.totalHarvestUsed = materialUsed;
+    console.log(packetObj);
+    let oldHarvestUsed = prevDetails.details.totalHarvestUsed ? prevDetails.details.totalHarvestUsed : 0;
+    prevDetails.details.totalHarvestUsed = parseInt(oldHarvestUsed) + parseInt(materialUsed);
     if (left < materialUsed) {
       alert("You Don't have enough RAW MATERIAL.!");
       return;
     }
     console.log(prevDetails.details);
-    packetsManufactured(prevDetails.uid, prevDetails.details, packetObj).then(hash => {
-      checkMined(hash, () => window.location.reload());
-    });
+    packetsManufactured(prevDetails.uid, prevDetails.details, packetObj).then(
+      hash => {
+        checkMined(hash, () => window.location.reload());
+      }
+    );
   };
 
   return (
@@ -61,7 +61,7 @@ const ManufacturerActionPanel = ({ left, total, prevDetails }) => {
               type={"number"}
               placeholder={"Enter the amount harvested in pounds"}
               onChange={e => {
-                setMaterialUsed(e.target.value);
+                setMaterialUsed(parseInt(e.target.value));
               }}
             />
           </Form.Group>
@@ -73,7 +73,7 @@ const ManufacturerActionPanel = ({ left, total, prevDetails }) => {
               type={"number"}
               placeholder={"Enter the amount harvested in pounds"}
               onChange={e => {
-                setPacketsMade(e.target.value);
+                setPacketsMade(parseInt(e.target.value));
               }}
             />
           </Form.Group>
@@ -94,53 +94,13 @@ const ManufacturerActionPanel = ({ left, total, prevDetails }) => {
           <Form.Group>
             <Form.Label>Product Type</Form.Label>
             <Form.Control
-              type={"text"}
-              placeholder={"enter the product type"}
+              as={"select"}
               onChange={e => {
                 setProductType(e.target.value);
               }}
-            />
-          </Form.Group>
-        </Col>
-        <Col md={6}>
-          <Form.Group>
-            <Form.Label>Packet Name</Form.Label>
-            <Form.Control
-              type={"text"}
-              placeholder={"Enter the amount harvested in pounds"}
-              onChange={e => {
-                setPacketName(e.target.value);
-              }}
-            />
-          </Form.Group>
-        </Col>
-        <Col md={6}>
-          <Form.Group>
-            <Form.Label>Retailer Name</Form.Label>
-            <Form.Control
-              as={"select"}
-              placeholder={"Enter the amount harvested in pounds"}
-              onChange={e => {
-                setRetailerName(e.target.value);
-              }}
             >
-              <option value="">abcd</option>
-              <option value="">efgh</option>
-            </Form.Control>
-          </Form.Group>
-        </Col>
-        <Col md={{ span: 6, offset: 3 }}>
-          <Form.Group>
-            <Form.Label>Transporter Name</Form.Label>
-            <Form.Control
-              as={"select"}
-              placeholder={"Enter the amount harvested in pounds"}
-              onChange={e => {
-                setTransporterName(e.target.value);
-              }}
-            >
-              <option value="">abcd</option>
-              <option value="">efgh</option>
+              <option value={"Preroll"}>Preroll</option>
+              <option value={"Edibles"}>Edibles</option>
             </Form.Control>
           </Form.Group>
         </Col>

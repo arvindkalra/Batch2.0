@@ -15,9 +15,9 @@ const ReportForm = ({ formDetails }) => {
   const [labResult, setLabResult] = useState(true);
 
   const handleSelect = e => {
-    if (e.target.value == "Passed") {
+    if (e.target.value === "Passed") {
       setLabResult(true);
-    } else if (e.target.value === "Failed") {
+    } else {
       setLabResult(false);
     }
   };
@@ -30,6 +30,7 @@ const ReportForm = ({ formDetails }) => {
     details.cbd = cbd;
     details.cannabinoids = cannabinoids;
     details.testedOn = new Date().toLocaleString();
+    console.log(labResult);
     connectToMetamask().then(() => {
       uploadReport(
         formDetails.uid,
@@ -110,7 +111,7 @@ const ReportForm = ({ formDetails }) => {
                       type={"number"}
                       placeholder={"Enter the THC content"}
                       onChange={e => {
-                        setThc(e.target.value);
+                        setThc(parseInt(e.target.value));
                       }}
                     />
                   </Form.Group>
@@ -124,7 +125,7 @@ const ReportForm = ({ formDetails }) => {
                       type={"number"}
                       placeholder={"Enter the CBD content"}
                       onChange={e => {
-                        setCbd(e.target.value);
+                        setCbd(parseInt(e.target.value));
                       }}
                     />
                   </Form.Group>
@@ -138,7 +139,7 @@ const ReportForm = ({ formDetails }) => {
                       type={"number"}
                       placeholder={"Enter the Cannabiniods content"}
                       onChange={e => {
-                        setCannabinoids(e.target.value);
+                        setCannabinoids(parseInt(e.target.value));
                       }}
                     />
                   </Form.Group>
@@ -148,7 +149,7 @@ const ReportForm = ({ formDetails }) => {
                     <Form.Label>Test Result</Form.Label>
                     <Form.Control as={"select"} onClick={handleSelect}>
                       <option value="">Passed</option>
-                      <option value=""> Failed</option>
+                      <option value="">Failed</option>
                     </Form.Control>
                   </Form.Group>
                 </Col>
