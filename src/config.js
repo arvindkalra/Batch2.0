@@ -2007,6 +2007,25 @@ export default {
             "type": "function"
         },
         {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "account",
+                    "type": "address"
+                }
+            ],
+            "name": "getConsumerDetails",
+            "outputs": [
+                {
+                    "name": "hash",
+                    "type": "string"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
             "constant": false,
             "inputs": [
                 {
