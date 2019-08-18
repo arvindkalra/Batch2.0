@@ -5,11 +5,24 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Jumbotron from "react-bootstrap/Jumbotron";
 import Form from "react-bootstrap/Form";
+import {authneticateUser, connectToMetamask} from "./dbController/init";
 
 function App() {
 
   const handleSelect = e => {
     const currentVal = e.target.value;
+    console.log(currentVal);
+    connectToMetamask().then(()=>{
+
+      authneticateUser(currentVal).then(bool=>{
+          if (bool){
+              window.open('/farmer/dashboard','_blank');
+          }else{
+              alert('you are not authorized to visit this page. Please contact the application admin for further details')
+          }
+      })
+    })
+
 
   };
 
@@ -43,12 +56,12 @@ function App() {
                                 </p>
                                 <Form.Control as={'select'} onChange={handleSelect}>
                                   <option value="">Select your role </option>
-                                  <option value="">Farmer</option>
-                                    <option value="">Laboratory</option>
-                                    <option value="">Manufacturer</option>
-                                    <option value="">Transporter</option>
-                                    <option value="">Distributor</option>
-                                    <option value="">Retailer</option>
+                                  <option value="farmer">Farmer</option>
+                                    <option value="laboratory">Laboratory</option>
+                                    <option value="manufacturer">Manufacturer</option>
+                                    <option value="transporter">Transporter</option>
+                                    <option value="distributor">Distributor</option>
+                                    <option value="retailer">Retailer</option>
                                 </Form.Control>
                             </Form.Group>
                         </Col>

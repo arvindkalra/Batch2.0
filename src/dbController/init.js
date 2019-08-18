@@ -380,3 +380,43 @@ export const checkMined = (txHash, cb) => {
         });
     }, 500);
 };
+
+
+export const authneticateUser = (role) => {
+    return new Promise((resolve, reject) => {
+
+        switch (role) {
+            case 'farmer':
+                makeFarmerTransaction('isFarmer', OWN_ADDRESS).then((bool) => {
+                    resolve(bool)
+                });
+                return;
+            case 'laboratory':
+                makeLaboratoryTransaction('isLaboratory', OWN_ADDRESS).then(bool => {
+                    resolve(bool)
+
+                });
+                return;
+            case 'manufacturer':
+                makeManufacturerTransaction('isManufacturer', OWN_ADDRESS).then(bool => {
+                    resolve(bool)
+                });
+                return;
+            case 'distributor':
+                makeDistributorTransaction('isDistributor', OWN_ADDRESS).then(bool => {
+                    resolve(bool)
+                });
+                return;
+            case 'retailer':
+                makeRetailerTransaction('isRetailer', OWN_ADDRESS).then(bool => {
+                    resolve(bool)
+                });
+                return;
+            default:
+                resolve(false)
+
+
+        }
+    })
+
+};
