@@ -26,7 +26,7 @@ const Retailer = ({location}) => {
 
     return (
 
-        <Layout userName={userName} profileImage={profileImage}>
+        <Layout userName={userName} profileImage={profileImage} location={location}>
             <RetailerDashboard location={location}/>
         </Layout>
 

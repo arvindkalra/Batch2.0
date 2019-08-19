@@ -12,7 +12,7 @@ const CompleteProductsTable = () => {
       getRowsForFarmer(rowObj => {
         tempRows.push(rowObj);
         setRows([...tempRows]);
-        console.log(rows);
+
       });
     });
   }, []);

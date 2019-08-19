@@ -12,7 +12,7 @@ const Manufacturer = ({location}) => {
         connectToMetamask().then(() => {
             localStorage.clear();
             getManufacturerDetails().then((obj) => {
-                console.log(obj);
+
                 setUserName(obj.name);
                 localStorage.setItem('name', obj.name);
                 setProfileImage(obj.profileImage);
@@ -22,7 +22,7 @@ const Manufacturer = ({location}) => {
         })
     });
     return (
-        <Layout userName={userName} profileImage={profileImage}>
+        <Layout userName={userName} profileImage={profileImage} location={location}>
             <ManufacturerDashboard location={location}/>
         </Layout>
     );

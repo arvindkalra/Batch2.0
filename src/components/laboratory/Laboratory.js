@@ -28,7 +28,7 @@ const Laboratory = (props) => {
     }, []);
 
     return (
-        <Layout profileImage={profileImage} userName={userName}>
+        <Layout profileImage={profileImage} userName={userName} location={props.location}>
             <LabDashboard location={props.location}/>
         </Layout>
     );

@@ -9,22 +9,22 @@ import {authneticateUser, connectToMetamask} from "./dbController/init";
 
 function App() {
 
-  const handleSelect = e => {
-    const currentVal = e.target.value;
-    console.log(currentVal);
-    connectToMetamask().then(()=>{
+    const handleSelect = e => {
+        const currentVal = e.target.value;
 
-      authneticateUser(currentVal).then(bool=>{
-          if (bool){
-              window.open('/farmer/dashboard','_blank');
-          }else{
-              alert('you are not authorized to visit this page. Please contact the application admin for further details')
-          }
-      })
-    })
+        connectToMetamask().then(() => {
+
+            authneticateUser(currentVal).then(bool => {
+                if (bool) {
+                    window.open('/farmer/dashboard', '_blank');
+                } else {
+                    alert('you are not authorized to visit this page. Please contact the application admin for further details')
+                }
+            })
+        })
 
 
-  };
+    };
 
 
     return (<>
@@ -55,8 +55,8 @@ function App() {
                                     You are a ...
                                 </p>
                                 <Form.Control as={'select'} onChange={handleSelect}>
-                                  <option value="">Select your role </option>
-                                  <option value="farmer">Farmer</option>
+                                    <option value="">Select your role</option>
+                                    <option value="farmer">Farmer</option>
                                     <option value="laboratory">Laboratory</option>
                                     <option value="manufacturer">Manufacturer</option>
                                     <option value="transporter">Transporter</option>

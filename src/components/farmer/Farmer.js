@@ -15,7 +15,7 @@ const Farmer = (props) => {
         connectToMetamask().then(() => {
 
             getFarmerDetails().then((obj) => {
-                console.log(obj);
+
                 setUserName(obj.name);
                 localStorage.setItem('name', obj.name);
                 setProfileImage(obj.profileImage);
@@ -27,7 +27,7 @@ const Farmer = (props) => {
 
 
     return (
-        <Layout userName={userName} profileImage={profileImage}>
+        <Layout userName={userName} profileImage={profileImage} location={props.location}>
             <Dashboard location={props.location}/>
         </Layout>
     );

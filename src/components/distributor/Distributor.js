@@ -12,7 +12,7 @@ const Distributor = ({location}) => {
         connectToMetamask().then(() => {
 
             getDistributorDetails().then((obj) => {
-                console.log(obj);
+
                 setUserName(obj.name);
                 localStorage.setItem('name', obj.name);
                 setProfileImage(obj.profileImage);
@@ -24,7 +24,7 @@ const Distributor = ({location}) => {
 
 
     return (
-        <Layout profileImage={profileImage} userName={userName}>
+        <Layout profileImage={profileImage} userName={userName} location={location}>
             <DistDashboard location={location} />
 
         </Layout>

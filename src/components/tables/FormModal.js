@@ -4,7 +4,7 @@ import ReportForm from "../laboratory/ReportForm";
 import Button from "react-bootstrap/Button";
 
 const FormModal = ({ buttonText, formDetails, tableRow }) => {
-  console.log(formDetails, tableRow);
+
   const [showModal, setShowModal] = useState(false);
   return (
     <>

@@ -12,7 +12,7 @@ const About = (props) => {
     });
 
     return (
-        <Layout>
+        <Layout location={props.location}>
             <Row>
                 <Col>
                     {setBreadcrumb(props.location.pathname)}

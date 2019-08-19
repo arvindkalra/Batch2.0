@@ -13,7 +13,7 @@ const Transporter = ({location}) => {
             localStorage.clear()
 
             getTransporterDetails().then((obj) => {
-                console.log(obj);
+
                 setUserName(obj.name);
                 localStorage.setItem('name', obj.name);
                 setProfileImage(obj.profileImage);
@@ -24,7 +24,7 @@ const Transporter = ({location}) => {
     });
 
     return (
-        <Layout userName={userName} profileImage={profileImage}>
+        <Layout userName={userName} profileImage={profileImage} location={location}>
             <TransporterDashboard location={location}/>
         </Layout>
     );

@@ -19,6 +19,7 @@ import Card from "react-bootstrap/Card";
 import { getDistributorDetails } from "../../dbController/distributorRole";
 import ShipmentTable from "./ShipmentTable";
 import Loader from "../Loader";
+import Badge from "react-bootstrap/Badge";
 
 const TransporterDashboard = ({ location }) => {
   const [harvestShipments, setHarvestShipments] = useState([]);
@@ -87,7 +88,7 @@ const TransporterDashboard = ({ location }) => {
           });
       });
       getFactoryToDistributorConsignments(row => {
-        console.log(row);
+
         let tempRow = packageRowObjArr;
         tempRow[row.uid] = row;
         setPackageObjRowArr(tempRow);
@@ -161,6 +162,13 @@ const TransporterDashboard = ({ location }) => {
               <Card.Header>
                 <Accordion.Toggle as={Card.Header} variant="link" eventKey="0">
                   Harvest Shipments ( Grower -> Manufacturer )
+                  &nbsp;
+                  {harvestShipments.length !==0?<Badge pill variant="success">
+                    New Shipments
+
+                  </Badge>:null}
+
+
                 </Accordion.Toggle>
               </Card.Header>
               <Accordion.Collapse eventKey="0">
@@ -188,6 +196,10 @@ const TransporterDashboard = ({ location }) => {
               <Card.Header>
                 <Accordion.Toggle as={Card.Header} variant="link" eventKey="1">
                   Product Shipments ( Manufacturer -> Distributor )
+                  {packagedShipments.length !==0?<Badge pill variant="success">
+                    New Shipments
+
+                  </Badge>:null}
                 </Accordion.Toggle>
               </Card.Header>
               <Accordion.Collapse eventKey="1">
@@ -215,6 +227,10 @@ const TransporterDashboard = ({ location }) => {
               <Card.Header>
                 <Accordion.Toggle as={Card.Header} variant="link" eventKey="2">
                   Laboratory Sample Shipments ( Grower -> Laboratory )
+                  {sampleShipments.length !==0?<Badge pill variant="success">
+                    New Shipments
+
+                  </Badge>:null}
                 </Accordion.Toggle>
               </Card.Header>
               <Accordion.Collapse eventKey="2">
@@ -242,6 +258,10 @@ const TransporterDashboard = ({ location }) => {
               <Card.Header>
                 <Accordion.Toggle as={Card.Header} variant="link" eventKey="3">
                   Retail Shipments ( Distributor -> Retailer )
+                  {retailShipments.length !==0?<Badge pill variant="success">
+                    New Shipments
+
+                  </Badge>:null}
                 </Accordion.Toggle>
               </Card.Header>
               <Accordion.Collapse eventKey="3">

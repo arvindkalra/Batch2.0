@@ -5,15 +5,16 @@ import Col from "react-bootstrap/Col";
 import Navbar from "react-bootstrap/Navbar";
 import Button from "react-bootstrap/Button";
 import SideBar from "./SideBar";
+import {Link} from 'react-router-dom'
 import '../assets/stylesheets/layout.scss';
 
 
-const Layout = ({children, userName, profileImage}) => {
+const Layout = ({children, userName, profileImage, location}) => {
 
-    // const [farmerDetails, setFarmerDetails] = useState('');
+
+
     const [showSideBar, setShowSideBar] = useState(false);
     const [overlayDisplay, setOverlayDisplay] = useState('none');
-    const [showNotication, setShowNotification] = useState(true)
 
     const closeSideBar = () => {
         setShowSideBar(false);
@@ -43,12 +44,13 @@ const Layout = ({children, userName, profileImage}) => {
                             Batch
                         </Navbar.Brand>
                         <Navbar.Collapse className={'justify-content-end'}>
+                            <Link to={'/' + location.pathname.split('/')[1] + '/about'}>
                             <Navbar.Text
                                 className={'profile-name'}> {userName || localStorage.getItem('name') || 'Loading...'} </Navbar.Text>
                             <img
                                 src={profileImage || localStorage.getItem('profileImage') || "https://picsum.photos/id/1074/50"}
                                 alt="" className={'profile-image'}/>
-
+                            </Link>
                         </Navbar.Collapse>
                     </Navbar>
                 </Col>

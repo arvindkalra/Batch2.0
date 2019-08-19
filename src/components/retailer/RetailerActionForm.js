@@ -23,7 +23,7 @@ const RetailerActionForm = ({puid}) => {
         e.preventDefault();
         e.stopPropagation();
         getConsumerDetails(address).then(obj => {
-            console.log(obj);
+
             obj.purchases.push({
                 puid,
                 amount,
@@ -98,7 +98,8 @@ const RetailerActionForm = ({puid}) => {
                                     <Form.Label className={'custom-file-label'}>
                                         Customer ID-proof
                                     </Form.Label>
-                                    <Form.Control className={'custom-file-input'} type={'file'} placeholder={'Upload the customer\'s id proof'} />
+                                    <Form.Control className={'custom-file-input'} type={'file'}
+                                                  placeholder={'Upload the customer\'s id proof'}/>
 
                                 </Form.Group>
                             </Col>

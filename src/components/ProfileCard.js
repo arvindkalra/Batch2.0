@@ -31,7 +31,7 @@ const ProfileCard = ({role}) => {
             if (role === 'farmer') {
 
                 getFarmerDetails(OWN_ADDRESS).then(farmerObj => {
-                    console.log(farmerObj);
+
                     setName(farmerObj.name);
                     setCompanyName(farmerObj.companyName);
                     setAddress(farmerObj.address);
@@ -112,7 +112,7 @@ const ProfileCard = ({role}) => {
 
             setFarmerDetails({name, companyName, address, license, profileImage}).then((txHash) => {
                 console.log(txHash);
-                console.log("details upadted")
+
             })
         } else if (role === 'laboratory') {
             setLaboratoryDetails({name, companyName, address, license, profileImage}).then(txHash => {
@@ -144,7 +144,7 @@ const ProfileCard = ({role}) => {
     };
     const handleImageUpload = e => {
         fileToString(e.target.files[0]).then(result => {
-            console.log(result);
+
             const imagePath = result;
 
             setProfileImage(imagePath);
@@ -155,7 +155,7 @@ const ProfileCard = ({role}) => {
     const handleLicenseUpload = e => {
 
         fileToString((e.target.files[0])).then(result => {
-            console.log(result);
+
             setLicense(result);
 
         })

@@ -59,7 +59,7 @@ const ManufacturerDashboard = ({location}) => {
 
             let tempAvailablePackets = packetsReadyForDispatch;
             fetchPackagedUnitsByManufacturer(packageUnit => {
-                console.log(packageUnit);
+
                 if (packageUnit.currentState.value === 1) {
                     let obj = {
                         productUnitId: packageUnit.uid,

@@ -35,7 +35,7 @@ const LabDashboard = props => {
         Dec: 37
     });
     useEffect(() => {
-        console.log("lab dash board use effect");
+
         connectToMetamask().then(() => {
             let tempNumPending = numPending;
             let tempNumApproved = numApproved;

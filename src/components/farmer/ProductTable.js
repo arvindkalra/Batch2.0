@@ -6,7 +6,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
 const ProductTable = ({ rows, showForMore }) => {
-  console.log(rows);
+
   return (
     <>
       <Table responsive>

@@ -65,7 +65,7 @@ const BarGraph = ({ ObjectToShow, changed, label }) => {
   };
   const graphLabel = label;
   useEffect(() => {
-    console.log(ObjectToShow);
+
     let objectKeys = Object.keys(ObjectToShow);
     setLabels(objectKeys);
     let tempDataArray = [];
