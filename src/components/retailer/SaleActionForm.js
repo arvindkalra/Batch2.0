@@ -18,6 +18,7 @@ import {
 } from "../../dbController/init";
 import ShipmentRow from "../transporter/ShipmentRow";
 import Table from "react-bootstrap/es/Table";
+import Loader from "../Loader";
 
 const SaleActionForm = ({ buid, details }) => {
   const [registered, setRegistered] = useState(false);
@@ -28,6 +29,7 @@ const SaleActionForm = ({ buid, details }) => {
   const [consumerName, setConsumerName] = useState("");
   const [license, setLicense] = useState("");
   const [buyerDetails, setBuyerDetails] = useState("");
+  const [transactionMining, setTransactionMining] = useState(false)
 
   const fetchDetails = e => {
     e.preventDefault();
@@ -55,6 +57,7 @@ const SaleActionForm = ({ buid, details }) => {
   const sellToRegistered = e => {
     e.preventDefault();
     e.stopPropagation();
+    setTransactionMining(true)
     let jsonToBeUploaded = buyerDetails;
     jsonToBeUploaded.purchases.push({
       amount: amount,
@@ -69,6 +72,7 @@ const SaleActionForm = ({ buid, details }) => {
   const sellToNewConsumer = e => {
     e.preventDefault();
     e.stopPropagation();
+    setTransactionMining(true)
     let jsonToBeUploaded = {
       name: consumerName,
       license: license,
@@ -209,6 +213,7 @@ const SaleActionForm = ({ buid, details }) => {
           <></>
         )}
       </Row>
+      {transactionMining? <Loader/>:null}
     </>
   );
 };

@@ -9,7 +9,7 @@ const Loader = () => {
                 Your Transaction is mining <br/>
                 <span>
 
-                <Spinner animation="grow" variant="dark"/>
+                <Spinner animation="grow" variant="light"/>
                 </span>
             </div>
 

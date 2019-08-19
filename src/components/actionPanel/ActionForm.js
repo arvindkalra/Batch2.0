@@ -11,6 +11,8 @@ import {
     sendToLaboratory
 } from "../../dbController/farmerRole";
 import {checkMined} from "../../dbController/init";
+import Overlay from "react-bootstrap/Overlay";
+import Loader from "../Loader";
 
 const ActionForm = ({
                         productState,
@@ -28,17 +30,11 @@ const ActionForm = ({
     const [detroyQuantity, setDestroyQuantity] = useState(0);
     const [destroyCompanyName, setDestroyCompanyName] = useState("Company A");
     const [destroyReason, setDestroyReason] = useState("");
-    const handleClick = (e, notificationMessage) => {
-        e.preventDefault();
-        e.stopPropagation();
-
-        setNotificationMessage(notificationMessage);
-
-        // setProductStatus({state: newState, progress: newProgress});
-    };
+    const [transactionMining, setTransactionMining] = useState(false)
     const sendHarvestReport = e => {
         e.preventDefault();
         e.stopPropagation();
+        setTransactionMining(true)
         seedObj.details.harvestTime = new Date().toLocaleString();
         seedObj.details.totalHarvestAmount = formFieldValue;
         plantHarvestedByFarmer(seedObj.harvestUnitId, seedObj.details).then(
@@ -47,6 +43,7 @@ const ActionForm = ({
                 setShowNotification(true);
                 checkMined(hash, () => {
                     setNotificationMessage(" the harvest report is submitted");
+
 
                     window.location.reload();
                 });
@@ -57,6 +54,7 @@ const ActionForm = ({
     const sendToLab = e => {
         e.preventDefault();
         e.stopPropagation();
+        setTransactionMining(true)
         seedObj.details.sentToLabOn = new Date().toDateString();
         seedObj.details.laboratoryAddress =
             "0x7949173E38cEf39e75E05D2d2C232FBE8BAe5E20";
@@ -79,6 +77,7 @@ const ActionForm = ({
     const sendToManufacturer = e => {
         e.preventDefault();
         e.stopPropagation();
+        setTransactionMining(true)
         seedObj.details.sentToManufacturerOn = new Date().toLocaleString();
         seedObj.details.farmerToManufacturerPrice = sellingPrice;
         let transporter = "0x7949173E38cEf39e75E05D2d2C232FBE8BAe5E20";
@@ -94,11 +93,12 @@ const ActionForm = ({
             checkMined(hash, () => window.location.reload());
         });
     };
-    // TODO: submit buttom disable on click until transaction hash is recived
+
 
     const destroyCrop = e => {
         e.preventDefault();
         e.stopPropagation();
+        setTransactionMining(true)
         seedObj.details.quantarineCompanyName = destroyCompanyName;
         seedObj.details.destroyReason = destroyReason;
         seedObj.details.destroyQuantity = detroyQuantity;
@@ -291,6 +291,7 @@ const ActionForm = ({
                     setShowNotification(false);
                 }}
             />
+            {transactionMining? <Loader/>: null}
         </Form>
     );
 };

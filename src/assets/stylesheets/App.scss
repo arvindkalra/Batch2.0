@@ -171,7 +171,7 @@ p.description {
   background: rgba(40, 44, 52, 0.57);
 
   position: fixed;
-  z-index: 2;
+  z-index: 1051;
   top:0;
   left: 0;
   width: 100%;
@@ -179,6 +179,8 @@ p.description {
   overflow: hidden;
   div.loader-container{
     text-align: center;
+    color: white;
+    font-size: 3em;
     margin: 20% auto;
     width: 50%;
 

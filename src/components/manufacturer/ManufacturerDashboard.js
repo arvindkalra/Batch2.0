@@ -12,6 +12,7 @@ import {
 import { connectToMetamask } from "../../dbController/init";
 import { getFarmerDetails } from "../../dbController/farmerRole";
 import BarGraph from "../farmer/graphs/dashboard/BarGraph";
+import Loader from "../Loader";
 
 const ManufacturerDashboard = ({ location }) => {
   const [availableArray, setAvailableArray] = useState([]);
@@ -22,6 +23,7 @@ const ManufacturerDashboard = ({ location }) => {
     setPacketsManufacturedGraphData
   ] = useState({});
   const [changed, setChanged] = useState(0);
+  const [transactionMining, setTransactionMining] = useState(false)
   useEffect(() => {
     let tempChanged = changed;
     connectToMetamask().then(() => {
@@ -123,7 +125,7 @@ const ManufacturerDashboard = ({ location }) => {
         <Col md={6}>
           <section className={"report-table-section dashboard-section"}>
             <h3 className={"section-title"}>Created Packets</h3>
-            <ManufacturedPacketsTable array={packetsReadyForDispatch} />
+            <ManufacturedPacketsTable array={packetsReadyForDispatch} setTransactionMining={()=>{setTransactionMining(true)}} />
           </section>
         </Col>
         <Col md={6}>
@@ -138,6 +140,7 @@ const ManufacturerDashboard = ({ location }) => {
           </section>
         </Col>
       </Row>
+      {transactionMining? <Loader/>:null}
     </>
   );
 };

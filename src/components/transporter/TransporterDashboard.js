@@ -18,6 +18,7 @@ import Accordion from "react-bootstrap/Accordion";
 import Card from "react-bootstrap/Card";
 import { getDistributorDetails } from "../../dbController/distributorRole";
 import ShipmentTable from "./ShipmentTable";
+import Loader from "../Loader";
 
 const TransporterDashboard = ({ location }) => {
   const [harvestShipments, setHarvestShipments] = useState([]);
@@ -28,6 +29,7 @@ const TransporterDashboard = ({ location }) => {
   const [sampleRowObjArr, setSampleRowObjArr] = useState({});
   const [retailShipments, setRetailShipments] = useState([]);
   const [retailRowObjArr, setRetailRowObjArr] = useState({});
+  const [transactionMining, setTransactionMining] =useState(false)
   useEffect(() => {
     connectToMetamask().then(() => {
       let tempHarvestShipments = harvestShipments;
@@ -144,33 +146,6 @@ const TransporterDashboard = ({ location }) => {
     });
   }, []);
 
-  // let getDataForTransporter = () => {
-  //   setPackagedShipments([
-  //     {
-  //       puid: 1,
-  //       senderCompany: "Bob the Builder",
-  //       receiverCompany: "Cannabis Supply",
-  //       amount: 100,
-  //       currentStatus: "packed"
-  //     },
-  //     {
-  //       puid: 2,
-  //       senderCompany: "Bob the Builder",
-  //       receiverCompany: "Cannabis Supply",
-  //       amount: 115,
-  //       currentStatus: "dispatched",
-  //       dispatchTime: "1st May"
-  //     },
-  //     {
-  //       puid: 3,
-  //       senderCompany: "Bob the Builder",
-  //       receiverCompany: "Cannabis Supply",
-  //       amount: 100,
-  //       currentStatus: "dispatched",
-  //       dispatchTime: "5th May"
-  //     }
-  //   ]);
-  // };
 
   return (
     <>
@@ -196,6 +171,9 @@ const TransporterDashboard = ({ location }) => {
                         array={harvestShipments}
                         rowObjArr={harvestRowObjArr}
                         shipmentType={"harvest"}
+                        setTransactionMining={()=>{
+                          setTransactionMining(true)
+                        }}
                       />
                     ) : (
                       <div>
@@ -220,6 +198,9 @@ const TransporterDashboard = ({ location }) => {
                         array={packagedShipments}
                         rowObjArr={packageRowObjArr}
                         shipmentType={"product"}
+                        setTransactionMining={()=>{
+                          setTransactionMining(true)
+                        }}
                       />
                     ) : (
                       <div>
@@ -244,6 +225,9 @@ const TransporterDashboard = ({ location }) => {
                         array={sampleShipments}
                         rowObjArr={sampleRowObjArr}
                         shipmentType={"sample"}
+                        setTransactionMining={()=>{
+                          setTransactionMining(true)
+                        }}
                       />
                     ) : (
                       <div>
@@ -268,6 +252,9 @@ const TransporterDashboard = ({ location }) => {
                         array={retailShipments}
                         rowObjArr={retailRowObjArr}
                         shipmentType={"retail"}
+                        setTransactionMining={()=>{
+                          setTransactionMining(true)
+                        }}
                       />
                     ) : (
                       <div>
@@ -281,6 +268,8 @@ const TransporterDashboard = ({ location }) => {
           </Accordion>
         </Col>
       </Row>
+      {transactionMining? <Loader/>:null}
+
     </>
   );
 };

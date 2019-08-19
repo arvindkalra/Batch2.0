@@ -6,16 +6,19 @@ import Row from "react-bootstrap/Row";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import { packetsManufactured } from "../../dbController/manufacturerRole";
 import { checkMined } from "../../dbController/init";
+import Loader from "../Loader";
 
 const ManufacturerActionPanel = ({ left, total, prevDetails }) => {
   const [materialUsed, setMaterialUsed] = useState("");
   const [packetsMade, setPacketsMade] = useState("");
   const [packetSize, setPacketSize] = useState("");
   const [productType, setProductType] = useState("Preroll");
+  const [transactionMining, setTransactionMining] = useState(false)
 
   const handleClick = e => {
     e.preventDefault();
     e.stopPropagation();
+    setTransactionMining(true)
     let packetObj = {
       packetSize,
       productType,
@@ -23,14 +26,14 @@ const ManufacturerActionPanel = ({ left, total, prevDetails }) => {
       harvestUnitId: prevDetails.uid,
       totalPacketsManufactured: packetsMade
     };
-    console.log(packetObj);
+
     let oldHarvestUsed = prevDetails.details.totalHarvestUsed ? prevDetails.details.totalHarvestUsed : 0;
     prevDetails.details.totalHarvestUsed = parseInt(oldHarvestUsed) + parseInt(materialUsed);
     if (left < materialUsed) {
       alert("You Don't have enough RAW MATERIAL.!");
       return;
     }
-    console.log(prevDetails.details);
+
     packetsManufactured(prevDetails.uid, prevDetails.details, packetObj).then(
       hash => {
         checkMined(hash, () => window.location.reload());
@@ -110,6 +113,7 @@ const ManufacturerActionPanel = ({ left, total, prevDetails }) => {
           </Button>
         </Col>
       </Row>
+      {transactionMining?<Loader />:null}
     </Col>
   );
 };

@@ -99,6 +99,7 @@ export function makeFarmerTransaction(functionName, ...args) {
 }
 
 export function makeLaboratoryTransaction(functionName, ...args) {
+
     return new Promise((resolve, reject) => {
         LABORATORY[functionName](...args, {from: OWN_ADDRESS, gasPrice: web3.toWei(0, 'gwei')}, function (
             err,

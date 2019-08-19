@@ -5,12 +5,13 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import {getFarmerDetails, setFarmerDetails} from "../dbController/farmerRole";
 import {fileToString} from "../helpers";
-import {connectToMetamask, OWN_ADDRESS} from "../dbController/init";
+import {checkMined, connectToMetamask, OWN_ADDRESS} from "../dbController/init";
 import {getLaboratoryDetails, setLaboratoryDetails} from "../dbController/laboratoryRole";
 import {getManufacturerDetails, setManufacturerDetails} from "../dbController/manufacturerRole";
 import {getDistributorDetails, setDistributorDetails} from "../dbController/distributorRole";
 import {getTransporterDetails, setTransporterDetails} from "../dbController/transporterRole";
 import {getRetailerDetails, setRetailerDetails} from "../dbController/retailerRole";
+import Loader from "./Loader";
 
 const ProfileCard = ({role}) => {
 
@@ -22,6 +23,7 @@ const ProfileCard = ({role}) => {
     const [profileImage, setProfileImage] = useState('https://picsum.photos/id/1074/480');
     const profileImageSetterRef = useRef(null);
     const profileImageRef = useRef(null);
+    const [transactionMining, setTransactionMining] = useState(false)
     useEffect(() => {
         connectToMetamask().then(() => {
 
@@ -105,6 +107,7 @@ const ProfileCard = ({role}) => {
     const handleClick = e => {
         e.preventDefault();
         e.stopPropagation();
+        setTransactionMining(true)
         if (role === 'farmer') {
 
             setFarmerDetails({name, companyName, address, license, profileImage}).then((txHash) => {
@@ -113,22 +116,27 @@ const ProfileCard = ({role}) => {
             })
         } else if (role === 'laboratory') {
             setLaboratoryDetails({name, companyName, address, license, profileImage}).then(txHash => {
+                checkMined(txHash, () => window.location.reload());
                 console.log(txHash)
             })
         } else if (role === 'manufacturer') {
             setManufacturerDetails({name, companyName, address, license, profileImage}).then(txHash => {
+                checkMined(txHash, () => window.location.reload());
                 console.log(txHash)
             })
         } else if (role === 'distributor') {
             setDistributorDetails({name, companyName, address, license, profileImage}).then(txHash => {
+                checkMined(txHash, () => window.location.reload());
                 console.log(txHash)
             })
         }else if (role === 'transporter'){
             setTransporterDetails({name, companyName, address, license, profileImage}).then(txHash => {
+                checkMined(txHash, () => window.location.reload());
                 console.log(txHash)
             })
         }else if (role === 'retailer'){
             setRetailerDetails({name, companyName, address, license, profileImage}).then(txHash => {
+                checkMined(txHash, () => window.location.reload());
                 console.log(txHash)
             })
         }
@@ -249,6 +257,7 @@ const ProfileCard = ({role}) => {
 
                 </Row>
             </Form>
+            {transactionMining?<Loader/>:null}
         </section>
     )
 };
