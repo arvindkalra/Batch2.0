@@ -29,7 +29,7 @@ const TableRow = ({tableRow, rowDetails}) => {
             case 'upload report':
                 return (<FormModal formDetails={rowDetails} tableRow={tableRow} buttonText={data}/>);
             case 'view report':
-                return (<Link reportInfo={tableRow} to={`/laboratory/report/${tableRow[0]}`}>View Report </Link>);
+                return (<Link reportinfo={tableRow} to={`/laboratory/report/${tableRow[0]}`}>View Report </Link>);
             default:
                 return data
 

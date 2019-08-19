@@ -7,6 +7,10 @@ import {getFarmerDetails, setFarmerDetails} from "../dbController/farmerRole";
 import {fileToString} from "../helpers";
 import {connectToMetamask, OWN_ADDRESS} from "../dbController/init";
 import {getLaboratoryDetails, setLaboratoryDetails} from "../dbController/laboratoryRole";
+import {getManufacturerDetails, setManufacturerDetails} from "../dbController/manufacturerRole";
+import {getDistributorDetails, setDistributorDetails} from "../dbController/distributorRole";
+import {getTransporterDetails, setTransporterDetails} from "../dbController/transporterRole";
+import {getRetailerDetails, setRetailerDetails} from "../dbController/retailerRole";
 
 const ProfileCard = ({role}) => {
 
@@ -20,6 +24,8 @@ const ProfileCard = ({role}) => {
     const profileImageRef = useRef(null);
     useEffect(() => {
         connectToMetamask().then(() => {
+
+
             if (role === 'farmer') {
 
                 getFarmerDetails(OWN_ADDRESS).then(farmerObj => {
@@ -33,14 +39,59 @@ const ProfileCard = ({role}) => {
 
                 })
             } else if (role === 'laboratory') {
-                getLaboratoryDetails(OWN_ADDRESS).then(labObject => {
-                    setName(labObject.name);
-                    setCompanyName(labObject.companyName);
-                    setAddress(labObject.address);
-                    setLicense(labObject.license);
-                    if (labObject.profileImage) {
+                getLaboratoryDetails(OWN_ADDRESS).then(infoObject => {
+                    setName(infoObject.name);
+                    setCompanyName(infoObject.companyName);
+                    setAddress(infoObject.address);
+                    setLicense(infoObject.license);
+                    if (infoObject.profileImage) {
 
-                        setProfileImage(labObject.profileImage)
+                        setProfileImage(infoObject.profileImage)
+                    }
+                })
+            } else if (role === 'manufacturer') {
+                getManufacturerDetails(OWN_ADDRESS).then(infoObject => {
+                    setName(infoObject.name);
+                    setCompanyName(infoObject.name);
+                    setAddress(infoObject.address);
+                    setLicense(infoObject.license);
+                    if (infoObject.profileImage) {
+                        setProfileImage(infoObject.profileImage)
+                    }
+                })
+            } else if (role === 'distributor') {
+                getDistributorDetails(OWN_ADDRESS).then(infoObject => {
+
+                    setName(infoObject.name);
+                    setCompanyName(infoObject.name);
+                    setAddress(infoObject.address);
+                    setLicense(infoObject.license);
+                    if (infoObject.profileImage) {
+                        setProfileImage(infoObject.profileImage)
+                    }
+                })
+            }else if (role === 'transporter'){
+                getTransporterDetails(OWN_ADDRESS).then(infoObject => {
+
+
+                    setName(infoObject.name);
+                    setCompanyName(infoObject.name);
+                    setAddress(infoObject.address);
+                    setLicense(infoObject.license);
+                    if (infoObject.profileImage) {
+                        setProfileImage(infoObject.profileImage)
+                    }
+                })
+            }else if (role === 'retailer'){
+                getRetailerDetails(OWN_ADDRESS).then(infoObject => {
+
+
+                    setName(infoObject.name);
+                    setCompanyName(infoObject.name);
+                    setAddress(infoObject.address);
+                    setLicense(infoObject.license);
+                    if (infoObject.profileImage) {
+                        setProfileImage(infoObject.profileImage)
                     }
                 })
             }
@@ -62,6 +113,22 @@ const ProfileCard = ({role}) => {
             })
         } else if (role === 'laboratory') {
             setLaboratoryDetails({name, companyName, address, license, profileImage}).then(txHash => {
+                console.log(txHash)
+            })
+        } else if (role === 'manufacturer') {
+            setManufacturerDetails({name, companyName, address, license, profileImage}).then(txHash => {
+                console.log(txHash)
+            })
+        } else if (role === 'distributor') {
+            setDistributorDetails({name, companyName, address, license, profileImage}).then(txHash => {
+                console.log(txHash)
+            })
+        }else if (role === 'transporter'){
+            setTransporterDetails({name, companyName, address, license, profileImage}).then(txHash => {
+                console.log(txHash)
+            })
+        }else if (role === 'retailer'){
+            setRetailerDetails({name, companyName, address, license, profileImage}).then(txHash => {
                 console.log(txHash)
             })
         }
@@ -97,7 +164,8 @@ const ProfileCard = ({role}) => {
                 <Row>
                     <Col md={4}>
                         <section className={'profile-image-section'}>
-                            <img src={profileImage} alt="" className={'profile-image'} ref={profileImageRef}/>
+                            <img src={profileImage || 'https://picsum.photos/id/1074/450'} alt=""
+                                 className={'profile-image'} ref={profileImageRef}/>
                             <div className={'image-overlay'} onClick={uploadProfileImage}>
 
                                 <Form.Control type={'file'} className={'hidden'} ref={profileImageSetterRef}

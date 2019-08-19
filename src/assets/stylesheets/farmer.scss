@@ -1,20 +1,7 @@
 @import "colors";
 @import "utils";
 
-.navbar {
 
-  border-bottom: 1px solid $grey;
-
-  .profile-image {
-    border-radius: 50%;
-  }
-
-  .profile-name {
-    margin-right: 10px;
-    color: black;
-  }
-
-}
 
 .title {
   h1 {
@@ -233,7 +220,8 @@ $min-height: 300px;
 
   li:last-child {
     button {
-      margin: 1px;
+      margin: -6px;
+
     }
 
     a {
