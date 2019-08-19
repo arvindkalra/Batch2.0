@@ -8,14 +8,23 @@ import LabBarGraph from "./LabBarGraph";
 import {checkMined, connectToMetamask, OWN_ADDRESS} from "../../dbController/init";
 import {uploadReport} from "../../dbController/laboratoryRole";
 import Loader from "../Loader";
+import {fileToString} from "../../helpers";
 
 const ReportForm = ({formDetails}) => {
-  console.log(formDetails.details)
+    console.log(formDetails.details);
     const [thc, setThc] = useState(0);
     const [cbd, setCbd] = useState(0);
     const [cannabinoids, setCannabinoids] = useState(0);
     const [labResult, setLabResult] = useState(true);
+    const [physicalReport, setPhysicaReport] = useState('');
     const [transactionMining, setTrasactionMining] = useState(false);
+
+    const handleFileUpload = e => {
+        const file = e.target.files[0];
+        fileToString(file).then(fileString => {
+            setPhysicaReport(fileString)
+        })
+    };
 
     const handleSelect = e => {
         if (e.target.value === "Passed") {
@@ -23,6 +32,9 @@ const ReportForm = ({formDetails}) => {
         } else {
             setLabResult(false);
         }
+    };
+    const openFile = e => {
+        e.target.download = 'test_download.pdf'
     };
 
     const handleClick = e => {
@@ -34,6 +46,7 @@ const ReportForm = ({formDetails}) => {
         details.cbd = cbd;
         details.cannabinoids = cannabinoids;
         details.testedOn = new Date().toLocaleString();
+        details.physicalReport = physicalReport;
         console.log(labResult);
         connectToMetamask().then(() => {
             uploadReport(
@@ -82,7 +95,7 @@ const ReportForm = ({formDetails}) => {
                     <Col>
                         <ul>
                             <li>
-                                Farmer: <span> Peter Williams</span>
+                                Cultivator: <span> Peter Williams</span>
                             </li>
                             <li>
                                 License Number: # <span>LB123456</span>
@@ -155,6 +168,23 @@ const ReportForm = ({formDetails}) => {
                                             <option value="">Passed</option>
                                             <option value="">Failed</option>
                                         </Form.Control>
+                                    </Form.Group>
+                                </Col>
+                                <Col md={12}>
+                                    <Form.Group>
+
+                                        {physicalReport ?
+                                            <a href={physicalReport} target={'_blank'} onClick={openFile}>view report</a> :<>
+                                                <Form.Label className={'custom-file-label'}>
+                                                    Upload a Physical Report
+                                                </Form.Label>
+
+                                                <Form.Control className={'custom-file-input'} type={'file'}
+                                                              onChange={handleFileUpload}
+                                                />
+                                            </>
+                                        }
+
                                     </Form.Group>
                                 </Col>
                                 <Col md={12}>

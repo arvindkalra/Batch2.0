@@ -56,7 +56,7 @@ function App() {
                                 </p>
                                 <Form.Control as={'select'} onChange={handleSelect}>
                                     <option value="">Select your role</option>
-                                    <option value="farmer">Farmer</option>
+                                    <option value="cultivator">Cultivator</option>
                                     <option value="laboratory">Laboratory</option>
                                     <option value="manufacturer">Manufacturer</option>
                                     <option value="transporter">Transporter</option>

@@ -48,7 +48,7 @@ const NewHarvest = ({ location, history }) => {
 
       seedSownByFarmer(objToBeUploaded).then(txHash => {
         checkMined(txHash, () => {
-          history.push('/farmer/dashboard');
+          history.push('/cultivator/dashboard');
 
 
         });

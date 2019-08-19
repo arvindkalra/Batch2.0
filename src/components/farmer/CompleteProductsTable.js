@@ -33,7 +33,7 @@ const CompleteProductsTable = () => {
           return <tr key={key}>
               <td>{element.harvestUnitId}</td>
               <td className={"product-name ready-for-harvest"}>
-                  <Link to={`/farmer/products/${element.harvestUnitId}`}> {element.details.plantName} </Link>
+                  <Link to={`/cultivator/products/${element.harvestUnitId}`}> {element.details.plantName} </Link>
               </td>
               <td>{element.details.datePlanted}</td>
               <td>{element.details.seedCount}</td>

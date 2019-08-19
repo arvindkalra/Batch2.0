@@ -11,7 +11,7 @@ const AvailableRawMaterialTable = ({ array }) => {
           <tr>
             <th>Unique Id</th>
             <th>Plant Name</th>
-            <th>Farmer Name</th>
+            <th>Cultivator</th>
             <th>Pending Amount</th>
           </tr>
         </thead>

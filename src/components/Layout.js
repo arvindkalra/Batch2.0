@@ -32,7 +32,7 @@ const Layout = ({children, userName, profileImage, location}) => {
     return (
 
         <Container fluid={true} className={showSideBar ? 'no-scroll' : null}>
-            {showSideBar ? <SideBar closeSideBar={closeSideBar}/> : null}
+            {showSideBar ? <SideBar profession={location.pathname.split('/')[1]} userName={userName} profileImage={profileImage} closeSideBar={closeSideBar}/> : null}
 
             <Row>
                 <Col>

@@ -24,7 +24,7 @@ const ProductTable = ({ rows, showForMore }) => {
               <tr key={id}>
                 <td>{element.harvestUnitId}</td>
                 <td>
-                  <Link to={`/farmer/products/${element.harvestUnitId}`}>
+                  <Link to={`/cultivator/products/${element.harvestUnitId}`}>
                     {element.plantName}
                   </Link>
                 </td>
@@ -40,14 +40,14 @@ const ProductTable = ({ rows, showForMore }) => {
               <ul className={"table-links-list"}>
                   {showForMore ? (
                       <li>
-                          <Link to={"/farmer/products"}>See all harvests </Link>
+                          <Link to={"/cultivator/products"}>See all harvests </Link>
                       </li>
                   ) : (
                       <></>
                   )}
                   <li>
                       <Button type={'primary'}>
-                          <Link to={"/farmer/add-new-harvest"}> Add a new Plant</Link>
+                          <Link to={"/cultivator/add-new-harvest"}> Add a new Plant</Link>
                       </Button>
                   </li>
               </ul>

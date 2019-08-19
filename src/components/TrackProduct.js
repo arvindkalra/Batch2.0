@@ -147,7 +147,7 @@ const TrackProduct = ({location}) => {
                 <Col md={{span: 6, offset: 6}} className={'story-col'}>
                     <div className="story-div">
                         <h2> Transporter </h2>
-                        <h3 className={'sub-heading'}> Farmer to Manufacturer </h3>
+                        <h3 className={'sub-heading'}> Cultivator to Manufacturer </h3>
                         <div className={'info-box'}>
                             <ul>
 
@@ -198,7 +198,7 @@ const TrackProduct = ({location}) => {
                 </Col>
                 <Col md={{span: 6, offset: 6}} className={'story-col'}>
                     <div className={'story-div'}>
-                        <h2> Farmer</h2>
+                        <h2> Cultivator</h2>
                         <div className={'info-box'}>
                             <ul>
                                 <li>
