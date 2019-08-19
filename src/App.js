@@ -15,7 +15,12 @@ function App() {
         connectToMetamask().then(() => {
 
             authneticateUser(currentVal).then(bool => {
+
                 if (bool) {
+
+                    if(currentVal === 'farmer'){
+                        window.open('/' + 'cultivator'+ '/dashboard', '_blank');
+                    }
                     window.open('/' + currentVal+ '/dashboard', '_blank');
                 } else {
                     alert('you are not authorized to visit this page. Please contact the application admin for further details')
@@ -49,14 +54,14 @@ function App() {
 
                     <Row>
 
-                        <Col md={12}>
+                        <Col md={{span:6, offset: 3}}>
                             <Form.Group>
                                 <p className={'description'}>
-                                    You are a ...
+                                    You are a
                                 </p>
                                 <Form.Control as={'select'} onChange={handleSelect}>
                                     <option value="">Select your role</option>
-                                    <option value="cultivator">Cultivator</option>
+                                    <option value="farmer">Cultivator</option>
                                     <option value="laboratory">Laboratory</option>
                                     <option value="manufacturer">Manufacturer</option>
                                     <option value="transporter">Transporter</option>

@@ -61,7 +61,7 @@ const DistributorProductDetail = props => {
   }, []);
 
   return (
-    <Layout>
+    <Layout location={props.location}>
       <Row>
         <Col>
           {setBreadcrumb(
