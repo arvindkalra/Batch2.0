@@ -1,5 +1,10 @@
 import config from "../config.js";
 import Web3 from "web3";
+import { fetchBatchUnitDetailsUsingUID } from "./distributorRole";
+import {
+  fetchHarvestUnitDetailsUsingUID,
+  fetchProductUnitDetailsUsingUID
+} from "./manufacturerRole";
 
 const URL = "http://35.154.84.229:2000";
 
@@ -168,47 +173,47 @@ export function makeRetailerTransaction(functionName, ...args) {
   });
 }
 
-export function fetchEntireChain(buid) {
-  return new Promise((resolve, reject) => {
-    let packetsHash = "";
-    let harvestHash = "";
-    let addresses = [];
-    let rv = {};
-    makeChainTransaction("fetchEntireChain", buid)
-      .then(data => {
-        data = data.valueOf();
-        packetsHash = data[0];
-        harvestHash = data[1];
-        addresses = data[2];
-        rv = {
-          farmerAddress: addresses[0],
-          laboratoryAddress: addresses[1],
-          manufacturerAddress: addresses[2],
-          farmerToManufacturerTransporterAddress: addresses[3],
-          retailerAddress: addresses[4],
-          manufacturerToRetailerTransporter: addresses[5]
-        };
-        return getJsonFromIPFS(packetsHash);
-      })
-      .then(details => {
-        let packetsDispatchTime = details.dispatchTime;
-        let packetsDeliveryTime = details.deliveryTime;
-        delete details["dispatchTime"];
-        delete details["deliveryTime"];
-        rv = { ...rv, ...details, packetsDeliveryTime, packetsDispatchTime };
-        return getJsonFromIPFS(harvestHash);
-      })
-      .then(details => {
-        let harvestDispatchTime = details.dispatchTime;
-        let harvestDeliveryTime = details.deliveryTime;
-        delete details["dispatchTime"];
-        delete details["deliveryTime"];
-        rv = { ...rv, ...details, harvestDeliveryTime, harvestDispatchTime };
-        resolve(rv);
-      })
-      .catch(reject);
-  });
-}
+// export function fetchEntireChain(buid) {
+//   return new Promise((resolve, reject) => {
+//     let packetsHash = "";
+//     let harvestHash = "";
+//     let addresses = [];
+//     let rv = {};
+//     makeChainTransaction("fetchEntireChain", buid)
+//       .then(data => {
+//         data = data.valueOf();
+//         packetsHash = data[0];
+//         harvestHash = data[1];
+//         addresses = data[2];
+//         rv = {
+//           farmerAddress: addresses[0],
+//           laboratoryAddress: addresses[1],
+//           manufacturerAddress: addresses[2],
+//           farmerToManufacturerTransporterAddress: addresses[3],
+//           retailerAddress: addresses[4],
+//           manufacturerToRetailerTransporter: addresses[5]
+//         };
+//         return getJsonFromIPFS(packetsHash);
+//       })
+//       .then(details => {
+//         let packetsDispatchTime = details.dispatchTime;
+//         let packetsDeliveryTime = details.deliveryTime;
+//         delete details["dispatchTime"];
+//         delete details["deliveryTime"];
+//         rv = { ...rv, ...details, packetsDeliveryTime, packetsDispatchTime };
+//         return getJsonFromIPFS(harvestHash);
+//       })
+//       .then(details => {
+//         let harvestDispatchTime = details.dispatchTime;
+//         let harvestDeliveryTime = details.deliveryTime;
+//         delete details["dispatchTime"];
+//         delete details["deliveryTime"];
+//         rv = { ...rv, ...details, harvestDeliveryTime, harvestDispatchTime };
+//         resolve(rv);
+//       })
+//       .catch(reject);
+//   });
+// }
 
 // TODO upload ipfs to change for ipfs
 export function uploadJsonToIPFS(_json) {
@@ -428,5 +433,29 @@ export const authneticateUser = role => {
         resolve(false);
         return;
     }
+  });
+};
+
+export const fetchEntireJourney = buid => {
+  return new Promise((resolve, reject) => {
+    let objToReturn = {};
+    fetchBatchUnitDetailsUsingUID(buid)
+      .then(obj => {
+        objToReturn = obj.details;
+        return fetchProductUnitDetailsUsingUID(
+          parseInt(obj.details.productUnitId)
+        );
+      })
+      .then(obj => {
+        objToReturn = { ...objToReturn, ...obj.details };
+        return fetchHarvestUnitDetailsUsingUID(
+          parseInt(obj.details.harvestUnitId)
+        );
+      })
+      .then(obj => {
+        objToReturn = { ...objToReturn, ...obj.details };
+        resolve(objToReturn);
+      })
+      .catch(reject);
   });
 };
