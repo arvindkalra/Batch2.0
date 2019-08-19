@@ -48,7 +48,8 @@ const BarGraph = ({ ObjectToShow, changed, label }) => {
             drawBorder: true
           },
           ticks: {
-            suggestedMin: 0
+            suggestedMin: 0,
+            suggestedMax: 5
           }
         }
       ],

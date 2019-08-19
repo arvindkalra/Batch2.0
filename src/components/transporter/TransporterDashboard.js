@@ -20,6 +20,7 @@ import { getDistributorDetails } from "../../dbController/distributorRole";
 import ShipmentTable from "./ShipmentTable";
 import Loader from "../Loader";
 import Badge from "react-bootstrap/Badge";
+import BarGraph from "../farmer/graphs/dashboard/BarGraph";
 
 const TransporterDashboard = ({ location }) => {
   const [harvestShipments, setHarvestShipments] = useState([]);
@@ -30,13 +31,39 @@ const TransporterDashboard = ({ location }) => {
   const [sampleRowObjArr, setSampleRowObjArr] = useState({});
   const [retailShipments, setRetailShipments] = useState([]);
   const [retailRowObjArr, setRetailRowObjArr] = useState({});
-  const [transactionMining, setTransactionMining] =useState(false)
+  const [transactionMining, setTransactionMining] = useState(false);
+  const [harvestGraph, setHarvestGraph] = useState({
+    Packed: 0,
+    Dispatched: 0,
+    Delivered: 0
+  });
+  const [sampleGraph, setSampleGraph] = useState({
+    Packed: 0,
+    Dispatched: 0,
+    Delivered: 0
+  });
+  const [packageGraph, setPackageGraph] = useState({
+    Packed: 0,
+    Dispatched: 0,
+    Delivered: 0
+  });
+  const [retailGraph, setRetailGraph] = useState({
+    Packed: 0,
+    Dispatched: 0,
+    Delivered: 0
+  });
+  const [changed, setChanged] = useState(0);
   useEffect(() => {
     connectToMetamask().then(() => {
       let tempHarvestShipments = harvestShipments;
       let tempPackagedShipment = packagedShipments;
       let tempSampleShipments = sampleShipments;
       let tempRetailShipments = retailShipments;
+      let tempHarvestGraph = harvestGraph;
+      let tempPackageGraph = packageGraph;
+      let tempSampleGraph = sampleGraph;
+      let tempRetailGraph = retailGraph;
+      let tempChanged = changed;
       getFarmToFactoryConsignments(row => {
         let tempRow = harvestRowObjArr;
         tempRow[row.uid] = row;
@@ -47,7 +74,30 @@ const TransporterDashboard = ({ location }) => {
           getManufacturerDetails(row.details.manufacturerAddress).then(
             manufacturerObj => {
               if (row.currentState.value >= 9) {
+                addToGraphData(
+                  "Delivered",
+                  1,
+                  tempHarvestGraph,
+                  setHarvestGraph,
+                  tempChanged++
+                );
                 return;
+              } else if (row.currentState.value === 8) {
+                addToGraphData(
+                  "Dispatched",
+                  1,
+                  tempHarvestGraph,
+                  setHarvestGraph,
+                  tempChanged++
+                );
+              } else {
+                addToGraphData(
+                  "Packed",
+                  1,
+                  tempHarvestGraph,
+                  setHarvestGraph,
+                  tempChanged++
+                );
               }
               rowObj.uid = row.uid;
               rowObj.senderCompany = farmerObj.name;
@@ -75,7 +125,33 @@ const TransporterDashboard = ({ location }) => {
             return getLaboratoryDetails(row.details.laboratoryAddress);
           })
           .then(({ name }) => {
-            if (row.currentState.value < 5) {
+            if (row.currentState.value >= 5) {
+              addToGraphData(
+                "Delivered",
+                1,
+                tempSampleGraph,
+                setSampleGraph,
+                tempChanged++
+              );
+            } else {
+              if (row.currentState.value === 4) {
+                addToGraphData(
+                  "Dispatched",
+                  1,
+                  tempSampleGraph,
+                  setSampleGraph,
+                  tempChanged++
+                );
+              }
+              if (row.currentState.value === 3) {
+                addToGraphData(
+                  "Packed",
+                  1,
+                  tempSampleGraph,
+                  setSampleGraph,
+                  tempChanged++
+                );
+              }
               rowObj.uid = row.uid;
               rowObj.senderCompany = farmerName;
               rowObj.receiverCompany = name;
@@ -88,7 +164,7 @@ const TransporterDashboard = ({ location }) => {
           });
       });
       getFactoryToDistributorConsignments(row => {
-
+        console.log(row);
         let tempRow = packageRowObjArr;
         tempRow[row.uid] = row;
         setPackageObjRowArr(tempRow);
@@ -101,7 +177,33 @@ const TransporterDashboard = ({ location }) => {
           manufacturerName = name;
           return getDistributorDetails(row.details.distributorAddress).then(
             ({ name }) => {
-              if (row.currentState.value < 4) {
+              if (row.currentState.value >= 4) {
+                addToGraphData(
+                  "Delivered",
+                  1,
+                  tempPackageGraph,
+                  setPackageGraph,
+                  tempChanged++
+                );
+              } else {
+                if (row.currentState.value === 3) {
+                  addToGraphData(
+                    "Dispatched",
+                    1,
+                    tempPackageGraph,
+                    setPackageGraph,
+                    tempChanged++
+                  );
+                }
+                if (row.currentState.value === 2) {
+                  addToGraphData(
+                    "Packed",
+                    1,
+                    tempPackageGraph,
+                    setPackageGraph,
+                    tempChanged++
+                  );
+                }
                 rowObj.uid = row.uid;
                 rowObj.senderCompany = manufacturerName;
                 rowObj.receiverCompany = name;
@@ -131,7 +233,21 @@ const TransporterDashboard = ({ location }) => {
             return getRetailerDetails(row.details.retailerAddress);
           })
           .then(({ name }) => {
-            if (row.currentState.value < 4) {
+            if (row.currentState.value >= 4) {
+              addToGraphData("Delivered", 1, tempRetailGraph, setRetailGraph, tempChanged++);
+            } else {
+              if(row.currentState.value === 3){
+                addToGraphData("Dispatched", 1, tempRetailGraph, setRetailGraph, tempChanged++);
+              }
+              if(row.currentState.value === 2){
+                addToGraphData(
+                  "Packed",
+                  1,
+                  tempRetailGraph,
+                  setRetailGraph,
+                  tempChanged++
+                );
+              }
               rowObj.uid = row.uid;
               rowObj.senderCompany = distributorName;
               rowObj.receiverCompany = name;
@@ -147,6 +263,17 @@ const TransporterDashboard = ({ location }) => {
     });
   }, []);
 
+  function addToGraphData(which, howMuch, getter, setter, tempChanged) {
+    let tempBarObject = getter;
+    if (tempBarObject[which]) {
+      let old = tempBarObject[which];
+      tempBarObject[which] = old + howMuch;
+    } else {
+      tempBarObject[which] = howMuch;
+    }
+    setChanged(tempChanged);
+    setter(tempBarObject);
+  }
 
   return (
     <>
@@ -158,138 +285,225 @@ const TransporterDashboard = ({ location }) => {
       <Row>
         <Col md={12}>
           <Accordion>
-            <Card>
-              <Card.Header>
-                <Accordion.Toggle as={Card.Header} variant="link" eventKey="0">
-                  Harvest Shipments ( Grower -> Manufacturer )
-                  &nbsp;
-                  {harvestShipments.length !==0?<Badge pill variant="success">
-                    New Shipments
-
-                  </Badge>:null}
-
-
-                </Accordion.Toggle>
-              </Card.Header>
-              <Accordion.Collapse eventKey="0">
-                <Card.Body>
-                  <section className={"shipment-section"}>
-                    {harvestShipments.length !== 0 ? (
-                      <ShipmentTable
-                        array={harvestShipments}
-                        rowObjArr={harvestRowObjArr}
-                        shipmentType={"harvest"}
-                        setTransactionMining={()=>{
-                          setTransactionMining(true)
-                        }}
-                      />
-                    ) : (
-                      <div>
-                        You don't have any pending shipment consignments
-                      </div>
-                    )}
-                  </section>
-                </Card.Body>
-              </Accordion.Collapse>
-            </Card>
-            <Card>
-              <Card.Header>
-                <Accordion.Toggle as={Card.Header} variant="link" eventKey="1">
-                  Product Shipments ( Manufacturer -> Distributor )
-                  {packagedShipments.length !==0?<Badge pill variant="success">
-                    New Shipments
-
-                  </Badge>:null}
-                </Accordion.Toggle>
-              </Card.Header>
-              <Accordion.Collapse eventKey="1">
-                <Card.Body>
-                  <section className={"shipment-section"}>
-                    {packagedShipments.length !== 0 ? (
-                      <ShipmentTable
-                        array={packagedShipments}
-                        rowObjArr={packageRowObjArr}
-                        shipmentType={"product"}
-                        setTransactionMining={()=>{
-                          setTransactionMining(true)
-                        }}
-                      />
-                    ) : (
-                      <div>
-                        You don't have any pending shipment consignments
-                      </div>
-                    )}
-                  </section>
-                </Card.Body>
-              </Accordion.Collapse>
-            </Card>
-            <Card>
-              <Card.Header>
-                <Accordion.Toggle as={Card.Header} variant="link" eventKey="2">
-                  Laboratory Sample Shipments ( Grower -> Laboratory )
-                  {sampleShipments.length !==0?<Badge pill variant="success">
-                    New Shipments
-
-                  </Badge>:null}
-                </Accordion.Toggle>
-              </Card.Header>
-              <Accordion.Collapse eventKey="2">
-                <Card.Body>
-                  <section className={"shipment-section"}>
-                    {sampleShipments.length !== 0 ? (
-                      <ShipmentTable
-                        array={sampleShipments}
-                        rowObjArr={sampleRowObjArr}
-                        shipmentType={"sample"}
-                        setTransactionMining={()=>{
-                          setTransactionMining(true)
-                        }}
-                      />
-                    ) : (
-                      <div>
-                        You don't have any pending shipment consignments
-                      </div>
-                    )}
-                  </section>
-                </Card.Body>
-              </Accordion.Collapse>
-            </Card>
-            <Card>
-              <Card.Header>
-                <Accordion.Toggle as={Card.Header} variant="link" eventKey="3">
-                  Retail Shipments ( Distributor -> Retailer )
-                  {retailShipments.length !==0?<Badge pill variant="success">
-                    New Shipments
-
-                  </Badge>:null}
-                </Accordion.Toggle>
-              </Card.Header>
-              <Accordion.Collapse eventKey="3">
-                <Card.Body>
-                  <section className={"shipment-section"}>
-                    {retailShipments.length !== 0 ? (
-                      <ShipmentTable
-                        array={retailShipments}
-                        rowObjArr={retailRowObjArr}
-                        shipmentType={"retail"}
-                        setTransactionMining={()=>{
-                          setTransactionMining(true)
-                        }}
-                      />
-                    ) : (
-                      <div>
-                        You don't have any pending shipment consignments
-                      </div>
-                    )}
-                  </section>
-                </Card.Body>
-              </Accordion.Collapse>
-            </Card>
+            <Row>
+              <Col md={6}>
+                <Row>
+                  <Col md={12}>
+                    <Row>
+                      <Col md={12}>
+                        <Card>
+                          <Card.Header>
+                            <Accordion.Toggle
+                              as={Card.Header}
+                              variant="link"
+                              eventKey="0"
+                            >
+                              Harvest Shipments ( Grower -> Manufacturer )
+                              <br />
+                              {harvestShipments.length !== 0 ? (
+                                <Badge pill variant="success">
+                                  New Shipments
+                                </Badge>
+                              ) : (
+                                <Badge pill variant="warning">
+                                  None Pending
+                                </Badge>
+                              )}
+                            </Accordion.Toggle>
+                          </Card.Header>
+                          <Accordion.Collapse eventKey="0">
+                            <Card.Body>
+                              <section className={"shipment-section"}>
+                                {harvestShipments.length !== 0 ? (
+                                  <ShipmentTable
+                                    array={harvestShipments}
+                                    rowObjArr={harvestRowObjArr}
+                                    shipmentType={"harvest"}
+                                    setTransactionMining={() => {
+                                      setTransactionMining(true);
+                                    }}
+                                  />
+                                ) : (
+                                  <div>
+                                    You don't have any pending shipment
+                                    consignments
+                                  </div>
+                                )}
+                              </section>
+                            </Card.Body>
+                          </Accordion.Collapse>
+                        </Card>
+                      </Col>
+                      <Col md={12}>
+                        <BarGraph
+                          ObjectToShow={harvestGraph}
+                          changed={changed}
+                        />
+                      </Col>
+                    </Row>
+                  </Col>
+                  <Col md={12}>
+                    <Row>
+                      <Col md={12}>
+                        <Card>
+                          <Card.Header>
+                            <Accordion.Toggle
+                              as={Card.Header}
+                              variant="link"
+                              eventKey="1"
+                            >
+                              Product Shipments ( Manufacturer -> Distributor )
+                              <br />
+                              {packagedShipments.length !== 0 ? (
+                                <Badge pill variant="success">
+                                  New Shipments
+                                </Badge>
+                              ) : (
+                                <Badge pill variant="warning">
+                                  None Pending
+                                </Badge>
+                              )}
+                            </Accordion.Toggle>
+                          </Card.Header>
+                          <Accordion.Collapse eventKey="1">
+                            <Card.Body>
+                              <section className={"shipment-section"}>
+                                {packagedShipments.length !== 0 ? (
+                                  <ShipmentTable
+                                    array={packagedShipments}
+                                    rowObjArr={packageRowObjArr}
+                                    shipmentType={"product"}
+                                    setTransactionMining={() => {
+                                      setTransactionMining(true);
+                                    }}
+                                  />
+                                ) : (
+                                  <div>
+                                    You don't have any pending shipment
+                                    consignments
+                                  </div>
+                                )}
+                              </section>
+                            </Card.Body>
+                          </Accordion.Collapse>
+                        </Card>
+                      </Col>
+                      <Col md={12}>
+                        <BarGraph
+                          ObjectToShow={packageGraph}
+                          changed={changed}
+                        />
+                      </Col>
+                    </Row>
+                  </Col>
+                </Row>
+              </Col>
+              <Col md={6}>
+                <Row>
+                  <Col md={12}>
+                    <Card>
+                      <Card.Header>
+                        <Accordion.Toggle
+                          as={Card.Header}
+                          variant="link"
+                          eventKey="2"
+                        >
+                          Laboratory Sample Shipments ( Grower -> Laboratory )
+                          <br />
+                          {sampleShipments.length !== 0 ? (
+                            <Badge pill variant="success">
+                              New Shipments
+                            </Badge>
+                          ) : (
+                            <Badge pill variant="warning">
+                              None Pending
+                            </Badge>
+                          )}
+                        </Accordion.Toggle>
+                      </Card.Header>
+                      <Accordion.Collapse eventKey="2">
+                        <Card.Body>
+                          <section className={"shipment-section"}>
+                            {sampleShipments.length !== 0 ? (
+                              <ShipmentTable
+                                array={sampleShipments}
+                                rowObjArr={sampleRowObjArr}
+                                shipmentType={"sample"}
+                                setTransactionMining={() => {
+                                  setTransactionMining(true);
+                                }}
+                              />
+                            ) : (
+                              <div>
+                                You don't have any pending shipment consignments
+                              </div>
+                            )}
+                          </section>
+                        </Card.Body>
+                      </Accordion.Collapse>
+                    </Card>
+                  </Col>
+                  <Col md={12}>
+                    <BarGraph ObjectToShow={sampleGraph} changed={changed} />
+                  </Col>
+                </Row>
+                <Col md={12}>
+                  <Row>
+                    <Col md={12}>
+                      <Card>
+                        <Card.Header>
+                          <Accordion.Toggle
+                            as={Card.Header}
+                            variant="link"
+                            eventKey="3"
+                          >
+                            Retail Shipments ( Distributor -> Retailer )
+                            <br />
+                            {retailShipments.length !== 0 ? (
+                              <Badge pill variant="success">
+                                New Shipments
+                              </Badge>
+                            ) : (
+                              <Badge pill variant="warning">
+                                None Pending
+                              </Badge>
+                            )}
+                          </Accordion.Toggle>
+                        </Card.Header>
+                        <Accordion.Collapse eventKey="3">
+                          <Card.Body>
+                            <section className={"shipment-section"}>
+                              {retailShipments.length !== 0 ? (
+                                <ShipmentTable
+                                  array={retailShipments}
+                                  rowObjArr={retailRowObjArr}
+                                  shipmentType={"retail"}
+                                  setTransactionMining={() => {
+                                    setTransactionMining(true);
+                                  }}
+                                />
+                              ) : (
+                                <div>
+                                  You don't have any pending shipment
+                                  consignments
+                                </div>
+                              )}
+                            </section>
+                          </Card.Body>
+                        </Accordion.Collapse>
+                      </Card>
+                    </Col>
+                    <Col md={12}>
+                      <BarGraph ObjectToShow={retailGraph} changed={changed} />
+                    </Col>
+                  </Row>
+                </Col>
+              </Col>
+            </Row>
           </Accordion>
         </Col>
       </Row>
-      {transactionMining? <Loader/>:null}
-
+      {transactionMining ? <Loader /> : null}
     </>
   );
 };

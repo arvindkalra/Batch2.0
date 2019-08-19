@@ -31,7 +31,7 @@ const RetailerDashboard = ({ location }) => {
                 ...args,
                 tempBarGraphObject,
                 setBarGraphObject,
-                tempChanged
+                tempChanged++
               );
             }).then(obj => {
               if (obj) {
@@ -48,7 +48,7 @@ const RetailerDashboard = ({ location }) => {
               unitsAlreadySold,
               tempBarGraphObject,
               setBarGraphObject,
-              tempChanged
+              tempChanged++
             );
             setShowForMore(true);
           }

@@ -12,7 +12,10 @@ const DistDashboard = ({location}) => {
     const [
         availablePackedProductsGraph,
         setAvailablePackedProductsGraph
-    ] = useState({});
+    ] = useState({
+        Preroll: 0,
+        Edibles: 0
+    });
     const [
         availablePackedProductsArray,
         setAvailablePackedProductsArray

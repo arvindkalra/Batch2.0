@@ -147,28 +147,28 @@ const ShipmentRow = ({value, rowObj, shipmentType, setTransactionMining}) => {
         switch (shipmentType) {
             case "sample":
                 return (
-                    <Button onClick={handleSampleShipment}>
+                    <Button className={"transporter-action"} onClick={handleSampleShipment}>
                         {value.currentStatus.value === 3 ? "Sample Dispatched" : "Sample Delivered"}
                     </Button>
                 );
 
             case "harvest":
                 return (
-                    <Button onClick={handleHarvestShipment}>
+                    <Button className={"transporter-action"} onClick={handleHarvestShipment}>
                         {value.currentStatus.value === 7 ? "Harvest Dispatched" : "Harvest Delivered"}
                     </Button>
                 );
 
             case "product":
                 return (
-                    <Button onClick={handleProductShipment}>
+                    <Button className={"transporter-action"} onClick={handleProductShipment}>
                         {value.currentStatus.value === 2 ? "Product Dispatched" : "product Delivered"}
                     </Button>
                 );
 
             case "retail":
                 return (
-                    <Button onClick={handleRetailShipment}>
+                    <Button className={"transporter-action"} onClick={handleRetailShipment}>
                         {value.currentStatus.value === 2 ?  "Product Dispatched" : "product Delivered"}
                     </Button>
                 );
@@ -184,7 +184,6 @@ const ShipmentRow = ({value, rowObj, shipmentType, setTransactionMining}) => {
             <td>{value.senderCompany}</td>
             <td>{value.receiverCompany}</td>
             <td>{value.dispatchTime ? value.dispatchTime : "--"}</td>
-            <td>{value.currentStatus.status.captialize()}</td>
             <td>{getButtonString()}</td>
         </tr>
     );

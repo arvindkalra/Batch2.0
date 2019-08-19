@@ -11,7 +11,6 @@ const ShipmentTable = ({ array, rowObjArr, shipmentType, setTransactionMining })
           <th>Sender Name</th>
           <th>Receiver Name</th>
           <th>Dispatch Time</th>
-          <th>Current Status</th>
           <th>Action</th>
         </tr>
       </thead>
