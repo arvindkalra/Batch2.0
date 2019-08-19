@@ -23,7 +23,7 @@ const ProfileCard = ({role}) => {
     const [profileImage, setProfileImage] = useState('https://picsum.photos/id/1074/480');
     const profileImageSetterRef = useRef(null);
     const profileImageRef = useRef(null);
-    const [transactionMining, setTransactionMining] = useState(false)
+    const [transactionMining, setTransactionMining] = useState(false);
     useEffect(() => {
         connectToMetamask().then(() => {
 
@@ -72,7 +72,7 @@ const ProfileCard = ({role}) => {
                         setProfileImage(infoObject.profileImage)
                     }
                 })
-            }else if (role === 'transporter'){
+            } else if (role === 'transporter') {
                 getTransporterDetails(OWN_ADDRESS).then(infoObject => {
 
 
@@ -84,7 +84,7 @@ const ProfileCard = ({role}) => {
                         setProfileImage(infoObject.profileImage)
                     }
                 })
-            }else if (role === 'retailer'){
+            } else if (role === 'retailer') {
                 getRetailerDetails(OWN_ADDRESS).then(infoObject => {
 
 
@@ -107,7 +107,7 @@ const ProfileCard = ({role}) => {
     const handleClick = e => {
         e.preventDefault();
         e.stopPropagation();
-        setTransactionMining(true)
+        setTransactionMining(true);
         if (role === 'farmer') {
 
             setFarmerDetails({name, companyName, address, license, profileImage}).then((txHash) => {
@@ -129,12 +129,12 @@ const ProfileCard = ({role}) => {
                 checkMined(txHash, () => window.location.reload());
                 console.log(txHash)
             })
-        }else if (role === 'transporter'){
+        } else if (role === 'transporter') {
             setTransporterDetails({name, companyName, address, license, profileImage}).then(txHash => {
                 checkMined(txHash, () => window.location.reload());
                 console.log(txHash)
             })
-        }else if (role === 'retailer'){
+        } else if (role === 'retailer') {
             setRetailerDetails({name, companyName, address, license, profileImage}).then(txHash => {
                 checkMined(txHash, () => window.location.reload());
                 console.log(txHash)
@@ -257,7 +257,7 @@ const ProfileCard = ({role}) => {
 
                 </Row>
             </Form>
-            {transactionMining?<Loader/>:null}
+            {transactionMining ? <Loader/> : null}
         </section>
     )
 };
