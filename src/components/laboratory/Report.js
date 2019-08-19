@@ -19,6 +19,10 @@ const Report = ({location, match}) => {
             return 'Rejected'
         }
     };
+
+    const downloadReport =e => {
+        e.target.download = 'report.pdf'
+    }
     useEffect(() => {
 
         const buid = parseInt(match.params.id);
@@ -31,7 +35,7 @@ const Report = ({location, match}) => {
         })
     }, [match.params.id]);
     return (
-        <Layout>
+        <Layout location={location}>
             <Row>
                 <Col>
                     {setBreadcrumb(location.pathname)}
@@ -158,6 +162,7 @@ const Report = ({location, match}) => {
                                         The sample color suggests untimely harvset due to which it cannot be sold in the
                                         market
                                     </li>
+                                    <li> Attached Report: <a href={seedObject.details.physicalReport} target={'_blank'} onClick={downloadReport}>Report</a>  </li>
                                 </ul>
 
 

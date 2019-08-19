@@ -9,7 +9,7 @@ const Products = ({location}) => {
 
 
     return (
-        <Layout>
+        <Layout location={location}>
             <Row>
                 <Col md={12}>
                     {setBreadcrumb(location.pathname)}
