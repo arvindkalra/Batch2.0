@@ -10,7 +10,7 @@ const Retailer = ({location}) => {
     const [profileImage, setProfileImage] = useState('');
     useEffect(() => {
         connectToMetamask().then(() => {
-            localStorage.clear()
+            localStorage.clear();
 
             getRetailerDetails().then((obj) => {
                 console.log(obj);

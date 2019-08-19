@@ -44,7 +44,7 @@ const ManufacturedPacketsTable = ({array, setTransactionMining}) => {
                 newDetails.manufacturerToDistributorTransporter,
                 {...prevDetails, ...newDetails}
             ).then(txHash => {
-                checkMined(txHash, () => window.location.reload());
+              checkMined(txHash, () => window.location.reload());
             });
         });
     };
