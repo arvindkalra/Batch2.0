@@ -148,28 +148,28 @@ const ShipmentRow = ({value, rowObj, shipmentType, setTransactionMining}) => {
             case "sample":
                 return (
                     <Button onClick={handleSampleShipment}>
-                        {value.currentStatus.value === 3 ? "Dispatch Now" : "Deliver Now"}
+                        {value.currentStatus.value === 3 ? "Sample Dispatched" : "Sample Delivered"}
                     </Button>
                 );
 
             case "harvest":
                 return (
                     <Button onClick={handleHarvestShipment}>
-                        {value.currentStatus.value === 7 ? "Dispatch Now" : "Deliver Now"}
+                        {value.currentStatus.value === 7 ? "Harvest Dispatched" : "Harvest Delivered"}
                     </Button>
                 );
 
             case "product":
                 return (
                     <Button onClick={handleProductShipment}>
-                        {value.currentStatus.value === 2 ? "Dispatch Now" : "Deliver Now"}
+                        {value.currentStatus.value === 2 ? "Product Dispatched" : "product Delivered"}
                     </Button>
                 );
 
             case "retail":
                 return (
                     <Button onClick={handleRetailShipment}>
-                        {value.currentStatus.value === 2 ? "Dispatch Now" : "Deliver Now"}
+                        {value.currentStatus.value === 2 ?  "Product Dispatched" : "product Delivered"}
                     </Button>
                 );
 

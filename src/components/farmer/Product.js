@@ -31,7 +31,7 @@ const Product = (props) => {
     const [productStatus, setProductStatus] = useState({state: '', progress: 0});
     const [seedObject, setSeedObject] = useState({details: {}});
     return (
-        <Layout>
+        <Layout location={props.location}>
             <Row className={'title'}>
                 <Col>
                     <h1> Product Name: {seedObject.details.plantName}  </h1>
