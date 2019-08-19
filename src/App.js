@@ -16,7 +16,7 @@ function App() {
 
             authneticateUser(currentVal).then(bool => {
                 if (bool) {
-                    window.open('/farmer/dashboard', '_blank');
+                    window.open('/' + currentVal+ '/dashboard', '_blank');
                 } else {
                     alert('you are not authorized to visit this page. Please contact the application admin for further details')
                 }
