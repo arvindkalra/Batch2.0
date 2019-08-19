@@ -4,7 +4,8 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
 
-const SideBar = ({closeSideBar}) => {
+const SideBar = ({closeSideBar, userName, profileImage, profession}) => {
+
     return (
         <Container>
             <div className={'sidebar'}>
@@ -19,11 +20,11 @@ const SideBar = ({closeSideBar}) => {
                 <section className={'sidebar-profile-section'}>
                     <Row>
                         <Col md={5}>
-                            <img src="https://picsum.photos/id/1074/100" alt="" className={'profile-image'}/>
+                            <img src={profileImage || localStorage.getItem('profileImage') ||"https://picsum.photos/id/1074/100"} alt="" className={'profile-image'}/>
                         </Col>
                         <Col md={7} className={'sidebar-profile-details'}>
-                            <span className={'name'}> Peter Williams</span> <br/>
-                            <span>Farmer</span>
+                            <span className={'name'}> {userName|| localStorage.getItem('userName') || 'Loading...'}</span> <br/>
+                            <span>{ profession || 'Loading...'}</span>
                         </Col>
                     </Row>
 

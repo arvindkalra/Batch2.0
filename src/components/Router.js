@@ -22,11 +22,11 @@ const AppRouter = () => {
         <Router>
             <Route exact path={'/'} component={App}/>
             {/*farmer router*/}
-            <Route exact path={'/farmer/dashboard'} component={Farmer}/>
-            <Route exact path={'/farmer/about'} component={About}/>
-            <Route exact path={'/farmer/add-new-harvest'} component={NewHarvest}/>
-            <Route exact path={'/farmer/products/:product'} component={Product}/>
-            <Route exact path={'/farmer/products'} component={Products}/>
+            <Route exact path={'/cultivator/dashboard'} component={Farmer}/>
+            <Route exact path={'/cultivator/about'} component={About}/>
+            <Route exact path={'/cultivator/add-new-harvest'} component={NewHarvest}/>
+            <Route exact path={'/cultivator/products/:product'} component={Product}/>
+            <Route exact path={'/cultivator/products'} component={Products}/>
             {/*lab routes*/}
             <Route exact path={'/laboratory/dashboard'} component={Laboratory}/>
             <Route exact path={'/laboratory/about'} component={About}/>

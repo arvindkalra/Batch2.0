@@ -41,7 +41,7 @@ const RetailerProductTable = ({rows, showForMore}) => {
                     <ul className={"table-links-list"}>
                         {showForMore ? (
                             <li>
-                                <Link to={"/farmer/products"}>See all harvests </Link>
+                                <Link to={"/cultivator/products"}>See all harvests </Link>
                             </li>
                         ) : (
                             <></>

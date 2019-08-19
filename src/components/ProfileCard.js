@@ -17,7 +17,7 @@ const ProfileCard = ({role}) => {
 
 
     const [name, setName] = useState('Peter Willams');
-    const [companyName, setCompanyName] = useState('Awesome Farmers');
+    const [companyName, setCompanyName] = useState('Awesome Cultivators');
     const [address, setAddress] = useState('route 66');
     const [license, setLicense] = useState('');
     const [profileImage, setProfileImage] = useState('https://picsum.photos/id/1074/480');

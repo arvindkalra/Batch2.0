@@ -95,7 +95,7 @@ const ReportForm = ({formDetails}) => {
                     <Col>
                         <ul>
                             <li>
-                                Farmer: <span> Peter Williams</span>
+                                Cultivator: <span> Peter Williams</span>
                             </li>
                             <li>
                                 License Number: # <span>LB123456</span>

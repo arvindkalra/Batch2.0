@@ -56,11 +56,11 @@ const ManufacturerBatchDetail = props => {
                         <p>{batchInfo.buid}</p>
                     </Col>
                     <Col md={4} className={"data-info-box"}>
-                        <h4>Farmer Name</h4>
+                        <h4>Cultivator</h4>
                         <p>{batchInfo.farmerName}</p>
                     </Col>
                     <Col md={4} className={"data-info-box"}>
-                        <h4>Farmer Company</h4>
+                        <h4>Cultivator's Company</h4>
                         <p>{batchInfo.farmerAddress}</p>
                     </Col>
                     <Col md={4} className={"data-info-box"}>

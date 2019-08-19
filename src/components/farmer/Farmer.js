@@ -21,6 +21,7 @@ const Farmer = (props) => {
                 setProfileImage(obj.profileImage);
                 localStorage.setItem('profileImage', obj.profileImage)
 
+
             })
         })
     });
