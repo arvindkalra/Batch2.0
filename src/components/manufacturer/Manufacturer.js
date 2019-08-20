@@ -4,13 +4,14 @@ import ManufacturerDashboard from "./ManufacturerDashboard";
 import "../../assets/stylesheets/manufacturer.scss";
 import {connectToMetamask} from "../../dbController/init";
 import {getManufacturerDetails} from "../../dbController/manufacturerRole";
+import {clearLocal} from "../../helpers";
 
 const Manufacturer = ({location}) => {
     const [userName, setUserName] = useState('');
     const [profileImage, setProfileImage] = useState('');
     useEffect(() => {
         connectToMetamask().then(() => {
-            localStorage.clear();
+            clearLocal();
             getManufacturerDetails().then((obj) => {
 
                 setUserName(obj.name);

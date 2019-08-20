@@ -3,12 +3,13 @@ import Layout from "../Layout";
 import DistDashboard from "./DistDashboard";
 import {connectToMetamask} from "../../dbController/init";
 import {getDistributorDetails} from "../../dbController/distributorRole";
+import {clearLocal} from "../../helpers";
 
 const Distributor = ({location}) => {
     const [userName, setUserName] = useState('');
     const [profileImage, setProfileImage] = useState('');
     useEffect(() => {
-        localStorage.clear();
+        clearLocal();
         connectToMetamask().then(() => {
 
             getDistributorDetails().then((obj) => {
