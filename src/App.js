@@ -13,7 +13,6 @@ function App() {
         const currentVal = e.target.value;
 
 
-
         connectToMetamask().then(() => {
 
 
@@ -21,10 +20,12 @@ function App() {
 
 
                 if (bool) {
-                    if(currentVal === 'farmer'){
-                        window.open('/' + 'cultivator'+ '/dashboard', '_blank');
+                    if (currentVal === 'farmer') {
+                        window.open('/' + 'cultivator' + '/dashboard', '_blank');
+                    } else {
+
+                        window.open('/' + currentVal + '/dashboard', '_blank');
                     }
-                    window.open('/' + currentVal+ '/dashboard', '_blank');
                 } else {
                     alert('you are not authorized to visit this page. Please contact the application admin for further details')
                 }
@@ -57,7 +58,7 @@ function App() {
 
                     <Row>
 
-                        <Col md={{span:6, offset: 3}}>
+                        <Col md={{span: 6, offset: 3}}>
                             <Form.Group>
                                 <p className={'description'}>
                                     You are a
