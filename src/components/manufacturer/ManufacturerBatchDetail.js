@@ -41,7 +41,7 @@ const ManufacturerBatchDetail = props => {
     }, []);
 
     return (
-        <Layout>
+        <Layout location={props.location}>
             <Row>
                 <Col>
                     {setBreadcrumb(`/manufacturer/harvests/${batchInfo.plantName}`)}

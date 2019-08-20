@@ -57,7 +57,7 @@ const NewHarvest = ({ location, history }) => {
   }
 
   return (
-    <Layout>
+    <Layout location={location}>
       <Row>
         <Col>{setBreadcrumb(location.pathname)}</Col>
       </Row>
