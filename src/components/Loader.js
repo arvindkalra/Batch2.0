@@ -1,12 +1,12 @@
 import React from 'react';
 import Spinner from "react-bootstrap/es/Spinner";
 
-const Loader = () => {
+const Loader = ({message}) => {
     return (
         <div className={'loader'}>
             <div className={'loader-container'}>
 
-                Your Transaction is mining <br/>
+                {message ||'Your Transaction is mining'} <br/>
                 <span>
 
                 <Spinner animation="grow" variant="light"/>

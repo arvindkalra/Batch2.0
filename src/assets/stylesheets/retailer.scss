@@ -4,6 +4,9 @@
 .retail-receipt-section{
   background-color: #6e7480;
   border-radius: 10px;
+  svg{
+    margin-bottom: 20px;
+  }
   @extend .shadow-box;
   color: white;
   h1{

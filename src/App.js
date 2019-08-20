@@ -12,9 +12,13 @@ function App() {
     const handleSelect = e => {
         const currentVal = e.target.value;
 
+
+
         connectToMetamask().then(() => {
 
+
             authneticateUser(currentVal).then(bool => {
+
 
                 if (bool) {
                     if(currentVal === 'farmer'){

@@ -7,18 +7,19 @@ import {
     getConsumerDetails,
     isConsumer,
     sellPacketsToBuyer,
-    setConsumerDetails
+
 } from "../../dbController/retailerRole";
-import Modal from "react-bootstrap/Modal";
-import {fileToString} from "../../helpers";
+
+import {fileToString, getTotalFare} from "../../helpers";
 import {
     checkMined,
-    connectToMetamask,
     OWN_ADDRESS
 } from "../../dbController/init";
-import ShipmentRow from "../transporter/ShipmentRow";
+
 import Table from "react-bootstrap/es/Table";
 import Loader from "../Loader";
+import QRCode from "qrcode.react";
+import '../../assets/stylesheets/retailer.scss'
 
 const SaleActionForm = ({buid, details}) => {
     const [registered, setRegistered] = useState(false);
@@ -30,6 +31,7 @@ const SaleActionForm = ({buid, details}) => {
     const [license, setLicense] = useState("");
     const [buyerDetails, setBuyerDetails] = useState("");
     const [transactionMining, setTransactionMining] = useState(false);
+
 
     const fetchDetails = e => {
         e.preventDefault();
@@ -178,40 +180,108 @@ const SaleActionForm = ({buid, details}) => {
                             </>
                         )}
                         <Col md={12}>
-                            <Form.Group controlId={"amount"}>
-                                <Form.Label>Amount</Form.Label>
-                                <Form.Control
-                                    type={"number"}
-                                    placeholder={"Enter the Quantity you want to Sell"}
-                                    onChange={e => {
-                                        setAmount(parseInt(e.target.value));
-                                    }}
-                                />
-                            </Form.Group>
-                        </Col>
-                        <Col md={12}>
-                            <Form.Group controlId={"price"}>
-                                <Form.Label>Selling Price</Form.Label>
-                                <Form.Control
-                                    type={"number"}
-                                    placeholder={"Enter the selling price"}
-                                    onChange={e => {
-                                        setSellingPrice(parseInt(e.target.value));
-                                    }}
-                                />
-                            </Form.Group>
-                        </Col>
-                        <Col md={12}>
-                            <Button
-                                onClick={registered ? sellToRegistered : sellToNewConsumer}
-                            >
-                                Sell Product
-                            </Button>
+                        <Row>
+                            <Col md={6}>
+                                <Row>
+                                    <Col md={12}>
+
+                                        <Form.Group controlId={"amount"}>
+                                            <Form.Label>Amount</Form.Label>
+                                            <Form.Control
+                                                type={"number"}
+                                                placeholder={"Enter the Quantity you want to Sell"}
+                                                onChange={e => {
+                                                    setAmount(parseInt(e.target.value));
+                                                }}
+                                            />
+                                        </Form.Group>
+                                    </Col>
+                                    <Col md={12}>
+
+                                        <Form.Group controlId={"price"}>
+                                            <Form.Label>Selling Price</Form.Label>
+                                            <Form.Control
+                                                type={"number"}
+                                                placeholder={"Enter the selling price"}
+                                                onChange={e => {
+                                                    setSellingPrice(parseInt(e.target.value));
+                                                }}
+                                            />
+                                        </Form.Group>
+                                    </Col>
+                                    <Col md={12}>
+
+                                        <Button
+                                            onClick={registered ? sellToRegistered : sellToNewConsumer}
+                                        >
+                                            Sell Product
+                                        </Button>
+                                    </Col>
+                                </Row>
+
+                            </Col>
+                            <Col md={6}>
+                                <section className={'retail-receipt-section'}>
+                                    <Row>
+                                        <Col md={12}>
+                                            <h1> ABC Pvt Limited </h1>
+                                        </Col>
+                                    </Row>
+                                    <Row>
+                                        <Col md={12}>
+                                            <ul>
+                                                <li>
+                                                    Buyer: <span> {buyerAddress}</span>
+                                                </li>
+                                                <li>
+                                                    Product: <span>{details.productType || 'loading...'}</span>
+                                                </li>
+                                                <li>
+                                                    Quantity: <span>{amount} units</span>
+                                                </li>
+                                                <li>
+                                                    Price : <span>${sellingPrice}</span>
+                                                </li>
+                                                <li>
+                                                    <ul>
+                                                        <h6>Tax</h6>
+
+                                                        <li>
+                                                            State Excise : <span>15%</span>
+                                                        </li>
+                                                        <li>
+                                                            State Sales Tax: <span>3%</span>
+
+                                                        </li>
+                                                        <li>
+                                                            Local Tax: <span>5%</span>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li>
+                                                    Total : <span>${getTotalFare(sellingPrice, amount)} </span>
+                                                </li>
+                                            </ul>
+                                        </Col>
+                                    </Row>
+                                    <Row>
+                                        <Col md={{span: 6, offset: 2}}>
+                                            SCAN THIS QR CODE TO SEE DETAILS:
+                                        </Col>
+                                        <Col md={{span: 4}}>
+                                            <QRCode bgColor={'#6e7480'} fgColor={'white'} value={'/journey/' + buid} level={'H'} size={120}
+                                                    renderAs={'svg'}  />
+                                        </Col>
+                                    </Row>
+                                </section>
+
+                            </Col>
+
+
+                        </Row>
                         </Col>
                     </>
-                ) : (
-                    <></>
-                )}
+                ) : null}
             </Row>
             {transactionMining ? <Loader/> : null}
         </>
