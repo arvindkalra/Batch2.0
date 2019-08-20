@@ -17,7 +17,6 @@ function App() {
             authneticateUser(currentVal).then(bool => {
 
                 if (bool) {
-
                     if(currentVal === 'farmer'){
                         window.open('/' + 'cultivator'+ '/dashboard', '_blank');
                     }

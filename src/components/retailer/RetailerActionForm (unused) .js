@@ -9,7 +9,7 @@ import {checkMined} from "../../dbController/init";
 import QRCode from "qrcode.react";
 import {getTotalFare} from "../../helpers";
 
-const RetailerActionForm = ({puid}) => {
+const RetailerActionFormUnused = ({puid}) => {
     const [address, setAddress] = useState(
         ""
     );
@@ -171,4 +171,4 @@ const RetailerActionForm = ({puid}) => {
     );
 };
 
-export default RetailerActionForm;
+export default RetailerActionFormUnused;

@@ -4,7 +4,6 @@ import Col from "react-bootstrap/Col";
 import {setBreadcrumb} from "../../helpers";
 import Row from "react-bootstrap/Row";
 import ProgressBar from "react-bootstrap/ProgressBar";
-import RetailerActionForm from "./RetailerActionForm";
 import {connectToMetamask} from "../../dbController/init";
 import {fetchBatchUnitDetailsUsingUID} from "../../dbController/distributorRole";
 import {fetchProductUnitDetailsUsingUID} from "../../dbController/manufacturerRole";
@@ -102,10 +101,10 @@ const RetailProduct = props => {
                         <ProgressBar
                             striped
                             variant="success"
-                            now={packetsSold ? (packetsSold / totalPackets) * 100 : 0}
+                            now={packetsSold ? ((packetsSold / totalPackets) * 100).toFixed(2) : 0}
                             label={
                                 packetsSold
-                                    ? (packetsSold / totalPackets) * 100 +
+                                    ? ((packetsSold / totalPackets) * 100).toFixed(2) +
                                     "" +
                                     " % inventory moved"
                                     : "None Sold Yet"
