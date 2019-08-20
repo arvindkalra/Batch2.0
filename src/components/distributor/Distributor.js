@@ -1,4 +1,4 @@
-import React,{useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Layout from "../Layout";
 import DistDashboard from "./DistDashboard";
 import {connectToMetamask} from "../../dbController/init";
@@ -8,7 +8,7 @@ const Distributor = ({location}) => {
     const [userName, setUserName] = useState('');
     const [profileImage, setProfileImage] = useState('');
     useEffect(() => {
-            localStorage.clear()
+        localStorage.clear();
         connectToMetamask().then(() => {
 
             getDistributorDetails().then((obj) => {
@@ -25,7 +25,7 @@ const Distributor = ({location}) => {
 
     return (
         <Layout profileImage={profileImage} userName={userName} location={location}>
-            <DistDashboard location={location} />
+            <DistDashboard location={location}/>
 
         </Layout>
     );
