@@ -234,12 +234,24 @@ const TransporterDashboard = ({ location }) => {
           })
           .then(({ name }) => {
             if (row.currentState.value >= 4) {
-              addToGraphData("Delivered", 1, tempRetailGraph, setRetailGraph, tempChanged++);
+              addToGraphData(
+                "Delivered",
+                1,
+                tempRetailGraph,
+                setRetailGraph,
+                tempChanged++
+              );
             } else {
-              if(row.currentState.value === 3){
-                addToGraphData("Dispatched", 1, tempRetailGraph, setRetailGraph, tempChanged++);
+              if (row.currentState.value === 3) {
+                addToGraphData(
+                  "Dispatched",
+                  1,
+                  tempRetailGraph,
+                  setRetailGraph,
+                  tempChanged++
+                );
               }
-              if(row.currentState.value === 2){
+              if (row.currentState.value === 2) {
                 addToGraphData(
                   "Packed",
                   1,
@@ -338,6 +350,7 @@ const TransporterDashboard = ({ location }) => {
                         <BarGraph
                           ObjectToShow={harvestGraph}
                           changed={changed}
+                          label={"Harvest Shipments"}
                         />
                       </Col>
                     </Row>
@@ -392,6 +405,7 @@ const TransporterDashboard = ({ location }) => {
                         <BarGraph
                           ObjectToShow={packageGraph}
                           changed={changed}
+                          label={"Product Shipments"}
                         />
                       </Col>
                     </Row>
@@ -444,7 +458,11 @@ const TransporterDashboard = ({ location }) => {
                     </Card>
                   </Col>
                   <Col md={12}>
-                    <BarGraph ObjectToShow={sampleGraph} changed={changed} />
+                    <BarGraph
+                      ObjectToShow={sampleGraph}
+                      changed={changed}
+                      label={"Sample Shipments"}
+                    />
                   </Col>
                 </Row>
                 <Col md={12}>
@@ -494,7 +512,11 @@ const TransporterDashboard = ({ location }) => {
                       </Card>
                     </Col>
                     <Col md={12}>
-                      <BarGraph ObjectToShow={retailGraph} changed={changed} />
+                      <BarGraph
+                        ObjectToShow={retailGraph}
+                        changed={changed}
+                        label={"Retail Shipments"}
+                      />
                     </Col>
                   </Row>
                 </Col>
