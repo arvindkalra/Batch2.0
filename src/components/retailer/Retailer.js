@@ -4,13 +4,14 @@ import RetailerDashboard from "./RetailerDashboard";
 import {connectToMetamask} from "../../dbController/init";
 
 import {getRetailerDetails} from "../../dbController/retailerRole";
+import {clearLocal} from "../../helpers";
 
 const Retailer = ({location}) => {
     const [userName, setUserName] = useState('');
     const [profileImage, setProfileImage] = useState('');
     useEffect(() => {
         connectToMetamask().then(() => {
-            localStorage.clear();
+            clearLocal();
 
             getRetailerDetails().then((obj) => {
                 console.log(obj);

@@ -4,13 +4,14 @@ import TransporterDashboard from "./TransporterDashboard";
 import "../../assets/stylesheets/transporter.scss";
 import {connectToMetamask} from "../../dbController/init";
 import {getTransporterDetails} from "../../dbController/transporterRole";
+import {clearLocal} from "../../helpers";
 
 const Transporter = ({location}) => {
     const [userName, setUserName] = useState('');
     const [profileImage, setProfileImage] = useState('');
     useEffect(() => {
         connectToMetamask().then(() => {
-            localStorage.clear()
+            clearLocal();
 
             getTransporterDetails().then((obj) => {
 

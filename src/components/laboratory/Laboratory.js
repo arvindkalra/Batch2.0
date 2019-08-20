@@ -7,13 +7,14 @@ import LabDashboard from "./LabDashboard";
 import {connectToMetamask} from "../../dbController/init";
 import {getFarmerDetails} from "../../dbController/farmerRole";
 import {getLaboratoryDetails} from "../../dbController/laboratoryRole";
+import {clearLocal} from "../../helpers";
 
 
 const Laboratory = (props) => {
     const [userName, setUserName] = useState('');
     const [profileImage, setProfileImage] = useState('');
     useEffect(() => {
-        localStorage.clear();
+        clearLocal();
         connectToMetamask().then(() => {
 
             getLaboratoryDetails().then((obj) => {
