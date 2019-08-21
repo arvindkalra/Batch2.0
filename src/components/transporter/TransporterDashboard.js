@@ -310,7 +310,7 @@ const TransporterDashboard = ({ location }) => {
                               variant="link"
                               eventKey="0"
                             >
-                              Harvest Shipments ( Grower -> Manufacturer )
+                              Harvest Shipments ( Cultivator -> Manufacturer )
                               <br />
                               {harvestShipments.length !== 0 ? (
                                 <Badge pill variant="success">
@@ -422,7 +422,7 @@ const TransporterDashboard = ({ location }) => {
                           variant="link"
                           eventKey="2"
                         >
-                          Laboratory Sample Shipments ( Grower -> Laboratory )
+                          Laboratory Sample Shipments ( Cultivator -> Laboratory )
                           <br />
                           {sampleShipments.length !== 0 ? (
                             <Badge pill variant="success">

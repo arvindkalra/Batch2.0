@@ -21,68 +21,68 @@ const TrackProduct = ({location}) => {
         location.pathname.split("/")[location.pathname.split.length]
     );
     const [journeyObj, setJourneyObj] = useState({});
-    const [loading, setLoader] = useState(false)
+    const [loading, setLoader] = useState(false);
 
-    useEffect(() => {
-      setLoader(true)
-        connectToMetamask().then(() => {
-
-            let tempJourneyObj = {};
-            fetchEntireJourney(trackingId)
-                .then(obj => {
-                    tempJourneyObj = obj;
-                    return getDistributorDetails(obj.distributorAddress);
-                })
-                .then(({name}) => {
-                    tempJourneyObj.distributorName = name;
-                    return getTransporterDetails(
-                        tempJourneyObj.distributorToRetailerTransporter
-                    );
-                })
-                .then(({name}) => {
-                    tempJourneyObj.distributorToRetailerTransporterName = name;
-                    return getTransporterDetails(
-                        tempJourneyObj.farmToFactoryConsignmentTransporterAddress
-                    );
-                })
-                .then(({name}) => {
-                    tempJourneyObj.farmerToManufacturerTransporterName = name;
-                    return getTransporterDetails(
-                        tempJourneyObj.farmToLabConsignmentTransporterAddress
-                    );
-                })
-                .then(({name}) => {
-                    tempJourneyObj.farmerToLaboratoryTransporterName = name;
-                    return getFarmerDetails(tempJourneyObj.farmerAddress);
-                })
-                .then(({name}) => {
-                    tempJourneyObj.farmerName = name;
-                    return getLaboratoryDetails(tempJourneyObj.laboratoryAddress);
-                })
-                .then(({name}) => {
-                    tempJourneyObj.laboratoryName = name;
-                    return getManufacturerDetails(tempJourneyObj.manufacturerAddress);
-                })
-                .then(({name}) => {
-                    tempJourneyObj.manufacturerName = name;
-                    return getTransporterDetails(
-                        tempJourneyObj.manufacturerToDistributorTransporter
-                    );
-                })
-                .then(({name}) => {
-                    tempJourneyObj.manufacturerToDistributorTransporterName = name;
-                    return getRetailerDetails(tempJourneyObj.retailerAddress);
-                })
-                .then(({name}) => {
-                    tempJourneyObj.retailerName = name;
-                    setJourneyObj(tempJourneyObj);
-
-                    setLoader(false)
-
-                    console.log(tempJourneyObj);
-                });
-        });
-    }, [trackingId]);
+    // useEffect(() => {
+    //   setLoader(true)
+    //     connectToMetamask().then(() => {
+    //
+    //         let tempJourneyObj = {};
+    //         fetchEntireJourney(trackingId)
+    //             .then(obj => {
+    //                 tempJourneyObj = obj;
+    //                 return getDistributorDetails(obj.distributorAddress);
+    //             })
+    //             .then(({name}) => {
+    //                 tempJourneyObj.distributorName = name;
+    //                 return getTransporterDetails(
+    //                     tempJourneyObj.distributorToRetailerTransporter
+    //                 );
+    //             })
+    //             .then(({name}) => {
+    //                 tempJourneyObj.distributorToRetailerTransporterName = name;
+    //                 return getTransporterDetails(
+    //                     tempJourneyObj.farmToFactoryConsignmentTransporterAddress
+    //                 );
+    //             })
+    //             .then(({name}) => {
+    //                 tempJourneyObj.farmerToManufacturerTransporterName = name;
+    //                 return getTransporterDetails(
+    //                     tempJourneyObj.farmToLabConsignmentTransporterAddress
+    //                 );
+    //             })
+    //             .then(({name}) => {
+    //                 tempJourneyObj.farmerToLaboratoryTransporterName = name;
+    //                 return getFarmerDetails(tempJourneyObj.farmerAddress);
+    //             })
+    //             .then(({name}) => {
+    //                 tempJourneyObj.farmerName = name;
+    //                 return getLaboratoryDetails(tempJourneyObj.laboratoryAddress);
+    //             })
+    //             .then(({name}) => {
+    //                 tempJourneyObj.laboratoryName = name;
+    //                 return getManufacturerDetails(tempJourneyObj.manufacturerAddress);
+    //             })
+    //             .then(({name}) => {
+    //                 tempJourneyObj.manufacturerName = name;
+    //                 return getTransporterDetails(
+    //                     tempJourneyObj.manufacturerToDistributorTransporter
+    //                 );
+    //             })
+    //             .then(({name}) => {
+    //                 tempJourneyObj.manufacturerToDistributorTransporterName = name;
+    //                 return getRetailerDetails(tempJourneyObj.retailerAddress);
+    //             })
+    //             .then(({name}) => {
+    //                 tempJourneyObj.retailerName = name;
+    //                 setJourneyObj(tempJourneyObj);
+    //
+    //                 setLoader(false)
+    //
+    //                 console.log(tempJourneyObj);
+    //             });
+    //     });
+    // }, [trackingId]);
 
     return (
         <Container fluid={true} className={"track-product"}>
@@ -390,7 +390,7 @@ const TrackProduct = ({location}) => {
                     </div>
                 </Col>
             </Row>
-          {loading? <Loader message={'Fetching Product History'}/>: null}
+            {loading ? <Loader message={'Fetching Product History'}/> : null}
         </Container>
     );
 };
