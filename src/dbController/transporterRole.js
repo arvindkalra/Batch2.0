@@ -4,15 +4,15 @@ import {
   harvestStates,
   makeStorageTransaction,
   makeTransporterTransaction,
-  OWN_ADDRESS,
   packetStates,
   uploadJsonToIPFS
 } from "./init";
+import { OWN_ADDRESS } from "./Web3Connections";
 
 export function setTransporterDetails(details) {
   return new Promise((resolve, reject) => {
     uploadJsonToIPFS(details).then(hash => {
-      makeTransporterTransaction("setTransporterDetails", hash)
+      makeTransporterTransaction("send", "setTransporterDetails", hash)
         .then(resolve)
         .catch(reject);
     });
@@ -22,6 +22,7 @@ export function setTransporterDetails(details) {
 export function getTransporterDetails(address) {
   return new Promise((resolve, reject) => {
     makeTransporterTransaction(
+      "call",
       "getTransporterDetails",
       address ? address : OWN_ADDRESS
     )
@@ -43,10 +44,10 @@ function handleObject(object, uid, isHarvest, isBatch) {
           uid,
           details,
           currentState: isHarvest
-            ? harvestStates(object[2].toNumber())
+            ? harvestStates(parseInt(object[2]))
             : isBatch
-            ? batchStates(object[2].toNumber())
-            : packetStates(object[2].toNumber())
+            ? batchStates(parseInt(object[2]))
+            : packetStates(parseInt(object[2]))
         });
       })
       .catch(reject);
@@ -59,27 +60,29 @@ function handleError(err) {
 
 export function getLabSampleConsignments(rowCallback) {
   return new Promise((resolve, reject) => {
-    makeTransporterTransaction("getFarmerToLabConsignments").then(array => {
-      array = array.valueOf();
-      for (let i = 0; i < array.length; i++) {
-        let x = array[i].toNumber();
-        makeStorageTransaction("getHarvestUnit", x)
-          .then(o => {
-            return handleObject(o, x, true);
-          })
-          .then(x => {
-            rowCallback(x);
-            complete(i, array.length - 1);
-          })
-          .catch(handleError);
-      }
+    makeTransporterTransaction("call", "getFarmerToLabConsignments").then(
+      array => {
+        array = array.valueOf();
+        for (let i = 0; i < array.length; i++) {
+          let x = parseInt(array[i]);
+          makeStorageTransaction("getHarvestUnit", x)
+            .then(o => {
+              return handleObject(o, x, true);
+            })
+            .then(x => {
+              rowCallback(x);
+              complete(i, array.length - 1);
+            })
+            .catch(handleError);
+        }
 
-      function complete(iteration, max) {
-        if (iteration === max) {
-          resolve();
+        function complete(iteration, max) {
+          if (iteration === max) {
+            resolve();
+          }
         }
       }
-    });
+    );
   });
 }
 
@@ -90,6 +93,7 @@ export function dispatchLabSampleConsignment(
 ) {
   return uploadJsonToIPFS(details).then(hash => {
     return makeTransporterTransaction(
+      "send",
       "dispatchOrDeliverFarmerToLab",
       1,
       harvestUid,
@@ -106,6 +110,7 @@ export function deliverLabSampleConsignment(
 ) {
   return uploadJsonToIPFS(details).then(hash => {
     return makeTransporterTransaction(
+      "send",
       "dispatchOrDeliverFarmerToLab",
       0,
       harvestUid,
@@ -117,27 +122,29 @@ export function deliverLabSampleConsignment(
 
 export function getFarmToFactoryConsignments(rowCallback) {
   return new Promise((resolve, reject) => {
-    makeTransporterTransaction("getFarmerToFactoryConsignments").then(array => {
-      array = array.valueOf();
-      for (let i = 0; i < array.length; i++) {
-        let x = array[i].toNumber();
-        makeStorageTransaction("getHarvestUnit", x)
-          .then(o => {
-            return handleObject(o, x, true);
-          })
-          .then(x => {
-            rowCallback(x);
-            completed(i, array.length - 1);
-          })
-          .catch(handleError);
-      }
+    makeTransporterTransaction("call", "getFarmerToFactoryConsignments").then(
+      array => {
+        array = array.valueOf();
+        for (let i = 0; i < array.length; i++) {
+          let x = parseInt(array[i]);
+          makeStorageTransaction("getHarvestUnit", x)
+            .then(o => {
+              return handleObject(o, x, true);
+            })
+            .then(x => {
+              rowCallback(x);
+              completed(i, array.length - 1);
+            })
+            .catch(handleError);
+        }
 
-      function completed(iteration, max) {
-        if (iteration === max) {
-          resolve();
+        function completed(iteration, max) {
+          if (iteration === max) {
+            resolve();
+          }
         }
       }
-    });
+    );
   });
 }
 
@@ -148,6 +155,7 @@ export function dispatchFarmToFactoryConsignment(
 ) {
   return uploadJsonToIPFS(details).then(hash => {
     return makeTransporterTransaction(
+      "send",
       "dispatchOrDeliverFarmerToFactory",
       1,
       harvestUid,
@@ -164,6 +172,7 @@ export function deliverFarmToFactoryConsignment(
 ) {
   return uploadJsonToIPFS(details).then(hash => {
     return makeTransporterTransaction(
+      "send",
       "dispatchOrDeliverFarmerToFactory",
       0,
       harvestUid,
@@ -174,20 +183,21 @@ export function deliverFarmToFactoryConsignment(
 }
 
 export function getFactoryToDistributorConsignments(rowCallback) {
-  makeTransporterTransaction("getFactoryToDistributorConsignments").then(
-    array => {
-      array = array.valueOf();
-      for (let i = 0; i < array.length; i++) {
-        let x = array[i].toNumber();
-        makeStorageTransaction("getProductUnit", x)
-          .then(o => {
-            return handleObject(o, x);
-          })
-          .then(rowCallback)
-          .catch(handleError);
-      }
+  makeTransporterTransaction(
+    "call",
+    "getFactoryToDistributorConsignments"
+  ).then(array => {
+    array = array.valueOf();
+    for (let i = 0; i < array.length; i++) {
+      let x = parseInt(array[i]);
+      makeStorageTransaction("getProductUnit", x)
+        .then(o => {
+          return handleObject(o, x);
+        })
+        .then(rowCallback)
+        .catch(handleError);
     }
-  );
+  });
 }
 
 export function dispatchFactoryToDistributorConsignment(
@@ -197,6 +207,7 @@ export function dispatchFactoryToDistributorConsignment(
 ) {
   return uploadJsonToIPFS(details).then(hash => {
     return makeTransporterTransaction(
+      "send",
       "dispatchOrDeliverFactoryToDistributor",
       1,
       productUnitId,
@@ -213,6 +224,7 @@ export function deliverFactoryToDistributorConsignment(
 ) {
   return uploadJsonToIPFS(details).then(hash => {
     return makeTransporterTransaction(
+      "send",
       "dispatchOrDeliverFactoryToDistributor",
       0,
       productUnitId,
@@ -223,20 +235,21 @@ export function deliverFactoryToDistributorConsignment(
 }
 
 export function getDistributorToRetailerConsignments(rowCallback) {
-  makeTransporterTransaction("getDistributorToRetailerConsignments").then(
-    array => {
-      array = array.valueOf();
-      for (let i = 0; i < array.length; i++) {
-        let x = array[i].toNumber();
-        makeStorageTransaction("getBatchUnit", x)
-          .then(o => {
-            return handleObject(o, x, false, true);
-          })
-          .then(rowCallback)
-          .catch(handleError);
-      }
+  makeTransporterTransaction(
+    "call",
+    "getDistributorToRetailerConsignments"
+  ).then(array => {
+    array = array.valueOf();
+    for (let i = 0; i < array.length; i++) {
+      let x = parseInt(array[i]);
+      makeStorageTransaction("getBatchUnit", x)
+        .then(o => {
+          return handleObject(o, x, false, true);
+        })
+        .then(rowCallback)
+        .catch(handleError);
     }
-  );
+  });
 }
 
 export function dispatchDistributorToShopConsignment(
@@ -246,6 +259,7 @@ export function dispatchDistributorToShopConsignment(
 ) {
   return uploadJsonToIPFS(details).then(hash => {
     return makeTransporterTransaction(
+      "send",
       "dispatchOrDeliverDistributorToRetailer",
       1,
       batchUnitId,
@@ -262,6 +276,7 @@ export function deliverDistributorToShopConsignment(
 ) {
   return uploadJsonToIPFS(details).then(hash => {
     return makeTransporterTransaction(
+      "send",
       "dispatchOrDeliverDistributorToRetailer",
       0,
       batchUnitId,

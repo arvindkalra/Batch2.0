@@ -5,13 +5,14 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import {getFarmerDetails, setFarmerDetails} from "../dbController/farmerRole";
 import {fileToString} from "../helpers";
-import {checkMined, connectToMetamask, OWN_ADDRESS} from "../dbController/init";
+import {checkMined, connectToMetamask} from "../dbController/init";
 import {getLaboratoryDetails, setLaboratoryDetails} from "../dbController/laboratoryRole";
 import {getManufacturerDetails, setManufacturerDetails} from "../dbController/manufacturerRole";
 import {getDistributorDetails, setDistributorDetails} from "../dbController/distributorRole";
 import {getTransporterDetails, setTransporterDetails} from "../dbController/transporterRole";
 import {getRetailerDetails, setRetailerDetails} from "../dbController/retailerRole";
 import Loader from "./Loader";
+import {OWN_ADDRESS} from "../dbController/Web3Connections";
 
 const ProfileCard = ({role}) => {
 

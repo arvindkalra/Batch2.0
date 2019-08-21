@@ -3,15 +3,15 @@ import {
   harvestStates,
   makeManufacturerTransaction,
   makeStorageTransaction,
-  OWN_ADDRESS,
   packetStates,
   uploadJsonToIPFS
 } from "./init";
+import { OWN_ADDRESS } from "./Web3Connections";
 
 export function setManufacturerDetails(details) {
   return new Promise((resolve, reject) => {
     uploadJsonToIPFS(details).then(hash => {
-      makeManufacturerTransaction("setManufacturerDetails", hash)
+      makeManufacturerTransaction("send", "setManufacturerDetails", hash)
         .then(resolve)
         .catch(reject);
     });
@@ -21,6 +21,7 @@ export function setManufacturerDetails(details) {
 export function getManufacturerDetails(address) {
   return new Promise((resolve, reject) => {
     makeManufacturerTransaction(
+      "call",
       "getManufacturerDetails",
       address ? address : OWN_ADDRESS
     )
@@ -55,11 +56,11 @@ export function fetchProductUnitDetailsUsingUID(productUnitId) {
 }
 
 export function fetchHarvestUnitsByManufacturer(rowCallback) {
-  makeManufacturerTransaction("getHarvestUnits")
+  makeManufacturerTransaction("call", "getHarvestUnits")
     .then(array => {
       array = array.valueOf();
       for (let i = 0; i < array.length; i++) {
-        let val = array[i].toNumber();
+        let val = parseInt(array[i]);
         makeStorageTransaction("getHarvestUnit", val)
           .then(x => {
             return handleObject(x, val, true);
@@ -76,7 +77,7 @@ function handleObject(obj, uid, isHarvest) {
     obj = obj.valueOf();
     let currentOwner = obj[0];
     let latestHash = obj[1];
-    let stateVariable = obj[2].toNumber();
+    let stateVariable = parseInt(obj[2]);
     getJsonFromIPFS(latestHash)
       .then(details => {
         resolve({
@@ -97,11 +98,11 @@ function handleError(err) {
 }
 
 export function fetchPackagedUnitsByManufacturer(rowCallback) {
-  makeManufacturerTransaction("getProductUnits")
+  makeManufacturerTransaction("call", "getProductUnits")
     .then(array => {
       array = array.valueOf();
       for (let i = 0; i < array.length; i++) {
-        let val = array[i].toNumber();
+        let val = parseInt(array[i]);
         makeStorageTransaction("getProductUnit", val)
           .then(x => {
             return handleObject(x, val, false);
@@ -128,6 +129,7 @@ export function packetsManufactured(
     .then(hash => {
       productHash = hash;
       return makeManufacturerTransaction(
+        "send",
         "productsManufactured",
         harvestUnitId,
         harvestHash,
@@ -144,6 +146,7 @@ export function sendProductToDistributor(
 ) {
   return uploadJsonToIPFS(details).then(hash => {
     return makeManufacturerTransaction(
+      "send",
       "sendProductsManufacturedToDistributor",
       productUid,
       hash,

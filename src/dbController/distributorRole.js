@@ -3,19 +3,20 @@ import {
   getJsonFromIPFS,
   makeDistributorTransaction,
   makeStorageTransaction,
-  OWN_ADDRESS,
   packetStates,
   uploadJsonToIPFS
 } from "./init";
+import { OWN_ADDRESS } from "./Web3Connections";
 
 export function setDistributorDetails(details) {
   return uploadJsonToIPFS(details).then(hash => {
-    return makeDistributorTransaction("setDistributorDetails", hash);
+    return makeDistributorTransaction("send", "setDistributorDetails", hash);
   });
 }
 
 export function getDistributorDetails(address) {
   return makeDistributorTransaction(
+    "call",
     "getDistributorDetails",
     address ? address : OWN_ADDRESS
   ).then(hash => {
@@ -28,7 +29,7 @@ function handleObject(obj, uid, isProduct) {
     obj = obj.valueOf();
     let currentOwner = obj[0];
     let latestHash = obj[1];
-    let stateVariable = obj[2].toNumber();
+    let stateVariable = parseInt(obj[2]);
     getJsonFromIPFS(latestHash)
       .then(details => {
         resolve({
@@ -49,10 +50,10 @@ function handleError(err) {
 }
 
 export function fetchProductUnitsForDistributor(rowCallback) {
-  makeDistributorTransaction("getProductUnits").then(array => {
+  makeDistributorTransaction("call", "getProductUnits").then(array => {
     array = array.valueOf();
     for (let i = 0; i < array.length; i++) {
-      let val = array[i].toNumber();
+      let val = parseInt(array[i]);
       // console.log(val);
       makeStorageTransaction("getProductUnit", val)
         .then(o => {
@@ -79,6 +80,7 @@ export function createBatchByDistributor(
     })
     .then(batchHash => {
       return makeDistributorTransaction(
+        "send",
         "createBatch",
         productUnitId,
         productHash,
@@ -90,10 +92,10 @@ export function createBatchByDistributor(
 }
 
 export function fetchBatchUnitsForDistributor(rowCallback) {
-  makeDistributorTransaction("getBatchUnits").then(array => {
+  makeDistributorTransaction("call", "getBatchUnits").then(array => {
     array = array.valueOf();
     for (let i = array.length - 1; i >= 0; i--) {
-      let val = array[i].toNumber();
+      let val = parseInt(array[i]);
       makeStorageTransaction("getBatchUnit", val)
         .then(o => {
           return handleObject(o, val, false);
@@ -123,6 +125,7 @@ export function sendBatchToTheRetailer(
 ) {
   return uploadJsonToIPFS(details).then(hash => {
     return makeDistributorTransaction(
+      "send",
       "sendToRetailer",
       batchUnitId,
       hash,

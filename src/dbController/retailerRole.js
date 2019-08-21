@@ -3,14 +3,14 @@ import {
   getJsonFromIPFS,
   makeRetailerTransaction,
   makeStorageTransaction,
-  OWN_ADDRESS,
   uploadJsonToIPFS
 } from "./init";
+import { OWN_ADDRESS } from "./Web3Connections";
 
 export function setRetailerDetails(details) {
   return new Promise((resolve, reject) => {
     uploadJsonToIPFS(details).then(hash => {
-      makeRetailerTransaction("setRetailerDetails", hash)
+      makeRetailerTransaction("send", "setRetailerDetails", hash)
         .then(resolve)
         .catch(reject);
     });
@@ -20,6 +20,7 @@ export function setRetailerDetails(details) {
 export function getRetailerDetails(address) {
   return new Promise((resolve, reject) => {
     makeRetailerTransaction(
+      "call",
       "getRetailerDetails",
       address ? address : OWN_ADDRESS
     )
@@ -32,13 +33,13 @@ export function getRetailerDetails(address) {
 }
 
 export function isConsumer(buyerAddress) {
-  return makeRetailerTransaction("isConsumer", buyerAddress);
+  return makeRetailerTransaction("call", "isConsumer", buyerAddress);
 }
 
 export function setConsumerDetails(buyerAddress, details) {
   return new Promise((resolve, reject) => {
     uploadJsonToIPFS(details).then(hash => {
-      makeRetailerTransaction("setConsumerDetails", buyerAddress, hash)
+      makeRetailerTransaction("send", "setConsumerDetails", buyerAddress, hash)
         .then(resolve)
         .catch(reject);
     });
@@ -47,7 +48,7 @@ export function setConsumerDetails(buyerAddress, details) {
 
 export function getConsumerDetails(buyerAddress) {
   return new Promise((resolve, reject) => {
-    makeRetailerTransaction("getConsumerDetails", buyerAddress)
+    makeRetailerTransaction("call", "getConsumerDetails", buyerAddress)
       .then(hash => {
         return getJsonFromIPFS(hash);
       })
@@ -67,6 +68,7 @@ export function sellPacketsToBuyer(
     sellerHash = hash;
     return uploadJsonToIPFS(buyerPurchaseDetails).then(hash => {
       return makeRetailerTransaction(
+        "send",
         "sellToConsumer",
         batchUnitId,
         buyerAddress,
@@ -78,11 +80,11 @@ export function sellPacketsToBuyer(
 }
 
 export function getRowsForRetailer(rowCallbacks) {
-  makeRetailerTransaction("getBatchUnits")
+  makeRetailerTransaction("call", "getBatchUnits")
     .then(array => {
       array = array.valueOf();
       for (let i = array.length - 1; i >= 0; i--) {
-        let val = array[i].toNumber();
+        let val = parseInt(array[i]);
         makeStorageTransaction("getBatchUnit", val)
           .then(x => handleObject(x, val))
           .then(rowCallbacks)
@@ -99,7 +101,7 @@ export function getRowsForRetailer(rowCallbacks) {
           resolve({
             details,
             batchUnitId: uid,
-            currentState: batchStates(obj[2].toNumber()),
+            currentState: batchStates(parseInt(obj[2])),
             currentOwner: obj[0]
           });
         })

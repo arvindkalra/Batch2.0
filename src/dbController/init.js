@@ -5,6 +5,23 @@ import {
   fetchHarvestUnitDetailsUsingUID,
   fetchProductUnitDetailsUsingUID
 } from "./manufacturerRole";
+import {
+  callDistributorContract,
+  callFarmerContract,
+  callLaboratoryContract,
+  callManufacturerContract,
+  callRetailerContract,
+  callStorageContract,
+  callTransporterContract,
+  initialSetup,
+  OWN_ADDRESS,
+  sendDistributorContract,
+  sendFarmerContract,
+  sendLaboratoryContract,
+  sendManufacturerContract,
+  sendRetailerContract,
+  sendTransporterContract
+} from "./Web3Connections";
 
 const URL = "http://35.154.84.229:2000";
 
@@ -16,9 +33,10 @@ const URL = "http://35.154.84.229:2000";
 //   }
 // });
 
-export let web3;
+export const web3 = new Web3(
+  new Web3.providers.HttpProvider("https://testnet2.matic.network")
+);
 // export const NETWORK_NAME = config.NETWORK_NAME;
-export let OWN_ADDRESS;
 
 let STORAGE;
 let FARMER;
@@ -28,148 +46,76 @@ let MANUFACTURER;
 let RETAILER;
 let DISTRIBUTOR;
 
-export function makeChainTransaction() {
-  //
-}
-
-export function makeLabTransaction() {
-  //
-}
-
 export function connectToMetamask() {
   return new Promise((resolve, reject) => {
-    if (window.ethereum) {
-      window.ethereum
-        .enable()
-        .then(address => {
-          web3 = new Web3(window.ethereum);
-          OWN_ADDRESS = address ? address[0] : web3.eth.accounts[0];
-          console.log(OWN_ADDRESS);
-          createContractInstance();
-          resolve(true);
-        })
-        .catch(err => {
-          reject(err);
-        });
-    } else if (!window.web3) {
-      alert("Install Metamask");
-      reject();
-    } else if (window.web3.accounts[0].length !== 0) {
-      web3 = window.web3;
-      OWN_ADDRESS = web3.accounts[0];
-      console.log(OWN_ADDRESS);
-      createContractInstance();
-      resolve(true);
-    }
+    initialSetup(resolve, reject);
+    console.log(OWN_ADDRESS);
   });
-}
-
-function createContractInstance() {
-  STORAGE = web3.eth.contract(config.STORAGE).at(config.STORAGE_ADDRESS);
-  FARMER = web3.eth.contract(config.FARMER).at(config.FARMER_ADDRESS);
-  LABORATORY = web3.eth
-    .contract(config.LABORATORY)
-    .at(config.LABORATORY_ADDRESS);
-  TRANSPORTER = web3.eth
-    .contract(config.TRANSPORTER)
-    .at(config.TRANSPORTER_ADDRESS);
-  MANUFACTURER = web3.eth
-    .contract(config.MANUFACTURER)
-    .at(config.MANUFACTURER_ADDRESS);
-  RETAILER = web3.eth.contract(config.RETAILER).at(config.RETAILER_ADDRESS);
-  DISTRIBUTOR = web3.eth
-    .contract(config.DISTRIBUTOR)
-    .at(config.DISTRIBUTOR_ADDRESS);
 }
 
 export function makeStorageTransaction(functionName, ...args) {
   return new Promise((resolve, reject) => {
-    STORAGE[functionName](
-      ...args,
-      { from: OWN_ADDRESS, gasPrice: web3.toWei(0, "gwei") },
-      function(err, result) {
-        if (err) reject(err);
-        resolve(result);
-      }
-    );
+    callStorageContract(functionName, resolve, reject, ...args);
   });
 }
 
-export function makeFarmerTransaction(functionName, ...args) {
+export function makeFarmerTransaction(type, functionName, ...args) {
   return new Promise((resolve, reject) => {
-    FARMER[functionName](
-      ...args,
-      { from: OWN_ADDRESS, gasPrice: web3.toWei(0, "gwei") },
-      function(err, result) {
-        if (err) reject(err);
-        resolve(result);
-      }
-    );
+    if (type === "call") {
+      callFarmerContract(functionName, resolve, reject, ...args);
+    } else {
+      sendFarmerContract(functionName, resolve, reject, ...args);
+    }
   });
 }
 
-export function makeLaboratoryTransaction(functionName, ...args) {
+export function makeLaboratoryTransaction(type, functionName, ...args) {
   return new Promise((resolve, reject) => {
-    LABORATORY[functionName](
-      ...args,
-      { from: OWN_ADDRESS, gasPrice: web3.toWei(0, "gwei") },
-      function(err, result) {
-        if (err) reject(err);
-        resolve(result);
-      }
-    );
+    if (type === "call") {
+      callLaboratoryContract(functionName, resolve, reject, ...args);
+    } else {
+      sendLaboratoryContract(functionName, resolve, reject, ...args);
+    }
   });
 }
 
-export function makeTransporterTransaction(functionName, ...args) {
+export function makeTransporterTransaction(type, functionName, ...args) {
   return new Promise((resolve, reject) => {
-    TRANSPORTER[functionName](
-      ...args,
-      { from: OWN_ADDRESS, gasPrice: web3.toWei(0, "gwei") },
-      function(err, result) {
-        if (err) reject(err);
-        resolve(result);
-      }
-    );
+    if (type === "call") {
+      callTransporterContract(functionName, resolve, reject, ...args);
+    } else {
+      sendTransporterContract(functionName, resolve, reject, ...args);
+    }
   });
 }
 
-export function makeManufacturerTransaction(functionName, ...args) {
+export function makeManufacturerTransaction(type, functionName, ...args) {
   return new Promise((resolve, reject) => {
-    MANUFACTURER[functionName](
-      ...args,
-      { from: OWN_ADDRESS, gasPrice: web3.toWei(0, "gwei") },
-      function(err, result) {
-        if (err) reject(err);
-        resolve(result);
-      }
-    );
+    if (type === "call") {
+      callManufacturerContract(functionName, resolve, reject, ...args);
+    } else {
+      sendManufacturerContract(functionName, resolve, reject, ...args);
+    }
   });
 }
 
-export function makeDistributorTransaction(functionName, ...args) {
+export function makeDistributorTransaction(type, functionName, ...args) {
   return new Promise((resolve, reject) => {
-    DISTRIBUTOR[functionName](
-      ...args,
-      { from: OWN_ADDRESS, gasPrice: web3.toWei(0, "gwei") },
-      function(err, result) {
-        if (err) reject(err);
-        resolve(result);
-      }
-    );
+    if (type === "call") {
+      callDistributorContract(functionName, resolve, reject, ...args);
+    } else {
+      sendDistributorContract(functionName, resolve, reject, ...args);
+    }
   });
 }
 
-export function makeRetailerTransaction(functionName, ...args) {
+export function makeRetailerTransaction(type, functionName, ...args) {
   return new Promise((resolve, reject) => {
-    RETAILER[functionName](
-      ...args,
-      { from: OWN_ADDRESS, gasPrice: web3.toWei(0, "gwei") },
-      function(err, result) {
-        if (err) reject(err);
-        resolve(result);
-      }
-    );
+    if (type === "call") {
+      callRetailerContract(functionName, resolve, reject, ...args);
+    } else {
+      sendRetailerContract(functionName, resolve, reject, ...args);
+    }
   });
 }
 
@@ -400,34 +346,40 @@ export const authneticateUser = role => {
   return new Promise((resolve, reject) => {
     switch (role) {
       case "farmer":
-        makeFarmerTransaction("isFarmer", OWN_ADDRESS).then(bool => {
+        makeFarmerTransaction("call", "isFarmer", OWN_ADDRESS).then(bool => {
           resolve(bool);
         });
         return;
       case "laboratory":
-        makeLaboratoryTransaction("isLaboratory", OWN_ADDRESS).then(bool => {
-          resolve(bool);
-        });
+        makeLaboratoryTransaction("call", "isLaboratory", OWN_ADDRESS).then(
+          bool => {
+            resolve(bool);
+          }
+        );
         return;
       case "manufacturer":
-        makeManufacturerTransaction("isManufacturer", OWN_ADDRESS).then(
+        makeManufacturerTransaction("call", "isManufacturer", OWN_ADDRESS).then(
           bool => {
             resolve(bool);
           }
         );
         return;
       case "distributor":
-        makeDistributorTransaction("isDistributor", OWN_ADDRESS).then(bool => {
-          resolve(bool);
-        });
+        makeDistributorTransaction("call", "isDistributor", OWN_ADDRESS).then(
+          bool => {
+            resolve(bool);
+          }
+        );
         return;
       case "retailer":
-        makeRetailerTransaction("isRetailer", OWN_ADDRESS).then(bool => {
+        makeRetailerTransaction("call", "isRetailer", OWN_ADDRESS).then(bool => {
           resolve(bool);
         });
         return;
       case "transporter":
-        makeTransporterTransaction("isTransporter", OWN_ADDRESS).then(resolve);
+        makeTransporterTransaction("call", "isTransporter", OWN_ADDRESS).then(
+          resolve
+        );
         return;
       default:
         resolve(false);

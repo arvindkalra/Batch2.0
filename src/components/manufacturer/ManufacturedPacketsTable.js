@@ -8,9 +8,10 @@ import ReportForm from "../laboratory/ReportForm";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
-import {checkMined, connectToMetamask, OWN_ADDRESS} from "../../dbController/init";
+import {checkMined, connectToMetamask} from "../../dbController/init";
 import {sendProductToDistributor} from "../../dbController/manufacturerRole";
 import Loader from "../Loader";
+import {OWN_ADDRESS} from "../../dbController/Web3Connections";
 
 const ManufacturedPacketsTable = ({array, setTransactionMining}) => {
     const [showModal, setShowModal] = useState({open: false, id: 0});

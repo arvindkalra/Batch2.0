@@ -12,14 +12,14 @@ import {
 
 import {fileToString, getTotalFare} from "../../helpers";
 import {
-    checkMined,
-    OWN_ADDRESS
+    checkMined
 } from "../../dbController/init";
 
 import Table from "react-bootstrap/es/Table";
 import Loader from "../Loader";
 import QRCode from "qrcode.react";
 import '../../assets/stylesheets/retailer.scss'
+import {OWN_ADDRESS} from "../../dbController/Web3Connections";
 
 const SaleActionForm = ({buid, details}) => {
     const [registered, setRegistered] = useState(false);

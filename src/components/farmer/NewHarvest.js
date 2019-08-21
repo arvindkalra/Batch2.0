@@ -7,12 +7,12 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import {
     checkMined,
-    connectToMetamask,
-    OWN_ADDRESS
+    connectToMetamask
 } from "../../dbController/init";
 import {seedSownByFarmer} from "../../dbController/farmerRole";
 import Notification from "../Notification";
 import Loader from "../Loader";
+import {OWN_ADDRESS} from "../../dbController/Web3Connections";
 
 const NewHarvest = ({location, history}) => {
     const [lineage, setLineage] = useState("line1");

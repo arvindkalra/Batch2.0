@@ -5,10 +5,11 @@ import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 
 import LabBarGraph from "./LabBarGraph";
-import {checkMined, connectToMetamask, OWN_ADDRESS} from "../../dbController/init";
+import {checkMined, connectToMetamask} from "../../dbController/init";
 import {uploadReport} from "../../dbController/laboratoryRole";
 import Loader from "../Loader";
 import {fileToString} from "../../helpers";
+import {OWN_ADDRESS} from "../../dbController/Web3Connections";
 
 const ReportForm = ({formDetails}) => {
     console.log(formDetails.details);
