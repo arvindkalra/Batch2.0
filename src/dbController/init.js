@@ -103,7 +103,7 @@ export function makeDistributorTransaction(type, functionName, ...args) {
     if (type === "call") {
       callDistributorContract(functionName, resolve, reject, ...args);
     } else {
-      sendDistributorContract(functionName, resolve, reject, ...args);
+      sendDistributorContract(functionName, resolve, reject, type, ...args);
     }
   });
 }

@@ -70,7 +70,8 @@ export function createBatchByDistributor(
   productDetailsUpdated,
   batchDetailsNew,
   retailerAddress,
-  transporterAddress
+  transporterAddress,
+  signCallback
 ) {
   let productHash;
   return uploadJsonToIPFS(productDetailsUpdated)
@@ -80,7 +81,7 @@ export function createBatchByDistributor(
     })
     .then(batchHash => {
       return makeDistributorTransaction(
-        "send",
+        signCallback,
         "createBatch",
         productUnitId,
         productHash,
