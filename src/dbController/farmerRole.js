@@ -32,10 +32,10 @@ export function getFarmerDetails(address) {
   });
 }
 
-export function seedSownByFarmer(details) {
+export function seedSownByFarmer(details, signCallback) {
   return new Promise((resolve, reject) => {
     uploadJsonToIPFS(details).then(hash => {
-      makeFarmerTransaction("send", "seedsSown", hash)
+      makeFarmerTransaction(signCallback, "seedsSown", hash)
         .then(resolve)
         .catch(reject);
     });

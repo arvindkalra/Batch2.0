@@ -15,6 +15,7 @@ let DISTRIBUTOR;
 
 const PRIVATE_KEY =
   "0XB9A081AE2A58FCFDA0BD85B3852A251F57A3D146676DD168097206CC03EBBA85";
+// "0XF7F1F40B76D2690AF83B7D25CC9C0A0F5EC6E39E3036C3B1E3072FF291FE6D8E"
 export let OWN_ADDRESS;
 let SIGN_TRANSACTION;
 export function initialSetup(resolve, reject) {
@@ -47,6 +48,20 @@ function createContractInstance() {
   );
 }
 
+function signTransaction(tx) {
+  return new Promise((resolve, reject) => {
+    SIGN_TRANSACTION(tx, (err, { rawTransaction }) => {
+      if (err) reject(err);
+
+      web3.eth
+        .sendSignedTransaction(rawTransaction)
+        .on("transactionHash", hash => {
+          resolve(hash);
+        });
+    });
+  });
+}
+
 export function callStorageContract(functionName, resolve, reject, ...args) {
   STORAGE.methods[functionName](...args)
     .call({ from: OWN_ADDRESS, gasPrice: 0 })
@@ -61,7 +76,13 @@ export function callFarmerContract(functionName, resolve, reject, ...args) {
     .catch(reject);
 }
 
-export function sendFarmerContract(functionName, resolve, reject, ...args) {
+export function sendFarmerContract(
+  functionName,
+  resolve,
+  reject,
+  callback,
+  ...args
+) {
   FARMER.methods[functionName](...args)
     .estimateGas({ from: OWN_ADDRESS })
     .then(gasEstimate => {
@@ -72,14 +93,17 @@ export function sendFarmerContract(functionName, resolve, reject, ...args) {
         gasPrice: 0,
         data: FARMER.methods[functionName](...args).encodeABI()
       };
-      SIGN_TRANSACTION(transaction, (err, { rawTransaction }) => {
-        if (err) reject(err);
-
-        web3.eth
-          .sendSignedTransaction(rawTransaction)
-          .on("transactionHash", hash => {
-            resolve(hash);
-          });
+      callback({
+        from: transaction.from,
+        to: transaction.to,
+        gas: transaction.gas,
+        data: transaction.data,
+        functionName: functionName,
+        confirm: () => {
+          signTransaction(transaction)
+            .then(resolve)
+            .catch(reject);
+        }
       });
     })
     .catch(reject);

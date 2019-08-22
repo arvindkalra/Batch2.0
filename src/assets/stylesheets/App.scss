@@ -1,23 +1,22 @@
 @import "utils";
 @import "colors";
 
-.jumbotron{
-  h1,h4{
+.jumbotron {
+  h1,
+  h4 {
     text-align: center;
   }
 }
-.login-section{
-  p.description{
-    @extend .center-align-text
+.login-section {
+  p.description {
+    @extend .center-align-text;
   }
 }
-
 
 .dashboard-section {
   border: 1px solid $grey;
   height: 370px;
   margin-bottom: 30px;
-
 
   h3.section-title {
     text-transform: uppercase;
@@ -28,9 +27,7 @@
   }
 }
 
-
 .table-section {
-
   .see-all {
     width: 100%;
     text-align: center;
@@ -48,7 +45,6 @@
       margin: 0 20px;
 
       li {
-
         .key-color {
           margin-right: 10px;
           display: inline-block;
@@ -56,8 +52,6 @@
           width: $s;
           height: $s;
         }
-
-
       }
     }
   }
@@ -80,13 +74,9 @@
       }
     }
   }
-
-
 }
 
-
 .product-status-section {
-
   .progress {
     height: 50px;
     border-radius: 0;
@@ -102,7 +92,6 @@
   padding-top: 30px;
   border-bottom: 2px solid $grey;
   text-align: center;
-
 }
 
 $min-height: 300px;
@@ -110,7 +99,6 @@ $min-height: 300px;
   h1 {
     border-bottom: 1px solid $grey;
     margin-bottom: 40px;
-
   }
 
   border: 1px dashed $grey;
@@ -130,7 +118,6 @@ $min-height: 300px;
   margin-bottom: 20px;
 }
 
-
 .qr-code-wrapper {
   width: 400px;
   margin: 0 auto;
@@ -143,20 +130,16 @@ p.description {
   font-size: 1.2em;
 }
 
-
 .hidden {
   display: none;
 }
 
-
 .navbar {
-
   border-bottom: 1px solid $grey;
 
   .profile-image {
     border-radius: 50%;
     max-width: 50px;
-
   }
 
   .profile-name {
@@ -164,25 +147,34 @@ p.description {
     max-width: 100%;
     color: black;
   }
-
 }
 
-.loader{
+.loader {
   background: rgba(40, 44, 52, 0.57);
 
   position: fixed;
-  z-index: 1051;
-  top:0;
+  z-index: 1000;
+  top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   overflow: hidden;
-  div.loader-container{
+  div.loader-container {
     text-align: center;
     color: white;
     font-size: 3em;
     margin: 20% auto;
     width: 50%;
-
   }
+}
+
+.transaction-sign {
+  .modal-dialog {
+    width: 50% !important;
+    max-width: none !important;
+  }
+  .modal-backdrop {
+    background-color: none;
+  }
+  word-wrap: break-word;
 }

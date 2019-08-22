@@ -49,7 +49,6 @@ let DISTRIBUTOR;
 export function connectToMetamask() {
   return new Promise((resolve, reject) => {
     initialSetup(resolve, reject);
-    console.log(OWN_ADDRESS);
   });
 }
 
@@ -64,7 +63,7 @@ export function makeFarmerTransaction(type, functionName, ...args) {
     if (type === "call") {
       callFarmerContract(functionName, resolve, reject, ...args);
     } else {
-      sendFarmerContract(functionName, resolve, reject, ...args);
+      sendFarmerContract(functionName, resolve, reject, type, ...args);
     }
   });
 }
@@ -372,9 +371,11 @@ export const authneticateUser = role => {
         );
         return;
       case "retailer":
-        makeRetailerTransaction("call", "isRetailer", OWN_ADDRESS).then(bool => {
-          resolve(bool);
-        });
+        makeRetailerTransaction("call", "isRetailer", OWN_ADDRESS).then(
+          bool => {
+            resolve(bool);
+          }
+        );
         return;
       case "transporter":
         makeTransporterTransaction("call", "isTransporter", OWN_ADDRESS).then(
