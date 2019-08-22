@@ -210,6 +210,7 @@ export function sendManufacturerContract(
   functionName,
   resolve,
   reject,
+  callback,
   ...args
 ) {
   MANUFACTURER.methods[functionName](...args)
@@ -222,14 +223,17 @@ export function sendManufacturerContract(
         gasPrice: 0,
         data: MANUFACTURER.methods[functionName](...args).encodeABI()
       };
-      SIGN_TRANSACTION(transaction, (err, { rawTransaction }) => {
-        if (err) reject(err);
-
-        web3.eth
-          .sendSignedTransaction(rawTransaction)
-          .on("transactionHash", hash => {
-            resolve(hash);
-          });
+      callback({
+        from: transaction.from,
+        to: transaction.to,
+        gas: transaction.gas,
+        data: transaction.data,
+        functionName: functionName,
+        confirm: () => {
+          signTransaction(transaction)
+            .then(resolve)
+            .catch(reject);
+        }
       });
     })
     .catch(reject);

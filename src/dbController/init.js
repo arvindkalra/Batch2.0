@@ -93,7 +93,7 @@ export function makeManufacturerTransaction(type, functionName, ...args) {
     if (type === "call") {
       callManufacturerContract(functionName, resolve, reject, ...args);
     } else {
-      sendManufacturerContract(functionName, resolve, reject, ...args);
+      sendManufacturerContract(functionName, resolve, reject, type, ...args);
     }
   });
 }
