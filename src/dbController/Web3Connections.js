@@ -291,7 +291,13 @@ export function callRetailerContract(functionName, resolve, reject, ...args) {
     .catch(reject);
 }
 
-export function sendRetailerContract(functionName, resolve, reject, ...args) {
+export function sendRetailerContract(
+  functionName,
+  resolve,
+  reject,
+  callback,
+  ...args
+) {
   RETAILER.methods[functionName](...args)
     .estimateGas({ from: OWN_ADDRESS })
     .then(gasEstimate => {
@@ -302,14 +308,17 @@ export function sendRetailerContract(functionName, resolve, reject, ...args) {
         gasPrice: 0,
         data: RETAILER.methods[functionName](...args).encodeABI()
       };
-      SIGN_TRANSACTION(transaction, (err, { rawTransaction }) => {
-        if (err) reject(err);
-
-        web3.eth
-          .sendSignedTransaction(rawTransaction)
-          .on("transactionHash", hash => {
-            resolve(hash);
-          });
+      callback({
+        from: transaction.from,
+        to: transaction.to,
+        gas: transaction.gas,
+        data: transaction.data,
+        functionName: functionName,
+        confirm: () => {
+          signTransaction(transaction)
+            .then(resolve)
+            .catch(reject);
+        }
       });
     })
     .catch(reject);

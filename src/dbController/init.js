@@ -113,7 +113,7 @@ export function makeRetailerTransaction(type, functionName, ...args) {
     if (type === "call") {
       callRetailerContract(functionName, resolve, reject, ...args);
     } else {
-      sendRetailerContract(functionName, resolve, reject, ...args);
+      sendRetailerContract(functionName, resolve, reject, type, ...args);
     }
   });
 }
