@@ -68,6 +68,10 @@ export const createTransactionModal = ({
           <Col md={9}>{to}</Col>
         </Row>
         <Row>
+          <Col md={3}>Gas Required :</Col>
+          <Col md={9}>{gas}</Col>
+        </Row>
+        <Row>
           <Col md={3}>Data :</Col>
           <Col md={9}>{data}</Col>
         </Row>

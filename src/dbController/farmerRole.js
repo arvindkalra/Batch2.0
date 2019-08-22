@@ -46,11 +46,12 @@ export function sendToLaboratory(
   harvestUnitId,
   labAddress,
   transporterAddress,
-  details
+  details,
+  signCallback
 ) {
   return uploadJsonToIPFS(details).then(hash => {
     return makeFarmerTransaction(
-      "send",
+      signCallback,
       "sendToLabForTest",
       harvestUnitId,
       hash,
@@ -76,16 +77,21 @@ export function locationMovedByFarmer(harvestUnitId, currentState, details) {
   });
 }
 
-export function plantDestroyedByFarmer(harvestUnitId, details) {
+export function plantDestroyedByFarmer(harvestUnitId, details, signCallback) {
   return uploadJsonToIPFS(details).then(hash => {
-    return makeFarmerTransaction("send", "destroyCrop", harvestUnitId, hash);
+    return makeFarmerTransaction(
+      signCallback,
+      "destroyCrop",
+      harvestUnitId,
+      hash
+    );
   });
 }
 
-export function plantHarvestedByFarmer(harvestUnitId, details) {
+export function plantHarvestedByFarmer(harvestUnitId, details, signCallback) {
   return new Promise((resolve, reject) => {
     uploadJsonToIPFS(details).then(hash => {
-      makeFarmerTransaction("send", "plantHarvest", harvestUnitId, hash)
+      makeFarmerTransaction(signCallback, "plantHarvest", harvestUnitId, hash)
         .then(resolve)
         .catch(reject);
     });
@@ -96,12 +102,13 @@ export function sellHarvestByFarmer(
   harvestUnitId,
   manufacturerAddress,
   transporterAddress,
-  details
+  details,
+  signCallback
 ) {
   return new Promise((resolve, reject) => {
     uploadJsonToIPFS(details).then(hash => {
       makeFarmerTransaction(
-        "send",
+        signCallback,
         "packForDelivery",
         harvestUnitId,
         hash,
