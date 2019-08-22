@@ -12,7 +12,22 @@ import {
 import {checkMined} from "../../dbController/init";
 import Button from "react-bootstrap/Button";
 
-const ShipmentRow = ({value, rowObj, shipmentType, setTransactionMining}) => {
+const ShipmentRow = ({value, rowObj, shipmentType, setTransactionMining, setTransactionObject}) => {
+
+    const openSignatureModal = obj => {
+        setTransactionObject({
+            ...obj,
+            showModal: true,
+            setShowModal: () => {
+                setTransactionObject(null);
+            },
+            cancel: () => {
+                setTransactionMining(false);
+                setTransactionObject(null);
+            }
+        });
+    };
+
     function handleSampleShipment(e) {
         e.preventDefault();
         e.stopPropagation();
@@ -22,7 +37,8 @@ const ShipmentRow = ({value, rowObj, shipmentType, setTransactionMining}) => {
             dispatchLabSampleConsignment(
                 value.uid,
                 rowObj.details.laboratoryAddress,
-                rowObj.details
+                rowObj.details,
+                openSignatureModal
             ).then(txHash => {
                 checkMined(txHash, () => window.location.reload());
             });
@@ -31,7 +47,8 @@ const ShipmentRow = ({value, rowObj, shipmentType, setTransactionMining}) => {
             deliverLabSampleConsignment(
                 value.uid,
                 rowObj.details.laboratoryAddress,
-                rowObj.details
+                rowObj.details,
+                openSignatureModal
             ).then(hash => {
                 checkMined(hash, () => window.location.reload());
             });
@@ -48,7 +65,8 @@ const ShipmentRow = ({value, rowObj, shipmentType, setTransactionMining}) => {
             dispatchFarmToFactoryConsignment(
                 value.uid,
                 rowObj.details.manufacturerAddress,
-                rowObj.details
+                rowObj.details,
+                openSignatureModal
             ).then(hash => {
                 checkMined(hash, () => window.location.reload());
             });
@@ -57,7 +75,8 @@ const ShipmentRow = ({value, rowObj, shipmentType, setTransactionMining}) => {
             deliverFarmToFactoryConsignment(
                 value.uid,
                 rowObj.details.manufacturerAddress,
-                rowObj.details
+                rowObj.details,
+                openSignatureModal
             ).then(hash => {
                 checkMined(hash, () => window.location.reload());
             });
@@ -74,7 +93,8 @@ const ShipmentRow = ({value, rowObj, shipmentType, setTransactionMining}) => {
                 value.uid,
                 rowObj.details.distributorAddress ||
                 "0x7949173E38cEf39e75E05D2d2C232FBE8BAe5E20",
-                rowObj.details
+                rowObj.details,
+                openSignatureModal
             ).then(txHash => {
                 checkMined(txHash, () => window.location.reload());
             });
@@ -84,7 +104,8 @@ const ShipmentRow = ({value, rowObj, shipmentType, setTransactionMining}) => {
                 value.uid,
                 rowObj.details.distributorAddress ||
                 "0x7949173E38cEf39e75E05D2d2C232FBE8BAe5E20",
-                rowObj.details
+                rowObj.details,
+                openSignatureModal
             ).then(txHash => {
                 checkMined(txHash, () => window.location.reload());
             });
@@ -101,7 +122,8 @@ const ShipmentRow = ({value, rowObj, shipmentType, setTransactionMining}) => {
                 value.uid,
                 rowObj.details.retailerAddress ||
                 "0x7949173E38cEf39e75E05D2d2C232FBE8BAe5E20",
-                rowObj.details
+                rowObj.details,
+                openSignatureModal
             ).then(txHash => {
                 checkMined(txHash, () => window.location.reload());
             });
@@ -111,37 +133,13 @@ const ShipmentRow = ({value, rowObj, shipmentType, setTransactionMining}) => {
                 value.uid,
                 rowObj.details.retailerAddress ||
                 "0x7949173E38cEf39e75E05D2d2C232FBE8BAe5E20",
-                rowObj.details
+                rowObj.details,
+                openSignatureModal
             ).then(txHash => {
                 checkMined(txHash, () => window.location.reload());
             });
         }
     }
-
-    let handleClick = e => {
-        e.preventDefault();
-        e.stopPropagation();
-        switch (shipmentType) {
-            case "sample":
-                handleSampleShipment();
-                return;
-
-            case "harvest":
-                handleHarvestShipment();
-                return;
-
-            case "product":
-                handleProductShipment();
-                return;
-
-            case "retail":
-                handleRetailShipment();
-                return;
-
-            default:
-                return;
-        }
-    };
 
     function getButtonString() {
         switch (shipmentType) {
@@ -162,14 +160,14 @@ const ShipmentRow = ({value, rowObj, shipmentType, setTransactionMining}) => {
             case "product":
                 return (
                     <Button className={"transporter-action"} onClick={handleProductShipment}>
-                        {value.currentStatus.value === 2 ? "Product Dispatched" : "product Delivered"}
+                        {value.currentStatus.value === 2 ? "Product Dispatched" : "Product Delivered"}
                     </Button>
                 );
 
             case "retail":
                 return (
                     <Button className={"transporter-action"} onClick={handleRetailShipment}>
-                        {value.currentStatus.value === 2 ?  "Product Dispatched" : "product Delivered"}
+                        {value.currentStatus.value === 2 ?  "Product Dispatched" : "Product Delivered"}
                     </Button>
                 );
 

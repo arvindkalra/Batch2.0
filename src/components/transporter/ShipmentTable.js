@@ -2,7 +2,13 @@ import React from "react";
 import Table from "react-bootstrap/es/Table";
 import ShipmentRow from "./ShipmentRow";
 
-const ShipmentTable = ({ array, rowObjArr, shipmentType, setTransactionMining }) => {
+const ShipmentTable = ({
+  array,
+  rowObjArr,
+  shipmentType,
+  setTransactionMining,
+  setTransactionObject
+}) => {
   return (
     <Table responsive>
       <thead>
@@ -23,7 +29,8 @@ const ShipmentTable = ({ array, rowObjArr, shipmentType, setTransactionMining })
           array.map((element, id) => {
             return (
               <ShipmentRow
-                  setTransactionMining={setTransactionMining}
+                setTransactionMining={setTransactionMining}
+                setTransactionObject={setTransactionObject}
                 value={element}
                 key={id + "" + element.uid}
                 rowObj={rowObjArr[element.uid]}

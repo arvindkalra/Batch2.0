@@ -83,7 +83,7 @@ export function makeTransporterTransaction(type, functionName, ...args) {
     if (type === "call") {
       callTransporterContract(functionName, resolve, reject, ...args);
     } else {
-      sendTransporterContract(functionName, resolve, reject, ...args);
+      sendTransporterContract(functionName, resolve, reject, type, ...args);
     }
   });
 }

@@ -165,6 +165,7 @@ export function sendTransporterContract(
   functionName,
   resolve,
   reject,
+  callback,
   ...args
 ) {
   TRANSPORTER.methods[functionName](...args)
@@ -177,14 +178,17 @@ export function sendTransporterContract(
         gasPrice: 0,
         data: TRANSPORTER.methods[functionName](...args).encodeABI()
       };
-      SIGN_TRANSACTION(transaction, (err, { rawTransaction }) => {
-        if (err) reject(err);
-
-        web3.eth
-          .sendSignedTransaction(rawTransaction)
-          .on("transactionHash", hash => {
-            resolve(hash);
-          });
+      callback({
+        from: transaction.from,
+        to: transaction.to,
+        gas: transaction.gas,
+        data: transaction.data,
+        functionName: functionName,
+        confirm: () => {
+          signTransaction(transaction)
+            .then(resolve)
+            .catch(reject);
+        }
       });
     })
     .catch(reject);

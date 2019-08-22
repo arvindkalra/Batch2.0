@@ -89,11 +89,12 @@ export function getLabSampleConsignments(rowCallback) {
 export function dispatchLabSampleConsignment(
   harvestUid,
   laboratoryAddress,
-  details
+  details,
+  signCallback
 ) {
   return uploadJsonToIPFS(details).then(hash => {
     return makeTransporterTransaction(
-      "send",
+      signCallback,
       "dispatchOrDeliverFarmerToLab",
       1,
       harvestUid,
@@ -106,11 +107,12 @@ export function dispatchLabSampleConsignment(
 export function deliverLabSampleConsignment(
   harvestUid,
   laboratoryAddress,
-  details
+  details,
+  signCallback
 ) {
   return uploadJsonToIPFS(details).then(hash => {
     return makeTransporterTransaction(
-      "send",
+      signCallback,
       "dispatchOrDeliverFarmerToLab",
       0,
       harvestUid,
@@ -151,11 +153,12 @@ export function getFarmToFactoryConsignments(rowCallback) {
 export function dispatchFarmToFactoryConsignment(
   harvestUid,
   manufacturerAddress,
-  details
+  details,
+  signCallback
 ) {
   return uploadJsonToIPFS(details).then(hash => {
     return makeTransporterTransaction(
-      "send",
+      signCallback,
       "dispatchOrDeliverFarmerToFactory",
       1,
       harvestUid,
@@ -168,11 +171,12 @@ export function dispatchFarmToFactoryConsignment(
 export function deliverFarmToFactoryConsignment(
   harvestUid,
   manufacturerAddress,
-  details
+  details,
+  signCallback
 ) {
   return uploadJsonToIPFS(details).then(hash => {
     return makeTransporterTransaction(
-      "send",
+      signCallback,
       "dispatchOrDeliverFarmerToFactory",
       0,
       harvestUid,
@@ -203,11 +207,12 @@ export function getFactoryToDistributorConsignments(rowCallback) {
 export function dispatchFactoryToDistributorConsignment(
   productUnitId,
   distributorAddress,
-  details
+  details,
+  signCallback
 ) {
   return uploadJsonToIPFS(details).then(hash => {
     return makeTransporterTransaction(
-      "send",
+      signCallback,
       "dispatchOrDeliverFactoryToDistributor",
       1,
       productUnitId,
@@ -220,11 +225,12 @@ export function dispatchFactoryToDistributorConsignment(
 export function deliverFactoryToDistributorConsignment(
   productUnitId,
   distributorAddress,
-  details
+  details,
+  signCallback
 ) {
   return uploadJsonToIPFS(details).then(hash => {
     return makeTransporterTransaction(
-      "send",
+      signCallback,
       "dispatchOrDeliverFactoryToDistributor",
       0,
       productUnitId,
@@ -255,11 +261,12 @@ export function getDistributorToRetailerConsignments(rowCallback) {
 export function dispatchDistributorToShopConsignment(
   batchUnitId,
   retailerAddress,
-  details
+  details,
+  signCallback
 ) {
   return uploadJsonToIPFS(details).then(hash => {
     return makeTransporterTransaction(
-      "send",
+      signCallback,
       "dispatchOrDeliverDistributorToRetailer",
       1,
       batchUnitId,
@@ -272,11 +279,12 @@ export function dispatchDistributorToShopConsignment(
 export function deliverDistributorToShopConsignment(
   batchUnitId,
   retailerAddress,
-  details
+  details,
+  signCallback
 ) {
   return uploadJsonToIPFS(details).then(hash => {
     return makeTransporterTransaction(
-      "send",
+      signCallback,
       "dispatchOrDeliverDistributorToRetailer",
       0,
       batchUnitId,

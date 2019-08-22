@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Col from "react-bootstrap/Col";
-import { setBreadcrumb } from "../../helpers";
+import { createTransactionModal, setBreadcrumb } from "../../helpers";
 import Row from "react-bootstrap/Row";
 import {
   getDistributorToRetailerConsignments,
@@ -32,6 +32,7 @@ const TransporterDashboard = ({ location }) => {
   const [retailShipments, setRetailShipments] = useState([]);
   const [retailRowObjArr, setRetailRowObjArr] = useState({});
   const [transactionMining, setTransactionMining] = useState(false);
+  const [transactionObject, setTransactionObject] = useState(null);
   const [harvestGraph, setHarvestGraph] = useState({
     Packed: 0,
     Dispatched: 0,
@@ -334,6 +335,7 @@ const TransporterDashboard = ({ location }) => {
                                     setTransactionMining={() => {
                                       setTransactionMining(true);
                                     }}
+                                    setTransactionObject={setTransactionObject}
                                   />
                                 ) : (
                                   <div>
@@ -389,6 +391,7 @@ const TransporterDashboard = ({ location }) => {
                                     setTransactionMining={() => {
                                       setTransactionMining(true);
                                     }}
+                                    setTransactionObject={setTransactionObject}
                                   />
                                 ) : (
                                   <div>
@@ -422,7 +425,8 @@ const TransporterDashboard = ({ location }) => {
                           variant="link"
                           eventKey="2"
                         >
-                          Laboratory Sample Shipments ( Cultivator -> Laboratory )
+                          Laboratory Sample Shipments ( Cultivator -> Laboratory
+                          )
                           <br />
                           {sampleShipments.length !== 0 ? (
                             <Badge pill variant="success">
@@ -446,6 +450,7 @@ const TransporterDashboard = ({ location }) => {
                                 setTransactionMining={() => {
                                   setTransactionMining(true);
                                 }}
+                                setTransactionObject={setTransactionObject}
                               />
                             ) : (
                               <div>
@@ -499,6 +504,7 @@ const TransporterDashboard = ({ location }) => {
                                   setTransactionMining={() => {
                                     setTransactionMining(true);
                                   }}
+                                  setTransactionObject={setTransactionObject}
                                 />
                               ) : (
                                 <div>
@@ -526,6 +532,7 @@ const TransporterDashboard = ({ location }) => {
         </Col>
       </Row>
       {transactionMining ? <Loader /> : null}
+      {transactionObject ? createTransactionModal(transactionObject) : null}
     </>
   );
 };
