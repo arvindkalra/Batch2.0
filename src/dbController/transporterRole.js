@@ -134,7 +134,7 @@ export function getFarmToFactoryConsignments(rowCallback) {
               return handleObject(o, x, true);
             })
             .then(x => {
-              rowCallback(x);
+              rowCallback(x, array.length);
               completed(i, array.length - 1);
             })
             .catch(handleError);

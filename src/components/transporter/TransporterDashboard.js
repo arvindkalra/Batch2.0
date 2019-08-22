@@ -33,6 +33,7 @@ const TransporterDashboard = ({ location }) => {
   const [retailRowObjArr, setRetailRowObjArr] = useState({});
   const [transactionMining, setTransactionMining] = useState(false);
   const [transactionObject, setTransactionObject] = useState(null);
+  const [loading, setLoader] = useState(true);
   const [harvestGraph, setHarvestGraph] = useState({
     Packed: 0,
     Dispatched: 0,
@@ -65,7 +66,9 @@ const TransporterDashboard = ({ location }) => {
       let tempSampleGraph = sampleGraph;
       let tempRetailGraph = retailGraph;
       let tempChanged = changed;
-      getFarmToFactoryConsignments(row => {
+      let totalHarvests = 0;
+      getFarmToFactoryConsignments((row, total) => {
+        totalHarvests += 1;
         let tempRow = harvestRowObjArr;
         tempRow[row.uid] = row;
         setHarvestRowObjArr(tempRow);
@@ -82,6 +85,9 @@ const TransporterDashboard = ({ location }) => {
                   setHarvestGraph,
                   tempChanged++
                 );
+                if (total === totalHarvests) {
+                  setLoader(false);
+                }
                 return;
               } else if (row.currentState.value === 8) {
                 addToGraphData(
@@ -110,6 +116,9 @@ const TransporterDashboard = ({ location }) => {
               rowObj.currentStatus = row.currentState;
               tempHarvestShipments.push(rowObj);
               setHarvestShipments([...tempHarvestShipments]);
+              if (totalHarvests === total) {
+                setLoader(false);
+              }
             }
           );
         });
@@ -532,6 +541,7 @@ const TransporterDashboard = ({ location }) => {
         </Col>
       </Row>
       {transactionMining ? <Loader /> : null}
+      {loading ? <Loader message={"Fetching Pending Shipments"} /> : null}
       {transactionObject ? createTransactionModal(transactionObject) : null}
     </>
   );
