@@ -73,7 +73,7 @@ export function makeLaboratoryTransaction(type, functionName, ...args) {
     if (type === "call") {
       callLaboratoryContract(functionName, resolve, reject, ...args);
     } else {
-      sendLaboratoryContract(functionName, resolve, reject, ...args);
+      sendLaboratoryContract(functionName, resolve, reject, type, ...args);
     }
   });
 }
