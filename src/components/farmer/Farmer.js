@@ -13,17 +13,17 @@ import {browserHistory} from 'react-router-dom'
 const Farmer = (props) => {
     const [userName, setUserName] = useState('');
     const [profileImage, setProfileImage] = useState('');
-    const [showNotification, setShowNotification] =useState(false);
-
+    const [showNotification, setShowNotification] = useState(false);
+    const [notificationMessage, setNotificationMessage] = useState('');
     useEffect(() => {
 
 
-
-        if(props.location.state){
-            console.log(props)
-            setShowNotification(props.location.state.setNotification)
+        if (props.location.state) {
+            console.log(props);
+            setNotificationMessage(props.location.state.setMessage);
+            setShowNotification(props.location.state.setNotification);
             // props.location.state.setNotification = false
-            props.history.replace({state:{}})
+            props.history.replace({state: {}});
             console.log(props.location.state)
 
         }
@@ -39,15 +39,17 @@ const Farmer = (props) => {
 
             })
         })
-    },[]);
+    }, []);
 
 
     return (<>
-            <Notification show={showNotification} onClose={()=>{setShowNotification(false)}} />
-        <Layout userName={userName} profileImage={profileImage} location={props.location}>
-            <Dashboard location={props.location}/>
+            <Notification show={showNotification} onClose={() => {
+                setShowNotification(false)
+            }} message={notificationMessage}/>
+            <Layout userName={userName} profileImage={profileImage} location={props.location}>
+                <Dashboard location={props.location}/>
 
-        </Layout>
+            </Layout>
         </>
     );
 };

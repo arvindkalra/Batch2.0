@@ -63,6 +63,7 @@ export function makeFarmerTransaction(type, functionName, ...args) {
     if (type === "call") {
       callFarmerContract(functionName, resolve, reject, ...args);
     } else {
+
       sendFarmerContract(functionName, resolve, reject, type, ...args);
     }
   });
