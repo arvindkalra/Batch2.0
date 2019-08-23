@@ -69,7 +69,7 @@ const NewHarvest = ({ location, history }) => {
       </Row>
       <section className={"new-harvest-form-section"}>
         <Row>
-          <Col md={{ span: 8, offset: 2 }}>
+          <Col md={{ span: 10, offset: 1 }}>
             <Form>
               <Row>
                 <Col md={12}>

@@ -15,6 +15,7 @@ const ProductTable = ({ rows, showForMore }) => {
             <th>Product Name</th>
             <th>Date Planted</th>
             <th>Seeds Sown</th>
+            <th>Current Status</th>
           </tr>
         </thead>
         <tbody>
@@ -29,6 +30,7 @@ const ProductTable = ({ rows, showForMore }) => {
                 </td>
                 <td>{element.datePlanted.split(",")[0]}</td>
                 <td>{element.seedCount}</td>
+                <td>{element.currentState.status}</td>
               </tr>
             );
           })}

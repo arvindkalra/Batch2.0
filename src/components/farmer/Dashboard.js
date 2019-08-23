@@ -187,7 +187,7 @@ const Dashboard = props => {
         </Col>
         <Col md={{ offset: 4, span: 4 }} className={"add-harvest-col"}>
           <Link to={"/cultivator/add-new-harvest"}>
-            <Button type={"primary"}>Add a new Plant</Button>
+            <Button type={"primary"}>Add a New Plant</Button>
           </Link>
         </Col>
       </Row>
