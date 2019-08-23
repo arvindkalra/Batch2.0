@@ -8,6 +8,8 @@ import ActionPanel from "../actionPanel/ActionPanel";
 import { getSeedUnitDetails } from "../../dbController/farmerRole";
 import { connectToMetamask } from "../../dbController/init";
 import Loader from "../Loader";
+import Button from "react-bootstrap/Button";
+import ActionForm from "../actionPanel/ActionForm";
 
 const Product = props => {
   useEffect(() => {
@@ -98,7 +100,6 @@ const Product = props => {
           <Col md={12}>
             <section className="product-status-section">
               <h3 className="status-tab-title">Product Status</h3>
-
               <ProgressBar
                 striped
                 variant={
@@ -122,6 +123,19 @@ const Product = props => {
               }}
               history={props.history}
             />
+          ) : productStatus.value === 10 ? (
+            <Col md={{ offset: 1, span: 10 }}>
+              <ActionForm
+                history={props.history}
+                seedObj={seedObject}
+                productState={productStatus}
+                setProductStatus={newProductStatus => {
+                  setProductStatus(newProductStatus);
+                }}
+                destroyRequested={true}
+                cancelDestroyRequest={() => {}}
+              />
+            </Col>
           ) : null}
         </Row>
       </Layout>
