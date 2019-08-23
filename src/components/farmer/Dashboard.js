@@ -14,6 +14,7 @@ import { connectToMetamask } from "../../dbController/init";
 import Notification from "../Notification";
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
+import Loader from "../Loader";
 
 const Dashboard = props => {
   const [rowsArray, setRowsArray] = useState([]);
@@ -25,6 +26,7 @@ const Dashboard = props => {
   const [numApproved, setNumApproved] = useState(0);
   const [numRejected, setNumRejected] = useState(0);
   const [numDiscarded, setNumDiscarded] = useState(0);
+  const [preloader, setPreloader] = useState(true);
   const [showNotification, setShowNotification] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState("");
   useEffect(() => {
@@ -42,8 +44,7 @@ const Dashboard = props => {
       numRejected: 0,
       numDiscarded: 0
     };
-    getRowsForFarmer(rowObject => {
-      console.log(rowObject);
+    getRowsForFarmer((rowObject, total) => {
       if (tableRows < 3) {
         tableRows++;
         let objToBeAdded = {
@@ -64,6 +65,7 @@ const Dashboard = props => {
           tempStatusObj
         );
       } else {
+        tableRows++;
         addToBarObject(
           rowObject.details.plantName,
           parseInt(rowObject.details.seedCount)
@@ -73,6 +75,10 @@ const Dashboard = props => {
           tempStatusObj
         );
         setShowForMoreRows(true);
+      }
+
+      if(tableRows === total){
+        setPreloader(false);
       }
     });
   }
@@ -252,6 +258,7 @@ const Dashboard = props => {
           </section>
         </Col>
       </Row>
+      {preloader ? <Loader message={"Fetching Data"}/> : null}
     </>
   );
 };

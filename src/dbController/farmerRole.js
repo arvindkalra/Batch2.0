@@ -152,13 +152,13 @@ export function getRowsForFarmer(rowObject) {
       for (let i = array.length - 1; i >= 0; i--) {
         let uid = array[i];
         makeStorageTransaction("getHarvestUnit", uid)
-          .then(x => handleObject(x, uid))
+          .then(x => handleObject(x, uid, array.length))
           .catch(handleError);
       }
     })
     .catch(handleError);
 
-  function handleObject(object, uid) {
+  function handleObject(object, uid, total) {
     object = object.valueOf();
     let currentOwner = object[0];
     let latestHash = object[1];
@@ -172,7 +172,7 @@ export function getRowsForFarmer(rowObject) {
           details: obj,
           currentState: harvestStates(currentState)
         };
-        rowObject(rowObj);
+        rowObject(rowObj, total);
       })
       .catch(handleError);
   }
