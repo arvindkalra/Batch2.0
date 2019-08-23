@@ -152,7 +152,11 @@ const Product = (props) => {
                 <ActionPanel seedObj={seedObject} productState={productStatus}
                              setProductStatus={(newProductStatus) => {
                                  setProductStatus(newProductStatus)
-                             }}/>
+
+
+                             }}
+                             history ={props.history}
+                />
             </Row>
 
 

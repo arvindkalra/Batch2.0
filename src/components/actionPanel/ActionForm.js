@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
@@ -19,7 +19,8 @@ const ActionForm = ({
                         setProductStatus,
                         seedObj,
                         destroyRequested,
-                        cancelDestroyRequest
+                        cancelDestroyRequest,history
+
                     }) => {
     const [showNotification, setShowNotification] = useState(false);
     const [notificationMessage, setNotificationMessage] = useState("");
@@ -31,21 +32,23 @@ const ActionForm = ({
     const [destroyCompanyName, setDestroyCompanyName] = useState("Company A");
     const [destroyReason, setDestroyReason] = useState("");
     const [transactionMining, setTransactionMining] = useState(false)
+
     const sendHarvestReport = e => {
         e.preventDefault();
         e.stopPropagation();
         setTransactionMining(true)
         seedObj.details.harvestTime = new Date().toLocaleString();
         seedObj.details.totalHarvestAmount = formFieldValue;
+
+
         plantHarvestedByFarmer(seedObj.harvestUnitId, seedObj.details).then(
             hash => {
                 setNotificationMessage(" the tx is mining");
                 setShowNotification(true);
                 checkMined(hash, () => {
-                    setNotificationMessage(" the harvest report is submitted");
+                    setTransactionMining(false)
+                    history.push({pathname:'/cultivator/dashboard', state: {setNotification:true}})
 
-
-                    window.location.reload();
                 });
             }
         );
@@ -69,7 +72,10 @@ const ActionForm = ({
             setNotificationMessage(" tx mining");
             setShowNotification(true);
             checkMined(hash, () => {
-                window.location.reload();
+                setTransactionMining(false)
+                console.log("set mining false")
+                history.push({pathname:'/cultivator/dashboard', state: {setNotification:true}})
+
             });
         });
     };
@@ -284,13 +290,7 @@ const ActionForm = ({
         <Form>
             {setForm()}
 
-            <Notification
-                message={notificationMessage}
-                show={showNotification}
-                onClose={() => {
-                    setShowNotification(false);
-                }}
-            />
+
             {transactionMining? <Loader/>: null}
         </Form>
     );

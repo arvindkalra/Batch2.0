@@ -3,7 +3,7 @@ import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import ActionForm from "./ActionForm";
 
-const ActionPanel = ({productState, setProductStatus, seedObj}) => {
+const ActionPanel = ({productState, setProductStatus, seedObj,history}) => {
     const [showForm, setShowForm] = useState(false);
     const [destroyRequested, setDestroyRequested] = useState(false);
 
@@ -128,6 +128,7 @@ const ActionPanel = ({productState, setProductStatus, seedObj}) => {
                 <section className={"action-panel-form-section"}>
                     <h1>Action Panel</h1>
                     <ActionForm
+                        history={history}
                         seedObj={seedObj}
                         productState={productState}
                         setProductStatus={newProductStatus => {

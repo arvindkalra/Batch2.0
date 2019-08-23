@@ -11,6 +11,7 @@ import PieChart2 from "./graphs/dashboard/PieChart2";
 import PieChart3 from "./graphs/dashboard/PieChart3";
 import { getRowsForFarmer } from "../../dbController/farmerRole";
 import { connectToMetamask } from "../../dbController/init";
+import Notification from "../Notification";
 
 const Dashboard = props => {
   const [rowsArray, setRowsArray] = useState([]);
@@ -239,7 +240,9 @@ const Dashboard = props => {
           </section>
         </Col>
       </Row>
+
     </>
+
   );
 };
 
