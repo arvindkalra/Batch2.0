@@ -6,7 +6,6 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
 const ProductTable = ({ rows, showForMore }) => {
-
   return (
     <>
       <Table responsive>
@@ -28,7 +27,7 @@ const ProductTable = ({ rows, showForMore }) => {
                     {element.plantName}
                   </Link>
                 </td>
-                <td>{element.datePlanted.split(',')[0]}</td>
+                <td>{element.datePlanted.split(",")[0]}</td>
                 <td>{element.seedCount}</td>
               </tr>
             );
@@ -36,22 +35,13 @@ const ProductTable = ({ rows, showForMore }) => {
         </tbody>
       </Table>
       <Row>
-          <Col>
-              <ul className={"table-links-list"}>
-                  {showForMore ? (
-                      <li>
-                          <Link to={"/cultivator/products"}>See all harvests </Link>
-                      </li>
-                  ) : (
-                      <></>
-                  )}
-                  <li>
-                      <Button type={'primary'}>
-                          <Link to={"/cultivator/add-new-harvest"}> Add a new Plant</Link>
-                      </Button>
-                  </li>
-              </ul>
-          </Col>
+        <Col md={{ offset: 4, span: 4 }} style={{ textAlign: "center" }}>
+          {showForMore ? (
+            <Link to={"/cultivator/products"}>See All Harvests </Link>
+          ) : (
+            <></>
+          )}
+        </Col>
       </Row>
     </>
   );

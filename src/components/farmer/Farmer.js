@@ -18,7 +18,7 @@ const Farmer = (props) => {
     useEffect(() => {
 
 
-        if (JSON.stringify(props.location.state) !== "{}") {
+        if (props.location.state && JSON.stringify(props.location.state) !== "{}") {
           setNotificationMessage(props.location.state.setMessage);
           setShowNotification(props.location.state.setNotification);
           // props.location.state.setNotification = false

@@ -13,10 +13,13 @@
   }
 }
 
+.table-col , .chart-col{
+  margin-bottom: 10px;
+}
+
 .dashboard-section {
   border: 1px solid $grey;
   height: 370px;
-  margin-bottom: 30px;
 
   h3.section-title {
     text-transform: uppercase;
@@ -25,6 +28,20 @@
     margin: 2%;
     font-size: 1.6em;
   }
+}
+
+.add-harvest-col {
+  button {
+    width: 100%;
+    a {
+      color: white;
+
+      &:hover {
+        text-decoration: none !important;
+      }
+    }
+  }
+  margin-bottom: 50px;
 }
 
 .table-section {
@@ -183,37 +200,37 @@ p.description {
     padding: 0 20px 20px 40px;
     overflow-y: scroll;
 
-    .row{
+    .row {
       padding-top: 15px;
       padding-bottom: 10px;
       font-weight: 500;
       font-size: 1rem;
-      border-bottom: 1px solid #e0e0e0!important;
+      border-bottom: 1px solid #e0e0e0 !important;
 
-      :nth-child(1){
-        border-right: 1px solid #e0e0e0!important;
+      :nth-child(1) {
+        border-right: 1px solid #e0e0e0 !important;
       }
 
-      :nth-child(2){
+      :nth-child(2) {
         color: #93949d;
       }
     }
 
     :nth-last-child(1) {
-      border-bottom: none!important;
+      border-bottom: none !important;
     }
   }
   .modal-backdrop {
     background-color: none;
   }
 
-  .modal-footer{
-    :nth-child(1){
+  .modal-footer {
+    :nth-child(1) {
       background-color: #f5842c;
       border: none;
       border-radius: 4px;
     }
-    :nth-child(2){
+    :nth-child(2) {
       background-color: white;
       border-color: black;
       color: black;
