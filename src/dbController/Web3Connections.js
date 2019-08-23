@@ -83,6 +83,7 @@ export function sendFarmerContract(
   callback,
   ...args
 ) {
+  console.log(args)
   FARMER.methods[functionName](...args)
     .estimateGas({ from: OWN_ADDRESS })
     .then(gasEstimate => {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useState, useEffect} from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
@@ -20,7 +20,9 @@ const ActionForm = ({
   setProductStatus,
   seedObj,
   destroyRequested,
-  cancelDestroyRequest
+  cancelDestroyRequest,
+    history
+
 }) => {
   const [showNotification, setShowNotification] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState("");
@@ -28,7 +30,7 @@ const ActionForm = ({
   const [labName, setLabName] = useState("Green Labs LLC");
   const [transporterName, setTransporterName] = useState("Transporter A");
   const [sellingPrice, setSellingPrice] = useState("");
-  const [detroyQuantity, setDestroyQuantity] = useState(0);
+  const [destroyQuantity, setDestroyQuantity] = useState(0);
   const [destroyCompanyName, setDestroyCompanyName] = useState("Company A");
   const [destroyReason, setDestroyReason] = useState("");
   const [transactionMining, setTransactionMining] = useState(false);
@@ -48,8 +50,9 @@ const ActionForm = ({
       setShowNotification(true);
       checkMined(hash, () => {
         setNotificationMessage(" the harvest report is submitted");
+        history.push('/cultivator/dashboard', {setNotification: true, setMessage: 'Your harvest report has been submitted'})
 
-        window.location.reload();
+
       });
     });
   };
@@ -73,7 +76,7 @@ const ActionForm = ({
       setNotificationMessage(" tx mining");
       setShowNotification(true);
       checkMined(hash, () => {
-        window.location.reload();
+        history.push('/cultivator/dashboard', {setNotification: true, setMessage: 'Your sample has been sent to the lab'})
       });
     });
   };
@@ -109,7 +112,9 @@ const ActionForm = ({
       seedObj.details,
       openSignatureModal
     ).then(hash => {
-      checkMined(hash, () => window.location.reload());
+      checkMined(hash, () =>{
+        history.push('/cultivator/dashboard', {setNotification: true, setMessage: 'Your harvest has been sent to the manufacturer'})
+      });
     });
   };
 
@@ -119,13 +124,15 @@ const ActionForm = ({
     setTransactionMining(true);
     seedObj.details.quantarineCompanyName = destroyCompanyName;
     seedObj.details.destroyReason = destroyReason;
-    seedObj.details.destroyQuantity = detroyQuantity;
+    seedObj.details.destroyQuantity = destroyQuantity;
     plantDestroyedByFarmer(
       seedObj.harvestUnitId,
       seedObj.details,
       openSignatureModal
     ).then(hash => {
-      checkMined(hash, () => window.location.reload());
+      checkMined(hash, () => {
+        history.push('/cultivator/dashboard', {setNotification: true, setMessage: 'Your crop has been destroyed'})
+      });
     });
   };
 
@@ -304,13 +311,7 @@ const ActionForm = ({
     <Form>
       {setForm()}
 
-      <Notification
-        message={notificationMessage}
-        show={showNotification}
-        onClose={() => {
-          setShowNotification(false);
-        }}
-      />
+
       {transactionMining ? <Loader /> : null}
       {transactionObject ? createTransactionModal(transactionObject) : null}
     </Form>
