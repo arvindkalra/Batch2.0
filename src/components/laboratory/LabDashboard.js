@@ -13,6 +13,8 @@ import Accordion from "react-bootstrap/Accordion";
 import Card from "react-bootstrap/Card";
 import PieChart1 from "./graphs/PieChart1";
 import BarGraph from "../farmer/graphs/dashboard/BarGraph";
+import Loader from "../Loader";
+import Badge from "react-bootstrap/Badge";
 
 const LabDashboard = props => {
   const [pendingReportsArray, setPendingReportsArray] = useState([]);
@@ -21,6 +23,7 @@ const LabDashboard = props => {
   const [numPending, setNumPending] = useState(0);
   const [numApproved, setNumApproved] = useState(0);
   const [seedObjArr, setSeedObjArr] = useState({});
+  const [preloader, setPreloader] = useState(true);
   const [objectForBarGraph, setObjectForBarGraph] = useState({
     Jan: 10,
     Feb: 12,
@@ -39,8 +42,9 @@ const LabDashboard = props => {
       let tempNumPending = numPending;
       let tempNumApproved = numApproved;
       let tempNumTested = numTested;
-      getRowsForLaboratory(row => {
-        console.log(row);
+      let numRows = 0;
+      getRowsForLaboratory((row, total) => {
+        numRows++;
         let tempPendingReports = pendingReportsArray;
         let tempTestedReports = testedReportsArray;
         let rowArr;
@@ -103,6 +107,10 @@ const LabDashboard = props => {
             setNumTested(tempNumTested);
             setNumApproved(tempNumApproved);
           }
+
+          if (numRows === total) {
+            setPreloader(false);
+          }
         });
       });
     });
@@ -147,7 +155,12 @@ const LabDashboard = props => {
             <Card>
               <Card.Header>
                 <Accordion.Toggle as={Card.Header} variant="link" eventKey="0">
-                  Pending Tests
+                  Pending Tests &nbsp;
+                  {pendingReportsArray.length !== 0 ? (
+                    <Badge pill variant="success">
+                      New Shipments
+                    </Badge>
+                  ) : null}
                 </Accordion.Toggle>
               </Card.Header>
               <Accordion.Collapse eventKey="0">
@@ -208,7 +221,7 @@ const LabDashboard = props => {
           </section>
         </Col>
       </Row>
-      {/*Two tables for report requests and already done*/}
+      {preloader ? <Loader message={"Fetching Data"} /> : null}
     </>
   );
 };

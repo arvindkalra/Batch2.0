@@ -58,16 +58,19 @@ export function uploadReport(
 }
 
 export function getRowsForLaboratory(rowCallback) {
-  let handleRow = (obj, uid) => {
+  let handleRow = (obj, uid, total) => {
     obj = obj.valueOf();
     // console.log(obj);
     getJsonFromIPFS(obj[1]).then(details => {
-      rowCallback({
-        uid,
-        details,
-        currentOwner: obj[0],
-        currentState: harvestStates(parseInt(obj[2]))
-      });
+      rowCallback(
+        {
+          uid,
+          details,
+          currentOwner: obj[0],
+          currentState: harvestStates(parseInt(obj[2]))
+        },
+        total
+      );
     });
   };
   let handleError = () => {};
@@ -77,7 +80,7 @@ export function getRowsForLaboratory(rowCallback) {
       array.forEach(val => {
         val = parseInt(val);
         makeStorageTransaction("getHarvestUnit", val)
-          .then(x => handleRow(x, val))
+          .then(x => handleRow(x, val, array.length))
           .catch(handleError);
       });
     })
