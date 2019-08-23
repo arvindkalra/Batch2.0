@@ -36,13 +36,14 @@ export function uploadReport(
   harvestUnitId,
   farmerAddress,
   details,
-  isApproved
+  isApproved,
+  signCallback
 ) {
   return new Promise((resolve, reject) => {
     uploadJsonToIPFS(details)
       .then(hash => {
         makeLaboratoryTransaction(
-          "send",
+          signCallback,
           "uploadReport",
           harvestUnitId,
           hash,

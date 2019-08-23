@@ -36,15 +36,15 @@ export function isConsumer(buyerAddress) {
   return makeRetailerTransaction("call", "isConsumer", buyerAddress);
 }
 
-export function setConsumerDetails(buyerAddress, details) {
-  return new Promise((resolve, reject) => {
-    uploadJsonToIPFS(details).then(hash => {
-      makeRetailerTransaction("send", "setConsumerDetails", buyerAddress, hash)
-        .then(resolve)
-        .catch(reject);
-    });
-  });
-}
+// export function setConsumerDetails(buyerAddress, details, signCallback) {
+//   return new Promise((resolve, reject) => {
+//     uploadJsonToIPFS(details).then(hash => {
+//       makeRetailerTransaction(signCallback, "setConsumerDetails", buyerAddress, hash)
+//         .then(resolve)
+//         .catch(reject);
+//     });
+//   });
+// }
 
 export function getConsumerDetails(buyerAddress) {
   return new Promise((resolve, reject) => {
@@ -61,14 +61,15 @@ export function sellPacketsToBuyer(
   batchUnitId,
   buyerAddress,
   sellerStockDetails,
-  buyerPurchaseDetails
+  buyerPurchaseDetails,
+  signCallback
 ) {
   let sellerHash;
   return uploadJsonToIPFS(sellerStockDetails).then(hash => {
     sellerHash = hash;
     return uploadJsonToIPFS(buyerPurchaseDetails).then(hash => {
       return makeRetailerTransaction(
-        "send",
+        signCallback,
         "sellToConsumer",
         batchUnitId,
         buyerAddress,

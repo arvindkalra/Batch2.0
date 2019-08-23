@@ -49,7 +49,6 @@ let DISTRIBUTOR;
 export function connectToMetamask() {
   return new Promise((resolve, reject) => {
     initialSetup(resolve, reject);
-    console.log(OWN_ADDRESS);
   });
 }
 
@@ -64,7 +63,7 @@ export function makeFarmerTransaction(type, functionName, ...args) {
     if (type === "call") {
       callFarmerContract(functionName, resolve, reject, ...args);
     } else {
-      sendFarmerContract(functionName, resolve, reject, ...args);
+      sendFarmerContract(functionName, resolve, reject, type, ...args);
     }
   });
 }
@@ -74,7 +73,7 @@ export function makeLaboratoryTransaction(type, functionName, ...args) {
     if (type === "call") {
       callLaboratoryContract(functionName, resolve, reject, ...args);
     } else {
-      sendLaboratoryContract(functionName, resolve, reject, ...args);
+      sendLaboratoryContract(functionName, resolve, reject, type, ...args);
     }
   });
 }
@@ -84,7 +83,7 @@ export function makeTransporterTransaction(type, functionName, ...args) {
     if (type === "call") {
       callTransporterContract(functionName, resolve, reject, ...args);
     } else {
-      sendTransporterContract(functionName, resolve, reject, ...args);
+      sendTransporterContract(functionName, resolve, reject, type, ...args);
     }
   });
 }
@@ -94,7 +93,7 @@ export function makeManufacturerTransaction(type, functionName, ...args) {
     if (type === "call") {
       callManufacturerContract(functionName, resolve, reject, ...args);
     } else {
-      sendManufacturerContract(functionName, resolve, reject, ...args);
+      sendManufacturerContract(functionName, resolve, reject, type, ...args);
     }
   });
 }
@@ -104,7 +103,7 @@ export function makeDistributorTransaction(type, functionName, ...args) {
     if (type === "call") {
       callDistributorContract(functionName, resolve, reject, ...args);
     } else {
-      sendDistributorContract(functionName, resolve, reject, ...args);
+      sendDistributorContract(functionName, resolve, reject, type, ...args);
     }
   });
 }
@@ -114,7 +113,7 @@ export function makeRetailerTransaction(type, functionName, ...args) {
     if (type === "call") {
       callRetailerContract(functionName, resolve, reject, ...args);
     } else {
-      sendRetailerContract(functionName, resolve, reject, ...args);
+      sendRetailerContract(functionName, resolve, reject, type, ...args);
     }
   });
 }
@@ -372,9 +371,11 @@ export const authneticateUser = role => {
         );
         return;
       case "retailer":
-        makeRetailerTransaction("call", "isRetailer", OWN_ADDRESS).then(bool => {
-          resolve(bool);
-        });
+        makeRetailerTransaction("call", "isRetailer", OWN_ADDRESS).then(
+          bool => {
+            resolve(bool);
+          }
+        );
         return;
       case "transporter":
         makeTransporterTransaction("call", "isTransporter", OWN_ADDRESS).then(

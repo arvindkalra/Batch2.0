@@ -117,7 +117,8 @@ export function fetchPackagedUnitsByManufacturer(rowCallback) {
 export function packetsManufactured(
   harvestUnitId,
   harvestObjectDetailsUpdated,
-  productObjectDetailsNew
+  productObjectDetailsNew,
+  signCallback
 ) {
   let harvestHash;
   let productHash;
@@ -129,7 +130,7 @@ export function packetsManufactured(
     .then(hash => {
       productHash = hash;
       return makeManufacturerTransaction(
-        "send",
+        signCallback,
         "productsManufactured",
         harvestUnitId,
         harvestHash,
@@ -142,11 +143,12 @@ export function sendProductToDistributor(
   productUid,
   distributorAddress,
   transporterAddress,
-  details
+  details,
+  signCallback
 ) {
   return uploadJsonToIPFS(details).then(hash => {
     return makeManufacturerTransaction(
-      "send",
+      signCallback,
       "sendProductsManufacturedToDistributor",
       productUid,
       hash,
