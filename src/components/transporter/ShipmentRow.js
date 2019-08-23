@@ -12,7 +12,7 @@ import {
 import {checkMined} from "../../dbController/init";
 import Button from "react-bootstrap/Button";
 
-const ShipmentRow = ({value, rowObj, shipmentType, setTransactionMining, setTransactionObject}) => {
+const ShipmentRow = ({value, rowObj, shipmentType, setTransactionMining, setTransactionObject, tableType}) => {
 
     const openSignatureModal = obj => {
         setTransactionObject({
@@ -29,6 +29,7 @@ const ShipmentRow = ({value, rowObj, shipmentType, setTransactionMining, setTran
     };
 
     function handleSampleShipment(e) {
+
         e.preventDefault();
         e.stopPropagation();
         setTransactionMining();
@@ -146,28 +147,28 @@ const ShipmentRow = ({value, rowObj, shipmentType, setTransactionMining, setTran
             case "sample":
                 return (
                     <Button className={"transporter-action"} onClick={handleSampleShipment}>
-                        {value.currentStatus.value === 3 ? "Sample Dispatched" : "Sample Delivered"}
+                        {value.currentStatus.value === 3 ? "Dispatch Sample" : "Confirm Delivery"}
                     </Button>
                 );
 
             case "harvest":
                 return (
                     <Button className={"transporter-action"} onClick={handleHarvestShipment}>
-                        {value.currentStatus.value === 7 ? "Harvest Dispatched" : "Harvest Delivered"}
+                        {value.currentStatus.value === 7 ? "Dispatch Harvest" : "Confirm Delivery"}
                     </Button>
                 );
 
             case "product":
                 return (
                     <Button className={"transporter-action"} onClick={handleProductShipment}>
-                        {value.currentStatus.value === 2 ? "Product Dispatched" : "Product Delivered"}
+                        {value.currentStatus.value === 2 ? "Dispatch Product" : "Confirm Delivery"}
                     </Button>
                 );
 
             case "retail":
                 return (
                     <Button className={"transporter-action"} onClick={handleRetailShipment}>
-                        {value.currentStatus.value === 2 ?  "Product Dispatched" : "Product Delivered"}
+                        {value.currentStatus.value === 2 ?  "Dispatch Product" : "Confirm Delivery"}
                     </Button>
                 );
 
@@ -182,7 +183,7 @@ const ShipmentRow = ({value, rowObj, shipmentType, setTransactionMining, setTran
             <td>{value.senderCompany}</td>
             <td>{value.receiverCompany}</td>
             <td>{value.dispatchTime ? value.dispatchTime : "--"}</td>
-            <td>{getButtonString()}</td>
+            <td>{ tableType !=='delivered'?  getButtonString(): 'view manifesto'}</td>
         </tr>
     );
 };

@@ -357,13 +357,13 @@ const TransporterDashboard = ({ location }) => {
                           </Accordion.Collapse>
                         </Card>
                       </Col>
-                      <Col md={12}>
-                        <BarGraph
-                          ObjectToShow={harvestGraph}
-                          changed={changed}
-                          label={"Harvest Shipments"}
-                        />
-                      </Col>
+                      {/*<Col md={12}>*/}
+                      {/*  <BarGraph*/}
+                      {/*    ObjectToShow={harvestGraph}*/}
+                      {/*    changed={changed}*/}
+                      {/*    label={"Harvest Shipments"}*/}
+                      {/*  />*/}
+                      {/*</Col>*/}
                     </Row>
                   </Col>
                   <Col md={12}>
@@ -413,13 +413,13 @@ const TransporterDashboard = ({ location }) => {
                           </Accordion.Collapse>
                         </Card>
                       </Col>
-                      <Col md={12}>
-                        <BarGraph
-                          ObjectToShow={packageGraph}
-                          changed={changed}
-                          label={"Product Shipments"}
-                        />
-                      </Col>
+                      {/*<Col md={12}>*/}
+                      {/*  <BarGraph*/}
+                      {/*    ObjectToShow={packageGraph}*/}
+                      {/*    changed={changed}*/}
+                      {/*    label={"Product Shipments"}*/}
+                      {/*  />*/}
+                      {/*</Col>*/}
                     </Row>
                   </Col>
                 </Row>
@@ -471,13 +471,13 @@ const TransporterDashboard = ({ location }) => {
                       </Accordion.Collapse>
                     </Card>
                   </Col>
-                  <Col md={12}>
-                    <BarGraph
-                      ObjectToShow={sampleGraph}
-                      changed={changed}
-                      label={"Sample Shipments"}
-                    />
-                  </Col>
+                  {/*<Col md={12}>*/}
+                  {/*  <BarGraph*/}
+                  {/*    ObjectToShow={sampleGraph}*/}
+                  {/*    changed={changed}*/}
+                  {/*    label={"Sample Shipments"}*/}
+                  {/*  />*/}
+                  {/*</Col>*/}
                 </Row>
                 <Col md={12}>
                   <Row>
@@ -526,13 +526,13 @@ const TransporterDashboard = ({ location }) => {
                         </Accordion.Collapse>
                       </Card>
                     </Col>
-                    <Col md={12}>
-                      <BarGraph
-                        ObjectToShow={retailGraph}
-                        changed={changed}
-                        label={"Retail Shipments"}
-                      />
-                    </Col>
+                    {/*<Col md={12}>*/}
+                    {/*  <BarGraph*/}
+                    {/*    ObjectToShow={retailGraph}*/}
+                    {/*    changed={changed}*/}
+                    {/*    label={"Retail Shipments"}*/}
+                    {/*  />*/}
+                    {/*</Col>*/}
                   </Row>
                 </Col>
               </Col>

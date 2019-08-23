@@ -1,10 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import Layout from "../Layout";
-import TransporterDashboard from "./TransporterDashboard";
 import "../../assets/stylesheets/transporter.scss";
 import {connectToMetamask} from "../../dbController/init";
 import {getTransporterDetails} from "../../dbController/transporterRole";
 import {clearLocal} from "../../helpers";
+import NewDashboard from "./newDashboard";
+import TransporterDashboard from "./TransporterDashboard";
 
 const Transporter = ({location}) => {
     const [userName, setUserName] = useState('');
@@ -26,7 +27,8 @@ const Transporter = ({location}) => {
 
     return (
         <Layout userName={userName} profileImage={profileImage} location={location}>
-            <TransporterDashboard location={location}/>
+            {/*<TransporterDashboard location={location}/>*/}
+            <NewDashboard location={location}/>
         </Layout>
     );
 };

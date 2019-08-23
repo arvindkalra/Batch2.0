@@ -4,10 +4,9 @@ import ShipmentRow from "./ShipmentRow";
 
 const ShipmentTable = ({
   array,
-  rowObjArr,
-  shipmentType,
   setTransactionMining,
-  setTransactionObject
+  setTransactionObject,
+    tableType
 }) => {
   return (
     <Table responsive>
@@ -27,14 +26,16 @@ const ShipmentTable = ({
           </tr>
         ) : (
           array.map((element, id) => {
+
             return (
               <ShipmentRow
+                  tableType={tableType}
                 setTransactionMining={setTransactionMining}
                 setTransactionObject={setTransactionObject}
                 value={element}
                 key={id + "" + element.uid}
-                rowObj={rowObjArr[element.uid]}
-                shipmentType={shipmentType}
+                rowObj={element.ipfsData}
+                shipmentType={element.shipmentType}
               />
             );
           })
