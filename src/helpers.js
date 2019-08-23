@@ -53,22 +53,22 @@ export const createTransactionModal = ({
       }}
       className={"transaction-sign"}
     >
-      <Modal.Header>Sign Smart Contract Transaction</Modal.Header>
+      <Modal.Header>Sign Transaction</Modal.Header>
       <Modal.Body>
         <Row>
-          <Col md={3}>Function Name :</Col>
+          <Col md={3}>Function Name </Col>
           <Col md={9}>{functionName.captialize()}</Col>
         </Row>
         <Row>
-          <Col md={3}>From Address :</Col>
+          <Col md={3}>From Address </Col>
           <Col md={9}>{from}</Col>
         </Row>
         <Row>
-          <Col md={3}>To Address :</Col>
+          <Col md={3}>To Address </Col>
           <Col md={9}>{to}</Col>
         </Row>
         <Row>
-          <Col md={3}>Gas Required :</Col>
+          <Col md={3}>Gas Required </Col>
           <Col md={9}>{gas}</Col>
         </Row>
         <Row>
