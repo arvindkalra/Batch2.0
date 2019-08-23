@@ -109,27 +109,23 @@ const Product = props => {
                 now={getSeedProgress(productStatus.value)}
                 label={productStatus.status}
               />
-              {productStatus.status === "Sown" ? (
-                <p>
-                  Current Location:
-                  <span className={"info"}>{seedObject.details.location}</span>
-                </p>
-              ) : null}
             </section>
           </Col>
         </Row>
         <Row className={"action-panel"}>
-          <ActionPanel
-            seedObj={seedObject}
-            productState={productStatus}
-            setProductStatus={newProductStatus => {
-              setProductStatus(newProductStatus);
-            }}
-            history={props.history}
-          />
+          {productStatus.value < 7 ? (
+            <ActionPanel
+              seedObj={seedObject}
+              productState={productStatus}
+              setProductStatus={newProductStatus => {
+                setProductStatus(newProductStatus);
+              }}
+              history={props.history}
+            />
+          ) : null}
         </Row>
       </Layout>
-      {preloader ? <Loader message={"Fetching Data"}/> : null}
+      {preloader ? <Loader message={"Fetching Data"} /> : null}
     </>
   );
 };

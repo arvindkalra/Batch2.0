@@ -121,7 +121,7 @@ const ActionPanel = ({ productState, setProductStatus, seedObj, history }) => {
                   onClick={handleDestroy}
                 >
                   {" "}
-                  Destroy Crop
+                  DESTROY CROP
                 </Button>
               ) : null}
             </div>
