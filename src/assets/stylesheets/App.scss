@@ -94,6 +94,7 @@
 }
 
 .product-status-section {
+  margin-top: 20px;
   .progress {
     height: 50px;
     border-radius: 0;
@@ -112,16 +113,6 @@
 }
 
 $min-height: 300px;
-.action-panel-form-section {
-  h1 {
-    border-bottom: 1px solid $grey;
-    margin-bottom: 40px;
-  }
-
-  border: 1px dashed $grey;
-  padding: 50px;
-  min-height: $min-height;
-}
 
 .status-tab {
   p.status-tab-description {
@@ -129,6 +120,7 @@ $min-height: 300px;
     font-weight: bold;
   }
 
+  height: 190px;
   border: 1px solid $grey;
   padding: 30px;
   margin-top: 20px;

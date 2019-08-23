@@ -190,18 +190,18 @@ const LabDashboard = props => {
         </Col>
       </Row>
       <Row>
-        <Col md={6}>
-          <section className={"status-tab"}>
-            <h3 className={"status-tab-title"}>Approved Samples</h3>
+        <Col md={6} className={"chart-col"}>
+          <section className={"dashboard-section"}>
+            <h3 className={"section-title"}>Approved Samples</h3>
             <PieChart1
               numRejected={numTested - numApproved}
               numApproved={numApproved}
             />
           </section>
         </Col>
-        <Col md={6}>
-          <section className={"status-tab"}>
-            <h3 className={"status-tab-title"}>
+        <Col md={6} className={"chart-col"}>
+          <section className={"dashboard-section"}>
+            <h3 className={"section-title"}>
               Monthly Approval in Year 2018-19
             </h3>
             <BarGraph ObjectToShow={objectForBarGraph} label={"Approvals"} />
