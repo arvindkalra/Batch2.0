@@ -25,11 +25,14 @@ const ManufacturerDashboard = ({ location }) => {
   const [changed, setChanged] = useState(0);
   const [transactionMining, setTransactionMining] = useState(false);
   const [transactionObject, setTransactionObject] = useState(null);
+  const [preloader, setPreloader] = useState(true);
 
   useEffect(() => {
+    let totalHarvest = 0;
     let tempChanged = changed;
     connectToMetamask().then(() => {
-      fetchHarvestUnitsByManufacturer(harvestObject => {
+      fetchHarvestUnitsByManufacturer((harvestObject, total) => {
+        totalHarvest++;
         let tempAvailableArray = availableArray;
         getFarmerDetails(harvestObject.details.farmerAddress).then(
           farmerObject => {
@@ -38,7 +41,7 @@ const ManufacturerDashboard = ({ location }) => {
               : 0;
             let leftAmount =
               harvestObject.details.totalHarvestAmount - harvestUsed;
-            if (leftAmount > 0) {
+            if (leftAmount > 0 && harvestObject.currentState.value === 9) {
               let rowArray = {
                 harvestUnitId: harvestObject.uid,
                 farmerName: farmerObject.name,
@@ -55,6 +58,9 @@ const ManufacturerDashboard = ({ location }) => {
               setAvailableGraphData,
               ++tempChanged
             );
+            if (totalHarvest === total) {
+              setPreloader(false);
+            }
           }
         );
       });
@@ -105,7 +111,7 @@ const ManufacturerDashboard = ({ location }) => {
       {/*Graph showing available raw material*/}
       <Row>
         <Col md={6}>
-          <section className={"manufacturer-graph dashboard-section"}>
+          <section className={"dashboard-section"}>
             <h3 className={"section-title"}>Available Raw Material</h3>
             <BarGraph
               ObjectToShow={availableGraphData}
@@ -114,7 +120,10 @@ const ManufacturerDashboard = ({ location }) => {
           </section>
         </Col>
         <Col md={6}>
-          <section className={"report-table-section dashboard-section"}>
+          <section
+            className={"dashboard-section"}
+            style={{ overflowY: "scroll" }}
+          >
             <h3 className={"section-title"}>Available Raw Material</h3>
             <AvailableRawMaterialTable array={availableArray} />
           </section>
@@ -124,7 +133,7 @@ const ManufacturerDashboard = ({ location }) => {
       {/*Two tables for available raw material and packets made ready for dispatch*/}
       <Row>
         <Col md={6}>
-          <section className={"report-table-section dashboard-section"}>
+          <section className={"dashboard-section"}>
             <h3 className={"section-title"}>Created Packets</h3>
             <ManufacturedPacketsTable
               array={packetsReadyForDispatch}
@@ -136,7 +145,7 @@ const ManufacturerDashboard = ({ location }) => {
           </section>
         </Col>
         <Col md={6}>
-          <section className={"manufacturer-graph dashboard-section"}>
+          <section className={"dashboard-section"}>
             <h3 className={"section-title"}>
               Products Manufactured in 2018-19
             </h3>
@@ -149,6 +158,7 @@ const ManufacturerDashboard = ({ location }) => {
       </Row>
       {transactionMining ? <Loader /> : null}
       {transactionObject ? createTransactionModal(transactionObject) : null}
+      {preloader ? <Loader message={"Fetching Data"} /> : null}
     </>
   );
 };

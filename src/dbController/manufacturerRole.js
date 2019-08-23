@@ -65,7 +65,7 @@ export function fetchHarvestUnitsByManufacturer(rowCallback) {
           .then(x => {
             return handleObject(x, val, true);
           })
-          .then(rowCallback)
+          .then(x => rowCallback(x, array.length))
           .catch(handleError);
       }
     })
