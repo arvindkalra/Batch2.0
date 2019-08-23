@@ -78,6 +78,7 @@ export function locationMovedByFarmer(harvestUnitId, currentState, details) {
 }
 
 export function plantDestroyedByFarmer(harvestUnitId, details, signCallback) {
+  console.log(arguments);
   return uploadJsonToIPFS(details).then(hash => {
     return makeFarmerTransaction(
       signCallback,

@@ -121,9 +121,9 @@ const ActionForm = ({
     seedObj.details.destroyReason = destroyReason;
     seedObj.details.destroyQuantity = detroyQuantity;
     plantDestroyedByFarmer(
-      openSignatureModal,
       seedObj.harvestUnitId,
-      seedObj.details
+      seedObj.details,
+      openSignatureModal
     ).then(hash => {
       checkMined(hash, () => window.location.reload());
     });

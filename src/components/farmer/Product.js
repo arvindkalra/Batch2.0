@@ -135,7 +135,7 @@ const Product = (props) => {
                             Product Status
                         </h3>
 
-                        <ProgressBar striped variant={productStatus.value === 10 ? 'danger' : 'Success'}
+                        <ProgressBar striped variant={productStatus.value === 10 || productStatus.value === 11 ? 'danger' : 'Success'}
                                      now={getSeedProgress(productStatus.value)}
                                      label={productStatus.status}/>
                         {productStatus.status === 'Sown' ? <p>

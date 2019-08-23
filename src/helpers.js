@@ -118,6 +118,7 @@ export const getSeedProgress = status => {
     case 9:
       return 100;
     case 10:
+    case 11:
       return 100;
   }
 };
