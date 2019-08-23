@@ -18,14 +18,11 @@ const Farmer = (props) => {
     useEffect(() => {
 
 
-        if (props.location.state) {
-            console.log(props);
-            setNotificationMessage(props.location.state.setMessage);
-            setShowNotification(props.location.state.setNotification);
-            // props.location.state.setNotification = false
-            props.history.replace({state: {}});
-            console.log(props.location.state)
-
+        if (JSON.stringify(props.location.state) !== "{}") {
+          setNotificationMessage(props.location.state.setMessage);
+          setShowNotification(props.location.state.setNotification);
+          // props.location.state.setNotification = false
+          props.history.replace({ state: {} });
         }
         connectToMetamask().then(() => {
 
