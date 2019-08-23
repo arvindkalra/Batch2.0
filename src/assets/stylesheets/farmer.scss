@@ -243,3 +243,11 @@ $min-height: 300px;
     min-height: $min-height;
   }
 }
+
+.farmer-all-products {
+  tr {
+    :nth-last-child(1) {
+      width: 325px;
+    }
+  }
+}

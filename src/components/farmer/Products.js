@@ -16,7 +16,7 @@ const Products = ({location}) => {
                 </Col>
             </Row>
             <Row>
-                <Col md={12}>
+                <Col md={12} className={"farmer-all-products"}>
                     <CompleteProductsTable/>
                 </Col>
 
