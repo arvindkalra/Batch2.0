@@ -88,7 +88,7 @@ export function getRowsForRetailer(rowCallbacks) {
         let val = parseInt(array[i]);
         makeStorageTransaction("getBatchUnit", val)
           .then(x => handleObject(x, val))
-          .then(rowCallbacks)
+          .then(x => rowCallbacks(x, array.length))
           .catch(handleError);
       }
     })

@@ -10,19 +10,23 @@ import { getRowsForRetailer } from "../../dbController/retailerRole";
 import { fetchProductUnitDetailsUsingUID } from "../../dbController/manufacturerRole";
 import RetailerProductTable from "./RetailerProductTable";
 import BarGraph from "../farmer/graphs/dashboard/BarGraph";
+import Loader from "../Loader";
 
 const RetailerDashboard = ({ location }) => {
   const [inventoryTable, setInventoryTable] = useState([]);
   const [showForMore, setShowForMore] = useState(false);
   const [barGraphObject, setBarGraphObject] = useState({});
   const [changed, setChanged] = useState(0);
+  const [preloader, setPreloader] = useState(true);
   useEffect(() => {
     connectToMetamask().then(() => {
       let tempInventory = inventoryTable;
       let tableRows = 0;
       let tempBarGraphObject = barGraphObject;
       let tempChanged = changed;
-      getRowsForRetailer(row => {
+      let totalEntries = 0;
+      getRowsForRetailer((row, total) => {
+        totalEntries++;
         if (row.currentState.value === 4) {
           if (tableRows < 3) {
             tableRows++;
@@ -51,6 +55,9 @@ const RetailerDashboard = ({ location }) => {
               tempChanged++
             );
             setShowForMore(true);
+          }
+          if (totalEntries === total) {
+            setPreloader(false);
           }
         }
       });
@@ -137,6 +144,7 @@ const RetailerDashboard = ({ location }) => {
           </section>
         </Col>
       </Row>
+      {preloader ? <Loader message={"Fetching Data"} /> : null}
     </>
   );
 };
