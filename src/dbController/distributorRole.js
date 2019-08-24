@@ -59,7 +59,7 @@ export function fetchProductUnitsForDistributor(rowCallback) {
         .then(o => {
           return handleObject(o, val, true);
         })
-        .then(rowCallback)
+        .then(x => rowCallback(x, array.length))
         .catch(handleError);
     }
   });
