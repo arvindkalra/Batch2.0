@@ -24,7 +24,43 @@
 .no-pending-shipment{
   background-color: #dfe2e7;
 }
+.nav-buttons-section{
 
+  ul{
+    li{
+      cursor: pointer;
+      background: #dfe2e7;
+
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+    }
+    li.active{
+      background: grey;
+      color:white;
+    }
+  }
+}
 .shipment-table-section{
-  padding:30px;
+
+  border-left: 1px solid $grey;
+}
+.manifesto-details-section{
+
+  ul{
+    list-style: none;
+  }
+  .manifesto-list{
+    ul{
+      $padding:200px;
+      padding-left:$padding;
+      padding-right:$padding;
+      li{
+        font-weight: bold;
+        span{
+          font-weight: normal;
+          float: right;
+        }
+      }
+    }
+  }
 }

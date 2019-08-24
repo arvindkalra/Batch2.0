@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {
     deliverDistributorToShopConsignment,
     deliverFactoryToDistributorConsignment,
@@ -11,8 +11,12 @@ import {
 } from "../../dbController/transporterRole";
 import {checkMined} from "../../dbController/init";
 import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import Manifesto from "./Manifesto";
 
-const ShipmentRow = ({value, rowObj, shipmentType, setTransactionMining, setTransactionObject, tableType}) => {
+const ShipmentRow = ({value, rowObj, shipmentType, setTransactionMining, setTransactionObject, tableType,transporterDetails}) => {
+
+    const [show, setShow] = useState(false);
 
     const openSignatureModal = obj => {
         setTransactionObject({
@@ -168,7 +172,7 @@ const ShipmentRow = ({value, rowObj, shipmentType, setTransactionMining, setTran
             case "retail":
                 return (
                     <Button className={"transporter-action"} onClick={handleRetailShipment}>
-                        {value.currentStatus.value === 2 ?  "Dispatch Product" : "Confirm Delivery"}
+                        {value.currentStatus.value === 2 ? "Dispatch Product" : "Confirm Delivery"}
                     </Button>
                 );
 
@@ -183,7 +187,16 @@ const ShipmentRow = ({value, rowObj, shipmentType, setTransactionMining, setTran
             <td>{value.senderCompany}</td>
             <td>{value.receiverCompany}</td>
             <td>{value.dispatchTime ? value.dispatchTime : "--"}</td>
-            <td>{ tableType !=='delivered'?  getButtonString(): 'view manifesto'}</td>
+            <td>{tableType !== 'delivered' ? getButtonString() : <> <Button onClick={() => {
+                setShow(true)
+            }}> View manifesto</Button> <Modal size={'xl'} show={show} onHide={() => {
+                setShow(false)
+            }}>  <Modal.Header closeButton>
+                <h1 className={'title-center'}>
+                    Transfer Manifesto
+                </h1>
+
+            </Modal.Header> <Modal.Body> <Manifesto transporterDetails={transporterDetails} rowObj={rowObj} item={value}/></Modal.Body> </Modal>   </>}</td>
         </tr>
     );
 };

@@ -6,7 +6,7 @@ import {
     getDistributorToRetailerConsignments,
     getFactoryToDistributorConsignments,
     getFarmToFactoryConsignments,
-    getLabSampleConsignments
+    getLabSampleConsignments, getTransporterDetails
 } from "../../dbController/transporterRole";
 import {getFarmerDetails} from "../../dbController/farmerRole";
 import {getManufacturerDetails} from "../../dbController/manufacturerRole";
@@ -15,6 +15,8 @@ import {getDistributorDetails} from "../../dbController/distributorRole";
 import {getRetailerDetails} from "../../dbController/retailerRole";
 import ShipmentTable from "./ShipmentTable";
 import Loader from "../Loader";
+import {OWN_ADDRESS} from "../../dbController/Web3Connections";
+import NavButton from "./NavButton";
 
 const NewDashboard = ({location}) => {
     const [shipmentTable, setShipmentTable] = useState('pending shipments');
@@ -36,6 +38,7 @@ const NewDashboard = ({location}) => {
     const [deliveredShipments, setDeliveredShipments] = useState([]);
     const [tableArray, setTableArray] = useState(pendingShipments);
     const [tableType, setTableType] = useState('pending')
+    const [transporterDetails, setTransporterDetails] = useState({})
 
     useEffect(() => {
         connectToMetamask().then(() => {
@@ -71,13 +74,13 @@ const NewDashboard = ({location}) => {
                             rowObj.shipmentType = 'harvest';
                             rowObj.ipfsData = row;
                             tempHarvestShipments.push(rowObj);
-                            if (rowObj.currentStatus.value === 3) {
-                                tempPendingShipments.push(rowObj)
-                            } else if (rowObj.currentStatus.value === 8) {
+                             if (rowObj.currentStatus.value === 8) {
                                 tempDispatchedShipments.push(rowObj)
-                            } else {
+                            } else if( rowObj.currentStatus.value >= 9) {
                                 tempDeliveredShipments.push(rowObj)
-                            }
+                            }else {
+                                 tempPendingShipments.push(rowObj)
+                             }
                             setPendingShipments(tempPendingShipments);
                             setTableArray(tempPendingShipments);
                             setDeliveredShipments(tempDeliveredShipments);
@@ -195,6 +198,9 @@ const NewDashboard = ({location}) => {
 
                     });
             });
+            getTransporterDetails(OWN_ADDRESS).then(obj=>{
+                setTransporterDetails(obj)
+            })
 
         })
     }, []);
@@ -207,21 +213,15 @@ const NewDashboard = ({location}) => {
                 <Col md={4}>
                     <section className={'nav-buttons-section'}>
                         <ul className={'horizontal-list'}>
-                            <li onClick={() => {
-                                setTableArray(pendingShipments);
-                                setTableType('pending')
-                            }}>Pending Shipments
-                            </li>
-                            <li onClick={() => {
-                                setTableArray(dispatchedShipments);
-                                setTableType('dispatched')
-                            }}>Dispatched Shipments
-                            </li>
-                            <li onClick={() => {
-                                setTableArray(deliveredShipments);
-                                setTableType('delivered')
-                            }}>Delivered Shipments
-                            </li>
+                            {/*<li onClick={() => {*/}
+                            {/*    setTableArray(pendingShipments);*/}
+                            {/*    setTableType('pending')*/}
+                            {/*}}>Pending Shipments*/}
+                            {/*</li>*/}
+                            <NavButton html={'Pending Shipments'} setTableArray={()=>{setTableArray(pendingShipments); setTableType('pending')}} />
+                            <NavButton html={'Dispatched Shipments'} setTableArray={()=>{setTableArray(dispatchedShipments); setTableType('dispatched')}} />
+                            <NavButton html={'Delivered Shipments'} setTableArray={()=>{setTableArray(deliveredShipments); setTableType('delivered')}} />
+
                         </ul>
                     </section>
                 </Col>
@@ -230,6 +230,7 @@ const NewDashboard = ({location}) => {
                 <Row>
                     <Col md={12}>
                         <ShipmentTable
+                            transporterDetails={transporterDetails}
                             array={tableArray}
                             tableType={tableType}
                             setTransactionMining={() => {
