@@ -16,7 +16,7 @@ import {getRetailerDetails} from "../../dbController/retailerRole";
 import ShipmentTable from "./ShipmentTable";
 import Loader from "../Loader";
 import {OWN_ADDRESS} from "../../dbController/Web3Connections";
-import NavButton from "./NavButton";
+
 
 const NewDashboard = ({location}) => {
     const [shipmentTable, setShipmentTable] = useState('pending shipments');
@@ -39,7 +39,11 @@ const NewDashboard = ({location}) => {
     const [tableArray, setTableArray] = useState(pendingShipments);
     const [tableType, setTableType] = useState('pending')
     const [transporterDetails, setTransporterDetails] = useState({})
-
+    const [buttonStates, setButtonStates] = useState({
+        first: true,
+        second: false,
+        third: false
+    })
     useEffect(() => {
         connectToMetamask().then(() => {
 
@@ -213,15 +217,39 @@ const NewDashboard = ({location}) => {
                 <Col md={4}>
                     <section className={'nav-buttons-section'}>
                         <ul className={'horizontal-list'}>
-                            {/*<li onClick={() => {*/}
-                            {/*    setTableArray(pendingShipments);*/}
-                            {/*    setTableType('pending')*/}
-                            {/*}}>Pending Shipments*/}
-                            {/*</li>*/}
-                            <NavButton html={'Pending Shipments'} setTableArray={()=>{setTableArray(pendingShipments); setTableType('pending')}} />
-                            <NavButton html={'Dispatched Shipments'} setTableArray={()=>{setTableArray(dispatchedShipments); setTableType('dispatched')}} />
-                            <NavButton html={'Delivered Shipments'} setTableArray={()=>{setTableArray(deliveredShipments); setTableType('delivered')}} />
+                            <li className={buttonStates.first?'active': null} onClick={() => {
+                                setTableArray(pendingShipments);
+                                setTableType('pending');
+                                setButtonStates({
+                                    first:true,
+                                    second: false,
+                                    third:false
+                                })
+                            }}>Pending Shipments
+                            </li>
 
+                            <li className={buttonStates.second?'active': null}
+                                onClick={() => {
+                                setTableArray(dispatchedShipments);
+                                setTableType('dispatched')
+                                setButtonStates({
+                                    first:false,
+                                    second: true,
+                                    third:false
+                                })
+                            }}>Dispatched Shipments
+                            </li>
+                            <li className={buttonStates.third?'active': null}
+                                onClick={() => {
+                                setTableArray(deliveredShipments);
+                                setTableType('delivered')
+                                setButtonStates({
+                                    first:false,
+                                    second: false,
+                                    third:true
+                                })
+                            }}>Delivered Shipments
+                            </li>
                         </ul>
                     </section>
                 </Col>
