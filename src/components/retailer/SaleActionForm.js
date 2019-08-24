@@ -21,8 +21,9 @@ import Loader from "../Loader";
 import QRCode from "qrcode.react";
 import "../../assets/stylesheets/retailer.scss";
 import { OWN_ADDRESS } from "../../dbController/Web3Connections";
+import { FormControl } from "react-bootstrap";
 
-const SaleActionForm = ({ buid, details }) => {
+const SaleActionForm = ({ buid, details, left }) => {
   const [registered, setRegistered] = useState(false);
   const [showFullForm, setShowFullForm] = useState(false);
   const [buyerAddress, setBuyerAddress] = useState("");
@@ -33,6 +34,7 @@ const SaleActionForm = ({ buid, details }) => {
   const [buyerDetails, setBuyerDetails] = useState("");
   const [transactionMining, setTransactionMining] = useState(false);
   const [transactionObject, setTransactionObject] = useState(null);
+  const [formValidity, setFormValidity] = useState(true);
 
   const openSignatureModal = obj => {
     setTransactionObject({
@@ -74,7 +76,6 @@ const SaleActionForm = ({ buid, details }) => {
   const sellToRegistered = e => {
     e.preventDefault();
     e.stopPropagation();
-    setTransactionMining(true);
     let jsonToBeUploaded = buyerDetails;
     jsonToBeUploaded.purchases.push({
       amount: amount,
@@ -89,7 +90,6 @@ const SaleActionForm = ({ buid, details }) => {
   const sellToNewConsumer = e => {
     e.preventDefault();
     e.stopPropagation();
-    setTransactionMining(true);
     let jsonToBeUploaded = {
       name: consumerName,
       license: license,
@@ -111,13 +111,30 @@ const SaleActionForm = ({ buid, details }) => {
       ? details.totalUnitsAlreadySold
       : 0;
     details.totalUnitsAlreadySold = unitsAlreadySold + amount;
-    console.log(details);
-    console.log(jsonToBeUploaded);
-    sellPacketsToBuyer(buid, buyerAddress, details, jsonToBeUploaded, openSignatureModal).then(
-      txHash => {
-        checkMined(txHash, () => window.location.reload());
-      }
-    );
+    if(!formValidity){
+      alert("Invalid Amount Entered");
+      return;
+    }
+    setTransactionMining(true);
+    sellPacketsToBuyer(
+      buid,
+      buyerAddress,
+      details,
+      jsonToBeUploaded,
+      openSignatureModal
+    ).then(txHash => {
+      checkMined(txHash, () => window.location.reload());
+    });
+  };
+
+  const checkValidity = inputValue => {
+    if (left < inputValue) {
+      setFormValidity(false);
+      setAmount(0);
+    } else {
+      setFormValidity(true);
+      setAmount(inputValue);
+    }
   };
 
   return (
@@ -205,9 +222,14 @@ const SaleActionForm = ({ buid, details }) => {
                           type={"number"}
                           placeholder={"Enter the Quantity you want to Sell"}
                           onChange={e => {
-                            setAmount(parseInt(e.target.value));
+                            checkValidity(parseInt(e.target.value));
                           }}
+                          isInvalid={!formValidity}
                         />
+                        <FormControl.Feedback type={'invalid'}>
+                          Amount to be sold should be less than the available
+                          stock
+                        </FormControl.Feedback>
                       </Form.Group>
                     </Col>
                     <Col md={12}>

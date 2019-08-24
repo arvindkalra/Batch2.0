@@ -9,6 +9,7 @@ import { checkMined } from "../../dbController/init";
 import Layout from "../Layout";
 import Loader from "../Loader";
 import { createTransactionModal } from "../../helpers";
+import { FormControl } from "react-bootstrap";
 
 const DistributorActionPanel = ({ left, total, prevDetails }) => {
   const [unitsPerPacket, setUnitsPerPacket] = useState(0);
@@ -19,6 +20,7 @@ const DistributorActionPanel = ({ left, total, prevDetails }) => {
   const [transporterName, setTransporterName] = useState("Transporter A");
   const [transactionMining, setTransactionMining] = useState(false);
   const [transactionObject, setTransactionObject] = useState(null);
+  const [formValidity, setFormValidity] = useState(true);
 
   const openSignatureModal = obj => {
     setTransactionObject({
@@ -34,11 +36,20 @@ const DistributorActionPanel = ({ left, total, prevDetails }) => {
     });
   };
 
+  const checkValidity = (perPacketInput, totalPacketsInput) => {
+    let totalAmountUsed = perPacketInput * totalPacketsInput;
+    if (left < totalAmountUsed || perPacketInput < 0 || totalPacketsInput < 0) {
+      setFormValidity(false);
+    } else {
+      setFormValidity(true);
+    }
+    setUnitsPerPacket(perPacketInput);
+    setNumPackets(totalPacketsInput);
+  };
+
   const handleClick = e => {
     e.preventDefault();
     e.stopPropagation();
-    setTransactionMining(true);
-    console.log(prevDetails.details);
     let batchObject = {
       totalUnitsForSale: numPackets,
       unitsPerPacket,
@@ -57,10 +68,11 @@ const DistributorActionPanel = ({ left, total, prevDetails }) => {
     let materialUsed = unitsPerPacket * numPackets;
     prevDetails.details.totalPacketsUsed =
       parseInt(oldUnitsUsed) + materialUsed;
-    if (left < materialUsed) {
+    if (!formValidity) {
       alert("You Don't have enough Units to Be Sent.!");
       return;
     }
+    setTransactionMining(true);
     createBatchByDistributor(
       batchObject.productUnitId,
       prevDetails.details,
@@ -109,10 +121,14 @@ const DistributorActionPanel = ({ left, total, prevDetails }) => {
             <Form.Control
               type={"number"}
               onChange={e => {
-                setUnitsPerPacket(parseInt(e.target.value));
+                checkValidity(parseInt(e.target.value), numPackets);
               }}
+              isInvalid={!formValidity}
               placeholder={"Enter the number of units in each packet"}
             />
+            <FormControl.Feedback type={"invalid"}>
+              Total Units Used should be less than Total Units Available
+            </FormControl.Feedback>
           </Form.Group>
         </Col>
         <Col md={6}>
@@ -121,10 +137,14 @@ const DistributorActionPanel = ({ left, total, prevDetails }) => {
             <Form.Control
               type={"number"}
               onChange={e => {
-                setNumPackets(parseInt(e.target.value));
+                checkValidity(unitsPerPacket, parseInt(e.target.value));
               }}
+              isInvalid={!formValidity}
               placeholder={"Enter the number of packets created"}
             />
+            <FormControl.Feedback type={"invalid"}>
+              Total Units Used should be less than Total Units Available
+            </FormControl.Feedback>
           </Form.Group>
         </Col>
         <Col md={6}>

@@ -8,14 +8,16 @@ import { packetsManufactured } from "../../dbController/manufacturerRole";
 import { checkMined } from "../../dbController/init";
 import Loader from "../Loader";
 import { createTransactionModal } from "../../helpers";
+import { FormControl } from "react-bootstrap";
 
 const ManufacturerActionPanel = ({ left, total, prevDetails }) => {
-  const [materialUsed, setMaterialUsed] = useState("");
+  const [materialUsed, setMaterialUsed] = useState(0);
   const [packetsMade, setPacketsMade] = useState("");
   const [packetSize, setPacketSize] = useState("");
   const [productType, setProductType] = useState("Preroll");
   const [transactionMining, setTransactionMining] = useState(false);
   const [transactionObject, setTransactionObject] = useState(null);
+  const [formValidity, setFormValidity] = useState(true);
 
   const openSignatureModal = obj => {
     setTransactionObject({
@@ -34,7 +36,6 @@ const ManufacturerActionPanel = ({ left, total, prevDetails }) => {
   const handleClick = e => {
     e.preventDefault();
     e.stopPropagation();
-    setTransactionMining(true);
     let packetObj = {
       packetSize,
       productType,
@@ -47,12 +48,18 @@ const ManufacturerActionPanel = ({ left, total, prevDetails }) => {
       ? prevDetails.details.totalHarvestUsed
       : 0;
     prevDetails.details.totalHarvestUsed =
-      parseInt(oldHarvestUsed) + parseInt(materialUsed);
+      parseInt(oldHarvestUsed) + materialUsed;
+    if (materialUsed === 0) {
+      alert("Invalid Amount of RAW MATERIAL USED");
+      return;
+    }
     if (left < materialUsed) {
       alert("You Don't have enough RAW MATERIAL.!");
       return;
     }
-
+    console.log(prevDetails.details);
+    console.log(packetObj);
+    setTransactionMining(true);
     packetsManufactured(
       prevDetails.uid,
       prevDetails.details,
@@ -61,6 +68,16 @@ const ManufacturerActionPanel = ({ left, total, prevDetails }) => {
     ).then(hash => {
       checkMined(hash, () => window.location.reload());
     });
+  };
+
+  const checkValidity = inputAmount => {
+    if (left < inputAmount || inputAmount < 0) {
+      setFormValidity(false);
+      setMaterialUsed(0);
+    } else {
+      setFormValidity(true);
+      setMaterialUsed(inputAmount);
+    }
   };
 
   return (
@@ -86,9 +103,14 @@ const ManufacturerActionPanel = ({ left, total, prevDetails }) => {
               type={"number"}
               placeholder={"Enter the amount harvested in pounds"}
               onChange={e => {
-                setMaterialUsed(parseInt(e.target.value));
+                checkValidity(parseInt(e.target.value));
               }}
+              isInvalid={!formValidity}
             />
+            <FormControl.Feedback type={"invalid"}>
+              Raw Material Used should be less than the number of units
+              available
+            </FormControl.Feedback>
           </Form.Group>
         </Col>
         <Col md={6}>
