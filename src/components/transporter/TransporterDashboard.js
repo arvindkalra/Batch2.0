@@ -6,7 +6,7 @@ import {
   getDistributorToRetailerConsignments,
   getFactoryToDistributorConsignments,
   getFarmToFactoryConsignments,
-  getLabSampleConsignments,
+  getLabSampleConsignments, getTransporterDetails,
   getTransportUnitDetails
 } from "../../dbController/transporterRole";
 import { connectToMetamask } from "../../dbController/init";
@@ -34,6 +34,7 @@ const TransporterDashboard = ({ location }) => {
   const [transactionMining, setTransactionMining] = useState(false);
   const [transactionObject, setTransactionObject] = useState(null);
   const [loading, setLoader] = useState(true);
+  const [transporterObject, setTransporterObject] = useState({});
   const [harvestGraph, setHarvestGraph] = useState({
     Packed: 0,
     Dispatched: 0,
@@ -67,6 +68,7 @@ const TransporterDashboard = ({ location }) => {
       let tempRetailGraph = retailGraph;
       let tempChanged = changed;
       let totalHarvests = 0;
+      getTransporterDetails().then(setTransporterObject);
       getFarmToFactoryConsignments((row, total) => {
         totalHarvests += 1;
         let tempRow = harvestRowObjArr;
@@ -345,6 +347,7 @@ const TransporterDashboard = ({ location }) => {
                                       setTransactionMining(true);
                                     }}
                                     setTransactionObject={setTransactionObject}
+                                    transporterDetails={transporterObject}
                                   />
                                 ) : (
                                   <div>
@@ -401,6 +404,7 @@ const TransporterDashboard = ({ location }) => {
                                       setTransactionMining(true);
                                     }}
                                     setTransactionObject={setTransactionObject}
+                                    transporterDetails={transporterObject}
                                   />
                                 ) : (
                                   <div>
@@ -460,6 +464,7 @@ const TransporterDashboard = ({ location }) => {
                                   setTransactionMining(true);
                                 }}
                                 setTransactionObject={setTransactionObject}
+                                transporterDetails={transporterObject}
                               />
                             ) : (
                               <div>
@@ -514,6 +519,7 @@ const TransporterDashboard = ({ location }) => {
                                     setTransactionMining(true);
                                   }}
                                   setTransactionObject={setTransactionObject}
+                                  transporterDetails={transporterObject}
                                 />
                               ) : (
                                 <div>
