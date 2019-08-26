@@ -16,7 +16,7 @@ const PackagedShipmentRowUnused = ({ value, rowObj }) => {
       dispatchFactoryToDistributorConsignment(
         value.uid,
         rowObj.details.distributorAddress ||
-          "0x7949173E38cEf39e75E05D2d2C232FBE8BAe5E20",
+          "0x8d41001644db97DC0F7120F977f6ED0357AE43F6",
         rowObj.details
       ).then(txHash => {
         checkMined(txHash, () => window.location.reload());
@@ -26,7 +26,7 @@ const PackagedShipmentRowUnused = ({ value, rowObj }) => {
       deliverFactoryToDistributorConsignment(
         value.uid,
         rowObj.details.distributorAddress ||
-          "0x7949173E38cEf39e75E05D2d2C232FBE8BAe5E20",
+          "0x8d41001644db97DC0F7120F977f6ED0357AE43F6",
         rowObj.details
       ).then(txHash => {
         checkMined(txHash, () => window.location.reload());

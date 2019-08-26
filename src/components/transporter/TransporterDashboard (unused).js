@@ -22,7 +22,7 @@ import Loader from "../Loader";
 import Badge from "react-bootstrap/Badge";
 import BarGraph from "../farmer/graphs/dashboard/BarGraph";
 
-const TransporterDashboard = ({ location }) => {
+const TransporterDashboardUnused = ({ location }) => {
   const [harvestShipments, setHarvestShipments] = useState([]);
   const [packagedShipments, setPackagedShipments] = useState([]);
   const [harvestRowObjArr, setHarvestRowObjArr] = useState({});
@@ -183,7 +183,7 @@ const TransporterDashboard = ({ location }) => {
         let rowObj = {};
         let manufacturerAddress =
           row.details.manufacturerAddress ||
-          "0x7949173E38cEf39e75E05D2d2C232FBE8BAe5E20";
+          "0x8d41001644db97DC0F7120F977f6ED0357AE43F6";
         let manufacturerName;
         getManufacturerDetails(manufacturerAddress).then(({ name }) => {
           manufacturerName = name;
@@ -237,7 +237,7 @@ const TransporterDashboard = ({ location }) => {
         let rowObj = {};
         let distributorAddress =
           row.details.distributorAddress ||
-          "0x7949173E38cEf39e75E05D2d2C232FBE8BAe5E20";
+          "0x8d41001644db97DC0F7120F977f6ED0357AE43F6";
         let distributorName;
         getDistributorDetails(distributorAddress)
           .then(({ name }) => {
@@ -553,4 +553,4 @@ const TransporterDashboard = ({ location }) => {
   );
 };
 
-export default TransporterDashboard;
+export default TransporterDashboardUnused;

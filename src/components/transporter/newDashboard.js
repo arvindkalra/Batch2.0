@@ -101,6 +101,7 @@ const NewDashboard = ({ location }) => {
         }
       });
       getLabSampleConsignments(row => {
+          console.log(row);
         let tempRow = sampleRowObjArr;
         tempRow[row.uid] = row;
         setSampleRowObjArr(tempRow);
@@ -137,7 +138,7 @@ const NewDashboard = ({ location }) => {
         let rowObj = {};
         let manufacturerAddress =
           row.details.manufacturerAddress ||
-          "0x7949173E38cEf39e75E05D2d2C232FBE8BAe5E20";
+          "0x8d41001644db97DC0F7120F977f6ED0357AE43F6";
         let manufacturerName;
         getManufacturerDetails(manufacturerAddress).then(name => {
           manufacturerName = name;
@@ -172,7 +173,7 @@ const NewDashboard = ({ location }) => {
         let rowObj = {};
         let distributorAddress =
           row.details.distributorAddress ||
-          "0x7949173E38cEf39e75E05D2d2C232FBE8BAe5E20";
+          "0x8d41001644db97DC0F7120F977f6ED0357AE43F6";
         let distributorName;
         getDistributorDetails(distributorAddress)
           .then(name => {

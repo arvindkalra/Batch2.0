@@ -5,7 +5,7 @@ import {connectToMetamask} from "../../dbController/init";
 import {getTransporterDetails} from "../../dbController/transporterRole";
 import {clearLocal} from "../../helpers";
 import NewDashboard from "./newDashboard";
-import TransporterDashboard from "./TransporterDashboard";
+import TransporterDashboardUnused from "./TransporterDashboard (unused)";
 
 const Transporter = ({location}) => {
     const [userName, setUserName] = useState('');

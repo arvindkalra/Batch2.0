@@ -49,6 +49,7 @@ export function sendToLaboratory(
   details,
   signCallback
 ) {
+  console.log(transporterAddress);
   return uploadJsonToIPFS(details).then(hash => {
     return makeFarmerTransaction(
       signCallback,
