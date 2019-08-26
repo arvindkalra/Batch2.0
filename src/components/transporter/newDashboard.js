@@ -57,44 +57,48 @@ const NewDashboard = ({ location }) => {
       let tempChanged = changed;
       let totalHarvests = 0;
       getFarmToFactoryConsignments((row, total) => {
-        totalHarvests += 1;
-        let tempRow = harvestRowObjArr;
-        tempRow[row.uid] = row;
-        setHarvestRowObjArr(tempRow);
-        let rowObj = {};
-        rowObj.buid = row.uid;
-        getFarmerDetails(row.details.farmerAddress).then(farmerObj => {
-          getManufacturerDetails(row.details.manufacturerAddress).then(
-            manufacturerObj => {
-              rowObj.uid = row.uid;
-              rowObj.senderCompany = farmerObj;
-              rowObj.receiverCompany = manufacturerObj;
-              rowObj.amount = row.details.totalHarvestAmount + " Pounds";
-              rowObj.dispatchTime =
-                row.details.farmToFactoryConsignmentDispatchTime;
+        if (row) {
+          totalHarvests += 1;
+          let tempRow = harvestRowObjArr;
+          tempRow[row.uid] = row;
+          setHarvestRowObjArr(tempRow);
+          let rowObj = {};
+          rowObj.buid = row.uid;
+          getFarmerDetails(row.details.farmerAddress).then(farmerObj => {
+            getManufacturerDetails(row.details.manufacturerAddress).then(
+              manufacturerObj => {
+                rowObj.uid = row.uid;
+                rowObj.senderCompany = farmerObj;
+                rowObj.receiverCompany = manufacturerObj;
+                rowObj.amount = row.details.totalHarvestAmount + " Pounds";
+                rowObj.dispatchTime =
+                  row.details.farmToFactoryConsignmentDispatchTime;
 
-              rowObj.currentStatus = row.currentState;
-              rowObj.shipmentType = "harvest";
-              rowObj.ipfsData = row;
-              tempHarvestShipments.push(rowObj);
-              if (rowObj.currentStatus.value === 8) {
-                tempDispatchedShipments.push(rowObj);
-              } else if (rowObj.currentStatus.value >= 9) {
-                tempDeliveredShipments.push(rowObj);
-              } else {
-                tempPendingShipments.push(rowObj);
+                rowObj.currentStatus = row.currentState;
+                rowObj.shipmentType = "harvest";
+                rowObj.ipfsData = row;
+                tempHarvestShipments.push(rowObj);
+                if (rowObj.currentStatus.value === 8) {
+                  tempDispatchedShipments.push(rowObj);
+                } else if (rowObj.currentStatus.value >= 9) {
+                  tempDeliveredShipments.push(rowObj);
+                } else {
+                  tempPendingShipments.push(rowObj);
+                }
+                setPendingShipments(tempPendingShipments);
+                setTableArray(tempPendingShipments);
+                setDeliveredShipments(tempDeliveredShipments);
+                setDispatchedShipments(tempDispatchedShipments);
+                setHarvestShipments([...tempHarvestShipments]);
+                if (totalHarvests === total) {
+                  setLoader(false);
+                }
               }
-              setPendingShipments(tempPendingShipments);
-              setTableArray(tempPendingShipments);
-              setDeliveredShipments(tempDeliveredShipments);
-              setDispatchedShipments(tempDispatchedShipments);
-              setHarvestShipments([...tempHarvestShipments]);
-              if (totalHarvests === total) {
-                setLoader(false);
-              }
-            }
-          );
-        });
+            );
+          });
+        } else {
+          setLoader(false);
+        }
       });
       getLabSampleConsignments(row => {
         let tempRow = sampleRowObjArr;

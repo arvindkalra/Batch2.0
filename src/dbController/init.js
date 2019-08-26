@@ -25,6 +25,10 @@ import {
 
 const URL = "http://35.154.84.229:2000";
 
+export const web3 = new Web3(
+    new Web3.providers.HttpProvider("http://35.154.84.229:8545")
+);
+
 // export const ipfsNode = new IPFS("ipfs.infura.io", "5001", {
 //   protocol: "https",
 //   headers: {
@@ -32,10 +36,6 @@ const URL = "http://35.154.84.229:2000";
 //     "Access-Control-Allow-Methods": '["PUT", "POST", "GET"]'
 //   }
 // });
-
-export const web3 = new Web3(
-  new Web3.providers.HttpProvider("https://testnet2.matic.network")
-);
 // export const NETWORK_NAME = config.NETWORK_NAME;
 
 let STORAGE;

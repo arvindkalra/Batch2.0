@@ -8,9 +8,9 @@ import {
 } from "./init";
 import { OWN_ADDRESS } from "./Web3Connections";
 
-export function setDistributorDetails(details) {
+export function setDistributorDetails(details, callback) {
   return uploadJsonToIPFS(details).then(hash => {
-    return makeDistributorTransaction("send", "setDistributorDetails", hash);
+    return makeDistributorTransaction(callback, "setDistributorDetails", hash);
   });
 }
 

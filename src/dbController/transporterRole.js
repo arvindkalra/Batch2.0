@@ -9,10 +9,10 @@ import {
 } from "./init";
 import { OWN_ADDRESS } from "./Web3Connections";
 
-export function setTransporterDetails(details) {
+export function setTransporterDetails(details, callback) {
   return new Promise((resolve, reject) => {
     uploadJsonToIPFS(details).then(hash => {
-      makeTransporterTransaction("send", "setTransporterDetails", hash)
+      makeTransporterTransaction(callback, "setTransporterDetails", hash)
         .then(resolve)
         .catch(reject);
     });
@@ -138,6 +138,10 @@ export function getFarmToFactoryConsignments(rowCallback) {
               completed(i, array.length - 1);
             })
             .catch(handleError);
+        }
+
+        if (array.length === 0) {
+          rowCallback(undefined, 0);
         }
 
         function completed(iteration, max) {

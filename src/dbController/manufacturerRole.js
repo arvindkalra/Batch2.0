@@ -8,10 +8,10 @@ import {
 } from "./init";
 import { OWN_ADDRESS } from "./Web3Connections";
 
-export function setManufacturerDetails(details) {
+export function setManufacturerDetails(details, callback) {
   return new Promise((resolve, reject) => {
     uploadJsonToIPFS(details).then(hash => {
-      makeManufacturerTransaction("send", "setManufacturerDetails", hash)
+      makeManufacturerTransaction(callback, "setManufacturerDetails", hash)
         .then(resolve)
         .catch(reject);
     });

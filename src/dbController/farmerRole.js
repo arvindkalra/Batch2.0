@@ -7,10 +7,10 @@ import {
 } from "./init";
 import { OWN_ADDRESS } from "./Web3Connections";
 
-export function setFarmerDetails(details) {
+export function setFarmerDetails(details, callback) {
   return new Promise((resolve, reject) => {
     uploadJsonToIPFS(details).then(hash => {
-      makeFarmerTransaction("send", "setFarmerDetails", hash)
+      makeFarmerTransaction(callback, "setFarmerDetails", hash)
         .then(resolve)
         .catch(reject);
     });
@@ -154,6 +154,9 @@ export function getRowsForFarmer(rowObject) {
         makeStorageTransaction("getHarvestUnit", uid)
           .then(x => handleObject(x, uid, array.length))
           .catch(handleError);
+      }
+      if (array.length === 0) {
+        rowObject(undefined, 0);
       }
     })
     .catch(handleError);

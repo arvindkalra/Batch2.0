@@ -52,11 +52,9 @@ const NewHarvest = ({ location, history }) => {
       ...obj,
       showModal: true,
       setShowModal: () => {
-        setTransactionMining(false);
         setTransactionObject(null);
       },
       cancel: () => {
-        setTransactionMining(false);
         setTransactionObject(null);
       }
     });

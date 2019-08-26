@@ -7,10 +7,10 @@ import {
 } from "./init";
 import { OWN_ADDRESS } from "./Web3Connections";
 
-export function setRetailerDetails(details) {
+export function setRetailerDetails(details, callback) {
   return new Promise((resolve, reject) => {
     uploadJsonToIPFS(details).then(hash => {
-      makeRetailerTransaction("send", "setRetailerDetails", hash)
+      makeRetailerTransaction(callback, "setRetailerDetails", hash)
         .then(resolve)
         .catch(reject);
     });

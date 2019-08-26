@@ -2,7 +2,7 @@ import Web3 from "web3";
 import config from "../config";
 
 export const web3 = new Web3(
-  new Web3.providers.HttpProvider("https://testnet2.matic.network")
+  new Web3.providers.HttpProvider("http://35.154.84.229:8545")
 );
 
 let STORAGE;
@@ -14,8 +14,8 @@ let RETAILER;
 let DISTRIBUTOR;
 
 const PRIVATE_KEY =
-  "0XB9A081AE2A58FCFDA0BD85B3852A251F57A3D146676DD168097206CC03EBBA85";
-// "0XF7F1F40B76D2690AF83B7D25CC9C0A0F5EC6E39E3036C3B1E3072FF291FE6D8E"
+  // "0XB9A081AE2A58FCFDA0BD85B3852A251F57A3D146676DD168097206CC03EBBA85";
+  "0x22ca85ef46e05b99a0d771a1117492bf10f6cfe288e362e8e9bd78d6a4a6a4e6";
 export let OWN_ADDRESS;
 let SIGN_TRANSACTION;
 export function initialSetup(resolve, reject) {
@@ -83,7 +83,7 @@ export function sendFarmerContract(
   callback,
   ...args
 ) {
-  console.log(args)
+  console.log(args);
   FARMER.methods[functionName](...args)
     .estimateGas({ from: OWN_ADDRESS })
     .then(gasEstimate => {

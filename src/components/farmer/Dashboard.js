@@ -45,39 +45,41 @@ const Dashboard = props => {
       numDiscarded: 0
     };
     getRowsForFarmer((rowObject, total) => {
-      if (tableRows < 3) {
-        tableRows++;
-        let objToBeAdded = {
-          harvestUnitId: rowObject.harvestUnitId,
-          plantName: rowObject.details.plantName,
-          datePlanted: rowObject.details.datePlanted,
-          seedCount: rowObject.details.seedCount,
-          currentState: rowObject.currentState
-        };
-        tempRowsArray.push(objToBeAdded);
-        setRowsArray([...tempRowsArray]);
-        addToBarObject(
-          objToBeAdded.plantName,
-          parseInt(objToBeAdded.seedCount)
-        );
-        tempStatusObj = setNumStatusObject(
-          rowObject.currentState.value,
-          tempStatusObj
-        );
-      } else {
-        tableRows++;
-        addToBarObject(
-          rowObject.details.plantName,
-          parseInt(rowObject.details.seedCount)
-        );
-        tempStatusObj = setNumStatusObject(
-          rowObject.currentState.value,
-          tempStatusObj
-        );
-        setShowForMoreRows(true);
+      if (rowObject) {
+        if (tableRows < 3) {
+          tableRows++;
+          let objToBeAdded = {
+            harvestUnitId: rowObject.harvestUnitId,
+            plantName: rowObject.details.plantName,
+            datePlanted: rowObject.details.datePlanted,
+            seedCount: rowObject.details.seedCount,
+            currentState: rowObject.currentState
+          };
+          tempRowsArray.push(objToBeAdded);
+          setRowsArray([...tempRowsArray]);
+          addToBarObject(
+            objToBeAdded.plantName,
+            parseInt(objToBeAdded.seedCount)
+          );
+          tempStatusObj = setNumStatusObject(
+            rowObject.currentState.value,
+            tempStatusObj
+          );
+        } else {
+          tableRows++;
+          addToBarObject(
+            rowObject.details.plantName,
+            parseInt(rowObject.details.seedCount)
+          );
+          tempStatusObj = setNumStatusObject(
+            rowObject.currentState.value,
+            tempStatusObj
+          );
+          setShowForMoreRows(true);
+        }
       }
 
-      if(tableRows === total){
+      if (tableRows === total) {
         setPreloader(false);
       }
     });
@@ -258,7 +260,7 @@ const Dashboard = props => {
           </section>
         </Col>
       </Row>
-      {preloader ? <Loader message={"Fetching Data"}/> : null}
+      {preloader ? <Loader message={"Fetching Data"} /> : null}
     </>
   );
 };

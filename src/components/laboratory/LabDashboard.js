@@ -44,74 +44,78 @@ const LabDashboard = props => {
       let tempNumTested = numTested;
       let numRows = 0;
       getRowsForLaboratory((row, total) => {
-        numRows++;
-        let tempPendingReports = pendingReportsArray;
-        let tempTestedReports = testedReportsArray;
-        let rowArr;
-        getFarmerDetails(row.details.farmerAddress).then(({ name }) => {
-          let tempSeedObjArr = seedObjArr;
-          tempSeedObjArr[row.uid.toString()] = row;
-          setSeedObjArr(tempSeedObjArr);
+        if (row) {
+          numRows++;
+          let tempPendingReports = pendingReportsArray;
+          let tempTestedReports = testedReportsArray;
+          let rowArr;
+          getFarmerDetails(row.details.farmerAddress).then(({ name }) => {
+            let tempSeedObjArr = seedObjArr;
+            tempSeedObjArr[row.uid.toString()] = row;
+            setSeedObjArr(tempSeedObjArr);
 
-          if (row.currentState.value === 5) {
-            rowArr = [
-              row.uid,
-              name,
-              row.details.plantName,
-              row.details.totalHarvestAmount,
-              row.details.sentToLabOn,
-              "Upload Report"
-            ];
-            tempPendingReports.push(rowArr);
-            setPendingReportsArray([...tempPendingReports]);
-            tempNumPending = tempNumPending + 1;
-            setNumPending(tempNumPending);
-          } else if (row.currentState.value === 10) {
-            rowArr = [
-              row.uid,
-              name,
-              row.details.plantName,
-              row.details.totalHarvestAmount,
-              row.details.harvestTime,
-              row.details.testedOn,
+            if (row.currentState.value === 5) {
+              rowArr = [
+                row.uid,
+                name,
+                row.details.plantName,
+                row.details.totalHarvestAmount,
+                row.details.sentToLabOn,
+                "Upload Report"
+              ];
+              tempPendingReports.push(rowArr);
+              setPendingReportsArray([...tempPendingReports]);
+              tempNumPending = tempNumPending + 1;
+              setNumPending(tempNumPending);
+            } else if (row.currentState.value === 10) {
+              rowArr = [
+                row.uid,
+                name,
+                row.details.plantName,
+                row.details.totalHarvestAmount,
+                row.details.harvestTime,
+                row.details.testedOn,
 
-              "view report"
-            ];
-            tempTestedReports.push(rowArr);
-            setTestedReportsArray([...tempTestedReports]);
-            tempNumTested += 1;
-            setNumTested(tempNumTested);
-          } else if (
-            row.currentState.value === 3 ||
-            row.currentState.value === 4
-          ) {
-            // do nothing
-          } else if (row.currentState.value === 11) {
-            tempNumTested += 1;
-            setNumTested(tempNumTested);
-          } else {
-            rowArr = [
-              row.uid,
-              name,
-              row.details.plantName,
-              row.details.totalHarvestAmount,
-              row.details.harvestTime,
-              row.details.testedOn,
+                "view report"
+              ];
+              tempTestedReports.push(rowArr);
+              setTestedReportsArray([...tempTestedReports]);
+              tempNumTested += 1;
+              setNumTested(tempNumTested);
+            } else if (
+              row.currentState.value === 3 ||
+              row.currentState.value === 4
+            ) {
+              // do nothing
+            } else if (row.currentState.value === 11) {
+              tempNumTested += 1;
+              setNumTested(tempNumTested);
+            } else {
+              rowArr = [
+                row.uid,
+                name,
+                row.details.plantName,
+                row.details.totalHarvestAmount,
+                row.details.harvestTime,
+                row.details.testedOn,
 
-              "view report"
-            ];
-            tempTestedReports.push(rowArr);
-            setTestedReportsArray([...tempTestedReports]);
-            tempNumTested += 1;
-            tempNumApproved += 1;
-            setNumTested(tempNumTested);
-            setNumApproved(tempNumApproved);
-          }
+                "view report"
+              ];
+              tempTestedReports.push(rowArr);
+              setTestedReportsArray([...tempTestedReports]);
+              tempNumTested += 1;
+              tempNumApproved += 1;
+              setNumTested(tempNumTested);
+              setNumApproved(tempNumApproved);
+            }
 
-          if (numRows === total) {
-            setPreloader(false);
-          }
-        });
+            if (numRows === total) {
+              setPreloader(false);
+            }
+          });
+        } else {
+          setPreloader(false);
+        }
       });
     });
   }, []);

@@ -7,10 +7,10 @@ import {
 } from "./init";
 import { OWN_ADDRESS } from "./Web3Connections";
 
-export function setLaboratoryDetails(details) {
+export function setLaboratoryDetails(details, callback) {
   return new Promise((resolve, reject) => {
     uploadJsonToIPFS(details).then(hash => {
-      makeLaboratoryTransaction("send", "setLaboratoryDetails", hash)
+      makeLaboratoryTransaction(callback, "setLaboratoryDetails", hash)
         .then(resolve)
         .catch(reject);
     });
@@ -83,6 +83,9 @@ export function getRowsForLaboratory(rowCallback) {
           .then(x => handleRow(x, val, array.length))
           .catch(handleError);
       });
+      if(array.length === 0){
+          rowCallback(undefined, 0);
+      }
     })
     .catch(handleError);
 }
