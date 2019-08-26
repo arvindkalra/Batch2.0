@@ -1,10 +1,11 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Notification from "../Notification";
 import {
+  locationMovedByFarmer,
   plantDestroyedByFarmer,
   plantHarvestedByFarmer,
   sellHarvestByFarmer,
@@ -21,8 +22,9 @@ const ActionForm = ({
   seedObj,
   destroyRequested,
   cancelDestroyRequest,
-    history
-
+  history,
+  moveRequested,
+  cancelMoveRequested
 }) => {
   const [showNotification, setShowNotification] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState("");
@@ -33,6 +35,7 @@ const ActionForm = ({
   const [destroyQuantity, setDestroyQuantity] = useState(0);
   const [destroyCompanyName, setDestroyCompanyName] = useState("Company A");
   const [destroyReason, setDestroyReason] = useState("");
+  const [newLocation, setNewLocation] = useState("");
   const [transactionMining, setTransactionMining] = useState(false);
   const [transactionObject, setTransactionObject] = useState(null);
   const sendHarvestReport = e => {
@@ -50,9 +53,10 @@ const ActionForm = ({
       setShowNotification(true);
       checkMined(hash, () => {
         setNotificationMessage(" the harvest report is submitted");
-        history.push('/cultivator/dashboard', {setNotification: true, setMessage: 'Your harvest report has been submitted'})
-
-
+        history.push("/cultivator/dashboard", {
+          setNotification: true,
+          setMessage: "Your harvest report has been submitted"
+        });
       });
     });
   };
@@ -76,7 +80,10 @@ const ActionForm = ({
       setNotificationMessage(" tx mining");
       setShowNotification(true);
       checkMined(hash, () => {
-        history.push('/cultivator/dashboard', {setNotification: true, setMessage: 'Your sample has been sent to the lab'})
+        history.push("/cultivator/dashboard", {
+          setNotification: true,
+          setMessage: "Your sample has been sent to the lab"
+        });
       });
     });
   };
@@ -112,8 +119,11 @@ const ActionForm = ({
       seedObj.details,
       openSignatureModal
     ).then(hash => {
-      checkMined(hash, () =>{
-        history.push('/cultivator/dashboard', {setNotification: true, setMessage: 'Your harvest has been sent to the manufacturer'})
+      checkMined(hash, () => {
+        history.push("/cultivator/dashboard", {
+          setNotification: true,
+          setMessage: "Your harvest has been sent to the manufacturer"
+        });
       });
     });
   };
@@ -131,7 +141,39 @@ const ActionForm = ({
       openSignatureModal
     ).then(hash => {
       checkMined(hash, () => {
-        history.push('/cultivator/dashboard', {setNotification: true, setMessage: 'Your crop has been destroyed'})
+        history.push("/cultivator/dashboard", {
+          setNotification: true,
+          setMessage: "Your crop has been destroyed"
+        });
+      });
+    });
+  };
+
+  const moveLocation = e => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (newLocation === "") {
+      alert("Fill All the Fields");
+      return;
+    }
+    let newLocationObject = {
+      location: newLocation,
+      time: new Date().toLocaleString()
+    };
+    let currentState = seedObj.currentState.value;
+    seedObj.details.currentLocation.push(newLocationObject);
+    setTransactionMining(true);
+    locationMovedByFarmer(
+      seedObj.harvestUnitId,
+      currentState,
+      seedObj.details,
+      openSignatureModal
+    ).then(hash => {
+      checkMined(hash, () => {
+        history.push("/cultivator/dashboard", {
+          setNotification: true,
+          setMessage: "Your crop has been destroyed"
+        });
       });
     });
   };
@@ -188,6 +230,37 @@ const ActionForm = ({
               type={"submit"}
               className={"btn-danger"}
               onClick={cancelDestroyRequest}
+            >
+              Cancel
+            </Button>
+          </Col>
+        </Row>
+      );
+    } else if (moveRequested) {
+      return (
+        <Row>
+          <Col md={12}>
+            <Form.Group>
+              <Form.Label>New Location</Form.Label>
+              <Form.Control
+                type={"text"}
+                placeholder={"Enter the new location"}
+                onChange={e => {
+                  setNewLocation(e.target.value);
+                }}
+              />
+            </Form.Group>
+          </Col>
+          <Col md={2}>
+            <Button type={"submit"} onClick={moveLocation}>
+              Destroy
+            </Button>
+          </Col>
+          <Col md={1}>
+            <Button
+              type={"submit"}
+              className={"btn-danger"}
+              onClick={cancelMoveRequested}
             >
               Cancel
             </Button>
@@ -310,7 +383,6 @@ const ActionForm = ({
   return (
     <Form>
       {setForm()}
-
 
       {transactionMining ? <Loader /> : null}
       {transactionObject ? createTransactionModal(transactionObject) : null}

@@ -6,6 +6,7 @@ import ActionForm from "./ActionForm";
 const ActionPanel = ({ productState, setProductStatus, seedObj, history }) => {
   const [showForm, setShowForm] = useState(false);
   const [destroyRequested, setDestroyRequested] = useState(false);
+  const [moveRequested, setMoveRequested] = useState(false);
 
   const setList = () => {
     if (productState.value === 1) {
@@ -88,6 +89,13 @@ const ActionPanel = ({ productState, setProductStatus, seedObj, history }) => {
     e.stopPropagation();
     setDestroyRequested(true);
   };
+
+  const handleMove = e => {
+    e.preventDefault();
+    e.stopPropagation();
+    setMoveRequested(true);
+  };
+
   return (
     <>
       <Col md={3}>
@@ -100,7 +108,10 @@ const ActionPanel = ({ productState, setProductStatus, seedObj, history }) => {
             <h3>Secondary Actions</h3>
             <div>
               {productState.value === 1 ? (
-                <Button className={"btn-warning move-location"}>
+                <Button
+                  className={"btn-warning move-location"}
+                  onClick={handleMove}
+                >
                   {" "}
                   MOVE LOCATION{" "}
                 </Button>
@@ -141,6 +152,10 @@ const ActionPanel = ({ productState, setProductStatus, seedObj, history }) => {
             destroyRequested={destroyRequested}
             cancelDestroyRequest={() => {
               setDestroyRequested(false);
+            }}
+            moveRequested={moveRequested}
+            cancelMoveRequested={() => {
+              setMoveRequested(false);
             }}
           />
         </section>

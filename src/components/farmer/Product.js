@@ -16,8 +16,7 @@ const Product = props => {
     const buid = parseInt(props.match.params.product);
     connectToMetamask().then(() => {
       getSeedUnitDetails(buid).then(seedDetails => {
-        console.log(seedDetails.details.currentLocation[-1])
-
+        console.log(seedDetails);
         setSeedObject(seedDetails);
         setProductStatus(seedDetails.currentState);
         setPreloader(false);
@@ -65,7 +64,13 @@ const Product = props => {
                 </Col>
                 <Col md={4} className={"product-info-tab"}>
                   <h2>Current Location</h2>
-                  <p>{seedObject.details.currentLocation[ seedObject.details.currentLocation.length -1].location}</p>
+                  <p>
+                    {seedObject.details.currentLocation
+                      ? seedObject.details.currentLocation[
+                          seedObject.details.currentLocation.length - 1
+                        ].location
+                      : ""}
+                  </p>
                 </Col>
                 <Col md={{ span: 4, offset: 2 }} className={"product-info-tab"}>
                   <h2>Soil Type</h2>

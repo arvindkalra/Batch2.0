@@ -61,11 +61,12 @@ export function sendToLaboratory(
   });
 }
 
-export function locationMovedByFarmer(harvestUnitId, currentState, details) {
+export function locationMovedByFarmer(harvestUnitId, currentState, details, callback) {
   return new Promise((resolve, reject) => {
+    console.log(arguments);
     uploadJsonToIPFS(details).then(hash => {
       makeFarmerTransaction(
-        "send",
+        callback,
         "moveLocation",
         harvestUnitId,
         hash,
