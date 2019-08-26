@@ -29,9 +29,10 @@ const ProfileCard = ({role}) => {
         connectToMetamask().then(() => {
 
 
-            if (role === 'farmer') {
+            if (role === 'cultivator') {
 
                 getFarmerDetails(OWN_ADDRESS).then(farmerObj => {
+
 
                     setName(farmerObj.name);
                     setCompanyName(farmerObj.companyName);
@@ -208,7 +209,7 @@ const ProfileCard = ({role}) => {
                             <Col md={6}>
                                 <Form.Group controlId={'farmer-company-name'}>
                                     <Form.Label>
-                                        Company Name
+                                        Legal Business Name
                                     </Form.Label>
                                     <Form.Control type={'text'}
                                                   placeholder={'Enter the name of your company as it appears on your license'}
@@ -222,7 +223,7 @@ const ProfileCard = ({role}) => {
 
                                 <Form.Group controlId={'address'}>
                                     <Form.Label>
-                                        Address
+                                        Premises Address
                                     </Form.Label>
                                     <Form.Control type={'text'}
                                                   placeholder={'Enter Your Address'}
@@ -232,22 +233,52 @@ const ProfileCard = ({role}) => {
                                 </Form.Group>
 
                             </Col>
-                            <Col md={6}>
-                                <Form.Group controlId={'license'}>
 
-                                    {license ?
-                                        <a href={license} target={'_blank'} onClick={openLicense}> view license </a> :
-                                        <>
-                                            <Form.Label className={'custom-file-label'}>
-                                                License
-                                            </Form.Label>
-                                            <Form.Control className={'custom-file-input'} type={'file'}
-                                                          placeholder={'Enter your License Number'}
-                                                          onChange={handleLicenseUpload}/>
-                                        </>}
+                            <Col md={6}>
+                                 <Form.Group controlId={'license-number'}>
+
+                                         <Form.Label >
+                                             License Number
+                                         </Form.Label>
+                                         <Form.Control as={'text'} />
+
+
 
 
                                 </Form.Group>
+                            </Col>
+                            <Col md={6}>
+                                 <Form.Group controlId={'license-type'}>
+                                     <Form.Label>
+                                         License Type
+                                     </Form.Label>
+                                     <Form.Control as={'select'}>
+                                         <option value="light tier 2">Light Tier 2</option>
+                                         <option value="lab123">LAB123</option>
+                                         <option value="manufacturing lite">Manufacturing Lite</option>
+                                         <option value="small enterprise">Small Enterprise</option>
+                                     </Form.Control>
+
+                                </Form.Group>
+                            </Col>
+                            <Col md={6}>
+
+
+                                {license ?
+                                    <a href={license} className={'license-link'} target={'_blank'} onClick={openLicense}> view license </a> :
+                                    <><Form.Group controlId={'license'}>
+                                        <Form.Label className={'custom-file-label'}>
+                                            License
+                                        </Form.Label>
+                                        <Form.Control className={'custom-file-input'} type={'file'}
+                                                      placeholder={'Enter your License Number'}
+                                                      onChange={handleLicenseUpload}/>
+                                    </Form.Group>
+                                    </>}
+
+
+
+
 
                             </Col>
                             <Col md={{span: 4, offset: 4}}>
