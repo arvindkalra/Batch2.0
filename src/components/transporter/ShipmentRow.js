@@ -13,6 +13,8 @@ import { checkMined } from "../../dbController/init";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Manifesto from "./Manifesto";
+import Form from "react-bootstrap/Form";
+import ProgressBar from "react-bootstrap/ProgressBar";
 
 const ShipmentRow = ({
   value,
@@ -24,6 +26,9 @@ const ShipmentRow = ({
   transporterDetails
 }) => {
   const [show, setShow] = useState(false);
+  const [dispatchShow, setDispatchShow] = useState(false);
+  const [transportationCost, setTransportationCost] = useState(0);
+  const [costKey, setCostKey] = useState("");
 
   const openSignatureModal = obj => {
     setTransactionObject({
@@ -208,51 +213,88 @@ const ShipmentRow = ({
   }
 
   return (
-    <tr>
-      <td>{value.uid}</td>
-      <td>{value.senderCompany.name}</td>
-      <td>{value.receiverCompany.name}</td>
-      <td>{value.dispatchTime ? value.dispatchTime : "--"}</td>
-      <td>
-        {tableType !== "delivered" ? (
-          getButtonString()
-        ) : (
-          <>
-            {" "}
-            <Button
-              onClick={() => {
-                setShow(true);
-              }}
-            >
+    <>
+      <tr>
+        <td>{value.uid}</td>
+        <td>{value.senderCompany.name}</td>
+        <td>{value.receiverCompany.name}</td>
+        <td>{value.dispatchTime ? value.dispatchTime : "--"}</td>
+        <td>
+          {tableType !== "delivered" ? (
+            getButtonString()
+          ) : (
+            <>
               {" "}
-              View manifesto
-            </Button>{" "}
-            <Modal
-              size={"xl"}
-              show={show}
-              onHide={() => {
-                setShow(false);
-              }}
-            >
-              {" "}
-              <Modal.Header closeButton>
-                <h1 className={"title-center"}>Transfer Manifesto</h1>
-              </Modal.Header>{" "}
-              <Modal.Body>
+              <Button
+                onClick={() => {
+                  setShow(true);
+                }}
+              >
                 {" "}
-                <Manifesto
-                  transporterDetails={transporterDetails}
-                  rowObj={rowObj}
-                  item={value}
-                  sender={value.senderCompany}
-                  receiver={value.receiverCompany}
-                />
-              </Modal.Body>{" "}
-            </Modal>{" "}
-          </>
-        )}
-      </td>
-    </tr>
+                View manifesto
+              </Button>{" "}
+              <Modal
+                size={"xl"}
+                show={show}
+                onHide={() => {
+                  setShow(false);
+                }}
+              >
+                {" "}
+                <Modal.Header closeButton>
+                  <h1 className={"title-center"}>Transfer Manifesto</h1>
+                </Modal.Header>{" "}
+                <Modal.Body>
+                  {" "}
+                  <Manifesto
+                    transporterDetails={transporterDetails}
+                    rowObj={rowObj}
+                    item={value}
+                    sender={value.senderCompany}
+                    receiver={value.receiverCompany}
+                  />
+                </Modal.Body>{" "}
+              </Modal>{" "}
+            </>
+          )}
+        </td>
+      </tr>
+      <Modal
+        size={"l"}
+        show={dispatchShow}
+        onHide={() => {
+          setDispatchShow(false);
+        }}
+      >
+        <Modal.Header closeButton>
+          <h1 className={"title-center"}>Dispatch Summary</h1>
+        </Modal.Header>
+        <Modal.Body>
+          <Form.Group>
+            <Form.Label>Enter the Price of Transportation</Form.Label>
+            <Form.Control
+              type={"text"}
+              placeholder={"The Price for Transportation"}
+              onChange={e => {
+                setTransportationCost(parseInt(e.target.value));
+              }}
+            />
+          </Form.Group>
+        </Modal.Body>
+        <Modal.Footer>
+          {getButtonString()}
+          <Button
+            onClick={e => {
+              e.preventDefault();
+              e.stopPropagation();
+              setDispatchShow(false);
+            }}
+          >
+            Cancel
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </>
   );
 };
 
