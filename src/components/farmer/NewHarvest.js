@@ -12,7 +12,7 @@ import Loader from "../Loader";
 import {OWN_ADDRESS} from "../../dbController/Web3Connections";
 
 const NewHarvest = ({location, history}) => {
-    const [lineage, setLineage] = useState("line1");
+    const [lineage, setLineage] = useState("Durban Poison, OG Kush");
     const [floweringTime, setFloweringTime] = useState("10-20 days");
     const [plantLocation, setPlantLocation] = useState("Green House");
     const [soilType, setSoilType] = useState("Slightly Acidic");
@@ -29,7 +29,7 @@ const NewHarvest = ({location, history}) => {
         let objToBeUploaded = {
             lineage: lineage,
             floweringTime: floweringTime,
-            currentLocation: [plantLocation],
+            currentLocation: [{location: plantLocation, time: new Date().toLocaleString()}],
             soilType: soilType,
             nutrients: nutrients,
             datePlanted: new Date().toLocaleString(),
@@ -38,6 +38,7 @@ const NewHarvest = ({location, history}) => {
             plantImage: plantImage,
             farmerAddress: OWN_ADDRESS
         };
+        console.log(objToBeUploaded)
         connectToMetamask().then(() => {
             setTransactionMining(true);
 
@@ -111,8 +112,8 @@ const NewHarvest = ({location, history}) => {
                                             onChange={e => setLineage(e.target.value)}
                                         >
                                             <option value="Durban Poison, OG Kush">Durban Poison, OG Kush</option>
-                                            <option value="">line2</option>
-                                            <option value="">line3</option>
+                                            <option value="line2">line2</option>
+                                            <option value="line3">line3</option>
                                         </Form.Control>
                                     </Form.Group>
                                 </Col>
@@ -139,8 +140,8 @@ const NewHarvest = ({location, history}) => {
                                             as={"select"}
                                             onChange={e => setPlantLocation(e.target.value)}
                                         >
-                                            <option value="">Green House</option>
-                                            <option value="">Outdoor Farm</option>
+                                            <option value="Green House">Green House</option>
+                                            <option value="Outdoor Farm">Outdoor Farm</option>
                                         </Form.Control>
                                     </Form.Group>
                                 </Col>
@@ -152,9 +153,9 @@ const NewHarvest = ({location, history}) => {
                                             as={"select"}
                                             onChange={e => setSoilType(e.target.value)}
                                         >
-                                            <option value="">Slightly Acidic</option>
-                                            <option value="">Another Soil Type</option>
-                                            <option value="">Yet Another Soil Type</option>
+                                            <option value="Slightly Acidic">Slightly Acidic</option>
+                                            <option value="Another Soil Type">Another Soil Type</option>
+                                            <option value="Yet Another Soil Type">Yet Another Soil Type</option>
                                         </Form.Control>
                                     </Form.Group>
                                 </Col>

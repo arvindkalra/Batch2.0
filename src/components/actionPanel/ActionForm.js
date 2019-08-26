@@ -199,7 +199,7 @@ const ActionForm = ({
         <Row>
           <Col md={12}>
             <Form.Group>
-              <Form.Label>Harvested Amount</Form.Label>
+              <Form.Label>Harvested Amount(in Pounds)</Form.Label>
               <Form.Control
                 type={"number"}
                 placeholder={"Enter the amount harvested in pounds"}
