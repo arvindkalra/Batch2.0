@@ -14,7 +14,6 @@ const Retailer = ({location}) => {
             clearLocal();
 
             getRetailerDetails().then((obj) => {
-                console.log(obj);
                 setUserName(obj.name);
                 localStorage.setItem('name', obj.name);
                 setProfileImage(obj.profileImage);

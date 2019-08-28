@@ -38,7 +38,7 @@ const DistributorProductDetail = props => {
         manufacturerName = name;
         manufacturerCompany = companyName;
         return fetchHarvestUnitDetailsUsingUID(
-          parseInt(productObject.details.harvestUnitId)
+          productObject.details.harvestUnitId
         );
       })
       .then(({ details }) => {

@@ -351,13 +351,13 @@ export const fetchEntireJourney = buid => {
       .then(obj => {
         objToReturn = obj.details;
         return fetchProductUnitDetailsUsingUID(
-          parseInt(obj.details.productUnitId)
+          obj.details.productUnitId
         );
       })
       .then(obj => {
         objToReturn = { ...objToReturn, ...obj.details };
         return fetchHarvestUnitDetailsUsingUID(
-          parseInt(obj.details.harvestUnitId)
+          obj.details.harvestUnitId
         );
       })
       .then(obj => {

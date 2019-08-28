@@ -25,7 +25,7 @@ const Report = ({location, match}) => {
     }
     useEffect(() => {
 
-        const buid = parseInt(match.params.id);
+        const buid = match.params.id;
         connectToMetamask().then(() => {
             getSeedUnitDetails(buid).then((seedObject) => {
                 setSeedObject(seedObject);

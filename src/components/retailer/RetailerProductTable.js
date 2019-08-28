@@ -5,7 +5,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 
-const RetailerProductTable = ({rows, showForMore}) => {
+const RetailerProductTable = ({rows}) => {
     return (
         <>
             <Table responsive>
@@ -36,19 +36,6 @@ const RetailerProductTable = ({rows, showForMore}) => {
                 })}
                 </tbody>
             </Table>
-            <Row>
-                <Col>
-                    <ul className={"table-links-list"}>
-                        {showForMore ? (
-                            <li>
-                                <Link to={"/cultivator/products"}>See all harvests </Link>
-                            </li>
-                        ) : (
-                            <></>
-                        )}
-                    </ul>
-                </Col>
-            </Row>
         </>
     );
 };

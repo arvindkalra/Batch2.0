@@ -13,7 +13,7 @@ import ActionForm from "../actionPanel/ActionForm";
 
 const Product = props => {
   useEffect(() => {
-    const buid = parseInt(props.match.params.product);
+    const buid = props.match.params.product;
     connectToMetamask().then(() => {
       getSeedUnitDetails(buid).then(seedDetails => {
         console.log(seedDetails);

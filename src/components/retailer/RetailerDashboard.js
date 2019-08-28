@@ -14,48 +14,35 @@ import Loader from "../Loader";
 
 const RetailerDashboard = ({ location }) => {
   const [inventoryTable, setInventoryTable] = useState([]);
-  const [showForMore, setShowForMore] = useState(false);
   const [barGraphObject, setBarGraphObject] = useState({});
   const [changed, setChanged] = useState(0);
   const [preloader, setPreloader] = useState(true);
   useEffect(() => {
     connectToMetamask().then(() => {
       let tempInventory = inventoryTable;
-      let tableRows = 0;
       let tempBarGraphObject = barGraphObject;
       let tempChanged = changed;
       let totalEntries = 0;
       getRowsForRetailer((row, total) => {
         totalEntries++;
         if (row.currentState.value === 4) {
-          if (tableRows < 3) {
-            tableRows++;
-            getObjectForRow(row, (...args) => {
-              addToGraphData(
-                ...args,
-                tempBarGraphObject,
-                setBarGraphObject,
-                tempChanged++
-              );
-            }).then(obj => {
-              if (obj) {
-                tempInventory.push(obj);
-                setInventoryTable([...tempInventory]);
-              }
-            });
-          } else {
-            let unitsAlreadySold = row.details.totalUnitsAlreadySold
-              ? row.details.totalUnitsAlreadySold
-              : 0;
+          getObjectForRow(row, (...args) => {
             addToGraphData(
-              row.details.packetName,
-              unitsAlreadySold,
+              ...args,
               tempBarGraphObject,
               setBarGraphObject,
               tempChanged++
             );
-            setShowForMore(true);
-          }
+          }).then(obj => {
+            if (obj) {
+              tempInventory.push(obj);
+              setInventoryTable([...tempInventory]);
+              if (totalEntries === total) {
+                setPreloader(false);
+              }
+            }
+          });
+        }else {
           if (totalEntries === total) {
             setPreloader(false);
           }
@@ -74,7 +61,7 @@ const RetailerDashboard = ({ location }) => {
         resolve(null);
         return;
       }
-      fetchProductUnitDetailsUsingUID(parseInt(row.details.productUnitId))
+      fetchProductUnitDetailsUsingUID(row.details.productUnitId)
         .then(productDetails => {
           let objToBeAdded = {
             batchUnitId: row.batchUnitId,
@@ -130,10 +117,7 @@ const RetailerDashboard = ({ location }) => {
           <section className={"dashboard-section"}>
             <h3 className={"section-title"}>Inventory</h3>
             <section className={"table-section"}>
-              <RetailerProductTable
-                rows={inventoryTable}
-                showForMore={showForMore}
-              />
+              <RetailerProductTable rows={inventoryTable} />
             </section>
           </section>
         </Col>
