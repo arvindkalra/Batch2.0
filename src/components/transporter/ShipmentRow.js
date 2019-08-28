@@ -215,7 +215,7 @@ const ShipmentRow = ({
   return (
     <>
       <tr>
-        <td>{value.uid}</td>
+        <td className={"uid"}>{value.uid}</td>
         <td>{value.senderCompany.name}</td>
         <td>{value.receiverCompany.name}</td>
         <td>{value.dispatchTime ? value.dispatchTime : "--"}</td>

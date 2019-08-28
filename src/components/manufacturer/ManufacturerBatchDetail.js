@@ -63,7 +63,7 @@ const ManufacturerBatchDetail = props => {
           <Row>
             <Col md={4} className={"data-info-box"}>
               <h4>Batch Id</h4>
-              <p>{batchInfo.buid}</p>
+              <p className={"uid"}>{batchInfo.buid}</p>
             </Col>
             <Col md={4} className={"data-info-box"}>
               <h4>Cultivator</h4>

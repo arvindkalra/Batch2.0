@@ -2,7 +2,7 @@ import Web3 from "web3";
 import config from "../config";
 
 export const web3 = new Web3(
-  new Web3.providers.HttpProvider("http://35.154.84.229:8545")
+  new Web3.providers.HttpProvider(config.RPC_URL)
 );
 
 let STORAGE;
@@ -13,11 +13,10 @@ let MANUFACTURER;
 let RETAILER;
 let DISTRIBUTOR;
 
-const PRIVATE_KEY =
-  // "0XB9A081AE2A58FCFDA0BD85B3852A251F57A3D146676DD168097206CC03EBBA85";
-  "0x22ca85ef46e05b99a0d771a1117492bf10f6cfe288e362e8e9bd78d6a4a6a4e6";
+const PRIVATE_KEY = config.OWN_PRIVATE_KEY;
 export let OWN_ADDRESS;
 let SIGN_TRANSACTION;
+
 export function initialSetup(resolve, reject) {
   let obj = web3.eth.accounts.privateKeyToAccount(PRIVATE_KEY);
   OWN_ADDRESS = obj.address;

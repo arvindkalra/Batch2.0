@@ -35,7 +35,7 @@ const HarvestShipmentRowUnused = ({ value, rowObj }) => {
 
   return (
     <tr>
-      <td>{value.uid}</td>
+      <td className={"uid"}>{value.uid}</td>
       <td>{value.senderCompany}</td>
       <td>{value.receiverCompany}</td>
       <td>{value.amount}</td>

@@ -22,7 +22,7 @@ const ProductTable = ({ rows, showForMore }) => {
           {rows.map((element, id) => {
             return (
               <tr key={id}>
-                <td>{element.harvestUnitId}</td>
+                <td className={"uid"}>{element.harvestUnitId}</td>
                 <td>
                   <Link to={`/cultivator/products/${element.harvestUnitId}`}>
                     {element.plantName}

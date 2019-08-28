@@ -19,7 +19,7 @@ const AvailableRawMaterialTable = ({ array }) => {
           {array.map((element, id) => {
             return (
               <tr key={id + "" + element.harvestUnitId}>
-                <td>{element.harvestUnitId}</td>
+                <td className={"uid"}>{element.harvestUnitId}</td>
                 <td>
                   <Link to={`/manufacturer/harvest/${element.harvestUnitId}`}>
                     {element.plantName}

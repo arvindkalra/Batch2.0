@@ -1,6 +1,10 @@
 @import "utils";
 @import "colors";
 
+.uid {
+  text-transform: uppercase;
+}
+
 .jumbotron {
   h1,
   h4 {
@@ -17,7 +21,8 @@
   margin-bottom: 20px;
 }
 
-.table-col , .chart-col{
+.table-col,
+.chart-col {
   margin-bottom: 10px;
 }
 
@@ -236,10 +241,9 @@ p.description {
   }
   word-wrap: break-word;
 }
-.license-link{
+.license-link {
   display: block;
   text-align: center;
   margin: 0 auto;
   padding-top: 60px;
-
 }

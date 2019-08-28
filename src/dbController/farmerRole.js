@@ -130,6 +130,7 @@ export function sellHarvestByFarmer(
 }
 
 export function getSeedUnitDetails(harvestUnitId) {
+  harvestUnitId = convertFromHex(harvestUnitId);
   return new Promise((resolve, reject) => {
     return makeStorageTransaction("getHarvestUnit", harvestUnitId).then(
       object => {

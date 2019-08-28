@@ -23,28 +23,21 @@ import {
   sendTransporterContract
 } from "./Web3Connections";
 
-const URL = "http://35.154.84.229:2000";
+const URL = config.SERVER_URL;
 
-export const web3 = new Web3(
-    new Web3.providers.HttpProvider("http://35.154.84.229:8545")
-);
+export const web3 = new Web3(new Web3.providers.HttpProvider(config.RPC_URL));
 
-// export const ipfsNode = new IPFS("ipfs.infura.io", "5001", {
-//   protocol: "https",
-//   headers: {
-//     "Access-Control-Allow-Origin": "*",
-//     "Access-Control-Allow-Methods": '["PUT", "POST", "GET"]'
-//   }
-// });
-// export const NETWORK_NAME = config.NETWORK_NAME;
-
-let STORAGE;
-let FARMER;
-let LABORATORY;
-let TRANSPORTER;
-let MANUFACTURER;
-let RETAILER;
-let DISTRIBUTOR;
+/*
+// IPFS Setup Functionality
+export const ipfsNode = new IPFS("ipfs.infura.io", "5001", {
+  protocol: "https",
+  headers: {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": '["PUT", "POST", "GET"]'
+  }
+});
+export const NETWORK_NAME = config.NETWORK_NAME;
+*/
 
 export function connectToMetamask() {
   return new Promise((resolve, reject) => {
@@ -63,7 +56,6 @@ export function makeFarmerTransaction(type, functionName, ...args) {
     if (type === "call") {
       callFarmerContract(functionName, resolve, reject, ...args);
     } else {
-
       sendFarmerContract(functionName, resolve, reject, type, ...args);
     }
   });
@@ -119,60 +111,20 @@ export function makeRetailerTransaction(type, functionName, ...args) {
   });
 }
 
-// export function fetchEntireChain(buid) {
-//   return new Promise((resolve, reject) => {
-//     let packetsHash = "";
-//     let harvestHash = "";
-//     let addresses = [];
-//     let rv = {};
-//     makeChainTransaction("fetchEntireChain", buid)
-//       .then(data => {
-//         data = data.valueOf();
-//         packetsHash = data[0];
-//         harvestHash = data[1];
-//         addresses = data[2];
-//         rv = {
-//           farmerAddress: addresses[0],
-//           laboratoryAddress: addresses[1],
-//           manufacturerAddress: addresses[2],
-//           farmerToManufacturerTransporterAddress: addresses[3],
-//           retailerAddress: addresses[4],
-//           manufacturerToRetailerTransporter: addresses[5]
-//         };
-//         return getJsonFromIPFS(packetsHash);
-//       })
-//       .then(details => {
-//         let packetsDispatchTime = details.dispatchTime;
-//         let packetsDeliveryTime = details.deliveryTime;
-//         delete details["dispatchTime"];
-//         delete details["deliveryTime"];
-//         rv = { ...rv, ...details, packetsDeliveryTime, packetsDispatchTime };
-//         return getJsonFromIPFS(harvestHash);
-//       })
-//       .then(details => {
-//         let harvestDispatchTime = details.dispatchTime;
-//         let harvestDeliveryTime = details.deliveryTime;
-//         delete details["dispatchTime"];
-//         delete details["deliveryTime"];
-//         rv = { ...rv, ...details, harvestDeliveryTime, harvestDispatchTime };
-//         resolve(rv);
-//       })
-//       .catch(reject);
-//   });
-// }
-
 // TODO upload ipfs to change for ipfs
 export function uploadJsonToIPFS(_json) {
   console.log("Uploading");
   return new Promise((resolve, reject) => {
-    // let buffer = Buffer.from(JSON.stringify(_json));
-    // ipfsNode
-    //   .add(buffer)
-    //   .then(response => {
-    //     console.log("uplaoded");
-    //     resolve(response[0].path);
-    //   })
-    //   .catch(reject);
+/*
+    let buffer = Buffer.from(JSON.stringify(_json));
+    ipfsNode
+      .add(buffer)
+      .then(response => {
+        console.log("uplaoded");
+        resolve(response[0].path);
+      })
+      .catch(reject);
+*/
     fetch(URL + "/add", {
       method: "POST",
       headers: {
@@ -192,13 +144,15 @@ export function uploadJsonToIPFS(_json) {
 
 export function getJsonFromIPFS(_path) {
   return new Promise((resolve, reject) => {
-    // ipfsNode
-    //   .get("/ipfs/" + _path)
-    //   .then(response => {
-    //     let content = response[0].content;
-    //     resolve(JSON.parse(content.toString()));
-    //   })
-    //   .catch(reject);
+/*
+    ipfsNode
+      .get("/ipfs/" + _path)
+      .then(response => {
+        let content = response[0].content;
+        resolve(JSON.parse(content.toString()));
+      })
+      .catch(reject);
+*/
     fetch(URL + "/get", {
       method: "POST",
       headers: {
@@ -420,5 +374,5 @@ export function convertFromHex(hex) {
 
 export function convertToHex(uid) {
   uid = parseInt(uid);
-  return ("000000" + uid.toString(16)).substr(-6)
+  return ("000000" + uid.toString(16)).substr(-6);
 }

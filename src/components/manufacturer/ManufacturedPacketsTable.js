@@ -86,7 +86,7 @@ const ManufacturedPacketsTable = ({
           {array.map((element, id) => {
             return (
               <tr key={id + "" + element.productUnitId}>
-                <td>{element.productUnitId}</td>
+                <td className={"uid"}>{element.productUnitId}</td>
                 <td>{element.productType}</td>
                 <td>{element.totalPacketsManufactured}</td>
                 <td>{element.packetSize}</td>
