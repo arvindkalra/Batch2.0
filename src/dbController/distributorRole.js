@@ -1,5 +1,7 @@
 import {
   batchStates,
+  convertFromHex,
+  convertToHex,
   getJsonFromIPFS,
   makeDistributorTransaction,
   makeStorageTransaction,
@@ -25,6 +27,7 @@ export function getDistributorDetails(address) {
 }
 
 function handleObject(obj, uid, isProduct) {
+  uid = convertToHex(uid);
   return new Promise((resolve, reject) => {
     obj = obj.valueOf();
     let currentOwner = obj[0];
@@ -73,6 +76,7 @@ export function createBatchByDistributor(
   transporterAddress,
   signCallback
 ) {
+  productUnitId = convertFromHex(productUnitId);
   let productHash;
   return uploadJsonToIPFS(productDetailsUpdated)
     .then(hash => {
@@ -108,6 +112,7 @@ export function fetchBatchUnitsForDistributor(rowCallback) {
 }
 
 export function fetchBatchUnitDetailsUsingUID(batchUnitId) {
+  batchUnitId = convertFromHex(batchUnitId);
   return new Promise((resolve, reject) => {
     makeStorageTransaction("getBatchUnit", batchUnitId)
       .then(obj => {
@@ -124,6 +129,7 @@ export function sendBatchToTheRetailer(
   transporterAddress,
   details
 ) {
+  batchUnitId = convertFromHex(batchUnitId);
   return uploadJsonToIPFS(details).then(hash => {
     return makeDistributorTransaction(
       "send",

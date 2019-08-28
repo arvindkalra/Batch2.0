@@ -1,5 +1,5 @@
 import {
-  batchStates,
+  batchStates, convertFromHex, convertToHex,
   getJsonFromIPFS,
   harvestStates,
   makeStorageTransaction,
@@ -35,6 +35,7 @@ export function getTransporterDetails(address) {
 }
 
 function handleObject(object, uid, isHarvest, isBatch) {
+  uid = convertToHex(uid);
   return new Promise((resolve, reject) => {
     object = object.valueOf();
     getJsonFromIPFS(object[1])
@@ -92,6 +93,7 @@ export function dispatchLabSampleConsignment(
   details,
   signCallback
 ) {
+  harvestUid = convertFromHex(harvestUid);
   return uploadJsonToIPFS(details).then(hash => {
     return makeTransporterTransaction(
       signCallback,
@@ -110,6 +112,7 @@ export function deliverLabSampleConsignment(
   details,
   signCallback
 ) {
+  harvestUid = convertFromHex(harvestUid);
   return uploadJsonToIPFS(details).then(hash => {
     return makeTransporterTransaction(
       signCallback,
@@ -160,6 +163,7 @@ export function dispatchFarmToFactoryConsignment(
   details,
   signCallback
 ) {
+  harvestUid = convertFromHex(harvestUid);
   return uploadJsonToIPFS(details).then(hash => {
     return makeTransporterTransaction(
       signCallback,
@@ -178,6 +182,7 @@ export function deliverFarmToFactoryConsignment(
   details,
   signCallback
 ) {
+  harvestUid = convertFromHex(harvestUid);
   return uploadJsonToIPFS(details).then(hash => {
     return makeTransporterTransaction(
       signCallback,
@@ -214,6 +219,7 @@ export function dispatchFactoryToDistributorConsignment(
   details,
   signCallback
 ) {
+  productUnitId = convertFromHex(productUnitId);
   return uploadJsonToIPFS(details).then(hash => {
     return makeTransporterTransaction(
       signCallback,
@@ -232,6 +238,7 @@ export function deliverFactoryToDistributorConsignment(
   details,
   signCallback
 ) {
+  productUnitId = convertFromHex(productUnitId);
   return uploadJsonToIPFS(details).then(hash => {
     return makeTransporterTransaction(
       signCallback,
@@ -268,6 +275,7 @@ export function dispatchDistributorToShopConsignment(
   details,
   signCallback
 ) {
+  batchUnitId = convertFromHex(batchUnitId);
   return uploadJsonToIPFS(details).then(hash => {
     return makeTransporterTransaction(
       signCallback,
@@ -286,6 +294,7 @@ export function deliverDistributorToShopConsignment(
   details,
   signCallback
 ) {
+  batchUnitId = convertFromHex(batchUnitId);
   return uploadJsonToIPFS(details).then(hash => {
     return makeTransporterTransaction(
       signCallback,
@@ -296,50 +305,4 @@ export function deliverDistributorToShopConsignment(
       retailerAddress
     );
   });
-}
-
-export function getTransportUnitDetails(isHarvest, rowCallback) {
-  // let which = isHarvest ? 0 : 1;
-  // makeChainTransaction("getTransportUnitsByTransporter", which)
-  //   .then(array => {
-  //     array = array.valueOf();
-  //     array.forEach(x => {
-  //       x = x.toNumber();
-  //       makeChainTransaction("getTransportUnitDetails", x, which)
-  //         .then(o => handleObject(o, x))
-  //         .catch(handleError);
-  //     });
-  //   })
-  //   .catch(handleError);
-  //
-  // function handleObject(obj, uid) {
-  //   obj = obj.valueOf();
-  //   getJsonFromIPFS(obj[3]).then(details => {
-  //     rowCallback({
-  //       uid,
-  //       details,
-  //       currentState: isHarvest
-  //         ? harvestStates(obj[4].toNumber())
-  //         : packetStates(obj[4].toNumber()),
-  //       senderAddress: obj[0],
-  //       receiverAddress: obj[1],
-  //       amount: obj[2].toNumber()
-  //     });
-  //   });
-  // }
-  //
-  // function handleError(err) {
-  //   throw err;
-  // }
-}
-
-export function deliverOrDispatchTransport(uid, isHarvest, details) {
-  // return uploadJsonToIPFS(details).then(hash => {
-  //   return makeChainTransaction(
-  //     "deliverOrDispatchByTransporter",
-  //     uid,
-  //     hash,
-  //     isHarvest ? 0 : 1
-  //   );
-  // });
 }

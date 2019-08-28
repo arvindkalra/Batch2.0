@@ -1,4 +1,6 @@
 import {
+  convertFromHex,
+  convertToHex,
   getJsonFromIPFS,
   harvestStates,
   makeManufacturerTransaction,
@@ -34,6 +36,7 @@ export function getManufacturerDetails(address) {
 }
 
 export function fetchHarvestUnitDetailsUsingUID(harvestUnitId) {
+  harvestUnitId = convertFromHex(harvestUnitId);
   return new Promise((resolve, reject) => {
     makeStorageTransaction("getHarvestUnit", harvestUnitId)
       .then(obj => {
@@ -45,6 +48,7 @@ export function fetchHarvestUnitDetailsUsingUID(harvestUnitId) {
 }
 
 export function fetchProductUnitDetailsUsingUID(productUnitId) {
+  productUnitId = convertFromHex(productUnitId);
   return new Promise((resolve, reject) => {
     makeStorageTransaction("getProductUnit", productUnitId)
       .then(obj => {
@@ -73,6 +77,7 @@ export function fetchHarvestUnitsByManufacturer(rowCallback) {
 }
 
 function handleObject(obj, uid, isHarvest) {
+  uid = convertToHex(uid);
   return new Promise((resolve, reject) => {
     obj = obj.valueOf();
     let currentOwner = obj[0];
@@ -120,6 +125,7 @@ export function packetsManufactured(
   productObjectDetailsNew,
   signCallback
 ) {
+  harvestUnitId = convertFromHex(harvestUnitId);
   let harvestHash;
   let productHash;
   return uploadJsonToIPFS(harvestObjectDetailsUpdated)
@@ -146,6 +152,7 @@ export function sendProductToDistributor(
   details,
   signCallback
 ) {
+  productUid = convertFromHex(productUid);
   return uploadJsonToIPFS(details).then(hash => {
     return makeManufacturerTransaction(
       signCallback,

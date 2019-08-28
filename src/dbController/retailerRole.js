@@ -1,5 +1,5 @@
 import {
-  batchStates,
+  batchStates, convertFromHex, convertToHex,
   getJsonFromIPFS,
   makeRetailerTransaction,
   makeStorageTransaction,
@@ -64,6 +64,7 @@ export function sellPacketsToBuyer(
   buyerPurchaseDetails,
   signCallback
 ) {
+  batchUnitId = convertFromHex(batchUnitId);
   let sellerHash;
   return uploadJsonToIPFS(sellerStockDetails).then(hash => {
     sellerHash = hash;
@@ -95,6 +96,7 @@ export function getRowsForRetailer(rowCallbacks) {
     .catch(handleError);
 
   function handleObject(obj, uid) {
+    uid = convertToHex(uid);
     return new Promise((resolve, reject) => {
       obj = obj.valueOf();
       getJsonFromIPFS(obj[1])

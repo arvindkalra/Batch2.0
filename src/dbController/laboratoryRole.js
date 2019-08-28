@@ -1,4 +1,6 @@
 import {
+  convertFromHex,
+  convertToHex,
   getJsonFromIPFS,
   harvestStates,
   makeLaboratoryTransaction,
@@ -39,6 +41,7 @@ export function uploadReport(
   isApproved,
   signCallback
 ) {
+  harvestUnitId = convertFromHex(harvestUnitId);
   return new Promise((resolve, reject) => {
     uploadJsonToIPFS(details)
       .then(hash => {
@@ -59,6 +62,7 @@ export function uploadReport(
 
 export function getRowsForLaboratory(rowCallback) {
   let handleRow = (obj, uid, total) => {
+    uid = convertToHex(uid);
     obj = obj.valueOf();
     // console.log(obj);
     getJsonFromIPFS(obj[1]).then(details => {
@@ -83,8 +87,8 @@ export function getRowsForLaboratory(rowCallback) {
           .then(x => handleRow(x, val, array.length))
           .catch(handleError);
       });
-      if(array.length === 0){
-          rowCallback(undefined, 0);
+      if (array.length === 0) {
+        rowCallback(undefined, 0);
       }
     })
     .catch(handleError);

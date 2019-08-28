@@ -1,4 +1,6 @@
 import {
+  convertFromHex,
+  convertToHex,
   getJsonFromIPFS,
   harvestStates,
   makeFarmerTransaction,
@@ -49,7 +51,7 @@ export function sendToLaboratory(
   details,
   signCallback
 ) {
-  console.log(transporterAddress);
+  harvestUnitId = convertFromHex(harvestUnitId);
   return uploadJsonToIPFS(details).then(hash => {
     return makeFarmerTransaction(
       signCallback,
@@ -63,6 +65,7 @@ export function sendToLaboratory(
 }
 
 export function locationMovedByFarmer(harvestUnitId, currentState, details, callback) {
+  harvestUnitId = convertFromHex(harvestUnitId);
   return new Promise((resolve, reject) => {
     console.log(arguments);
     uploadJsonToIPFS(details).then(hash => {
@@ -80,7 +83,7 @@ export function locationMovedByFarmer(harvestUnitId, currentState, details, call
 }
 
 export function plantDestroyedByFarmer(harvestUnitId, details, signCallback) {
-  console.log(arguments);
+  harvestUnitId = convertFromHex(harvestUnitId);
   return uploadJsonToIPFS(details).then(hash => {
     return makeFarmerTransaction(
       signCallback,
@@ -92,6 +95,7 @@ export function plantDestroyedByFarmer(harvestUnitId, details, signCallback) {
 }
 
 export function plantHarvestedByFarmer(harvestUnitId, details, signCallback) {
+  harvestUnitId = convertFromHex(harvestUnitId);
   return new Promise((resolve, reject) => {
     uploadJsonToIPFS(details).then(hash => {
       makeFarmerTransaction(signCallback, "plantHarvest", harvestUnitId, hash)
@@ -108,6 +112,7 @@ export function sellHarvestByFarmer(
   details,
   signCallback
 ) {
+  harvestUnitId = convertFromHex(harvestUnitId);
   return new Promise((resolve, reject) => {
     uploadJsonToIPFS(details).then(hash => {
       makeFarmerTransaction(
@@ -132,10 +137,9 @@ export function getSeedUnitDetails(harvestUnitId) {
         let currentOwner = object[0];
         let latestHash = object[1];
         let currentState = parseInt(object[2]);
-
         getJsonFromIPFS(latestHash).then(obj => {
           let rowObj = {
-            harvestUnitId: harvestUnitId,
+            harvestUnitId: convertToHex(harvestUnitId),
             currentOwner,
             details: obj,
             currentState: harvestStates(currentState)
@@ -172,7 +176,7 @@ export function getRowsForFarmer(rowObject) {
     getJsonFromIPFS(latestHash)
       .then(obj => {
         let rowObj = {
-          harvestUnitId: uid,
+          harvestUnitId: convertToHex(uid),
           currentOwner,
           details: obj,
           currentState: harvestStates(currentState)
