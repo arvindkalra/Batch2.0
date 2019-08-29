@@ -27,18 +27,23 @@ const Product = props => {
     state: "",
     progress: 0
   });
-  const [seedObject, setSeedObject] = useState({ details: {currentLocation:[{location:'' , time: ''}]} });
+  const [seedObject, setSeedObject] = useState({
+    details: { currentLocation: [{ location: "", time: "" }] }
+  });
   const [preloader, setPreloader] = useState(true);
   return (
     <>
       <Layout location={props.location}>
-        <Row className={"title"}>
-          <Col>
-            <h1> Product Name: {seedObject.details.plantName} </h1>
-          </Col>
-        </Row>
         <Row>
-          <Col>{setBreadcrumb(props.location.pathname)}</Col>
+          <Col>
+            {setBreadcrumb(
+              `/cultivator/products/${
+                seedObject.details.plantName
+                  ? seedObject.details.plantName
+                  : "Loading..."
+              }`
+            )}
+          </Col>
         </Row>
         <Row>
           <Col>
@@ -95,7 +100,7 @@ const Product = props => {
                 </Col>
                 <Col md={4}>
                   <h2>Batch Id</h2>
-                  <p>#{seedObject.harvestUnitId}</p>
+                  <p className={"uid"}>#{seedObject.harvestUnitId}</p>
                 </Col>
                 <Col>
                   <h2>Quantity</h2>

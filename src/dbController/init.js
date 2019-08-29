@@ -369,10 +369,10 @@ export const fetchEntireJourney = buid => {
 };
 
 export function convertFromHex(hex) {
-  return parseInt(hex, 16);
+  return parseInt(hex.toLowerCase(), 16);
 }
 
 export function convertToHex(uid) {
   uid = parseInt(uid);
-  return ("000000" + uid.toString(16)).substr(-6);
+  return ("000000" + uid.toString(16)).substr(-6).toUpperCase();
 }
