@@ -8,7 +8,7 @@ const PieChart1 = ({ numApproved, numRejected }) => {
     setTotal(numRejected + numApproved);
   }, [numRejected, numApproved]);
   const labels = ["Plant Samples Approved", "Plant Samples Rejected"];
-  const backgrounds = ["#76ff03", "#f44336"];
+  const backgrounds = ['#FF6384', '#4BC0C0'];
 
   const options = {
     legend: {

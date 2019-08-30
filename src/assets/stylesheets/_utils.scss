@@ -1,10 +1,12 @@
 .info {
   font-weight: bolder;
 }
-.title-center{
+
+.title-center {
   width: 100%;
   text-align: center;
 }
+
 .center-align-text {
   text-align: center;
 }
@@ -46,6 +48,24 @@
 .shadow-box {
   box-shadow: 0 0 10px 10px #eee;
 }
+
+.under-linked {
+  border-bottom: 1px solid rgba(57, 55, 73, 0.25);
+
+  a {
+    color: rgba(0, 0, 0, 0.65);
+
+    &:hover {
+      text-decoration: none;
+      color: rgba(0, 0, 0, 0.65);
+    }
+  }
+}
+
+.float-right{
+  float: right;
+}
+
 
 // Font Size
 $base__font-size: 13 !default;

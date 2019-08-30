@@ -37,6 +37,15 @@ h3.status-tab-title {
   max-height: 360px;
 }
 
+.dashboard-section{
+  .card-header{
+    button{
+      margin-left: 10px;
+
+    }
+  }
+}
+
 .ready-for-harvest {
   color: $green;
 

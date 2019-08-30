@@ -30,8 +30,8 @@ const PieChart3 = ({ numHarvested, numDestroyed }) => {
               ((numHarvested / total) * 100).toFixed(2),
               ((numDestroyed / total) * 100).toFixed(2)
             ],
-            backgroundColor: ["#007f02", "#ff0034"],
-            hoverBackgroundColor: ["#007f02", "#ff0034"]
+            backgroundColor: ['#4BC0C0','#FF6384'],
+            hoverBackgroundColor: ['#4BC0C0','#FF6384']
           }
         ]
       }}

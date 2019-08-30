@@ -30,8 +30,8 @@ const PieChart2 = ({ numApproved, numRejected }) => {
               ((numApproved / total) * 100).toFixed(2),
               ((numRejected / total) * 100).toFixed(2)
             ],
-            backgroundColor: ["#007f02", "#ff0034"],
-            hoverBackgroundColor: ["#007f02", "#ff0034"]
+            backgroundColor: ['#4BC0C0','#FF6384'],
+            hoverBackgroundColor: ['#4BC0C0','#FF6384']
           }
         ]
       }}
@@ -39,28 +39,5 @@ const PieChart2 = ({ numApproved, numRejected }) => {
     />
   );
 };
-
-// datasetIndex: 0
-// index: 0
-// label: ""
-// value: ""
-// x: 383.1259078979492
-// xLabel: ""
-// y: 142
-// yLabel: ""
-// __proto__: Object
-//
-// {labels: Array(2), datasets: Array(1)}
-// datasets: Array(1)
-// 0:
-// backgroundColor: (2) ["#007f02", "#ff0034"]
-// data: (2) [80, 20, _chartjs: {…}, push: ƒ, pop: ƒ, shift: ƒ, splice: ƒ, …]
-// hoverBackgroundColor: (2) ["#007f02", "#ff0034"]
-// _meta: {2: {…}}
-// __proto__: Object
-// length: 1
-// __proto__: Array(0)
-// labels: (2) ["passed tests ", "Samples that failed tests"]
-// __proto__: Object
 
 export default PieChart2;

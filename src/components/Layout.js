@@ -44,7 +44,11 @@ const Layout = ({children, userName, profileImage, location}) => {
                             Batch
                         </Navbar.Brand>
                         <Navbar.Collapse className={'justify-content-end'}>
+                            <Navbar.Text>
+                                <i className="fa fa-bell mr-2" />
+                            </Navbar.Text>
                             <Link to={'/' + location.pathname.split('/')[1] + '/about'}>
+
                             <Navbar.Text
                                 className={'profile-name'}> {userName || localStorage.getItem('name') || 'Loading...'} </Navbar.Text>
                             <img
@@ -58,8 +62,11 @@ const Layout = ({children, userName, profileImage, location}) => {
             <div className={'overlay'} style={{display: overlayDisplay}}>
 
             </div>
-
+            <main>
             {children}
+
+            </main>
+
 
 
         </Container>

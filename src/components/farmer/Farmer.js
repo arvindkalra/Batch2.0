@@ -1,13 +1,10 @@
 import React, {useEffect, useState} from 'react';
-
 import '../../assets/stylesheets/farmer.scss';
 import Dashboard from "./Dashboard";
-
 import Layout from "../Layout";
 import {getFarmerDetails} from "../../dbController/farmerRole";
 import {connectToMetamask} from "../../dbController/init";
 import Notification from "../Notification";
-import {browserHistory} from 'react-router-dom'
 
 
 const Farmer = (props) => {
@@ -44,7 +41,7 @@ const Farmer = (props) => {
                 setShowNotification(false)
             }} message={notificationMessage}/>
             <Layout userName={userName} profileImage={profileImage} location={props.location}>
-                <Dashboard location={props.location}/>
+                <Dashboard location={props.location} history={props.history}/>
 
             </Layout>
         </>

@@ -12,7 +12,7 @@ const PieChart1 = ({ numSown, numInventory, numSold }) => {
     "Plants in Inventory",
     "Plants Already Sold"
   ];
-  const backgrounds = ["#FF6384", "#36A2EB", "#007f02"];
+  const backgrounds = ["#4BC0C0", "#FF6384", "#ffce56"];
 
   const options = {
     legend: {

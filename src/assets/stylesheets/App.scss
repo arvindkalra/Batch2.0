@@ -1,5 +1,60 @@
 @import "utils";
 @import "colors";
+@import "./themeUI/mixins";
+
+* {
+  font-family: "Nunito Sans", sans-serif;
+}
+
+html {
+  font-size: 13px;
+}
+
+strong {
+  font-size: inherit;
+}
+
+main {
+  background-color: $gray-lighten-more;
+
+  .card {
+    background: $white;
+    padding: rem(20);
+    border: none;
+    .card-header {
+      padding: 0;
+      background-color: $white;
+      margin-bottom: rem(8);
+      border-bottom: 0;
+      text-align: left;
+
+    }
+
+    .card-footer {
+      padding-top: 0;
+      border-top: 0;
+    }
+
+    .utils__title {
+      padding-left: 0;
+      font-size: rem(16);
+    }
+  }
+
+}
+
+.utils__title {
+  text-transform: uppercase;
+  font-size: rem(16);
+  padding-left: rem(12);
+
+}
+
+.container-fluid {
+  padding-left: 0;
+  padding-right: 0;
+  overflow-x: hidden;
+}
 
 .uid {
   text-transform: uppercase;
@@ -11,6 +66,7 @@
     text-align: center;
   }
 }
+
 .login-section {
   p.description {
     @extend .center-align-text;
@@ -26,10 +82,12 @@
   margin-bottom: 10px;
 }
 
+
 .dashboard-section {
-  border: 1px solid $grey;
-  height: 370px;
+
+  max-height: 370px;
   margin-bottom: 30px;
+
 
   h3.section-title {
     text-transform: uppercase;
@@ -43,6 +101,7 @@
 .add-harvest-col {
   button {
     width: 100%;
+
     a {
       color: white;
 
@@ -51,6 +110,7 @@
       }
     }
   }
+
   margin-bottom: 50px;
 }
 
@@ -60,7 +120,6 @@
     text-align: center;
   }
 
-  padding: 10px;
 
   .table-key {
     margin-right: 30px;
@@ -84,17 +143,6 @@
   }
 
   .table {
-    td {
-      a {
-        color: $blue;
-        font-weight: bold;
-      }
-    }
-
-    .product-name {
-      font-weight: bold;
-    }
-
     thead {
       th {
         border-top: none;
@@ -105,6 +153,7 @@
 
 .product-status-section {
   margin-top: 20px;
+
   .progress {
     height: 50px;
     border-radius: 0;
@@ -113,6 +162,8 @@
   .progress-bar {
     font-style: italic;
     font-size: 2em;
+
+
   }
 }
 
@@ -125,16 +176,15 @@
 $min-height: 300px;
 
 .status-tab {
+  .progress-bar{
+    background-color: rgb(0, 123, 255);
+  }
+
   p.status-tab-description {
     color: $darkblue;
     font-weight: bold;
   }
 
-  height: 190px;
-  border: 1px solid $grey;
-  padding: 30px;
-  margin-top: 20px;
-  margin-bottom: 20px;
 }
 
 .qr-code-wrapper {
@@ -155,7 +205,17 @@ p.description {
 
 .navbar {
   border-bottom: 1px solid $grey;
+  .navbar-text{
+  color:black;
 
+  }
+  i{
+
+    font-size: rem(25);
+  }
+  .navbar-brand{
+    font-size: rem(30);
+  }
   .profile-image {
     border-radius: 50%;
     max-width: 50px;
@@ -163,6 +223,7 @@ p.description {
 
   .profile-name {
     margin-right: 10px;
+    font-size: rem(20);
     max-width: 100%;
     color: black;
   }
@@ -178,6 +239,7 @@ p.description {
   width: 100%;
   height: 100%;
   overflow: hidden;
+
   div.loader-container {
     text-align: center;
     color: white;
@@ -193,11 +255,13 @@ p.description {
     width: 55% !important;
     max-width: none !important;
   }
+
   .modal-header {
     font-size: 2rem;
     font-weight: 400;
     padding: 20px 20px 10px 40px;
   }
+
   .modal-body {
     padding: 0 20px 20px 40px;
     overflow-y: scroll;
@@ -222,6 +286,7 @@ p.description {
       border-bottom: none !important;
     }
   }
+
   .modal-backdrop {
     background-color: none;
   }
@@ -232,6 +297,7 @@ p.description {
       border: none;
       border-radius: 4px;
     }
+
     :nth-child(2) {
       background-color: white;
       border-color: black;
@@ -239,8 +305,10 @@ p.description {
       border-radius: 4px;
     }
   }
+
   word-wrap: break-word;
 }
+
 .license-link {
   display: block;
   text-align: center;
@@ -254,55 +322,63 @@ p.description {
   font-variant: tabular-nums;
   line-height: 1.5;
   list-style: none;
+
   thead {
     tr {
       th {
         font-weight: 500;
         text-align: left;
         background: #f2f4f8;
+        border-top: none;
         border-bottom: 1px solid #e8e8e8;
         padding: 12px 8px;
       }
+
       :nth-child(1) {
         border-top-left-radius: 4px;
       }
+
       :nth-last-child(1) {
         border-top-right-radius: 4px;
       }
     }
   }
+
   tbody {
     tr {
       transition: all 0.7s, height 0s;
+
       &:hover {
         background-color: #e4e9f0;
       }
+
       td {
         padding: 12px 8px;
+        border-bottom: 1px solid #e8e8e8;
       }
     }
-    :nth-last-child(1) {
-      td {
-        border-bottom: 1px solid #dee2e6;
-      }
-    }
+
+
   }
 }
 
 .breadcrumb {
   padding: rem(9) rem(30);
+
   background-color: #fff;
   border-bottom: 1px solid #e4e9f0;
   color: #c0bdd0 !important;
-  font-size: rem(14);
+  font-size: rem(30);
   font-weight: 400;
   text-align: left;
   font-family: "Nunito Sans", sans-serif !important;
+
   a {
     text-decoration: none;
     color: inherit;
     cursor: none;
   }
+
   li {
     &::before {
       content: "·" !important;
@@ -310,11 +386,13 @@ p.description {
       font-weight: bolder;
     }
   }
+
   :nth-child(1) {
     &::before {
       content: "" !important;
     }
   }
+
   :nth-last-child(1) {
     span {
       font-weight: bolder;
@@ -322,3 +400,6 @@ p.description {
     }
   }
 }
+
+
+@import "responsive";
