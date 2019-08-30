@@ -85,8 +85,14 @@ const DistDashboard = ({ location }) => {
       </Row>
       <Row>
         <Col md={6}>
-          <section className={"manufacturer-graph dashboard-section"}>
-            <h3 className={"section-title"}>Available Processed Products</h3>
+          <section className={"dashboard-section card"}>
+            <div className={"card-header"}>
+              <div className={"utils__title"}>
+                <strong className={"section-title"}>
+                  Available Processed Products
+                </strong>
+              </div>
+            </div>
             <BarGraph
               ObjectToShow={availablePackedProductsGraph}
               changed={changed}
@@ -95,11 +101,14 @@ const DistDashboard = ({ location }) => {
           </section>
         </Col>
         <Col md={6}>
-          <section
-            className={"dashboard-section"}
-            style={{ overflowY: "scroll" }}
-          >
-            <h3 className={"section-title"}>Available Processed Products</h3>
+          <section className={"dashboard-section card"}>
+            <div className={"card-header"}>
+              <div className={"utils__title"}>
+                <strong className={"section-title"}>
+                  Available Processed Products
+                </strong>
+              </div>
+            </div>
             <AvailableUnitsTable array={availablePackedProductsArray} />
           </section>
         </Col>

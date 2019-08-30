@@ -42,7 +42,7 @@ const RetailerDashboard = ({ location }) => {
               }
             }
           });
-        }else {
+        } else {
           if (totalEntries === total) {
             setPreloader(false);
           }
@@ -96,8 +96,10 @@ const RetailerDashboard = ({ location }) => {
       </Row>
       <Row>
         <Col md={6}>
-          <section className={"status-tab"}>
-            <h3 className={"status-tab-title"}>Sales Targets</h3>
+          <section className={"status-tab card"}>
+            <div className={"card-header"}>
+              <strong className={"utils__title"}>Sales Targets</strong>
+            </div>
             <ProgressBar now={40} label={`${40}%`} />
             <p className={"status-tab-description"}>
               40% of the Sales targets met
@@ -105,8 +107,10 @@ const RetailerDashboard = ({ location }) => {
           </section>
         </Col>
         <Col md={6}>
-          <section className={"status-tab"}>
-            <h3 className={"status-tab-title"}>Inventory status</h3>
+          <section className={"status-tab card"}>
+            <div className={"card-header"}>
+              <strong className={"utils__title"}>Inventory Status</strong>
+            </div>
             <ProgressBar now={80} label={`${80}%`} />
             <p className={"status-tab-description"}>80% of inventory cleared</p>
           </section>
@@ -114,16 +118,24 @@ const RetailerDashboard = ({ location }) => {
       </Row>
       <Row>
         <Col md={6}>
-          <section className={"dashboard-section"}>
-            <h3 className={"section-title"}>Inventory</h3>
+          <section className={"dashboard-section card"}>
+            <div className={"card-header"}>
+              <div className={"utils__title"}>
+                <strong>Inventory</strong>
+              </div>
+            </div>
             <section className={"table-section"}>
               <RetailerProductTable rows={inventoryTable} />
             </section>
           </section>
         </Col>
         <Col md={6}>
-          <section className={"dashboard-section"}>
-            <h3 className={"section-title"}>Products Sold in 2019</h3>
+          <section className={"dashboard-section card"}>
+            <div className={"card-header"}>
+              <div className={"utils__title"}>
+                <strong>Products Sold in 2019</strong>
+              </div>
+            </div>
             <BarGraph ObjectToShow={barGraphObject} changed={changed} />
           </section>
         </Col>

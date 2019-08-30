@@ -111,8 +111,12 @@ const ManufacturerDashboard = ({ location }) => {
       {/*Graph showing available raw material*/}
       <Row>
         <Col md={6}>
-          <section className={"dashboard-section"}>
-            <h3 className={"section-title"}>Available Raw Material</h3>
+          <section className="dashboard-section card">
+            <div className={"card-header"}>
+              <div className={"utils__title"}>
+                <strong>Available Raw Material</strong>
+              </div>
+            </div>
             <BarGraph
               ObjectToShow={availableGraphData}
               label={"Available Pounds"}
@@ -120,11 +124,14 @@ const ManufacturerDashboard = ({ location }) => {
           </section>
         </Col>
         <Col md={6}>
-          <section
-            className={"dashboard-section"}
-            style={{ overflowY: "scroll" }}
-          >
-            <h3 className={"section-title"}>Available Raw Material</h3>
+          <section className={"dashboard-section card"}>
+            <div className={"card-header"}>
+              <div className={"utils__title"}>
+                <strong className={"section-title"}>
+                  Available Raw Material
+                </strong>
+              </div>
+            </div>
             <AvailableRawMaterialTable array={availableArray} />
           </section>
         </Col>
@@ -133,8 +140,12 @@ const ManufacturerDashboard = ({ location }) => {
       {/*Two tables for available raw material and packets made ready for dispatch*/}
       <Row>
         <Col md={6}>
-          <section className={"dashboard-section"}>
-            <h3 className={"section-title"}>Created Packets</h3>
+          <section className={"dashboard-section card"}>
+            <div className={"card-header"}>
+              <div className={"utils__title"}>
+                <strong className={"section-title"}>Created Packets</strong>
+              </div>
+            </div>
             <ManufacturedPacketsTable
               array={packetsReadyForDispatch}
               setTransactionMining={() => {
@@ -145,10 +156,14 @@ const ManufacturerDashboard = ({ location }) => {
           </section>
         </Col>
         <Col md={6}>
-          <section className={"dashboard-section"}>
-            <h3 className={"section-title"}>
-              Products Manufactured in 2018-19
-            </h3>
+          <section className={"dashboard-section card"}>
+            <div className={"card-header"}>
+              <div className={"utils__title"}>
+                <strong className={"section-title"}>
+                  Products Manufactured in 2018-19
+                </strong>
+              </div>
+            </div>
             <BarGraph
               ObjectToShow={packetsManufacturedGraphData}
               label={"Processed Units"}

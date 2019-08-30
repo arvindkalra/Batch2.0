@@ -81,7 +81,7 @@ const ManufacturedPacketsTable = ({
       <Table>
         <thead>
           <tr>
-            <th>Unique Id</th>
+            <th>#ID</th>
             <th>Product Type</th>
             <th>Units</th>
             <th>Size</th>

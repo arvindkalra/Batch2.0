@@ -28,7 +28,7 @@ const CompleteProductsTable = () => {
         <Table responsive>
           <thead>
             <tr>
-              <th>#</th>
+              <th>#ID</th>
               <th>Product Name</th>
               <th>Date Planted</th>
               <th>Quantity</th>
@@ -41,10 +41,14 @@ const CompleteProductsTable = () => {
                 <tr key={key}>
                   <td className={"uid"}>{element.harvestUnitId}</td>
                   <td className={"product-name ready-for-harvest"}>
-                    <Link to={`/cultivator/products/${element.harvestUnitId}`}>
-                      {" "}
-                      {element.details.plantName}{" "}
-                    </Link>
+                    <span className={"under-linked"}>
+                      <Link
+                        to={`/cultivator/products/${element.harvestUnitId}`}
+                      >
+                        {" "}
+                        {element.details.plantName}{" "}
+                      </Link>
+                    </span>
                   </td>
                   <td>{element.details.datePlanted}</td>
                   <td>{element.details.seedCount}</td>

@@ -9,7 +9,7 @@ const AvailableRawMaterialTable = ({ array }) => {
       <Table>
         <thead>
           <tr>
-            <th>Unique Id</th>
+            <th>#ID</th>
             <th>Plant Name</th>
             <th>Cultivator</th>
             <th>Pending Amount</th>
@@ -21,9 +21,11 @@ const AvailableRawMaterialTable = ({ array }) => {
               <tr key={id + "" + element.harvestUnitId}>
                 <td className={"uid"}>{element.harvestUnitId}</td>
                 <td>
-                  <Link to={`/manufacturer/harvest/${element.harvestUnitId}`}>
-                    {element.plantName}
-                  </Link>
+                  <span className={"under-linked"}>
+                    <Link to={`/manufacturer/harvest/${element.harvestUnitId}`}>
+                      {element.plantName}
+                    </Link>
+                  </span>
                 </td>
                 <td>{element.farmerName}</td>
                 <td>{element.pendingAmount} Pounds</td>
