@@ -128,9 +128,13 @@ const LabDashboard = props => {
 
       <Row>
         <Col md={12}>
-          <section className={"product-status-section status-tab"}>
-            <h3 className="status-tab-title">Pending Tests</h3>
+          <section className={"status-tab card"}>
+            <div className={"card-header"}>
+              <strong className={"utils__title"}>Pending Tests</strong>
+            </div>
+
             <ProgressBar
+              style={{ height: "30px" }}
               now={
                 numPending === 0
                   ? 0
@@ -158,14 +162,20 @@ const LabDashboard = props => {
           <Accordion>
             <Card>
               <Card.Header>
-                <Accordion.Toggle as={Card.Header} variant="link" eventKey="0">
-                  Pending Tests &nbsp;
-                  {pendingReportsArray.length !== 0 ? (
-                    <Badge pill variant="success">
-                      New Shipments
-                    </Badge>
-                  ) : null}
-                </Accordion.Toggle>
+                <strong className={"utils__title"}>
+                  <Accordion.Toggle
+                    as={Card.Header}
+                    variant="link"
+                    eventKey="0"
+                  >
+                    Pending Tests &nbsp;
+                    {pendingReportsArray.length !== 0 ? (
+                      <Badge pill variant="success">
+                        New Shipments
+                      </Badge>
+                    ) : null}
+                  </Accordion.Toggle>
+                </strong>
               </Card.Header>
               <Accordion.Collapse eventKey="0">
                 <Card.Body>
@@ -184,9 +194,15 @@ const LabDashboard = props => {
             </Card>
             <Card>
               <Card.Header>
-                <Accordion.Toggle as={Card.Header} variant="link" eventKey="1">
-                  Completed Tests
-                </Accordion.Toggle>
+                <strong className={"utils__title"}>
+                  <Accordion.Toggle
+                    as={Card.Header}
+                    variant="link"
+                    eventKey="1"
+                  >
+                    Completed Tests
+                  </Accordion.Toggle>
+                </strong>
               </Card.Header>
               <Accordion.Collapse eventKey="1">
                 <Card.Body>
@@ -208,8 +224,12 @@ const LabDashboard = props => {
       </Row>
       <Row>
         <Col md={6} className={"chart-col"}>
-          <section className={"dashboard-section"}>
-            <h3 className={"section-title"}>Approved Samples</h3>
+          <section className="dashboard-section card">
+            <div className={"card-header"}>
+              <div className={"utils__title"}>
+                <strong>Approved Samples</strong>
+              </div>
+            </div>
             <PieChart1
               numRejected={numTested - numApproved}
               numApproved={numApproved}
@@ -217,10 +237,12 @@ const LabDashboard = props => {
           </section>
         </Col>
         <Col md={6} className={"chart-col"}>
-          <section className={"dashboard-section"}>
-            <h3 className={"section-title"}>
-              Monthly Approval in Year 2018-19
-            </h3>
+          <section className="dashboard-section card">
+            <div className={"card-header"}>
+              <div className={"utils__title"}>
+                <strong>Monthly Approval in Year 2018-19</strong>
+              </div>
+            </div>
             <BarGraph ObjectToShow={objectForBarGraph} label={"Approvals"} />
           </section>
         </Col>
