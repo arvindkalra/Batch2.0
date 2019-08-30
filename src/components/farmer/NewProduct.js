@@ -8,12 +8,13 @@ import ActionPanel from "../actionPanel/ActionPanel";
 import { getSeedUnitDetails } from "../../dbController/farmerRole";
 import { connectToMetamask } from "../../dbController/init";
 import Loader from "../Loader";
-
+import Button from "react-bootstrap/Button";
 import ActionForm from "../actionPanel/ActionForm";
 
-const Product = props => {
+const NewProduct = props => {
   useEffect(() => {
-    const buid = props.match.params.product;
+    // const buid = props.match.params.product;
+    const buid = '0001A'
     connectToMetamask().then(() => {
       getSeedUnitDetails(buid).then(seedDetails => {
         console.log(seedDetails);
@@ -44,10 +45,11 @@ const Product = props => {
               }`
             )}
           </Col>
-        </Row>
 
+
+        </Row>
         <Row>
-          <Col>
+          <Col md={12}>
             <section className={'product-details-section card'}>
               <div className={'card-header'}>
                 <div className={'utils__title'}>
@@ -70,10 +72,6 @@ const Product = props => {
                   <section className={'product-info'}>
 
                     <ul>
-                      <li>
-                        <strong>Batch Id:</strong>
-                        <span>#{seedObject.harvestUnitId|| 'Loading...'}</span>
-                      </li>
                       <li>
                         <strong>Lineage : </strong> <span>{seedObject.details.lineage|| 'Loading...'}</span>
                       </li>
@@ -100,76 +98,20 @@ const Product = props => {
                         <strong>Nutrients:</strong>
                         <span>{seedObject.details.nutrients|| 'Loading...'}</span>
                       </li>
-                      <li>
-                        <strong>Date Planted:</strong>
-                        <span>{seedObject.details.datePlanted|| 'Loading...'}</span>
-                      </li>
-                      <li>
-                        <strong>Quantity:</strong>
-                        <span>{seedObject.details.seedCount|| 'Loading...'}</span>
-                      </li>
                     </ul>
 
                   </section>
                 </Col>
               </Row>
             </section>
+
           </Col>
         </Row>
 
-        <Row>
-
-          <Col md={12}>
-            <section className="product-status-section card">
-              <div className={'card-header'}>
-              <div className="utils__title ">
-                <strong className="text-uppercase ">
-                  Product Status
-                </strong>
-              </div>
-              </div>
-              <ProgressBar
-                striped
-                variant={
-                  productStatus.value === 10 || productStatus.value === 11
-                    ? "danger"
-                    : "Success"
-                }
-                now={getSeedProgress(productStatus.value)}
-                label={productStatus.status}
-              />
-            </section>
-          </Col>
-        </Row>
-        <Row className={"action-panel"}>
-          {productStatus.value < 7 ? (
-            <ActionPanel
-              seedObj={seedObject}
-              productState={productStatus}
-              setProductStatus={newProductStatus => {
-                setProductStatus(newProductStatus);
-              }}
-              history={props.history}
-            />
-          ) : productStatus.value === 10 ? (
-            <Col md={{ offset: 1, span: 10 }}>
-              <ActionForm
-                history={props.history}
-                seedObj={seedObject}
-                productState={productStatus}
-                setProductStatus={newProductStatus => {
-                  setProductStatus(newProductStatus);
-                }}
-                destroyRequested={true}
-                cancelDestroyRequest={() => {}}
-              />
-            </Col>
-          ) : null}
-        </Row>
       </Layout>
       {preloader ? <Loader message={"Fetching Data"} /> : null}
     </>
   );
 };
 
-export default Product;
+export default NewProduct;

@@ -111,7 +111,7 @@ ul.action-panel-list {
   }
 }
 
-$min-height: 300px;
+$min-height: 400px;
 
 .product-info-tab {
   margin-bottom: 20px;
@@ -216,8 +216,8 @@ $min-height: 300px;
 }
 
 .action-panel {
-  margin-top: 30px;
-  margin-bottom: 30px;
+
+  padding-bottom: 30px;
 
   .action-panel-list-section {
     //border: 1px dashed $grey;
@@ -242,12 +242,13 @@ $min-height: 300px;
   }
 
   .action-panel-form-section {
+
     h1 {
       border-bottom: 1px solid $grey;
       margin-bottom: 40px;
     }
 
-    border: 1px dashed $grey;
+
     padding: 50px;
     min-height: $min-height;
   }
@@ -265,5 +266,24 @@ $min-height: 300px;
   img{
     display: block;
   max-width: 450px;
+  }
+}
+
+.product-details-section {
+  padding-top: 30px;
+  border-bottom: 2px solid $grey;
+
+  //text-align: center;
+  .product-info{
+    height: 100%;
+    ul{
+      height: 100%;
+      margin-top: rem(10);
+      @extend .vertical-centered-list;
+      font-size: rem(30);
+      span{
+        margin-left:rem(10) ;
+      }
+    }
   }
 }

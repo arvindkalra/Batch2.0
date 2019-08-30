@@ -99,7 +99,8 @@ const ActionPanel = ({ productState, setProductStatus, seedObj, history }) => {
   return (
     <>
       <Col md={3}>
-        <section className={"action-panel-list-section"}>
+
+        <section className={"action-panel-list-section card"}>
           <section>
             <h3> Primary Actions</h3>
             {setList()}
@@ -140,7 +141,7 @@ const ActionPanel = ({ productState, setProductStatus, seedObj, history }) => {
         </section>
       </Col>
       <Col md={9}>
-        <section className={"action-panel-form-section"}>
+        <section className={"action-panel-form-section card"}>
           <h1>Action Panel</h1>
           <ActionForm
             history={history}

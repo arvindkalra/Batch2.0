@@ -382,6 +382,7 @@ const ActionForm = ({
   };
   return (
     <Form>
+
       {setForm()}
 
       {transactionMining ? <Loader /> : null}

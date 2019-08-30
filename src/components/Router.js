@@ -16,6 +16,7 @@ import Products from "./farmer/Products";
 import Distributor from "./distributor/Distributor";
 import Report from "./laboratory/Report";
 import DistributorProductDetail from "./distributor/DistributorProductDetail";
+import NewProduct from "./farmer/NewProduct";
 
 const AppRouter = () => {
     return (
@@ -26,6 +27,7 @@ const AppRouter = () => {
             <Route exact path={'/cultivator/about'} component={About}/>
             <Route exact path={'/cultivator/add-new-harvest'} component={NewHarvest}/>
             <Route exact path={'/cultivator/products/:product'} component={Product}/>
+                <Route exact path={'/cultivator/NewProduct/00001A'} component={NewProduct}/>
             <Route exact path={'/cultivator/products'} component={Products}/>
             {/*lab routes*/}
             <Route exact path={'/laboratory/dashboard'} component={Laboratory}/>
