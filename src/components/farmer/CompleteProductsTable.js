@@ -4,6 +4,7 @@ import Table from "react-bootstrap/Table";
 import { getRowsForFarmer } from "../../dbController/farmerRole";
 import { connectToMetamask } from "../../dbController/init";
 import Loader from "../Loader";
+import { Card } from "react-bootstrap";
 
 const CompleteProductsTable = () => {
   const [rows, setRows] = useState([]);
@@ -23,35 +24,37 @@ const CompleteProductsTable = () => {
 
   return (
     <>
-      <Table responsive>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Product Name</th>
-            <th>Date Planted</th>
-            <th>Quantity</th>
-            <th>Current Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          {rows.map((element, key) => {
-            return (
-              <tr key={key}>
-                <td className={"uid"}>{element.harvestUnitId}</td>
-                <td className={"product-name ready-for-harvest"}>
-                  <Link to={`/cultivator/products/${element.harvestUnitId}`}>
-                    {" "}
-                    {element.details.plantName}{" "}
-                  </Link>
-                </td>
-                <td>{element.details.datePlanted}</td>
-                <td>{element.details.seedCount}</td>
-                <td>{element.currentState.status}</td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </Table>
+      <Card>
+        <Table responsive>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Product Name</th>
+              <th>Date Planted</th>
+              <th>Quantity</th>
+              <th>Current Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((element, key) => {
+              return (
+                <tr key={key}>
+                  <td className={"uid"}>{element.harvestUnitId}</td>
+                  <td className={"product-name ready-for-harvest"}>
+                    <Link to={`/cultivator/products/${element.harvestUnitId}`}>
+                      {" "}
+                      {element.details.plantName}{" "}
+                    </Link>
+                  </td>
+                  <td>{element.details.datePlanted}</td>
+                  <td>{element.details.seedCount}</td>
+                  <td>{element.currentState.status}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </Table>
+      </Card>
       {preloader ? <Loader message={"Fetching Inventory"} /> : null}
     </>
   );
