@@ -48,68 +48,81 @@ const Product = props => {
 
         <Row>
           <Col>
-            <section className={'product-details-section card'}>
-              <div className={'card-header'}>
-                <div className={'utils__title'}>
+            <section className={"product-details-section card"}>
+              <div className={"card-header"}>
+                <div className={"utils__title"}>
                   <strong>Product Details</strong>
                 </div>
-
               </div>
 
               <Row>
                 <Col md={6}>
-                  <section className={'product-image-section'}>
-
-                    <img
+                  <section className={"product-image-section"}>
+                    {seedObject.details.plantImage ? (
+                      <img src={seedObject.details.plantImage} alt={""} />
+                    ) : (
+                      <img
                         src="https://www.ilovegrowingmarijuana.com/wp-content/uploads/2017/05/Trinity.jpg"
                         alt=""
-                    />
+                      />
+                    )}
                   </section>
                 </Col>
                 <Col md={6}>
-                  <section className={'product-info'}>
-
+                  <section className={"product-info"}>
                     <ul>
                       <li>
                         <strong>Batch Id:</strong>
-                        <span>#{seedObject.harvestUnitId|| 'Loading...'}</span>
+                        <span>#{seedObject.harvestUnitId || "Loading..."}</span>
                       </li>
                       <li>
-                        <strong>Lineage : </strong> <span>{seedObject.details.lineage|| 'Loading...'}</span>
+                        <strong>Lineage : </strong>{" "}
+                        <span>
+                          {seedObject.details.lineage || "Loading..."}
+                        </span>
                       </li>
                       <li>
                         <strong>Flowering Time:</strong>
-                        <span>{seedObject.details.floweringTime|| 'Loading...'}</span>
+                        <span>
+                          {seedObject.details.floweringTime || "Loading..."}
+                        </span>
                       </li>
                       <li>
                         <strong>Current Location:</strong>
                         <span>
                           {seedObject.details.currentLocation
-                              ? seedObject.details.currentLocation[
-                              seedObject.details.currentLocation.length - 1
-                                  ].location
-                              : "Loading..."}
+                            ? seedObject.details.currentLocation[
+                                seedObject.details.currentLocation.length - 1
+                              ].location
+                            : "Loading..."}
                         </span>
                       </li>
                       <li>
                         <strong>Soil Type:</strong>
-                        <span>{seedObject.details.soilType|| 'Loading...'}</span>
+                        <span>
+                          {seedObject.details.soilType || "Loading..."}
+                        </span>
                       </li>
 
                       <li>
                         <strong>Nutrients:</strong>
-                        <span>{seedObject.details.nutrients|| 'Loading...'}</span>
+                        <span>
+                          {seedObject.details.nutrients || "Loading..."}
+                        </span>
                       </li>
                       <li>
                         <strong>Date Planted:</strong>
-                        <span>{seedObject.details.datePlanted|| 'Loading...'}</span>
+                        <span>
+                          {seedObject.details.datePlanted || "Loading..."}
+                        </span>
                       </li>
                       <li>
                         <strong>Quantity:</strong>
-                        <span>{seedObject.details.seedCount|| 'Loading...'}</span>
+                        <span>
+                          {seedObject.details.seedCount || "Loading..."}
+                        </span>
                       </li>
                     </ul>
-
                   </section>
                 </Col>
               </Row>
@@ -118,15 +131,12 @@ const Product = props => {
         </Row>
 
         <Row>
-
           <Col md={12}>
             <section className="product-status-section card">
-              <div className={'card-header'}>
-              <div className="utils__title ">
-                <strong className="text-uppercase ">
-                  Product Status
-                </strong>
-              </div>
+              <div className={"card-header"}>
+                <div className="utils__title ">
+                  <strong className="text-uppercase ">Product Status</strong>
+                </div>
               </div>
               <ProgressBar
                 striped

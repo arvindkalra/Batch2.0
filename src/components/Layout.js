@@ -1,38 +1,38 @@
-import React, {useState} from 'react';
+import React, { useState } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Navbar from "react-bootstrap/Navbar";
 import Button from "react-bootstrap/Button";
 import SideBar from "./SideBar";
-import {Link} from 'react-router-dom'
-import '../assets/stylesheets/layout.scss';
+import { Link } from "react-router-dom";
+import "../assets/stylesheets/layout.scss";
 
+const Layout = ({ children, userName, profileImage, location }) => {
+  const [showSideBar, setShowSideBar] = useState(false);
+  const [overlayDisplay, setOverlayDisplay] = useState("none");
 
-const Layout = ({children, userName, profileImage, location}) => {
+  const closeSideBar = () => {
+    setShowSideBar(false);
+    setOverlayDisplay("none");
+  };
+  const toggleSideBar = e => {
+    e.preventDefault();
+    e.stopPropagation();
+    setShowSideBar(true);
+    setOverlayDisplay("block");
+  };
 
-
-
-    const [showSideBar, setShowSideBar] = useState(false);
-    const [overlayDisplay, setOverlayDisplay] = useState('none');
-
-    const closeSideBar = () => {
-        setShowSideBar(false);
-        setOverlayDisplay('none');
-    };
-    const toggleSideBar = (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        setShowSideBar(true);
-        setOverlayDisplay('block');
-
-    };
-
-
-    return (
-
-        <Container fluid={true} className={showSideBar ? 'no-scroll' : null}>
-            {showSideBar ? <SideBar profession={location.pathname.split('/')[1]} userName={userName} profileImage={profileImage} closeSideBar={closeSideBar}/> : null}
+  return (
+    <Container fluid={true} className={showSideBar ? "no-scroll" : null}>
+      {showSideBar ? (
+        <SideBar
+          profession={location.pathname.split("/")[1]}
+          userName={userName}
+          profileImage={profileImage}
+          closeSideBar={closeSideBar}
+        />
+      ) : null}
 
             <Row>
                 <Col>

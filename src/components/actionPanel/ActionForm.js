@@ -15,6 +15,7 @@ import { checkMined } from "../../dbController/init";
 import Overlay from "react-bootstrap/Overlay";
 import Loader from "../Loader";
 import { createTransactionModal } from "../../helpers";
+import { FormControl } from "react-bootstrap";
 
 const ActionForm = ({
   productState,
@@ -28,19 +29,35 @@ const ActionForm = ({
 }) => {
   const [showNotification, setShowNotification] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState("");
-  const [formFieldValue, setFormFieldValue] = useState("");
+  const [transactionMining, setTransactionMining] = useState(false);
+  const [transactionObject, setTransactionObject] = useState(null);
+  const [clicked, setClicked] = useState(false);
+
+  // Send to Manufacturer Form States
+  const [sellingPrice, setSellingPrice] = useState(0);
+
+  // Harvest For States
+  const [formFieldValue, setFormFieldValue] = useState(0);
+
+  // Send to Lab Form States
   const [labName, setLabName] = useState("Green Labs LLC");
   const [transporterName, setTransporterName] = useState("Transporter A");
-  const [sellingPrice, setSellingPrice] = useState("");
+
+  // Destroy Form States
   const [destroyQuantity, setDestroyQuantity] = useState(0);
   const [destroyCompanyName, setDestroyCompanyName] = useState("Company A");
   const [destroyReason, setDestroyReason] = useState("");
+
+  // Move Location States
   const [newLocation, setNewLocation] = useState("");
-  const [transactionMining, setTransactionMining] = useState(false);
-  const [transactionObject, setTransactionObject] = useState(null);
+
   const sendHarvestReport = e => {
     e.preventDefault();
     e.stopPropagation();
+    setClicked(true);
+    if (formFieldValue <= 0) {
+      return;
+    }
     setTransactionMining(true);
     seedObj.details.harvestTime = new Date().toLocaleString();
     seedObj.details.totalHarvestAmount = formFieldValue;
@@ -105,6 +122,10 @@ const ActionForm = ({
   const sendToManufacturer = e => {
     e.preventDefault();
     e.stopPropagation();
+    setClicked(true);
+    if (sellingPrice <= 0) {
+      return;
+    }
     setTransactionMining(true);
     seedObj.details.sentToManufacturerOn = new Date().toLocaleString();
     seedObj.details.farmerToManufacturerPrice = sellingPrice;
@@ -131,6 +152,10 @@ const ActionForm = ({
   const destroyCrop = e => {
     e.preventDefault();
     e.stopPropagation();
+    setClicked(true);
+    if (destroyReason.length === 0 || destroyQuantity <= 0) {
+      return;
+    }
     setTransactionMining(true);
     seedObj.details.quantarineCompanyName = destroyCompanyName;
     seedObj.details.destroyReason = destroyReason;
@@ -152,12 +177,12 @@ const ActionForm = ({
   const moveLocation = e => {
     e.preventDefault();
     e.stopPropagation();
+    setClicked(true);
     if (newLocation === "") {
-      alert("Fill All the Fields");
       return;
     }
     let newLocationObject = {
-      location: newLocation,
+      location: newLocation.captialize(),
       time: new Date().toLocaleString()
     };
     let currentState = seedObj.currentState.value;
@@ -191,7 +216,11 @@ const ActionForm = ({
                 onChange={e => {
                   setDestroyQuantity(parseInt(e.target.value));
                 }}
+                isInvalid={clicked ? destroyQuantity <= 0 : false}
               />
+              <FormControl.Feedback type={"invalid"}>
+                <strong>Required</strong> : Enter the Destroy Quantity
+              </FormControl.Feedback>
             </Form.Group>
           </Col>
           <Col md={12}>
@@ -217,7 +246,11 @@ const ActionForm = ({
                 onChange={e => {
                   setDestroyReason(e.target.value);
                 }}
+                isInvalid={clicked ? destroyReason.length === 0 : false}
               />
+              <FormControl.Feedback type={"invalid"}>
+                <strong>Required</strong> : Enter a valid reason for destroy
+              </FormControl.Feedback>
             </Form.Group>
           </Col>
           <Col md={2}>
@@ -248,12 +281,16 @@ const ActionForm = ({
                 onChange={e => {
                   setNewLocation(e.target.value);
                 }}
+                isInvalid={clicked ? newLocation.length === 0 : false}
               />
+              <FormControl.Feedback type={"invalid"}>
+                <strong>Required</strong> : Enter a valid new location
+              </FormControl.Feedback>
             </Form.Group>
           </Col>
           <Col md={2}>
             <Button type={"submit"} onClick={moveLocation}>
-              Destroy
+              Move
             </Button>
           </Col>
           <Col md={1}>
@@ -279,7 +316,12 @@ const ActionForm = ({
                 onChange={e => {
                   setFormFieldValue(parseInt(e.target.value));
                 }}
+                isInvalid={clicked ? formFieldValue <= 0 : false}
               />
+              <FormControl.Feedback type={"invalid"}>
+                <strong>Required</strong> : Harvest Amount Should be more than
+                zero
+              </FormControl.Feedback>
             </Form.Group>
           </Col>
           <Col md={12}>
@@ -290,7 +332,6 @@ const ActionForm = ({
         </Row>
       );
     }
-
     if (productState.value === 2) {
       return (
         <Row>
@@ -346,8 +387,13 @@ const ActionForm = ({
               <Form.Control
                 type={"number"}
                 placeholder={"Enter the Selling Price"}
-                onChange={e => setSellingPrice(e.target.value)}
+                onChange={e => setSellingPrice(parseInt(e.target.value))}
+                isInvalid={clicked ? sellingPrice <= 0 : false}
               />
+              <FormControl.Feedback type={"invalid"}>
+                <strong>Required</strong> : Selling price should be more than
+                zero
+              </FormControl.Feedback>
             </Form.Group>
             <Form.Group>
               <Form.Label>Select Manufacturer</Form.Label>

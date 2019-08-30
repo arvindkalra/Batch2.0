@@ -12,6 +12,7 @@ import { checkMined, connectToMetamask } from "../../dbController/init";
 import { sendProductToDistributor } from "../../dbController/manufacturerRole";
 import Loader from "../Loader";
 import { OWN_ADDRESS } from "../../dbController/Web3Connections";
+import { FormControl } from "react-bootstrap";
 
 const ManufacturedPacketsTable = ({
   array,
@@ -19,6 +20,7 @@ const ManufacturedPacketsTable = ({
   setTransactionObject
 }) => {
   const [showModal, setShowModal] = useState({ open: false, id: 0 });
+  const [modalConfirmed, setModalConfirmed] = useState(false);
   const [distributorName, setDistributorName] = useState("Distributor A");
   const [transporterName, setTransporterName] = useState("Transporter A");
   const [price, setPrice] = useState(0);
@@ -46,6 +48,10 @@ const ManufacturedPacketsTable = ({
   const handleSend = e => {
     e.preventDefault();
     e.stopPropagation();
+    setModalConfirmed(true);
+    if (price <= 0) {
+      return;
+    }
     setTransactionMining();
 
     let prevDetails = array[showModal.id].details;
@@ -117,7 +123,11 @@ const ManufacturedPacketsTable = ({
                   onChange={e => {
                     setPrice(parseInt(e.target.value));
                   }}
+                  isInvalid={modalConfirmed ? price <= 0 : false}
                 />
+                <FormControl.Feedback type={"invalid"}>
+                  <strong>Required</strong> : Selling Price can not be zero
+                </FormControl.Feedback>
               </Form.Group>
             </Col>
             <Col md={12}>

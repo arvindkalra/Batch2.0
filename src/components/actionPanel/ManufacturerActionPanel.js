@@ -12,12 +12,13 @@ import { FormControl } from "react-bootstrap";
 
 const ManufacturerActionPanel = ({ left, total, prevDetails }) => {
   const [materialUsed, setMaterialUsed] = useState(0);
-  const [packetsMade, setPacketsMade] = useState("");
+  const [packetsMade, setPacketsMade] = useState(0);
   const [packetSize, setPacketSize] = useState("");
   const [productType, setProductType] = useState("Preroll");
   const [transactionMining, setTransactionMining] = useState(false);
   const [transactionObject, setTransactionObject] = useState(null);
   const [formValidity, setFormValidity] = useState(true);
+  const [clicked, setClicked] = useState(false);
 
   const openSignatureModal = obj => {
     setTransactionObject({
@@ -36,6 +37,11 @@ const ManufacturerActionPanel = ({ left, total, prevDetails }) => {
   const handleClick = e => {
     e.preventDefault();
     e.stopPropagation();
+    setClicked(true);
+    checkValidity(materialUsed);
+    if (packetsMade === 0 || packetSize.length === 0) {
+      return;
+    }
     let packetObj = {
       packetSize,
       productType,
@@ -71,7 +77,8 @@ const ManufacturerActionPanel = ({ left, total, prevDetails }) => {
   };
 
   const checkValidity = inputAmount => {
-    if (left < inputAmount || inputAmount < 0) {
+    console.log(inputAmount);
+    if (left < inputAmount || inputAmount <= 0) {
       setFormValidity(false);
       setMaterialUsed(0);
     } else {
@@ -115,26 +122,36 @@ const ManufacturerActionPanel = ({ left, total, prevDetails }) => {
         </Col>
         <Col md={6}>
           <Form.Group>
-            <Form.Label>Number Of Packets Manufactured</Form.Label>
+            <Form.Label>Units of Processed Goods</Form.Label>
             <Form.Control
               type={"number"}
-              placeholder={"Enter the amount harvested in pounds"}
+              placeholder={"Enter the units of processed goods"}
               onChange={e => {
                 setPacketsMade(parseInt(e.target.value));
               }}
+              isInvalid={clicked ? packetsMade === 0 : false}
             />
+            <FormControl.Feedback type={"invalid"}>
+              <strong>Required</strong> : The number of units should be more
+              than zero
+            </FormControl.Feedback>
           </Form.Group>
         </Col>
         <Col md={6}>
           <Form.Group>
-            <Form.Label>Packet Size</Form.Label>
+            <Form.Label>Unit Size</Form.Label>
             <Form.Control
               type={"text"}
-              placeholder={"Enter the amount harvested in pounds"}
+              placeholder={"Enter the size of each unit"}
               onChange={e => {
                 setPacketSize(e.target.value);
               }}
+              isInvalid={clicked ? packetSize.length === 0 : false}
             />
+            <FormControl.Feedback type={"invalid"}>
+              <strong>Required</strong> : Enter a valid size of each unit
+              manufactured
+            </FormControl.Feedback>
           </Form.Group>
         </Col>
         <Col md={6}>
