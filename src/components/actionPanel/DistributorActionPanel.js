@@ -21,6 +21,7 @@ const DistributorActionPanel = ({ left, total, prevDetails }) => {
   const [transactionMining, setTransactionMining] = useState(false);
   const [transactionObject, setTransactionObject] = useState(null);
   const [formValidity, setFormValidity] = useState(true);
+  const [clicked, setClicked] = useState(false);
 
   const openSignatureModal = obj => {
     setTransactionObject({
@@ -38,7 +39,11 @@ const DistributorActionPanel = ({ left, total, prevDetails }) => {
 
   const checkValidity = (perPacketInput, totalPacketsInput) => {
     let totalAmountUsed = perPacketInput * totalPacketsInput;
-    if (left < totalAmountUsed || perPacketInput < 0 || totalPacketsInput < 0) {
+    if (
+      left < totalAmountUsed ||
+      perPacketInput <= 0 ||
+      totalPacketsInput <= 0
+    ) {
       setFormValidity(false);
     } else {
       setFormValidity(true);
@@ -50,6 +55,12 @@ const DistributorActionPanel = ({ left, total, prevDetails }) => {
   const handleClick = e => {
     e.preventDefault();
     e.stopPropagation();
+    setClicked(true);
+    checkValidity(unitsPerPacket, numPackets);
+    if (packetName.length === 0) {
+      return;
+    }
+    setPacketName(packetName.captialize());
     let batchObject = {
       totalUnitsForSale: numPackets,
       unitsPerPacket,
@@ -156,7 +167,11 @@ const DistributorActionPanel = ({ left, total, prevDetails }) => {
                 setPacketName(e.target.value);
               }}
               placeholder={"Enter the name of the packet"}
+              isInvalid={clicked ? packetName.length === 0 : false}
             />
+            <FormControl.Feedback type={"invalid"}>
+              <strong>Required</strong> : Enter a valid packet name
+            </FormControl.Feedback>
           </Form.Group>
         </Col>
 

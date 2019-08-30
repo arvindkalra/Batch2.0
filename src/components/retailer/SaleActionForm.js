@@ -35,6 +35,7 @@ const SaleActionForm = ({ buid, details, left }) => {
   const [transactionMining, setTransactionMining] = useState(false);
   const [transactionObject, setTransactionObject] = useState(null);
   const [formValidity, setFormValidity] = useState(true);
+  const [clicked, setClicked] = useState(false);
 
   const openSignatureModal = obj => {
     setTransactionObject({
@@ -53,7 +54,12 @@ const SaleActionForm = ({ buid, details, left }) => {
   const fetchDetails = e => {
     e.preventDefault();
     e.stopPropagation();
+    setClicked(true);
+    if (!isEthereumAddress(buyerAddress)) {
+      return;
+    }
     isConsumer(buyerAddress).then(boolean => {
+      setClicked(false);
       if (boolean) {
         getConsumerDetails(buyerAddress).then(buyerObject => {
           console.log(buyerObject);
@@ -76,6 +82,11 @@ const SaleActionForm = ({ buid, details, left }) => {
   const sellToRegistered = e => {
     e.preventDefault();
     e.stopPropagation();
+    setClicked(true);
+    checkValidity(amount);
+    if (sellingPrice <= 0) {
+      return;
+    }
     let jsonToBeUploaded = buyerDetails;
     jsonToBeUploaded.purchases.push({
       amount: amount,
@@ -90,6 +101,15 @@ const SaleActionForm = ({ buid, details, left }) => {
   const sellToNewConsumer = e => {
     e.preventDefault();
     e.stopPropagation();
+    setClicked(true);
+    checkValidity(amount);
+    if (
+      sellingPrice <= 0 ||
+      license.length === 0 ||
+      consumerName.length === 0
+    ) {
+      return;
+    }
     let jsonToBeUploaded = {
       name: consumerName,
       license: license,
@@ -111,7 +131,7 @@ const SaleActionForm = ({ buid, details, left }) => {
       ? details.totalUnitsAlreadySold
       : 0;
     details.totalUnitsAlreadySold = unitsAlreadySold + amount;
-    if(!formValidity){
+    if (!formValidity) {
       alert("Invalid Amount Entered");
       return;
     }
@@ -128,7 +148,7 @@ const SaleActionForm = ({ buid, details, left }) => {
   };
 
   const checkValidity = inputValue => {
-    if (left < inputValue) {
+    if (left < inputValue || inputValue <= 0) {
       setFormValidity(false);
       setAmount(0);
     } else {
@@ -137,12 +157,16 @@ const SaleActionForm = ({ buid, details, left }) => {
     }
   };
 
+  const isEthereumAddress = address => {
+    return /^(0x)?[0-9a-f]{40}$/.test(address.toLowerCase());
+  };
+
   return (
     <>
       <Row>
         <Col md={12}>
           <Form.Group controlId={"buyer"}>
-            <Form.Label>Buyer Address</Form.Label>
+            <Form.Label>Consumer Address</Form.Label>
             <Form.Row>
               <Col md={9}>
                 <Form.Control
@@ -151,7 +175,12 @@ const SaleActionForm = ({ buid, details, left }) => {
                   onChange={e => {
                     setBuyerAddress(e.target.value);
                   }}
+                  isInvalid={clicked ? !isEthereumAddress(buyerAddress) : false}
                 />
+                <FormControl.Feedback type={"invalid"}>
+                  <strong>Required</strong> : Enter a valid ethereum address of
+                  consumer
+                </FormControl.Feedback>
               </Col>
               <Col>
                 <Button onClick={fetchDetails}>Fetch Consumer Details</Button>
@@ -193,7 +222,11 @@ const SaleActionForm = ({ buid, details, left }) => {
                       onChange={e => {
                         setConsumerName(e.target.value);
                       }}
+                      isInvalid={clicked ? consumerName.length === 0 : false}
                     />
+                    <FormControl.Feedback type={"invalid"}>
+                      <strong>Required</strong>
+                    </FormControl.Feedback>
                   </Form.Group>
                 </Col>
                 <Col md={12}>
@@ -206,7 +239,11 @@ const SaleActionForm = ({ buid, details, left }) => {
                       type={"file"}
                       placeholder={"Upload the customer's id proof"}
                       onChange={handleFileChange}
+                      isInvalid={clicked ? license.length === 0 : false}
                     />
+                    <FormControl.Feedback type={"invalid"}>
+                      <strong>Required</strong>
+                    </FormControl.Feedback>
                   </Form.Group>
                 </Col>
               </>
@@ -226,7 +263,7 @@ const SaleActionForm = ({ buid, details, left }) => {
                           }}
                           isInvalid={!formValidity}
                         />
-                        <FormControl.Feedback type={'invalid'}>
+                        <FormControl.Feedback type={"invalid"}>
                           Amount to be sold should be less than the available
                           stock
                         </FormControl.Feedback>
@@ -241,7 +278,12 @@ const SaleActionForm = ({ buid, details, left }) => {
                           onChange={e => {
                             setSellingPrice(parseInt(e.target.value));
                           }}
+                          isInvalid={clicked ? sellingPrice <= 0 : false}
                         />
+                        <FormControl.Feedback type={"invalid"}>
+                          <strong>Required</strong> : Enter a valid selling
+                          price
+                        </FormControl.Feedback>
                       </Form.Group>
                     </Col>
                     <Col md={12}>
