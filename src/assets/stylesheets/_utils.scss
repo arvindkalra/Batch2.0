@@ -46,3 +46,13 @@
 .shadow-box {
   box-shadow: 0 0 10px 10px #eee;
 }
+
+// Font Size
+$base__font-size: 13 !default;
+
+// Convert value rem() sass mixin
+@function rem($px, $base: $base__font-size) {
+  @return #{floor(($px/$base) * 100) / 100}rem; // to REMs
+  // comment code above and uncomment below for change REMs to PXs
+  //@return #{$px}px;
+}

@@ -11,7 +11,7 @@ const ProductTable = ({ rows, showForMore }) => {
       <Table responsive>
         <thead>
           <tr>
-            <th>Unit Id</th>
+            <th>#ID</th>
             <th>Product Name</th>
             <th>Date Planted</th>
             <th>Seeds Sown</th>
