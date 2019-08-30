@@ -48,10 +48,14 @@ const Product = props => {
         <Row>
           <Col>
             <section className={"product-image-section"}>
-              <img
-                src="https://www.ilovegrowingmarijuana.com/wp-content/uploads/2017/05/Trinity.jpg"
-                alt=""
-              />
+              {seedObject.details.plantImage ? (
+                <img src={seedObject.details.plantImage} alt={""} />
+              ) : (
+                <img
+                  src="https://www.ilovegrowingmarijuana.com/wp-content/uploads/2017/05/Trinity.jpg"
+                  alt=""
+                />
+              )}
             </section>
           </Col>
         </Row>
