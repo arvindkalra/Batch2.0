@@ -42,8 +42,8 @@ const NewHarvest = ({ location, history }) => {
       plantName.length !== 0 &&
       seedType.length !== 0 &&
       nutrients.length !== 0 &&
-      potential !== 0 &&
-      seedCount !== 0
+      potential <= 0 &&
+      seedCount <= 0
     );
   };
 
@@ -248,7 +248,7 @@ const NewHarvest = ({ location, history }) => {
                       type={"number"}
                       placeholder={"enter the total yield potential in ounces"}
                       onChange={e => setPotential(parseInt(e.target.value))}
-                      isInvalid={clicked ? potential === 0 : false}
+                      isInvalid={clicked ? potential <= 0 : false}
                     />
                     <FormControl.Feedback type={"invalid"}>
                       <strong>Required</strong> : Enter the Yield Potential
@@ -262,7 +262,7 @@ const NewHarvest = ({ location, history }) => {
                       type={"number"}
                       placeholder={"Enter the number of seeds you have sown"}
                       onChange={e => setSeedCount(parseInt(e.target.value))}
-                      isInvalid={clicked ? seedCount === 0 : false}
+                      isInvalid={clicked ? seedCount <= 0 : false}
                     />
                     <FormControl.Feedback type={"invalid"}>
                       <strong>Required</strong> : Enter the number of seeds sown

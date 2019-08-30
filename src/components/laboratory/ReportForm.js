@@ -10,21 +10,24 @@ import { uploadReport } from "../../dbController/laboratoryRole";
 import Loader from "../Loader";
 import { createTransactionModal, fileToString } from "../../helpers";
 import { OWN_ADDRESS } from "../../dbController/Web3Connections";
+import { FormControl } from "react-bootstrap";
 
 const ReportForm = ({ formDetails }) => {
-  console.log(formDetails.details);
+  // Report Form States
   const [thc, setThc] = useState(0);
   const [cbd, setCbd] = useState(0);
   const [cannabinoids, setCannabinoids] = useState(0);
   const [labResult, setLabResult] = useState(true);
-  const [physicalReport, setPhysicaReport] = useState("");
+  const [physicalReport, setPhysicalReport] = useState("");
+
   const [transactionMining, setTrasactionMining] = useState(false);
   const [transactionObject, setTransactionObject] = useState(null);
+  const [clicked, setClicked] = useState(false);
 
   const handleFileUpload = e => {
     const file = e.target.files[0];
     fileToString(file).then(fileString => {
-      setPhysicaReport(fileString);
+      setPhysicalReport(fileString);
     });
   };
 
@@ -42,6 +45,18 @@ const ReportForm = ({ formDetails }) => {
   const handleClick = e => {
     e.preventDefault();
     e.stopPropagation();
+    setClicked(true);
+    if (
+      thc <= 0 ||
+      thc > 100 ||
+      cbd <= 0 ||
+      cbd > 100 ||
+      cannabinoids <= 0 ||
+      cannabinoids > 100 ||
+      physicalReport.length === 0
+    ) {
+      return;
+    }
     setTrasactionMining(true);
     let details = formDetails.details;
     details.thc = thc;
@@ -147,7 +162,12 @@ const ReportForm = ({ formDetails }) => {
                       onChange={e => {
                         setThc(parseInt(e.target.value));
                       }}
+                      isInvalid={clicked ? thc <= 0 || thc > 100 : false}
                     />
+                    <FormControl.Feedback type={"invalid"}>
+                      <strong>Required</strong> : THC should be a valid
+                      percentage
+                    </FormControl.Feedback>
                   </Form.Group>
                 </Col>
                 <Col md={12}>
@@ -161,7 +181,12 @@ const ReportForm = ({ formDetails }) => {
                       onChange={e => {
                         setCbd(parseInt(e.target.value));
                       }}
+                      isInvalid={clicked ? cbd <= 0 || cbd > 100 : false}
                     />
+                    <FormControl.Feedback type={"invalid"}>
+                      <strong>Required</strong> : CBD should be a valid
+                      percentage
+                    </FormControl.Feedback>
                   </Form.Group>
                 </Col>
                 <Col md={12}>
@@ -175,7 +200,16 @@ const ReportForm = ({ formDetails }) => {
                       onChange={e => {
                         setCannabinoids(parseInt(e.target.value));
                       }}
+                      isInvalid={
+                        clicked
+                          ? cannabinoids <= 0 || cannabinoids > 100
+                          : false
+                      }
                     />
+                    <FormControl.Feedback type={"invalid"}>
+                      <strong>Required</strong> : Cannabinoids should be a valid
+                      percentage
+                    </FormControl.Feedback>
                   </Form.Group>
                 </Col>
                 <Col md={12}>
@@ -207,7 +241,13 @@ const ReportForm = ({ formDetails }) => {
                           className={"custom-file-input"}
                           type={"file"}
                           onChange={handleFileUpload}
+                          isInvalid={
+                            clicked ? physicalReport.length === 0 : false
+                          }
                         />
+                        <FormControl.Feedback type={"invalid"}>
+                          <strong>Required</strong>
+                        </FormControl.Feedback>
                       </>
                     )}
                   </Form.Group>

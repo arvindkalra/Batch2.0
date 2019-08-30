@@ -29,7 +29,6 @@ const ActionForm = ({
 }) => {
   const [showNotification, setShowNotification] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState("");
-
   const [transactionMining, setTransactionMining] = useState(false);
   const [transactionObject, setTransactionObject] = useState(null);
   const [clicked, setClicked] = useState(false);
@@ -56,7 +55,7 @@ const ActionForm = ({
     e.preventDefault();
     e.stopPropagation();
     setClicked(true);
-    if (formFieldValue === 0) {
+    if (formFieldValue <= 0) {
       return;
     }
     setTransactionMining(true);
@@ -124,7 +123,7 @@ const ActionForm = ({
     e.preventDefault();
     e.stopPropagation();
     setClicked(true);
-    if (sellingPrice === 0) {
+    if (sellingPrice <= 0) {
       return;
     }
     setTransactionMining(true);
@@ -154,7 +153,7 @@ const ActionForm = ({
     e.preventDefault();
     e.stopPropagation();
     setClicked(true);
-    if (destroyReason.length === 0 && destroyQuantity === 0) {
+    if (destroyReason.length === 0 || destroyQuantity <= 0) {
       return;
     }
     setTransactionMining(true);
@@ -217,7 +216,7 @@ const ActionForm = ({
                 onChange={e => {
                   setDestroyQuantity(parseInt(e.target.value));
                 }}
-                isInvalid={clicked ? destroyQuantity === 0 : false}
+                isInvalid={clicked ? destroyQuantity <= 0 : false}
               />
               <FormControl.Feedback type={"invalid"}>
                 <strong>Required</strong> : Enter the Destroy Quantity
@@ -317,7 +316,7 @@ const ActionForm = ({
                 onChange={e => {
                   setFormFieldValue(parseInt(e.target.value));
                 }}
-                isInvalid={clicked ? formFieldValue === 0 : false}
+                isInvalid={clicked ? formFieldValue <= 0 : false}
               />
               <FormControl.Feedback type={"invalid"}>
                 <strong>Required</strong> : Harvest Amount Should be more than
@@ -389,7 +388,7 @@ const ActionForm = ({
                 type={"number"}
                 placeholder={"Enter the Selling Price"}
                 onChange={e => setSellingPrice(parseInt(e.target.value))}
-                isInvalid={clicked ? sellingPrice === 0 : false}
+                isInvalid={clicked ? sellingPrice <= 0 : false}
               />
               <FormControl.Feedback type={"invalid"}>
                 <strong>Required</strong> : Selling price should be more than
