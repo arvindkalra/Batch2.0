@@ -42,8 +42,8 @@ const NewHarvest = ({ location, history }) => {
       plantName.length !== 0 &&
       seedType.length !== 0 &&
       nutrients.length !== 0 &&
-      potential <= 0 &&
-      seedCount <= 0
+      potential > 0 &&
+      seedCount > 0
     );
   };
 
