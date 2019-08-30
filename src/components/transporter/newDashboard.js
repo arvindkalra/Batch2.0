@@ -19,7 +19,7 @@ import Loader from "../Loader";
 import { OWN_ADDRESS } from "../../dbController/Web3Connections";
 
 const NewDashboard = ({ location }) => {
-  const [shipmentTable, setShipmentTable] = useState("pending shipments");
+
   const [changed, setChanged] = useState(0);
   const [harvestShipments, setHarvestShipments] = useState([]);
   const [packagedShipments, setPackagedShipments] = useState([]);
@@ -261,7 +261,7 @@ const NewDashboard = ({ location }) => {
           </section>
         </Col>
       </Row>
-      <section className={"shipment-table-section"}>
+      <section className={"shipment-table-section card"}>
         <Row>
           <Col md={12}>
             <ShipmentTable

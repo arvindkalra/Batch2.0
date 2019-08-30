@@ -7,7 +7,7 @@ import {
   getFactoryToDistributorConsignments,
   getFarmToFactoryConsignments,
   getLabSampleConsignments, getTransporterDetails,
-  getTransportUnitDetails
+
 } from "../../dbController/transporterRole";
 import { connectToMetamask } from "../../dbController/init";
 import { getFarmerDetails } from "../../dbController/farmerRole";
@@ -20,7 +20,7 @@ import { getDistributorDetails } from "../../dbController/distributorRole";
 import ShipmentTable from "./ShipmentTable";
 import Loader from "../Loader";
 import Badge from "react-bootstrap/Badge";
-import BarGraph from "../farmer/graphs/dashboard/BarGraph";
+
 
 const TransporterDashboardUnused = ({ location }) => {
   const [harvestShipments, setHarvestShipments] = useState([]);
@@ -308,6 +308,7 @@ const TransporterDashboardUnused = ({ location }) => {
       {/*Tables for showing current shipments*/}
       <Row>
         <Col md={12}>
+          <section className={'dashboard-section card'}>
           <Accordion>
             <Row>
               <Col md={6}>
@@ -544,6 +545,7 @@ const TransporterDashboardUnused = ({ location }) => {
               </Col>
             </Row>
           </Accordion>
+          </section>
         </Col>
       </Row>
       {transactionMining ? <Loader /> : null}
