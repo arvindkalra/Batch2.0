@@ -53,7 +53,7 @@ const RetailProduct = props => {
             )}
           </Col>
         </Row>
-        <section className={"product-details-section"}>
+        <section className={"card"}>
           <Row>
             <Col md={4} className={"product-info-tab"}>
               <h2>Unique ID</h2>

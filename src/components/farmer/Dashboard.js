@@ -197,7 +197,7 @@ const Dashboard = props => {
 
             <Row>
                 <Col md={12} className={"table-col"}>
-                    <section className={"dashboard-section card"}>
+                    <section className={"card"}>
                       <div className="card-header">
                         <div className="utils__title">
                           <strong>Currently Sown Seeds</strong>

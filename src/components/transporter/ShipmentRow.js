@@ -108,7 +108,7 @@ const ShipmentRow = ({
       dispatchFactoryToDistributorConsignment(
         value.uid,
         rowObj.details.distributorAddress ||
-          "0x8d41001644db97DC0F7120F977f6ED0357AE43F6",
+          "0x7949173E38cEf39e75E05D2d2C232FBE8BAe5E20",
         rowObj.details,
         openSignatureModal
       ).then(txHash => {
@@ -119,7 +119,7 @@ const ShipmentRow = ({
       deliverFactoryToDistributorConsignment(
         value.uid,
         rowObj.details.distributorAddress ||
-          "0x8d41001644db97DC0F7120F977f6ED0357AE43F6",
+          "0x7949173E38cEf39e75E05D2d2C232FBE8BAe5E20",
         rowObj.details,
         openSignatureModal
       ).then(txHash => {
@@ -137,7 +137,7 @@ const ShipmentRow = ({
       dispatchDistributorToShopConsignment(
         value.uid,
         rowObj.details.retailerAddress ||
-          "0x8d41001644db97DC0F7120F977f6ED0357AE43F6",
+          "0x7949173E38cEf39e75E05D2d2C232FBE8BAe5E20",
         rowObj.details,
         openSignatureModal
       ).then(txHash => {
@@ -148,7 +148,7 @@ const ShipmentRow = ({
       deliverDistributorToShopConsignment(
         value.uid,
         rowObj.details.retailerAddress ||
-          "0x8d41001644db97DC0F7120F977f6ED0357AE43F6",
+          "0x7949173E38cEf39e75E05D2d2C232FBE8BAe5E20",
         rowObj.details,
         openSignatureModal
       ).then(txHash => {

@@ -16,7 +16,7 @@ strong {
 
 main {
   background-color: $gray-lighten-more;
-
+  padding-bottom: rem(20);
   .card {
     background: $white;
     padding: rem(20);
@@ -27,7 +27,11 @@ main {
       margin-bottom: rem(8);
       border-bottom: 0;
       text-align: left;
+    }
 
+    .action-panel-head {
+      border-bottom: 1px solid $grey;
+      margin-bottom: rem(25)
     }
 
     .card-footer {
@@ -38,16 +42,18 @@ main {
     .utils__title {
       padding-left: 0;
       font-size: rem(16);
+
+      :nth-child(2) {
+        margin-left: rem(15);
+      }
     }
   }
-
 }
 
 .utils__title {
   text-transform: uppercase;
   font-size: rem(16);
   padding-left: rem(12);
-
 }
 
 .container-fluid {
@@ -82,13 +88,10 @@ main {
   margin-bottom: 10px;
 }
 
-
 .dashboard-section {
-
   max-height: 370px;
   min-height: 370px;
   margin-bottom: 30px;
-
 
   h3.section-title {
     text-transform: uppercase;
@@ -120,7 +123,6 @@ main {
     width: 100%;
     text-align: center;
   }
-
 
   .table-key {
     margin-right: 30px;
@@ -163,17 +165,13 @@ main {
   .progress-bar {
     font-style: italic;
     font-size: 2em;
-
-
   }
 }
-
-
 
 $min-height: 300px;
 
 .status-tab {
-  .progress-bar{
+  .progress-bar {
     background-color: rgb(0, 123, 255);
   }
 
@@ -181,7 +179,6 @@ $min-height: 300px;
     color: $darkblue;
     font-weight: bold;
   }
-
 }
 
 .qr-code-wrapper {
@@ -202,15 +199,13 @@ p.description {
 
 .navbar {
   border-bottom: 1px solid $grey;
-  .navbar-text{
-  color:black;
-
+  .navbar-text {
+    color: black;
   }
-  i{
-
+  i {
     font-size: rem(25);
   }
-  .navbar-brand{
+  .navbar-brand {
     font-size: rem(30);
   }
   .profile-image {
@@ -354,8 +349,6 @@ p.description {
         border-bottom: 1px solid #e8e8e8;
       }
     }
-
-
   }
 }
 
@@ -397,6 +390,5 @@ p.description {
     }
   }
 }
-
 
 @import "responsive";

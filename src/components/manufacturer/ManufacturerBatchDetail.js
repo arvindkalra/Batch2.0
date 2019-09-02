@@ -37,7 +37,8 @@ const ManufacturerBatchDetail = props => {
             currentStatus: object.currentState,
             amountAlreadyUsed: alreadyUsed,
             amountHarvested: object.details.totalHarvestAmount,
-            amountLeft: object.details.totalHarvestAmount - alreadyUsed
+            amountLeft: object.details.totalHarvestAmount - alreadyUsed,
+            plantImage: object.details.plantImage
           });
           setPreloader(false);
         });
@@ -57,63 +58,94 @@ const ManufacturerBatchDetail = props => {
             )}
           </Col>
         </Row>
-        <section
-          className={"harvest-detail-section-manufacturer container-fluid"}
-        >
-          <Row>
-            <Col md={4} className={"data-info-box"}>
-              <h4>Batch Id</h4>
-              <p className={"uid"}>{batchInfo.buid}</p>
-            </Col>
-            <Col md={4} className={"data-info-box"}>
-              <h4>Cultivator</h4>
-              <p>{batchInfo.farmerName}</p>
-            </Col>
-            <Col md={4} className={"data-info-box"}>
-              <h4>Cultivator's Company</h4>
-              <p>{batchInfo.farmerAddress}</p>
-            </Col>
-            <Col md={4} className={"data-info-box"}>
-              <h4>Plant Name</h4>
-              <p>{batchInfo.plantName}</p>
-            </Col>
-            <Col md={4} className={"data-info-box"}>
-              <h4>Lineage</h4>
-              <p>{batchInfo.plantType}</p>
-            </Col>
-            <Col md={4} className={"data-info-box"}>
-              <h4>Date of Harvest</h4>
-              <p>{batchInfo.dateHarvested}</p>
-            </Col>
-            <Col md={4} className={"data-info-box"}>
-              <h4>Units of Raw Material Bought</h4>
-              <p>{batchInfo.amountHarvested} Pounds</p>
-            </Col>
-            <Col md={4} className={"data-info-box"}>
-              <h4>Date of Testing</h4>
-              <p>{batchInfo.dateTested}</p>
-            </Col>
-            <Col md={4} className={"data-info-box"}>
-              <h4>Nutrients</h4>
-              <p>{batchInfo.nutrients}</p>
-            </Col>
-          </Row>
-        </section>
-        <section className={"manufacturer-actions container-fluid"}>
-          <Row>
-            {batchInfo.currentStatus.value >= 9 ? (
-              <ManufacturerActionPanel
-                left={batchInfo.amountLeft}
-                total={batchInfo.amountHarvested}
-                prevDetails={prevDetails}
-              />
-            ) : (
-              <div className={"delivery-notification-manufacturer"}>
+        <Row>
+          <Col>
+            <section className={"product-details-section card"}>
+              <div className={"card-header"}>
+                <div className={"utils__title"}>
+                  <strong>Product Details</strong>
+                </div>
+              </div>
+              <Row>
+                <Col md={6}>
+                  <section className={"product-image-section"}>
+                    {batchInfo.plantImage ? (
+                      <img src={batchInfo.plantImage} alt={""} />
+                    ) : (
+                      <img
+                        src="https://www.ilovegrowingmarijuana.com/wp-content/uploads/2017/05/Trinity.jpg"
+                        alt=""
+                      />
+                    )}
+                  </section>
+                </Col>
+                <Col md={6}>
+                  <section className={"product-info"}>
+                    <ul>
+                      <li>
+                        <strong>#ID</strong>
+                        <span className={"uid"}>
+                          {batchInfo.buid || "Loading..."}
+                        </span>
+                      </li>
+                      <li>
+                        <strong>Cultivator</strong>
+                        <span>{batchInfo.farmerName || "Loading..."}</span>
+                      </li>
+                      <li>
+                        <strong>Cultivator's Company</strong>
+                        <span>{batchInfo.farmerAddress || "Loading..."}</span>
+                      </li>
+                      <li>
+                        <strong>Plant Name</strong>
+                        <span>{batchInfo.plantName || "Loading..."}</span>
+                      </li>
+                      <li>
+                        <strong>Lineage</strong>
+                        <span>{batchInfo.plantType || "Loading..."}</span>
+                      </li>
+                      <li>
+                        <strong>Date of Harvest</strong>
+                        <span>{batchInfo.dateHarvested || "Loading.."}</span>
+                      </li>
+                      <li>
+                        <strong>Units of Raw Material Bought</strong>
+                        <span>
+                          {batchInfo.amountHarvested
+                            ? batchInfo.amountHarvested + " Pounds"
+                            : "Loading..."}
+                        </span>
+                      </li>
+                      <li>
+                        <strong>Date of Testing</strong>
+                        <span>{batchInfo.dateTested || "Loading..."}</span>
+                      </li>
+                      <li>
+                        <strong>Nutrients</strong>
+                        <span>{batchInfo.nutrients || "Loading..."}</span>
+                      </li>
+                    </ul>
+                  </section>
+                </Col>
+              </Row>
+            </section>
+          </Col>
+        </Row>
+        <Row>
+          {batchInfo.currentStatus.value >= 9 ? (
+            <ManufacturerActionPanel
+              left={batchInfo.amountLeft}
+              total={batchInfo.amountHarvested}
+              prevDetails={prevDetails}
+            />
+          ) : (
+            <Col md={12}>
+              <div className={"card"}>
                 The Harvest Unit is yet to be delivered by the transporter
               </div>
-            )}
-          </Row>
-        </section>
+            </Col>
+          )}
+        </Row>
       </Layout>
       {preloader ? <Loader message={"Fetching Data"} /> : null}
     </>

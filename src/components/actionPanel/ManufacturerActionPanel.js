@@ -7,14 +7,19 @@ import ProgressBar from "react-bootstrap/ProgressBar";
 import { packetsManufactured } from "../../dbController/manufacturerRole";
 import { checkMined } from "../../dbController/init";
 import Loader from "../Loader";
-import { createTransactionModal } from "../../helpers";
-import { FormControl } from "react-bootstrap";
+import {
+  createTransactionModal,
+  fileToString,
+  getSeedProgress
+} from "../../helpers";
+import { Card, FormControl } from "react-bootstrap";
 
 const ManufacturerActionPanel = ({ left, total, prevDetails }) => {
   const [materialUsed, setMaterialUsed] = useState(0);
   const [packetsMade, setPacketsMade] = useState(0);
   const [packetSize, setPacketSize] = useState("");
   const [productType, setProductType] = useState("Preroll");
+  const [plantImage, setPlantImage] = useState("");
   const [transactionMining, setTransactionMining] = useState(false);
   const [transactionObject, setTransactionObject] = useState(null);
   const [formValidity, setFormValidity] = useState(true);
@@ -39,7 +44,11 @@ const ManufacturerActionPanel = ({ left, total, prevDetails }) => {
     e.stopPropagation();
     setClicked(true);
     checkValidity(materialUsed);
-    if (packetsMade === 0 || packetSize.length === 0) {
+    if (
+      packetsMade === 0 ||
+      packetSize.length === 0 ||
+      plantImage.length === 0
+    ) {
       return;
     }
     let packetObj = {
@@ -47,7 +56,8 @@ const ManufacturerActionPanel = ({ left, total, prevDetails }) => {
       productType,
       packedOn: new Date().toLocaleString(),
       harvestUnitId: prevDetails.uid,
-      totalPacketsManufactured: packetsMade
+      totalPacketsManufactured: packetsMade,
+      productImage: plantImage
     };
 
     let oldHarvestUsed = prevDetails.details.totalHarvestUsed
@@ -76,6 +86,12 @@ const ManufacturerActionPanel = ({ left, total, prevDetails }) => {
     });
   };
 
+  const handleImageUpload = e => {
+    fileToString(e.target.files[0]).then(result => {
+      setPlantImage(result);
+    });
+  };
+
   const checkValidity = inputAmount => {
     console.log(inputAmount);
     if (left < inputAmount || inputAmount <= 0) {
@@ -88,95 +104,137 @@ const ManufacturerActionPanel = ({ left, total, prevDetails }) => {
   };
 
   return (
-    <Col>
-      <div className={"action-info"}>
-        <h2>Action Panel</h2>
-      </div>
-      <Row>
-        <Col md={12}>
-          <Form.Group>
-            <Form.Label>Units of Raw Material Left For Use</Form.Label>
-            <ProgressBar
-              now={((left / total) * 100).toFixed(2)}
-              label={`${left} Pounds`}
-              striped
-            />
-          </Form.Group>
-        </Col>
-        <Col md={6}>
-          <Form.Group>
-            <Form.Label>Units of Raw Material Used</Form.Label>
-            <Form.Control
-              type={"number"}
-              placeholder={"Enter the amount harvested in pounds"}
-              onChange={e => {
-                checkValidity(parseInt(e.target.value));
-              }}
-              isInvalid={!formValidity}
-            />
-            <FormControl.Feedback type={"invalid"}>
-              Raw Material Used should be less than the number of units
-              available
-            </FormControl.Feedback>
-          </Form.Group>
-        </Col>
-        <Col md={6}>
-          <Form.Group>
-            <Form.Label>Units of Processed Goods</Form.Label>
-            <Form.Control
-              type={"number"}
-              placeholder={"Enter the units of processed goods"}
-              onChange={e => {
-                setPacketsMade(parseInt(e.target.value));
-              }}
-              isInvalid={clicked ? packetsMade === 0 : false}
-            />
-            <FormControl.Feedback type={"invalid"}>
-              <strong>Required</strong> : The number of units should be more
-              than zero
-            </FormControl.Feedback>
-          </Form.Group>
-        </Col>
-        <Col md={6}>
-          <Form.Group>
-            <Form.Label>Unit Size</Form.Label>
-            <Form.Control
-              type={"text"}
-              placeholder={"Enter the size of each unit"}
-              onChange={e => {
-                setPacketSize(e.target.value);
-              }}
-              isInvalid={clicked ? packetSize.length === 0 : false}
-            />
-            <FormControl.Feedback type={"invalid"}>
-              <strong>Required</strong> : Enter a valid size of each unit
-              manufactured
-            </FormControl.Feedback>
-          </Form.Group>
-        </Col>
-        <Col md={6}>
-          <Form.Group>
-            <Form.Label>Product Type</Form.Label>
-            <Form.Control
-              as={"select"}
-              onChange={e => {
-                setProductType(e.target.value);
-              }}
-            >
-              <option value={"Preroll"}>Preroll</option>
-              <option value={"Edibles"}>Edibles</option>
-            </Form.Control>
-          </Form.Group>
-        </Col>
-        <Col md={12} className={"text-center"}>
-          <Button type={"submit"} onClick={handleClick}>
-            Pack
-          </Button>
-        </Col>
-      </Row>
-      {transactionMining ? <Loader /> : null}
-      {transactionObject ? createTransactionModal(transactionObject) : null}
-    </Col>
+    <>
+      <Col md={12}>
+        {" "}
+        <section className="product-status-section card">
+          <div className={"card-header"}>
+            <div className="utils__title ">
+              <strong className="text-uppercase ">
+                Available Raw Material
+              </strong>
+            </div>
+          </div>
+          <ProgressBar
+            now={((left / total) * 100).toFixed(2)}
+            label={`${left} Pounds`}
+            striped
+          />
+        </section>
+      </Col>
+      <Col>
+        <Card>
+          <div className={"card-header action-panel-head"}>
+            <div className="utils__title ">
+              <strong className="text-uppercase">Action Panel</strong>
+            </div>
+          </div>
+          <Row>
+            <Col md={6}>
+              <Form.Group>
+                <Form.Label>Units of Raw Material Used</Form.Label>
+                <Form.Control
+                  type={"number"}
+                  placeholder={"Enter the amount harvested in pounds"}
+                  onChange={e => {
+                    checkValidity(parseInt(e.target.value));
+                  }}
+                  isInvalid={!formValidity}
+                />
+                <FormControl.Feedback type={"invalid"}>
+                  Raw Material Used should be less than the number of units
+                  available
+                </FormControl.Feedback>
+              </Form.Group>
+            </Col>
+            <Col md={6}>
+              <Form.Group>
+                <Form.Label>Units of Processed Goods</Form.Label>
+                <Form.Control
+                  type={"number"}
+                  placeholder={"Enter the units of processed goods"}
+                  onChange={e => {
+                    setPacketsMade(parseInt(e.target.value));
+                  }}
+                  isInvalid={clicked ? packetsMade === 0 : false}
+                />
+                <FormControl.Feedback type={"invalid"}>
+                  <strong>Required</strong> : The number of units should be more
+                  than zero
+                </FormControl.Feedback>
+              </Form.Group>
+            </Col>
+            <Col md={6}>
+              <Form.Group>
+                <Form.Label>Size of Each Unit</Form.Label>
+                <Form.Control
+                  type={"text"}
+                  placeholder={"Enter the size of each unit"}
+                  onChange={e => {
+                    setPacketSize(e.target.value);
+                  }}
+                  isInvalid={clicked ? packetSize.length === 0 : false}
+                />
+                <FormControl.Feedback type={"invalid"}>
+                  <strong>Required</strong> : Enter a valid size of each unit
+                  manufactured
+                </FormControl.Feedback>
+              </Form.Group>
+            </Col>
+            <Col md={6}>
+              <Form.Group>
+                <Form.Label>Product Type</Form.Label>
+                <Form.Control
+                  as={"select"}
+                  onChange={e => {
+                    setProductType(e.target.value);
+                  }}
+                >
+                  <option value={"Preroll"}>Preroll</option>
+                  <option value={"Edibles"}>Edibles</option>
+                </Form.Control>
+              </Form.Group>
+            </Col>
+            <Col md={12}>
+              <Row>
+                <Col md={6}>
+                  <Form.Label className={"custom-file-label"}>
+                    Processed Good Image
+                  </Form.Label>
+                  <Form.Control
+                    className={"custom-file-input"}
+                    type={"file"}
+                    placeholder={"Upload a Plant Image"}
+                    onChange={handleImageUpload}
+                    isInvalid={clicked ? plantImage.length === 0 : false}
+                  />
+                  <FormControl.Feedback type={"invalid"}>
+                    <strong>Required</strong> : Upload an Image for the Plant
+                  </FormControl.Feedback>
+                </Col>
+                <Col md={6}>
+                  <section className={"image-section"}>
+                    <img
+                      src={
+                        plantImage ||
+                        "http://support.hostgator.com/img/articles/weebly_image_sample.png"
+                      }
+                    />
+                  </section>
+                </Col>
+              </Row>
+            </Col>
+            <Col md={12} className={"text-center"}>
+              <Button type={"submit"} onClick={handleClick} style={{width: "30%"}}>
+                Pack
+              </Button>
+            </Col>
+          </Row>
+        </Card>
+        {transactionMining ? <Loader /> : null}
+        {transactionObject ? createTransactionModal(transactionObject) : null}
+      </Col>
+    </>
   );
 };
 

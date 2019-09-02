@@ -105,14 +105,15 @@ const NewHarvest = ({ location, history }) => {
       <Row>
         <Col>{setBreadcrumb(location.pathname)}</Col>
       </Row>
-      <section className={"new-harvest-form-section"}>
-        <Row>
-          <Col md={{ span: 10, offset: 1 }}>
+
+      <Row>
+        <Col md={{ span: 10, offset: 1 }}>
+          <section className={"card"}>
+            <div className={"card-header"}>
+              <strong className="utils__title"> Register a new Plant</strong>
+            </div>
             <Form>
               <Row>
-                <Col md={12}>
-                  <h1> Register a new Plant </h1>
-                </Col>
                 <Col md={12}>
                   <Form.Group>
                     <Form.Label>Seed</Form.Label>
@@ -312,9 +313,10 @@ const NewHarvest = ({ location, history }) => {
                 </Col>
               </Row>
             </Form>
-          </Col>
-        </Row>
-      </section>
+          </section>
+        </Col>
+      </Row>
+
       {transactionMining ? <Loader /> : null}
       {transactionObject ? createTransactionModal(transactionObject) : null}
     </Layout>
