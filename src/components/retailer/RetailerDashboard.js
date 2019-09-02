@@ -58,6 +58,7 @@ const RetailerDashboard = ({ location }) => {
         : 0;
       let left = row.details.totalUnitsForSale - unitsAlreadySold;
       if (left <= 0 || row.currentState.value !== 4) {
+        addToGraph(row.details.packetName, unitsAlreadySold);
         resolve(null);
         return;
       }
