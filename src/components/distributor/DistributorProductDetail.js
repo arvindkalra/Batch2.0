@@ -58,6 +58,7 @@ const DistributorProductDetail = props => {
           packetSize: productObject.details.packetSize,
           packedOn: productObject.details.packedOn,
           costPrice: productObject.details.manufacturerToDistributorPrice,
+          productImage: productObject.details.productImage,
           manufacturerName,
           manufacturerCompany
         });
@@ -77,63 +78,104 @@ const DistributorProductDetail = props => {
             )}
           </Col>
         </Row>
-        <section
-          className={"harvest-detail-section-manufacturer container-fluid"}
-        >
-          <Row>
-            <Col md={4} className={"data-info-box"}>
-              <h4>Product Id</h4>
-              <p>{productInfo.productUnitId}</p>
-            </Col>
-            <Col md={4} className={"data-info-box"}>
-              <h4>Manufacturer Name</h4>
-              <p>{productInfo.manufacturerName}</p>
-            </Col>
-            <Col md={4} className={"data-info-box"}>
-              <h4>Manufacturer Company</h4>
-              <p>{productInfo.manufacturerCompany}</p>
-            </Col>
-            <Col md={4} className={"data-info-box"}>
-              <h4>Plant Name</h4>
-              <p>{productInfo.plantName}</p>
-            </Col>
-            <Col md={4} className={"data-info-box"}>
-              <h4>Date of Harvest</h4>
-              <p>{productInfo.dateHarvested}</p>
-            </Col>
-            <Col md={4} className={"data-info-box"}>
-              <h4>Packet Size</h4>
-              <p>{productInfo.packetSize}</p>
-            </Col>
-            <Col md={4} className={"data-info-box"}>
-              <h4>Date of Packaging</h4>
-              <p>{productInfo.packedOn}</p>
-            </Col>
-            <Col md={4} className={"data-info-box"}>
-              <h4>Cost Price</h4>
-              <p>{productInfo.costPrice} $</p>
-            </Col>
-            <Col md={4} className={"data-info-box"}>
-              <h4>Units Bought</h4>
-              <p>{productInfo.amountManufactured} Units</p>
-            </Col>
-          </Row>
-        </section>
-        <section className={"manufacturer-actions container-fluid"}>
-          <Row>
-            {productInfo.currentStatus.value === 4 ? (
-              <DistributorActionPanel
-                left={productInfo.amountLeft}
-                total={productInfo.amountManufactured}
-                prevDetails={prevDetails}
-              />
-            ) : (
-              <div className={"delivery-notification-manufacturer"}>
-                The Shipment is Yet to be Delivered by the Transporter
+        <Row>
+          <Col>
+            <section className={"product-details-section card"}>
+              <div className={"card-header"}>
+                <div className={"utils__title"}>
+                  <strong>Product Details</strong>
+                </div>
               </div>
-            )}
-          </Row>
-        </section>
+              <Row>
+                <Col md={6}>
+                  <section className={"product-image-section"}>
+                    {productInfo.productType ? (
+                      productInfo.productImage ? (
+                        <img src={productInfo.productImage} alt={""} />
+                      ) : (
+                        <img
+                          src={
+                            "https://amyshealthybaking.com/wp-content/uploads/2018/02/copycat-thin-mints-0818.jpg"
+                          }
+                          alt={""}
+                        />
+                      )
+                    ) : null}
+                  </section>
+                </Col>
+                <Col md={6}>
+                  <section className={"product-info"}>
+                    <ul>
+                      <li>
+                        <strong>#ID</strong>
+                        <span className={"uid"}>
+                          {productInfo.productUnitId || "Loading..."}
+                        </span>
+                      </li>
+                      <li>
+                        <strong>Manufacturer Name</strong>
+                        <span>
+                          {productInfo.manufacturerName || "Loading..."}
+                        </span>
+                      </li>
+                      <li>
+                        <strong>Manufacturer Company</strong>
+                        <span>
+                          {productInfo.manufacturerCompany || "Loading..."}
+                        </span>
+                      </li>
+                      <li>
+                        <strong>Plant Name</strong>
+                        <span>{productInfo.plantName || "Loading..."}</span>
+                      </li>
+                      <li>
+                        <strong>Date of Packaging</strong>
+                        <span>{productInfo.packedOn || "Loading..."}</span>
+                      </li>
+                      <li>
+                        <strong>Date of Harvest</strong>
+                        <span>{productInfo.dateHarvested || "Loading..."}</span>
+                      </li>
+                      <li>
+                        <strong>Packet Size</strong>
+                        <span>{productInfo.packetSize || "Loading..."}</span>
+                      </li>
+                      <li>
+                        <strong>Cost Price</strong>
+                        <span>
+                          {productInfo.costPrice
+                            ? "$" + productInfo.costPrice
+                            : "Loading..."}
+                        </span>
+                      </li>
+                      <li>
+                        <strong>Units Bought</strong>
+                        <span>
+                          {productInfo.amountManufactured
+                            ? productInfo.amountManufactured + "Units"
+                            : "Loading..."}
+                        </span>
+                      </li>
+                    </ul>
+                  </section>
+                </Col>
+              </Row>
+            </section>
+            <Row>
+              {productInfo.currentStatus.value === 4 ? (
+                <DistributorActionPanel
+                  left={productInfo.amountLeft}
+                  total={productInfo.amountManufactured}
+                  prevDetails={prevDetails}
+                />
+              ) : (
+                <div className={"delivery-notification-manufacturer"}>
+                  The Shipment is Yet to be Delivered by the Transporter
+                </div>
+              )}
+            </Row>
+          </Col>
+        </Row>
       </Layout>
       {preloader ? <Loader message={"Fetching Details"} /> : null}
     </>
