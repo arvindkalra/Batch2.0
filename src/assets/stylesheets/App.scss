@@ -31,7 +31,7 @@ main {
 
     .action-panel-head {
       border-bottom: 1px solid $grey;
-      margin-bottom: rem(25)
+      margin-bottom: rem(25);
     }
 
     .card-footer {
@@ -46,6 +46,10 @@ main {
       :nth-child(2) {
         margin-left: rem(15);
       }
+    }
+
+    &:hover {
+      cursor: auto;
     }
   }
 }
@@ -165,6 +169,10 @@ main {
   .progress-bar {
     font-style: italic;
     font-size: 2em;
+  }
+
+  p {
+    margin-top: rem(5);
   }
 }
 

@@ -9,6 +9,7 @@ import { fetchBatchUnitDetailsUsingUID } from "../../dbController/distributorRol
 import { fetchProductUnitDetailsUsingUID } from "../../dbController/manufacturerRole";
 import SaleActionForm from "./SaleActionForm";
 import Loader from "../Loader";
+import { Card } from "react-bootstrap";
 
 const RetailProduct = props => {
   const [batchId, setBatchId] = useState("");
@@ -25,6 +26,7 @@ const RetailProduct = props => {
       fetchBatchUnitDetailsUsingUID(puid)
         .then(obj => {
           batchUnit = obj;
+          console.log(batchUnit);
           return fetchProductUnitDetailsUsingUID(obj.details.productUnitId);
         })
         .then(productUnit => {
@@ -53,88 +55,135 @@ const RetailProduct = props => {
             )}
           </Col>
         </Row>
-        <section className={"card"}>
-          <Row>
-            <Col md={4} className={"product-info-tab"}>
-              <h2>Unique ID</h2>
-              <p># {batchId}</p>
-            </Col>
-            <Col md={4} className={"product-info-tab"}>
-              <h2>Product Type</h2>
-              <p>{details.productType}</p>
-            </Col>
-            <Col md={4} className={"product-info-tab"}>
-              <h2>Total Packets Purchased</h2>
-              <p> {totalPackets} </p>
-            </Col>
-
-            <Col md={4} className={"product-info-tab"}>
-              <h2>Units Per Packet</h2>
-              <p>{details.unitsPerPacket}</p>
-            </Col>
-
-            <Col md={4} className={"product-info-tab"}>
-              <h2> Delivered On </h2>
-              <p>
-                {" "}
-                {currentState.value === 4 ? (
-                  <span>{details.distributorToRetailerDeliveryTime}</span>
-                ) : (
-                  <span> Not yet Delivered</span>
-                )}{" "}
-              </p>
-            </Col>
-            <Col md={4} className={"product-info-tab"}>
-              <h2>Dispatched on</h2>
-              <p>
-                {" "}
-                {currentState.value >= 3 ? (
-                  <span>{details.distributorToRetailerDispatchTime}</span>
-                ) : (
-                  <span> Not yet Dispatched</span>
-                )}{" "}
-              </p>
-            </Col>
-          </Row>
-        </section>
-
-        <section className={"product-status-section"}>
-          <Row>
-            <Col md={12}>
-              <h3 className="status-tab-title">Product Status</h3>
-              <ProgressBar
-                striped
-                variant="success"
-                now={
-                  packetsSold
-                    ? ((packetsSold / totalPackets) * 100).toFixed(2)
-                    : 0
-                }
-                label={
-                  packetsSold
-                    ? ((packetsSold / totalPackets) * 100).toFixed(2) +
-                      "" +
-                      " % inventory moved"
-                    : "None Sold Yet"
-                }
+        <Row>
+          <Col>
+            <section className={"product-details-section card"}>
+              <div className={"card-header"}>
+                <div className={"utils__title"}>
+                  <strong>Product Details</strong>
+                </div>
+              </div>
+              <Row>
+                <Col md={6}>
+                  <section className={"product-image-section"}>
+                    {details.productType ? (
+                      details.retailProductImage ? (
+                        <img src={details.retailProductImage} alt={""} />
+                      ) : (
+                        <img
+                          src={
+                            "https://amyshealthybaking.com/wp-content/uploads/2018/02/copycat-thin-mints-0818.jpg"
+                          }
+                          alt={""}
+                        />
+                      )
+                    ) : null}
+                  </section>
+                </Col>
+                <Col md={6}>
+                  <section className={"product-info"}>
+                    <ul>
+                      <li>
+                        <strong>#ID</strong>
+                        <span className={"uid"}>{batchId || "Loading..."}</span>
+                      </li>
+                      <li>
+                        <strong>Product Type</strong>
+                        <span>{details.productType || "Loading..."}</span>
+                      </li>
+                      <li>
+                        <strong>Total Packets Purchased</strong>
+                        <span>
+                          {totalPackets
+                            ? totalPackets + " Packets"
+                            : "Loading..."}
+                        </span>
+                      </li>
+                      <li>
+                        <strong>Units Per Packet</strong>
+                        <span>
+                          {details.unitsPerPacket
+                            ? details.unitsPerPacket + " Units"
+                            : "Loading..."}
+                        </span>
+                      </li>
+                      <li>
+                        <strong>Delivered On</strong>
+                        <span>
+                          {currentState ? (
+                            currentState.value === 4 ? (
+                              <span>
+                                {details.distributorToRetailerDeliveryTime}
+                              </span>
+                            ) : (
+                              <span> Not yet Delivered</span>
+                            )
+                          ) : (
+                            "Loading..."
+                          )}
+                        </span>
+                      </li>
+                      <li>
+                        <strong>Dispatched on</strong>
+                        <span>
+                          {currentState ? (
+                            currentState.value >= 3 ? (
+                              <span>
+                                {details.distributorToRetailerDispatchTime}
+                              </span>
+                            ) : (
+                              <span> Not yet Dispatched</span>
+                            )
+                          ) : (
+                            "Loading..."
+                          )}
+                        </span>
+                      </li>
+                    </ul>
+                  </section>
+                </Col>
+              </Row>
+            </section>
+            <Row>
+              <Col md={12}>
+                <section className="product-status-section card">
+                  <div className={"card-header"}>
+                    <div className="utils__title ">
+                      <strong className="text-uppercase ">
+                        Units Already Sold
+                      </strong>
+                    </div>
+                  </div>
+                  <ProgressBar
+                    striped
+                    variant="success"
+                    now={
+                      packetsSold
+                        ? ((packetsSold / totalPackets) * 100).toFixed(2)
+                        : 0
+                    }
+                    label={
+                      packetsSold
+                        ? ((packetsSold / totalPackets) * 100).toFixed(2) +
+                          "" +
+                          " % inventory moved"
+                        : "None Sold Yet"
+                    }
+                  />
+                  <p>
+                    {totalPackets - packetsSold} out of {totalPackets} purchased
+                    units left in the inventory
+                  </p>
+                </section>
+              </Col>
+              <SaleActionForm
+                details={details}
+                buid={batchId}
+                left={totalPackets - packetsSold}
               />
-              <p>
-                {totalPackets - packetsSold} out of {totalPackets} purchased
-                units left in the inventory
-              </p>
-            </Col>
-          </Row>
-        </section>
-        <section className={"retailer-actions-section"}>
-          <Row>
-            <Col md={12}>
-              <section className={"action-panel-form-section"}>
-                <h1>Action Panel</h1>
-                <SaleActionForm details={details} buid={batchId} left={(totalPackets - packetsSold)}/>
-              </section>
-            </Col>
-          </Row>
-        </section>
+            </Row>
+          </Col>
+        </Row>
       </Layout>
       {preloader ? <Loader message={"Fetching Details of Product"} /> : null}
     </>

@@ -83,7 +83,9 @@ const RetailerDashboard = ({ location }) => {
       let old = tempBarObject[which];
       tempBarObject[which] = old + howMuch;
     } else {
-      tempBarObject[which] = howMuch;
+      if (howMuch > 0) {
+        tempBarObject[which] = howMuch;
+      }
     }
     setChanged(tempChanged);
     setter(tempBarObject);
