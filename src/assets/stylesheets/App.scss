@@ -4,10 +4,18 @@
 
 * {
   font-family: "Nunito Sans", sans-serif;
+
 }
 
 html {
   font-size: 13px;
+
+}
+.toast{
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 1;
 }
 
 strong {
@@ -233,7 +241,7 @@ p.description {
   background: rgba(40, 44, 52, 0.57);
 
   position: fixed;
-  z-index: 1000;
+  z-index: 5;
   top: 0;
   left: 0;
   width: 100%;
