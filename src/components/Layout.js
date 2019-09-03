@@ -15,7 +15,6 @@ const Layout = ({ children, userName, profileImage, location }) => {
   const closeSideBar = () => {
     setShowSideBar(false);
     setOverlayDisplay("none");
-    alert("clicked")
   };
   const toggleSideBar = e => {
     e.preventDefault();
