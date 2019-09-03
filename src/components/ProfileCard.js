@@ -27,171 +27,101 @@ import {
   setRetailerDetails
 } from "../dbController/retailerRole";
 import Loader from "./Loader";
-import { OWN_ADDRESS } from "../dbController/Web3Connections";
+import { Card } from "react-bootstrap";
 
-const ProfileCard = ({ role }) => {
-  const [name, setName] = useState("Peter Willams");
-  const [companyName, setCompanyName] = useState("Awesome Cultivators");
-  const [address, setAddress] = useState("route 66");
+const ProfileCard = ({ role, history }) => {
+  const [name, setName] = useState("");
+  const [companyName, setCompanyName] = useState("");
+  const [address, setAddress] = useState("");
   const [license, setLicense] = useState("");
+  const [licenseNumber, setLicenseNumber] = useState("");
+  const [licenseType, setLicenseType] = useState("Light Tier 2");
   const [profileImage, setProfileImage] = useState(
     "https://picsum.photos/id/1074/480"
   );
   const profileImageSetterRef = useRef(null);
   const profileImageRef = useRef(null);
+  const [prevObject, setPrevObject] = useState({});
   const [transactionMining, setTransactionMining] = useState(false);
   const [transactionObject, setTransactionObject] = useState(null);
 
   useEffect(() => {
     connectToMetamask().then(() => {
       if (role === "cultivator") {
-        getFarmerDetails(OWN_ADDRESS).then(farmerObj => {
-          setName(farmerObj.name);
-          setCompanyName(farmerObj.companyName);
-          setAddress(farmerObj.address);
-          setLicense(farmerObj.license);
-          setProfileImage(farmerObj.profileImage);
-        });
+        getFarmerDetails().then(setStates);
       } else if (role === "laboratory") {
-        getLaboratoryDetails(OWN_ADDRESS).then(infoObject => {
-          setName(infoObject.name);
-          setCompanyName(infoObject.companyName);
-          setAddress(infoObject.address);
-          setLicense(infoObject.license);
-          if (infoObject.profileImage) {
-            setProfileImage(infoObject.profileImage);
-          }
-        });
+        getLaboratoryDetails().then(setStates);
       } else if (role === "manufacturer") {
-        getManufacturerDetails(OWN_ADDRESS).then(infoObject => {
-          setName(infoObject.name);
-          setCompanyName(infoObject.name);
-          setAddress(infoObject.address);
-          setLicense(infoObject.license);
-          if (infoObject.profileImage) {
-            setProfileImage(infoObject.profileImage);
-          }
-        });
+        getManufacturerDetails().then(setStates);
       } else if (role === "distributor") {
-        getDistributorDetails(OWN_ADDRESS).then(infoObject => {
-          setName(infoObject.name);
-          setCompanyName(infoObject.name);
-          setAddress(infoObject.address);
-          setLicense(infoObject.license);
-          if (infoObject.profileImage) {
-            setProfileImage(infoObject.profileImage);
-          }
-        });
+        getDistributorDetails().then(setStates);
       } else if (role === "transporter") {
-        getTransporterDetails(OWN_ADDRESS).then(infoObject => {
-          setName(infoObject.name);
-          setCompanyName(infoObject.name);
-          setAddress(infoObject.address);
-          setLicense(infoObject.license);
-          if (infoObject.profileImage) {
-            setProfileImage(infoObject.profileImage);
-          }
-        });
+        getTransporterDetails().then(setStates);
       } else if (role === "retailer") {
-        getRetailerDetails(OWN_ADDRESS).then(infoObject => {
-          setName(infoObject.name);
-          setCompanyName(infoObject.name);
-          setAddress(infoObject.address);
-          setLicense(infoObject.license);
-          if (infoObject.profileImage) {
-            setProfileImage(infoObject.profileImage);
-          }
-        });
+        getRetailerDetails().then(setStates);
       }
     });
   }, []);
 
+  const setStates = obj => {
+    setPrevObject(obj);
+    if (obj.name) setName(obj.name);
+    if (obj.companyName) setCompanyName(obj.companyName);
+    if (obj.address) setAddress(obj.address);
+    if (obj.licenseType) setLicenseType(obj.licenseType);
+    if (obj.profileImage) setProfileImage(obj.profileImage);
+    if (obj.license) setLicense(obj.license);
+    if (obj.licenseNumber) setLicenseNumber(obj.licenseNumber);
+  };
+
   const openLicense = e => {
-    e.target.download = "test_download.pdf";
+    e.target.download = "license.pdf";
+  };
+
+  const redirectToDashboard = () => {
+    history.push("/cultivator/dashboard");
   };
 
   const handleClick = e => {
     e.preventDefault();
     e.stopPropagation();
+    let objToSet = {
+      name,
+      companyName,
+      address,
+      license,
+      licenseType,
+      licenseNumber,
+      profileImage
+    };
+    if (JSON.stringify(objToSet) === JSON.stringify(prevObject)) {
+      redirectToDashboard();
+      return;
+    }
     setTransactionMining(true);
-    console.log(role);
     if (role === "cultivator") {
-      setFarmerDetails(
-        {
-          name,
-          companyName,
-          address,
-          license,
-          profileImage
-        },
-        openSignatureModal
-      ).then(txHash => {
-        checkMined(txHash, () => window.location.reload());
+      setFarmerDetails(objToSet, openSignatureModal).then(txHash => {
+        checkMined(txHash, redirectToDashboard);
       });
     } else if (role === "laboratory") {
-      setLaboratoryDetails(
-        {
-          name,
-          companyName,
-          address,
-          license,
-          profileImage
-        },
-        openSignatureModal
-      ).then(txHash => {
-        checkMined(txHash, () => window.location.reload());
+      setLaboratoryDetails(objToSet, openSignatureModal).then(txHash => {
+        checkMined(txHash, redirectToDashboard);
       });
     } else if (role === "manufacturer") {
-      setManufacturerDetails(
-        {
-          name,
-          companyName,
-          address,
-          license,
-          profileImage
-        },
-        openSignatureModal
-      ).then(txHash => {
-        checkMined(txHash, () => window.location.reload());
+      setManufacturerDetails(objToSet, openSignatureModal).then(txHash => {
+        checkMined(txHash, redirectToDashboard);
       });
     } else if (role === "distributor") {
-      setDistributorDetails(
-        {
-          name,
-          companyName,
-          address,
-          license,
-          profileImage
-        },
-        openSignatureModal
-      ).then(txHash => {
-        checkMined(txHash, () => window.location.reload());
+      setDistributorDetails(objToSet, openSignatureModal).then(txHash => {
+        checkMined(txHash, redirectToDashboard);
       });
     } else if (role === "transporter") {
-      setTransporterDetails(
-        {
-          name,
-          companyName,
-          address,
-          license,
-          profileImage
-        },
-        openSignatureModal
-      ).then(txHash => {
-        checkMined(txHash, () => window.location.reload());
+      setTransporterDetails(objToSet, openSignatureModal).then(txHash => {
+        checkMined(txHash, redirectToDashboard);
       });
     } else if (role === "retailer") {
-      setRetailerDetails(
-        {
-          name,
-          companyName,
-          address,
-          license,
-          profileImage
-        },
-        openSignatureModal
-      ).then(txHash => {
-        checkMined(txHash, () => window.location.reload());
+      setRetailerDetails(objToSet, openSignatureModal).then(txHash => {
+        checkMined(txHash, redirectToDashboard);
       });
     }
   };
@@ -212,9 +142,7 @@ const ProfileCard = ({ role }) => {
 
   const handleImageUpload = e => {
     fileToString(e.target.files[0]).then(result => {
-      const imagePath = result;
-
-      setProfileImage(imagePath);
+      setProfileImage(result);
     });
   };
 
@@ -233,7 +161,10 @@ const ProfileCard = ({ role }) => {
       <Form>
         <Row>
           <Col md={4}>
-            <section className={"profile-image-section"}>
+            <section className={"profile-image-section card"}>
+              <div className={"card-header"}>
+                <strong className={"utils__title"}>Profile Image</strong>
+              </div>
               <img
                 src={profileImage || "https://picsum.photos/id/1074/450"}
                 alt=""
@@ -251,109 +182,123 @@ const ProfileCard = ({ role }) => {
                 <section className={"upload-button-section"}>
                   <p> Upload New Image</p>
                   <p>
-                    <i className="fas fa-camera"></i>
+                    <i className="fas fa-camera" />
                   </p>
                 </section>
               </div>
             </section>
           </Col>
           <Col md={8}>
-            <Row>
-              <Col md={6}>
-                <Form.Group controlId={"farmer-name"}>
-                  <Form.Label>Name</Form.Label>
-                  <Form.Control
-                    type={"text"}
-                    placeholder={"Enter the name as it appears on your license"}
-                    onChange={e => {
-                      setName(e.target.value);
-                    }}
-                    value={name}
-                  />
-                </Form.Group>
-              </Col>
-              <Col md={6}>
-                <Form.Group controlId={"farmer-company-name"}>
-                  <Form.Label>Legal Business Name</Form.Label>
-                  <Form.Control
-                    type={"text"}
-                    placeholder={
-                      "Enter the name of your company as it appears on your license"
-                    }
-                    onChange={e => {
-                      setCompanyName(e.target.value);
-                    }}
-                    value={companyName}
-                  />
-                </Form.Group>
-              </Col>
-              <Col md={6}>
-                <Form.Group controlId={"address"}>
-                  <Form.Label>Premises Address</Form.Label>
-                  <Form.Control
-                    type={"text"}
-                    placeholder={"Enter Your Address"}
-                    onChange={e => {
-                      setAddress(e.target.value);
-                    }}
-                    value={address || ""}
-                  />
-                </Form.Group>
-              </Col>
+            <Card>
+              <div className={"card-header action-panel-head"}>
+                <strong className={"utils__title"}>
+                  Fill Your Details Below
+                </strong>
+              </div>
+              <Row>
+                <Col md={6}>
+                  <Form.Group controlId={"farmer-name"}>
+                    <Form.Label>Name</Form.Label>
+                    <Form.Control
+                      type={"text"}
+                      placeholder={"Enter Contact Name"}
+                      onChange={e => {
+                        setName(e.target.value);
+                      }}
+                      value={name}
+                    />
+                  </Form.Group>
+                </Col>
+                <Col md={6}>
+                  <Form.Group controlId={"farmer-company-name"}>
+                    <Form.Label>Legal Business Name</Form.Label>
+                    <Form.Control
+                      type={"text"}
+                      placeholder={"Enter Business Name"}
+                      onChange={e => {
+                        setCompanyName(e.target.value);
+                      }}
+                      value={companyName}
+                    />
+                  </Form.Group>
+                </Col>
+                <Col md={6}>
+                  <Form.Group controlId={"address"}>
+                    <Form.Label>Premises Address</Form.Label>
+                    <Form.Control
+                      type={"text"}
+                      placeholder={"Enter Address"}
+                      onChange={e => {
+                        setAddress(e.target.value);
+                      }}
+                      value={address}
+                    />
+                  </Form.Group>
+                </Col>
 
-              <Col md={6}>
-                <Form.Group controlId={"license-number"}>
-                  <Form.Label>License Number</Form.Label>
-                  <Form.Control as={"text"} />
-                </Form.Group>
-              </Col>
-              <Col md={6}>
-                <Form.Group controlId={"license-type"}>
-                  <Form.Label>License Type</Form.Label>
-                  <Form.Control as={"select"}>
-                    <option value="light tier 2">Light Tier 2</option>
-                    <option value="lab123">LAB123</option>
-                    <option value="manufacturing lite">
-                      Manufacturing Lite
-                    </option>
-                    <option value="small enterprise">Small Enterprise</option>
-                  </Form.Control>
-                </Form.Group>
-              </Col>
-              <Col md={6}>
-                {license ? (
-                  <a
-                    href={license}
-                    className={"license-link"}
-                    target={"_blank"}
-                    onClick={openLicense}
-                  >
+                <Col md={6}>
+                  <Form.Group controlId={"license-number"}>
+                    <Form.Label>License Number</Form.Label>
+                    <Form.Control
+                      type={"text"}
+                      placeholder={"Enter Your License Number"}
+                      onChange={e => setLicenseNumber(e.target.value)}
+                      value={licenseNumber}
+                    />
+                  </Form.Group>
+                </Col>
+                <Col md={6}>
+                  <Form.Group controlId={"license-type"}>
+                    <Form.Label>License Type</Form.Label>
+                    <Form.Control
+                      as={"select"}
+                      value={licenseType}
+                      onChange={e => setLicenseType(e.target.value)}
+                    >
+                      <option value="Light Tier 2">Light Tier 2</option>
+                      <option value="Lab123">LAB123</option>
+                      <option value="Manufacturing Lite">
+                        Manufacturing Lite
+                      </option>
+                      <option value="Small Enterprise">Small Enterprise</option>
+                    </Form.Control>
+                  </Form.Group>
+                </Col>
+                <Col md={6}>
+                  {license ? (
+                    <a
+                      href={license}
+                      className={"license-link"}
+                      target={"_blank"}
+                      onClick={openLicense}
+                    >
+                      {" "}
+                      view license{" "}
+                    </a>
+                  ) : (
+                    <>
+                      <Form.Group controlId={"license"}>
+                        <Form.Label className={"custom-file-label"}>
+                          License
+                        </Form.Label>
+                        <Form.Control
+                          className={"custom-file-input"}
+                          type={"file"}
+                          placeholder={"Enter your License Number"}
+                          onChange={handleLicenseUpload}
+                        />
+                      </Form.Group>
+                    </>
+                  )}
+                </Col>
+                <Col md={{ span: 4, offset: 4 }}>
+                  <Button type={"submit"} onClick={handleClick}>
                     {" "}
-                    view license{" "}
-                  </a>
-                ) : (
-                  <>
-                    <Form.Group controlId={"license"}>
-                      <Form.Label className={"custom-file-label"}>
-                        License
-                      </Form.Label>
-                      <Form.Control
-                        className={"custom-file-input"}
-                        type={"file"}
-                        placeholder={"Enter your License Number"}
-                        onChange={handleLicenseUpload}
-                      />
-                    </Form.Group>
-                  </>
-                )}
-              </Col>
-              <Col md={{ span: 4, offset: 4 }}>
-                <Button type={"submit"} onClick={handleClick}>
-                  {" "}
-                  Save Details{" "}
-                </Button>
-              </Col>
-            </Row>
+                    Save Details{" "}
+                  </Button>
+                </Col>
+              </Row>
+            </Card>
           </Col>
         </Row>
       </Form>
