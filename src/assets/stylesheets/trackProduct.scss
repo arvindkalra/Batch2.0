@@ -1,15 +1,14 @@
 @import "colors";
 @import "utils";
 
-.journey-title{
+.journey-title {
   text-align: center;
   margin-top: 10px;
   padding-top: 4px;
   padding-bottom: 4px;
   background: $grey;
-
 }
-.journey-summary{
+.journey-summary {
   text-align: center;
   padding-left: 300px;
   padding-right: 300px;
@@ -17,38 +16,31 @@
   font-size: 1.5em;
 }
 
-.horizontal-list{
+.horizontal-list {
   text-align: center;
 }
 .track-product {
-
   counter-reset: role;
   .story-col {
     margin-top: 50px;
     .story-div {
-      h2{
+      h2 {
         text-align: center;
       }
 
-      .sub-heading{
+      .sub-heading {
         width: 100%;
         font-size: 1em;
         font-weight: normal;
         text-align: center;
-
       }
-      background-color: white;
-      box-shadow: 0 0 10px 2px #eee;
-      padding: 30px;
-      border: 1px dashed black;
       .info-box {
-
         ul {
           list-style: none;
           li {
             margin-bottom: 10px;
             font-weight: bold;
-            span.detail{
+            span.detail {
               font-weight: normal;
               font-style: italic;
               color: $blue;
@@ -62,11 +54,13 @@
         content: counter(role);
         position: absolute;
         box-shadow: 0 0 10px 10px #eee;
-        left: 4px;
-        top: -11px;
+        left: rem(-10);
+        top: rem(-10);
         background: rgba(211, 211, 211, 1);
-        width: 25px;
-        height: 25px;
+        width: rem(30);
+        height: rem(30);
+        padding: rem(1);
+        font-size: rem(17);
         text-align: center;
         border-radius: 50%;
       }
@@ -74,12 +68,12 @@
   }
 }
 
-.journey-wrapper{
+.journey-wrapper {
   margin: 3% auto;
   width: 100%;
   padding: 3%;
   background-color: #f8f9fa;
-  button{
+  button {
     width: 50%;
   }
 }

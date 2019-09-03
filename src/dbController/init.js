@@ -115,7 +115,7 @@ export function makeRetailerTransaction(type, functionName, ...args) {
 export function uploadJsonToIPFS(_json) {
   console.log("Uploading");
   return new Promise((resolve, reject) => {
-/*
+    /*
     let buffer = Buffer.from(JSON.stringify(_json));
     ipfsNode
       .add(buffer)
@@ -144,7 +144,7 @@ export function uploadJsonToIPFS(_json) {
 
 export function getJsonFromIPFS(_path) {
   return new Promise((resolve, reject) => {
-/*
+    /*
     ipfsNode
       .get("/ipfs/" + _path)
       .then(response => {
@@ -349,16 +349,16 @@ export const fetchEntireJourney = buid => {
     let objToReturn = {};
     fetchBatchUnitDetailsUsingUID(buid)
       .then(obj => {
+        if (obj.details.productUnitId.length !== 6)
+          obj.details.productUnitId = convertToHex(obj.details.productUnitId);
         objToReturn = obj.details;
-        return fetchProductUnitDetailsUsingUID(
-          obj.details.productUnitId
-        );
+        return fetchProductUnitDetailsUsingUID(obj.details.productUnitId);
       })
       .then(obj => {
+        if (obj.details.harvestUnitId.length !== 6)
+          obj.details.harvestUnitId = convertToHex(obj.details.harvestUnitId);
         objToReturn = { ...objToReturn, ...obj.details };
-        return fetchHarvestUnitDetailsUsingUID(
-          obj.details.harvestUnitId
-        );
+        return fetchHarvestUnitDetailsUsingUID(obj.details.harvestUnitId);
       })
       .then(obj => {
         objToReturn = { ...objToReturn, ...obj.details };
