@@ -29,7 +29,7 @@ import {
 import Loader from "./Loader";
 import { Card } from "react-bootstrap";
 
-const ProfileCard = ({ role, history }) => {
+const ProfileCard = ({ role, history, stopLoading }) => {
   const [name, setName] = useState("");
   const [companyName, setCompanyName] = useState("");
   const [address, setAddress] = useState("");
@@ -72,6 +72,7 @@ const ProfileCard = ({ role, history }) => {
     if (obj.profileImage) setProfileImage(obj.profileImage);
     if (obj.license) setLicense(obj.license);
     if (obj.licenseNumber) setLicenseNumber(obj.licenseNumber);
+    stopLoading();
   };
 
   const openLicense = e => {
@@ -79,7 +80,7 @@ const ProfileCard = ({ role, history }) => {
   };
 
   const redirectToDashboard = () => {
-    history.push("/cultivator/dashboard");
+    history.push(`/${role}/dashboard`);
   };
 
   const handleClick = e => {
