@@ -1,6 +1,33 @@
+@import "utils";
 @media (max-width: 767px){
   html {
     font-size: 10px;
+  }
+  .sidebar{
+    &.visible{
+      width: 100%;
+
+    }
+    &.hidden{
+      width: 0;
+
+    }
+  }
+  .overlay{
+    width: 0;
+  }
+  .sidebar-profile-details{
+    .name{
+      font-size: rem(40);
+    }
+    .profession{
+      font-size: rem(25);
+    }
+
+  }
+  .sidebar-list{
+    font-size: rem(20);
+    height: 66%;
   }
 }
 

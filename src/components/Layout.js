@@ -15,6 +15,7 @@ const Layout = ({ children, userName, profileImage, location }) => {
   const closeSideBar = () => {
     setShowSideBar(false);
     setOverlayDisplay("none");
+    alert("clicked")
   };
   const toggleSideBar = e => {
     e.preventDefault();
@@ -25,14 +26,15 @@ const Layout = ({ children, userName, profileImage, location }) => {
 
   return (
     <Container fluid={true} className={showSideBar ? "no-scroll" : null}>
-      {showSideBar ? (
+
         <SideBar
+            hidden={showSideBar?'sidebar visible':'sidebar hidden'}
           profession={location.pathname.split("/")[1]}
           userName={userName}
           profileImage={profileImage}
           closeSideBar={closeSideBar}
         />
-      ) : null}
+
 
             <Row>
                 <Col>
