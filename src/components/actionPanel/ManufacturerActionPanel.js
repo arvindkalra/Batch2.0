@@ -171,7 +171,7 @@ const ManufacturerActionPanel = ({ left, total, prevDetails }) => {
                   type={"text"}
                   placeholder={"Enter the size of each unit"}
                   onChange={e => {
-                    setPacketSize(e.target.value);
+                    setPacketSize((e.target.value).captialize());
                   }}
                   isInvalid={clicked ? packetSize.length === 0 : false}
                 />

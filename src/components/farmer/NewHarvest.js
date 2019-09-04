@@ -66,13 +66,11 @@ const NewHarvest = ({ location, history }) => {
       datePlanted: new Date().toLocaleString(),
       seedCount: seedCount,
       plantName: plantName,
-      plantImage: plantImage,
-      farmerAddress: OWN_ADDRESS
+      plantImage: plantImage
     };
-    console.log(objToBeUploaded);
     connectToMetamask().then(() => {
       setTransactionMining(true);
-
+      objToBeUploaded.farmerAddress = OWN_ADDRESS;
       seedSownByFarmer(objToBeUploaded, openSignatureModal).then(txHash => {
         checkMined(txHash, () => {
           history.push("/cultivator/dashboard");
@@ -120,7 +118,7 @@ const NewHarvest = ({ location, history }) => {
                     <Form.Control
                       type={"text"}
                       placeholder={"Enter the Seed Name"}
-                      onChange={e => setPlantName(e.target.value)}
+                      onChange={e => setPlantName(e.target.value.captialize())}
                       isInvalid={clicked ? plantName.length === 0 : false}
                     />
                     <FormControl.Feedback type={"invalid"}>
@@ -210,7 +208,7 @@ const NewHarvest = ({ location, history }) => {
                       placeholder={
                         "Enter the Nutritional Information about the plant"
                       }
-                      onChange={e => setNutrients(e.target.value)}
+                      onChange={e => setNutrients(e.target.value.captialize())}
                       isInvalid={clicked ? nutrients.length === 0 : false}
                     />
                     <FormControl.Feedback type={"invalid"}>

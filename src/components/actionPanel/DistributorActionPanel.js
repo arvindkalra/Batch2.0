@@ -182,7 +182,7 @@ const DistributorActionPanel = ({ left, total, prevDetails }) => {
                 <Form.Control
                   type={"text"}
                   onChange={e => {
-                    setPacketName(e.target.value);
+                    setPacketName((e.target.value).captialize());
                   }}
                   placeholder={"Enter the name of the packet"}
                   isInvalid={clicked ? packetName.length === 0 : false}

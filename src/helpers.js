@@ -7,7 +7,6 @@ import Button from "react-bootstrap/Button";
 
 String.prototype.captialize = function() {
   let str = this.valueOf();
-
   let newstr = str.substr(0, 1).toUpperCase() + str.slice(1);
   return newstr;
 };

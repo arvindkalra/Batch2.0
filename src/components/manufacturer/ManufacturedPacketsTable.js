@@ -56,7 +56,6 @@ const ManufacturedPacketsTable = ({
 
     let prevDetails = array[showModal.id].details;
     let newDetails = {
-      manufacturerAddress: OWN_ADDRESS,
       distributorAddress: "0x7949173E38cEf39e75E05D2d2C232FBE8BAe5E20",
       manufacturerToDistributorTransporter:
         "0x7949173E38cEf39e75E05D2d2C232FBE8BAe5E20",
@@ -65,6 +64,7 @@ const ManufacturedPacketsTable = ({
     };
     setShowModal({ open: false });
     connectToMetamask().then(() => {
+      newDetails.manufacturerAddress = OWN_ADDRESS;
       sendProductToDistributor(
         array[showModal.id].productUnitId,
         newDetails.distributorAddress,
