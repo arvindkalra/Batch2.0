@@ -4,14 +4,12 @@
 
 * {
   font-family: "Nunito Sans", sans-serif;
-
 }
 
 html {
   font-size: 13px;
-
 }
-.toast{
+.toast {
   position: fixed;
   top: 0;
   right: 0;
@@ -54,6 +52,10 @@ main {
       :nth-child(2) {
         margin-left: rem(15);
       }
+    }
+
+    canvas {
+      min-height: 300px;
     }
 
     &:hover {
@@ -404,6 +406,13 @@ p.description {
       font-weight: bolder;
       color: #0e0b20;
     }
+  }
+}
+
+.invoice-qrcode {
+  text-align: right;
+  canvas {
+    min-height: inherit !important;
   }
 }
 

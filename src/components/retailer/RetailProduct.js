@@ -10,6 +10,7 @@ import { fetchProductUnitDetailsUsingUID } from "../../dbController/manufacturer
 import SaleActionForm from "./SaleActionForm";
 import Loader from "../Loader";
 import { Card } from "react-bootstrap";
+import { getRetailerDetails } from "../../dbController/retailerRole";
 
 const RetailProduct = props => {
   const [batchId, setBatchId] = useState("");
@@ -18,11 +19,13 @@ const RetailProduct = props => {
   const [totalPackets, setTotalPackets] = useState("");
   const [packetsSold, setPacketsSold] = useState("");
   const [preloader, setPreloader] = useState(true);
+  const [retailerDetails, setRetailerDetails] = useState({});
 
   useEffect(() => {
     connectToMetamask().then(txHash => {
       let puid = props.match.params.id;
       let batchUnit;
+      getRetailerDetails().then(setRetailerDetails);
       fetchBatchUnitDetailsUsingUID(puid)
         .then(obj => {
           batchUnit = obj;
@@ -180,6 +183,7 @@ const RetailProduct = props => {
                 details={details}
                 buid={batchId}
                 left={totalPackets - packetsSold}
+                retailerDetails={retailerDetails}
               />
             </Row>
           </Col>

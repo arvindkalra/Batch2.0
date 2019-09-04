@@ -22,8 +22,9 @@ import QRCode from "qrcode.react";
 import "../../assets/stylesheets/retailer.scss";
 import { OWN_ADDRESS } from "../../dbController/Web3Connections";
 import { Card, FormControl } from "react-bootstrap";
+import Invoice from "./Invoice";
 
-const SaleActionForm = ({ buid, details, left }) => {
+const SaleActionForm = ({ buid, details, left, retailerDetails }) => {
   const [registered, setRegistered] = useState(false);
   const [showFullForm, setShowFullForm] = useState(false);
   const [buyerAddress, setBuyerAddress] = useState("");
@@ -148,6 +149,10 @@ const SaleActionForm = ({ buid, details, left }) => {
   };
 
   const checkValidity = inputValue => {
+    if (isNaN(inputValue)) {
+      setAmount(0);
+      return;
+    }
     if (left < inputValue || inputValue <= 0) {
       setFormValidity(false);
       setAmount(0);
@@ -202,9 +207,10 @@ const SaleActionForm = ({ buid, details, left }) => {
           </Row>
         </Card>
       </Col>
-      <Col md={12}>
-        {showFullForm ? (
-          <>
+
+      {showFullForm ? (
+        <>
+          <Col md={5}>
             <Card>
               <div className={"card-header action-panel-head"}>
                 <div className="utils__title ">
@@ -271,7 +277,7 @@ const SaleActionForm = ({ buid, details, left }) => {
               )}
               <Col md={12}>
                 <Row>
-                  <Col md={6}>
+                  <Col md={12}>
                     <Row>
                       <Col md={12}>
                         <Form.Group controlId={"amount"}>
@@ -318,76 +324,21 @@ const SaleActionForm = ({ buid, details, left }) => {
                       </Col>
                     </Row>
                   </Col>
-                  <Col md={6}>
-                    <section className={"retail-receipt-section"}>
-                      <Row>
-                        <Col md={12}>
-                          <h1> ABC Pvt Limited </h1>
-                        </Col>
-                      </Row>
-                      <Row>
-                        <Col md={12}>
-                          <ul>
-                            <li>
-                              Buyer: <span> {buyerAddress}</span>
-                            </li>
-                            <li>
-                              Product:{" "}
-                              <span>{details.productType || "loading..."}</span>
-                            </li>
-                            <li>
-                              Quantity: <span>{amount} units</span>
-                            </li>
-                            <li>
-                              Price : <span>${sellingPrice}</span>
-                            </li>
-                            <li>
-                              <ul>
-                                <h6>Tax</h6>
-
-                                <li>
-                                  State Excise : <span>15%</span>
-                                </li>
-                                <li>
-                                  State Sales Tax: <span>3%</span>
-                                </li>
-                                <li>
-                                  Local Tax: <span>5%</span>
-                                </li>
-                              </ul>
-                            </li>
-                            <li>
-                              Total :{" "}
-                              <span>
-                                ${getTotalFare(sellingPrice, amount)}{" "}
-                              </span>
-                            </li>
-                          </ul>
-                        </Col>
-                      </Row>
-                      <Row>
-                        <Col md={{ span: 6, offset: 2 }}>
-                          SCAN THIS QR CODE TO SEE DETAILS:
-                        </Col>
-                        <Col md={{ span: 4 }}>
-                          <QRCode
-                            bgColor={"#6e7480"}
-                            fgColor={"white"}
-                            value={"/journey/" + buid}
-                            level={"H"}
-                            size={120}
-                            renderAs={"svg"}
-                          />
-                        </Col>
-                      </Row>
-                    </section>
-                  </Col>
                 </Row>
               </Col>
             </Card>
-          </>
-        ) : null}
-      </Col>
+          </Col>
+          <Col md={7}>
+            <Invoice
+              retailerDetails={retailerDetails}
+              productName={details.packetName}
+              quantity={amount}
+              price={sellingPrice}
+              total={amount * sellingPrice}
+            />
+          </Col>
+        </>
+      ) : null}
       {transactionMining ? <Loader /> : null}
       {transactionObject ? createTransactionModal(transactionObject) : null}
     </>
