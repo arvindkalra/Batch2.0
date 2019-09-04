@@ -3,8 +3,7 @@ import Modal from "react-bootstrap/Modal";
 import ReportForm from "../laboratory/ReportForm";
 import Button from "react-bootstrap/Button";
 
-const FormModal = ({ buttonText, formDetails, tableRow }) => {
-
+const FormModal = ({ buttonText, formDetails, labDetails }) => {
   const [showModal, setShowModal] = useState(false);
   return (
     <>
@@ -22,9 +21,11 @@ const FormModal = ({ buttonText, formDetails, tableRow }) => {
           setShowModal(false);
         }}
       >
-        <Modal.Body>
-          <ReportForm formDetails={formDetails} />
-        </Modal.Body>
+        <main>
+          <Modal.Body>
+            <ReportForm formDetails={formDetails} labDetails={labDetails} />
+          </Modal.Body>
+        </main>
       </Modal>
     </>
   );

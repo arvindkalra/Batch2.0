@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import FormModal from "./FormModal";
 import { Link } from "react-router-dom";
-const TableRow = ({ tableRow, rowDetails }) => {
+const TableRow = ({ tableRow, rowDetails, labDetails }) => {
   const [row, setRow] = useState([]);
   useEffect(() => {
     setRow(tableRow);
@@ -27,6 +27,7 @@ const TableRow = ({ tableRow, rowDetails }) => {
             formDetails={rowDetails}
             tableRow={tableRow}
             buttonText={data}
+            labDetails={labDetails}
           />
         );
       case "view report":

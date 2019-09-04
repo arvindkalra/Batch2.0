@@ -7,7 +7,10 @@ import PendingReportTable from "./PendingReportTable";
 import AlreadyTestedReportTable from "./AlreadyTestedReportTable";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import { connectToMetamask } from "../../dbController/init";
-import { getRowsForLaboratory } from "../../dbController/laboratoryRole";
+import {
+  getLaboratoryDetails,
+  getRowsForLaboratory
+} from "../../dbController/laboratoryRole";
 import { getFarmerDetails } from "../../dbController/farmerRole";
 import Accordion from "react-bootstrap/Accordion";
 import Card from "react-bootstrap/Card";
@@ -184,6 +187,7 @@ const LabDashboard = props => {
                       <PendingReportTable
                         array={pendingReportsArray}
                         seedObjArr={seedObjArr}
+                        labDetails={props.labDetails}
                       />
                     ) : (
                       <div>You Don't have any harvest samples to be tested</div>

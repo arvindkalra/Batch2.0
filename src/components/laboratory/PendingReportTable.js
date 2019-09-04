@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import TableLayout from "../tables/TableLayout";
 
-const PendingReportTable = ({array, seedObjArr}) => {
+const PendingReportTable = ({array, seedObjArr, labDetails}) => {
     const tableHead = [
         "Batch Id",
         "Farmer Name",
@@ -12,7 +12,7 @@ const PendingReportTable = ({array, seedObjArr}) => {
     ];
 
     return (
-        <TableLayout tableHead={tableHead} rows={array} tableParams={seedObjArr}/>
+        <TableLayout tableHead={tableHead} rows={array} tableParams={seedObjArr} labDetails={labDetails}/>
     );
 };
 

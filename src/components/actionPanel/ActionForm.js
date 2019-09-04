@@ -82,7 +82,7 @@ const ActionForm = ({
     e.preventDefault();
     e.stopPropagation();
     setTransactionMining(true);
-    seedObj.details.sentToLabOn = new Date().toDateString();
+    seedObj.details.sentToLabOn = new Date().toLocaleString();
     seedObj.details.laboratoryAddress =
       "0x7949173E38cEf39e75E05D2d2C232FBE8BAe5E20";
     seedObj.details.farmToLabConsignmentTransporterAddress =
