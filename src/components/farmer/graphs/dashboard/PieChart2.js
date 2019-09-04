@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Pie } from "react-chartjs-2";
 import { setLabelsForGraphs } from "../../../../helpers";
-
+import colors from '../../../colors'
 const PieChart2 = ({ numApproved, numRejected }) => {
   const [total, setTotal] = useState(numRejected + numApproved);
   useEffect(() => {
@@ -30,8 +30,8 @@ const PieChart2 = ({ numApproved, numRejected }) => {
               ((numApproved / total) * 100).toFixed(2),
               ((numRejected / total) * 100).toFixed(2)
             ],
-            backgroundColor: ['#4BC0C0','#FF6384'],
-            hoverBackgroundColor: ['#4BC0C0','#FF6384']
+            backgroundColor: [colors.green, colors.red],
+            hoverBackgroundColor: [colors.green, colors.red]
           }
         ]
       }}

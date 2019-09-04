@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Bar } from "react-chartjs-2";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
+import colors from '../../../colors'
 // const data = {
 //     labels: ['Gundza', 'Ruddee', 'Tazzie'],
 //     datasets:[{
@@ -12,19 +13,19 @@ import Row from "react-bootstrap/Row";
 //     }
 //     ]
 // };
-const colors = [
-  "#e3f2fd",
-  "#bbdefb",
-  "#90caf9",
-  "#64b5f6",
-  "#42a5f5",
-  "#2196f3",
-  "#1e88e5",
-  "#1976d2",
-  "#1565c0",
-  "#448aff",
-  "#2979ff",
-  "#2962ff"
+const graphColors = [
+  colors.darkGreen,
+  colors.darkGreen,
+  colors.darkGreen,
+  colors.darkGreen,
+  colors.darkGreen,
+  colors.darkGreen,
+  colors.darkGreen,
+  colors.darkGreen,
+  colors.darkGreen,
+  colors.darkGreen,
+  colors.darkGreen,
+  colors.darkGreen
 ];
 const BarGraph = ({ ObjectToShow, changed, label }) => {
   let change = changed ? changed : JSON.stringify(ObjectToShow);
@@ -81,7 +82,7 @@ const BarGraph = ({ ObjectToShow, changed, label }) => {
         <Bar
           data={{
             datasets: [
-              { data: dataArray, label: graphLabel, backgroundColor: colors }
+              { data: dataArray, label: graphLabel, backgroundColor: graphColors }
             ],
             labels: labels
           }}

@@ -171,7 +171,7 @@ const LabDashboard = props => {
                     Pending Tests &nbsp;
                     {pendingReportsArray.length !== 0 ? (
                       <Badge pill variant="success">
-                        New Shipments
+                        New samples
                       </Badge>
                     ) : null}
                   </Accordion.Toggle>

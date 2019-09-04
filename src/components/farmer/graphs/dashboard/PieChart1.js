@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Doughnut } from "react-chartjs-2";
 import { setLabelsForGraphs } from "../../../../helpers";
-
+import colors from '../../../colors';
 const PieChart1 = ({ numSown, numInventory, numSold }) => {
   const [total, setTotal] = useState(numSold + numSown + numInventory);
   useEffect(() => {
@@ -12,7 +12,7 @@ const PieChart1 = ({ numSown, numInventory, numSold }) => {
     "Plants in Inventory",
     "Plants Already Sold"
   ];
-  const backgrounds = ["#4BC0C0", "#FF6384", "#ffce56"];
+  const backgrounds = [colors.green, colors.red, colors.yellow];
 
   const options = {
     legend: {

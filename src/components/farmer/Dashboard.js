@@ -130,6 +130,7 @@ const Dashboard = props => {
     }
 
     function addToBarObject(plantName, seedCount) {
+        plantName = plantName.captialize();
         let tempBarGraph = barGraphObject;
         if (tempBarGraph[plantName]) {
             let old = tempBarGraph[plantName];
@@ -198,27 +199,29 @@ const Dashboard = props => {
             <Row>
                 <Col md={12} className={"table-col"}>
                     <section className={"card"}>
-                      <div className="card-header">
-                        <div className="utils__title">
-                          <strong>Currently Sown Seeds</strong>
+                        <div className="card-header">
+                            <div className="utils__title">
+                                <strong>Currently Sown Seeds</strong>
 
 
-                        <Button variant={'light'} type={"primary"} onClick={()=>{
-                          props.history.push('/cultivator/products')
-                        }}>View All</Button>
-                            {
-                                showForMoreRows?<Button variant={'primary'} className={'float-right'} type={"primary"} onClick={()=>{
-                                    props.history.push('/cultivator/add-new-harvest')
-                                }}>Add New Plant</Button>:null
-                            }
+                                <Button variant={'light'}  onClick={() => {
+                                    props.history.push('/cultivator/products')
+                                }}>View All</Button>
+                                {
+                                    showForMoreRows ?
+                                        <Button variant={'primary'} className={'float-right'} type={"primary"}
+                                                onClick={() => {
+                                                    props.history.push('/cultivator/add-new-harvest')
+                                                }}>Add New Plant</Button> : null
+                                }
+
+                            </div>
+
 
                         </div>
 
-
-                      </div>
-
                         <div className={"table-section product-table-dashboard"}>
-                            <ProductTable rows={rowsArray} />
+                            <ProductTable rows={rowsArray}/>
                         </div>
                     </section>
                 </Col>
@@ -227,12 +230,12 @@ const Dashboard = props => {
             <Row>
                 <Col md={{span: 6}} className={"chart-col"}>
                     <section className="dashboard-section card">
-                      <div className={'card-header'}>
-                        <div className={'utils__title'}>
-                          <strong>Seeds Sown in Year 2019</strong>
-                        </div>
+                        <div className={'card-header'}>
+                            <div className={'utils__title'}>
+                                <strong>Seeds Sown in Year 2019</strong>
+                            </div>
 
-                      </div>
+                        </div>
                         <Row>
 
                             <Col md={{span: 10, offset: 1}}>
@@ -249,12 +252,12 @@ const Dashboard = props => {
 
                 <Col md={6} className={"chart-col"}>
                     <section className={"dashboard-section card"}>
-                      <div className={'card-header'}>
-                        <div className={'utils__title'}>
-                          <strong className={"section-title"}>Lab test Reports in 2018-19</strong>
-                        </div>
+                        <div className={'card-header'}>
+                            <div className={'utils__title'}>
+                                <strong className={"section-title"}>Lab test Reports in 2018-19</strong>
+                            </div>
 
-                      </div>
+                        </div>
                         <Row>
 
                             <Col md={{span: 10, offset: 1}}>
@@ -268,11 +271,11 @@ const Dashboard = props => {
                 </Col>
                 <Col md={6} className={"chart-col"}>
                     <section className={"dashboard-section card"}>
-                      <div className={'card-header'}>
-                        <div className={'utils__title'}>
-                          <strong className={"section-title"}>Current Stock Status</strong>
+                        <div className={'card-header'}>
+                            <div className={'utils__title'}>
+                                <strong className={"section-title"}>Current Stock Status</strong>
+                            </div>
                         </div>
-                      </div>
                         <Row>
 
                             <Col md={{span: 10, offset: 1}}>
@@ -286,12 +289,12 @@ const Dashboard = props => {
                     </section>
                 </Col>
                 <Col md={6} className={"chart-col"}>
-                    <section className={"dashboard-section card" }>
-                      <div className={'card-header'}>
-                        <div className={'util__title'}>
-                          <strong className={"section-title"}>Crops Harvested in 2018-19</strong>
+                    <section className={"dashboard-section card"}>
+                        <div className={'card-header'}>
+                            <div className={'util__title'}>
+                                <strong className={"section-title"}>Crops Harvested in 2018-19</strong>
+                            </div>
                         </div>
-                      </div>
                         <Row>
                             <Col md={{span: 10, offset: 1}}>
                                 <PieChart3
