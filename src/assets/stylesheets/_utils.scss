@@ -47,6 +47,9 @@
 }
 .btn-warning{
   background-color: $yellow;
+  &:hover{
+    color: white;
+  }
 }
 
 
