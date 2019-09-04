@@ -32,7 +32,7 @@ const BarGraph = ({ ObjectToShow, changed, label }) => {
   const [dataArray, setDataArray] = useState([]);
   const [labels, setLabels] = useState([]);
   const options = {
-    maintainAspectRatio: false,
+
     title: {
       display: false
     },

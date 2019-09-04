@@ -239,12 +239,12 @@ const Dashboard = props => {
                         <Row>
 
                             <Col md={{span: 10, offset: 1}}>
-                                <div className={"chart-section"}>
+
                                     <BarGraph
                                         ObjectToShow={barGraphObject}
                                         label={"Seeds Sown"}
                                     />
-                                </div>
+                                
                             </Col>
                         </Row>
                     </section>
