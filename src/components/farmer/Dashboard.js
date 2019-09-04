@@ -244,7 +244,7 @@ const Dashboard = props => {
                                         ObjectToShow={barGraphObject}
                                         label={"Seeds Sown"}
                                     />
-                                
+
                             </Col>
                         </Row>
                     </section>
