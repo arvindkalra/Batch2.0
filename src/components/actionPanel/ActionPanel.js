@@ -110,20 +110,22 @@ const ActionPanel = ({ productState, setProductStatus, seedObj, history }) => {
             <div>
               {productState.value === 1 ? (
                 <Button
-                  className={"btn-warning move-location"}
+                    variant={'warning'}
+                  className={"move-location"}
                   onClick={handleMove}
                 >
                   {" "}
-                  MOVE LOCATION{" "}
+                  MOVE <br/> LOCATION{" "}
                 </Button>
               ) : null}
               {productState.value < 7 ? (
                 <Button
-                  className={"btn-danger destroy-crop"}
+                    variant={'danger'}
+                  className={"destroy-crop"}
                   onClick={handleDestroy}
                 >
                   {" "}
-                  DESTROY CROP
+                  DESTROY <br/> CROP
                 </Button>
               ) : null}
 

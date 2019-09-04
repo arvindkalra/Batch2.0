@@ -1,6 +1,6 @@
 @import "utils";
-@import "colors";
 @import "./themeUI/mixins";
+@import "colors";
 
 * {
   font-family: "Nunito Sans", sans-serif;
@@ -103,8 +103,8 @@ main {
 }
 
 .dashboard-section {
-  max-height: 370px;
-  min-height: 370px;
+  //max-height: rem(370);
+  //min-height: rem(370);
   margin-bottom: 30px;
 
   h3.section-title {
@@ -187,14 +187,21 @@ main {
 }
 
 $min-height: 300px;
-
+.progress-bar{
+  background-color: #20639b;
+}
 .status-tab {
+  .progress{
+    height: 1.4rem;
+    font-weight: bold;
+  }
   .progress-bar {
-    background-color: rgb(0, 123, 255);
+    background-color: $blue;
+
   }
 
   p.status-tab-description {
-    color: $darkblue;
+    color: $blue;
     font-weight: bold;
   }
 }
@@ -297,9 +304,9 @@ p.description {
     }
   }
 
-  .modal-backdrop {
-    background-color: none;
-  }
+  //.modal-backdrop {
+  //  background-color: none;
+  //}
 
   .modal-footer {
     :nth-child(1) {

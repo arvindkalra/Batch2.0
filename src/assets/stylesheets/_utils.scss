@@ -1,3 +1,5 @@
+@import "colors";
+
 .info {
   font-weight: bolder;
 }
@@ -26,7 +28,37 @@
 
 .btn {
   border-radius: 0;
+  border: none;
+  font-weight: bold;
+  color: white;
 }
+
+.btn-primary{
+  background-color: $blue;
+  &:hover{
+    background-color: $blue;
+  }
+}
+.btn-light{
+  color: black;
+}
+.btn-danger{
+  background-color: $red;
+}
+.btn-warning{
+  background-color: $yellow;
+}
+
+
+.badge{
+background-color: $green;
+}
+
+a{
+  color: $blue;
+  font-weight: bold;
+}
+
 
 .vertical-centered-list {
   list-style: none;
