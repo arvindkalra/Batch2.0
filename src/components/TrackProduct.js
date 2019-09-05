@@ -118,14 +118,14 @@ const TrackProduct = ({ location }) => {
                 </div>
               </div>
               <Row>
-                <Col md={6}>
+                <Col md={6} sm={6}>
                   <section className={"product-image-section"}>
                     {journeyObj.productType ? (
                       <img src={productImage} alt={""} />
                     ) : null}
                   </section>
                 </Col>
-                <Col md={6}>
+                <Col md={6} sm={6}>
                   <section className={"product-info"}>
                     <ul>
                       <li>
@@ -155,7 +155,7 @@ const TrackProduct = ({ location }) => {
         </Row>
 
         <Row>
-          <Col md={6} className={"story-col"}>
+          <Col md={6} sm={6} className={"story-col"}>
             <Card>
               <div className={"story-div"}>
                 <h2 className={"story-div-title"}>Retailer</h2>
@@ -190,7 +190,7 @@ const TrackProduct = ({ location }) => {
               </div>
             </Card>
           </Col>
-          <Col md={{ span: 6, offset: 6 }} className={"story-col"}>
+          <Col md={{ span: 6, offset: 6 }} sm={{span:6, offset: 6}} className={"story-col"}>
             <Card>
               <div className={"story-div"}>
                 <h2> Transporter </h2>
@@ -230,7 +230,7 @@ const TrackProduct = ({ location }) => {
             </Card>{" "}
           </Col>
 
-          <Col md={6} className={"story-col"}>
+          <Col md={6} sm={6} className={"story-col"}>
             <Card>
               <div className={"story-div"}>
                 <h2 className={"story-div-title"}>Distributor</h2>
@@ -265,7 +265,7 @@ const TrackProduct = ({ location }) => {
               </div>
             </Card>
           </Col>
-          <Col md={{ span: 6, offset: 6 }} className={"story-col"}>
+          <Col md={{ span: 6, offset: 6 }} sm={{ span: 6, offset: 6 }} className={"story-col"}>
             <Card>
               <div className={"story-div"}>
                 <h2> Transporter </h2>
@@ -305,7 +305,7 @@ const TrackProduct = ({ location }) => {
             </Card>
           </Col>
 
-          <Col md={6} className={"story-col"}>
+          <Col md={6} sm={6} className={"story-col"}>
             <Card>
               <div className={"story-div"}>
                 <h2> Manufacturer </h2>
@@ -344,7 +344,7 @@ const TrackProduct = ({ location }) => {
               </div>
             </Card>
           </Col>
-          <Col md={{ span: 6, offset: 6 }} className={"story-col"}>
+          <Col md={{ span: 6, offset: 6 }} sm={{ span: 6, offset: 6 }} className={"story-col"}>
             <Card>
               <div className="story-div">
                 <h2> Transporter </h2>
@@ -384,7 +384,7 @@ const TrackProduct = ({ location }) => {
               </div>
             </Card>
           </Col>
-          <Col md={6} className={"story-col"}>
+          <Col md={6} sm={6} className={"story-col"}>
             <Card>
               <div className={"story-div"}>
                 <h2>Laboratory</h2>
@@ -439,7 +439,7 @@ const TrackProduct = ({ location }) => {
               </div>
             </Card>
           </Col>
-          <Col md={{ span: 6, offset: 6 }} className={"story-col"}>
+          <Col md={{ span: 6, offset: 6 }} sm={{ span: 6, offset: 6 }} className={"story-col"}>
             <Card>
               <div className="story-div">
                 <h2> Transporter </h2>
@@ -479,7 +479,7 @@ const TrackProduct = ({ location }) => {
               </div>
             </Card>
           </Col>
-          <Col md={{ span: 6 }} className={"story-col"}>
+          <Col md={{ span: 6 }} sm={6} className={"story-col"}>
             <Card>
               <div className={"story-div"}>
                 <h2> Cultivator</h2>

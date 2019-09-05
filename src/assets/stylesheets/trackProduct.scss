@@ -3,15 +3,17 @@
 
 .journey-title {
   text-align: center;
-  margin-top: 10px;
   padding-top: 4px;
   padding-bottom: 4px;
-  background: $grey;
+  color: $text-lighten;
+  font-weight: bold;
+  background: white;
+  margin: rem(4);
+  border-radius: rem(4);
 }
 .journey-summary {
   text-align: center;
-  padding-left: 300px;
-  padding-right: 300px;
+padding: rem(10);
 
   font-size: 1.5em;
 }
@@ -75,5 +77,11 @@
   background-color: #f8f9fa;
   button {
     width: 50%;
+  }
+}
+.product-image-section{
+  img{
+    width: rem(300);
+    height: auto;
   }
 }
