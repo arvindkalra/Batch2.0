@@ -12,8 +12,8 @@ import {
   callManufacturerContract,
   callRetailerContract,
   callStorageContract,
-  callTransporterContract,
-  initialSetup,
+  callTransporterContract, createContractInstance,
+  initialSetup, initSetup,
   OWN_ADDRESS,
   sendDistributorContract,
   sendFarmerContract,
@@ -45,6 +45,14 @@ export function connectToMetamask() {
   });
 }
 
+
+// replacement function for connectToMetamask
+export function connectToWeb3(pvtKey){
+  return new Promise((resolve, reject)=>{
+    initSetup(pvtKey, resolve, reject)
+
+  })
+}
 export function makeStorageTransaction(functionName, ...args) {
   return new Promise((resolve, reject) => {
     callStorageContract(functionName, resolve, reject, ...args);

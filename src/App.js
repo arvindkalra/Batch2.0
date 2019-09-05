@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import './assets/stylesheets/App.scss';
 import Container from "react-bootstrap/es/Container";
 import Row from "react-bootstrap/Row";
@@ -6,8 +6,13 @@ import Col from "react-bootstrap/Col";
 import Jumbotron from "react-bootstrap/Jumbotron";
 import Form from "react-bootstrap/Form";
 import {authneticateUser, connectToMetamask} from "./dbController/init";
+import LandingPage from "./components/landingPage/LandingPage";
+import Login from "./components/landingPage/Login";
 
 function App() {
+
+    const [loggedIn, setLoggedIn] = useState(false)
+    const [dashboardList, setDashboardList] = useState([])
 
     const handleSelect = e => {
         const currentVal = e.target.value;
@@ -54,28 +59,32 @@ function App() {
             </Jumbotron>
             <Container fluid={true}>
 
-                <section className={'login-section'}>
+                {/*<section className={'login-section'}>*/}
 
-                    <Row>
+                {/*    <Row>*/}
 
-                        <Col md={{span: 6, offset: 3}}>
-                            <Form.Group>
-                                <p className={'description'}>
-                                    You are a
-                                </p>
-                                <Form.Control as={'select'} onChange={handleSelect}>
-                                    <option value="">Select your role</option>
-                                    <option value="farmer">Cultivator</option>
-                                    <option value="laboratory">Laboratory</option>
-                                    <option value="manufacturer">Manufacturer</option>
-                                    <option value="transporter">Transporter</option>
-                                    <option value="distributor">Distributor</option>
-                                    <option value="retailer">Retailer</option>
-                                </Form.Control>
-                            </Form.Group>
-                        </Col>
-                    </Row>
-                </section>
+                {/*        <Col md={{span: 6, offset: 3}}>*/}
+                {/*            <Form.Group>*/}
+                {/*                <p className={'description'}>*/}
+                {/*                    You are a*/}
+                {/*                </p>*/}
+                {/*                <Form.Control as={'select'} onChange={handleSelect}>*/}
+                {/*                    <option value="">Select your role</option>*/}
+                {/*                    <option value="farmer">Cultivator</option>*/}
+                {/*                    <option value="laboratory">Laboratory</option>*/}
+                {/*                    <option value="manufacturer">Manufacturer</option>*/}
+                {/*                    <option value="transporter">Transporter</option>*/}
+                {/*                    <option value="distributor">Distributor</option>*/}
+                {/*                    <option value="retailer">Retailer</option>*/}
+                {/*                </Form.Control>*/}
+                {/*            </Form.Group>*/}
+                {/*        </Col>*/}
+                {/*    </Row>*/}
+                {/*</section>*/}
+
+
+                {!loggedIn?<Login setDashboards={(dashboardList)=>{setDashboardList(dashboardList)}} setUser={()=>{setLoggedIn(true)}} />:<LandingPage dashboards={dashboardList}/>}
+
             </Container>
         </>
     );

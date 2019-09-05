@@ -1,0 +1,17 @@
+@import 'colors';
+@import "utils";
+.jumbotron{
+  margin-bottom: 0;
+}
+.card-footer{
+  text-align: right;
+  color: $blue;
+}
+main{
+.col-md-12{
+  .utils__title{
+    padding-top: rem(20);
+    padding-left: rem(15);
+  }
+}
+}
