@@ -46,6 +46,7 @@ const Login = ({setDashboards, setUser}) => {
                         setUser()
                     } else {
                         alert("This account is not registered");
+                        sessionStorage.setItem('pkey','');
                         window.location.reload()
 
                     }
@@ -64,7 +65,7 @@ const Login = ({setDashboards, setUser}) => {
     return (
         <main>
             <Row>
-                <Col md={{span: 6, offset: 3}}>
+                <Col md={{span: 6, offset: 3}} xs={{span: 8, offset: 2}}>
                     <Form className={'login-form card'}>
                         <h1>Login</h1>
                         <Row>

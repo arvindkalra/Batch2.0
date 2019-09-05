@@ -50,7 +50,7 @@ function App() {
                                 Welcome To Batch
                             </h1>
                             <h4>
-                                The 'BlockChain' way of doing bussiness
+                                Alpha V1.0
                             </h4>
                         </Col>
                     </Row>

@@ -8,6 +8,7 @@
   color: $blue;
 }
 main{
+  background-color: white;
 .col-md-12{
   .utils__title{
     padding-top: rem(20);
@@ -16,10 +17,23 @@ main{
 }
 }
 .login-form{
+  &.card{
+  border: 1px solid $grey;
 
+  margin-top: 100px;
+  margin-bottom: 100px;
+  }
+label{
+  font-size: 2em;
 
+}
   padding: rem(30);
   h1{
     text-align: center;
+    font-size: 5em;
+  }
+  .btn{
+    width: 100%;
+    font-size: 2rem;
   }
 }

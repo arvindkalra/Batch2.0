@@ -19,39 +19,44 @@ import DistributorProductDetail from "./distributor/DistributorProductDetail";
 import NewProduct from "./farmer/NewProduct";
 
 const AppRouter = () => {
-    return (
-        <Router>
-            <Route exact path={'/'} component={App}/>
-            {/*farmer router*/}
-            <Route exact path={'/cultivator/dashboard'} component={Farmer}/>
-            <Route exact path={'/cultivator/about'} component={About}/>
-            <Route exact path={'/cultivator/add-new-harvest'} component={NewHarvest}/>
-            <Route exact path={'/cultivator/products/:product'} component={Product}/>
-                <Route exact path={'/cultivator/NewProduct/00001A'} component={NewProduct}/>
-            <Route exact path={'/cultivator/products'} component={Products}/>
-            {/*lab routes*/}
-            <Route exact path={'/laboratory/dashboard'} component={Laboratory}/>
-            <Route exact path={'/laboratory/about'} component={About}/>
-            <Route exact path={'/laboratory/report/:id'} component={Report}/>
-            {/*manufacturer router*/}
-            <Route exact path={'/manufacturer/dashboard'} component={Manufacturer}/>
-            <Route exact path={'/manufacturer/about'} component={About}/>
-            <Route exact path={'/manufacturer/harvest/:buid'} component={ManufacturerBatchDetail}/>
-            {/*distributor routes*/}
-            <Route exact path={'/distributor/dashboard'} component={Distributor}/>
-            <Route exact path={'/distributor/product/:buid'} component={DistributorProductDetail}/>
-            <Route exact path={'/distributor/about'} component={About}/>
-            {/*transporter routes*/}
-            <Route exact path={'/transporter/dashboard'} component={Transporter}/>
-            <Route exact path={'/transporter/about'} component={About}/>
-            {/*retailer routes*/}
-            <Route exact path={'/retailer/dashboard'} component={Retailer}/>
-            <Route exact path={'/retailer/products/:id'} component={RetailProduct}/>
-            <Route exact path={'/retailer/about'} component={About}/>
-            {/*miscellaneous*/}
-            <Route exact path={'/journey/:id'} component={TrackProduct}/>
-        </Router>
-    );
+
+        return (
+            <Router>
+                    <Route exact path={'/'} component={App}/>
+                    {/*farmer router*/}
+                    {sessionStorage.getItem('pkey') ? <>
+
+                            <Route exact path={'/cultivator/dashboard'} component={Farmer}/>
+                            <Route exact path={'/cultivator/about'} component={About}/>
+                            <Route exact path={'/cultivator/add-new-harvest'} component={NewHarvest}/>
+                            <Route exact path={'/cultivator/products/:product'} component={Product}/>
+                            <Route exact path={'/cultivator/NewProduct/00001A'} component={NewProduct}/>
+                            <Route exact path={'/cultivator/products'} component={Products}/>
+                            {/*lab routes*/}
+                            <Route exact path={'/laboratory/dashboard'} component={Laboratory}/>
+                            <Route exact path={'/laboratory/about'} component={About}/>
+                            <Route exact path={'/laboratory/report/:id'} component={Report}/>
+                            {/*manufacturer router*/}
+                            <Route exact path={'/manufacturer/dashboard'} component={Manufacturer}/>
+                            <Route exact path={'/manufacturer/about'} component={About}/>
+                            <Route exact path={'/manufacturer/harvest/:buid'} component={ManufacturerBatchDetail}/>
+                            {/*distributor routes*/}
+                            <Route exact path={'/distributor/dashboard'} component={Distributor}/>
+                            <Route exact path={'/distributor/product/:buid'} component={DistributorProductDetail}/>
+                            <Route exact path={'/distributor/about'} component={About}/>
+                            {/*transporter routes*/}
+                            <Route exact path={'/transporter/dashboard'} component={Transporter}/>
+                            <Route exact path={'/transporter/about'} component={About}/>
+                            {/*retailer routes*/}
+                            <Route exact path={'/retailer/dashboard'} component={Retailer}/>
+                            <Route exact path={'/retailer/products/:id'} component={RetailProduct}/>
+                            <Route exact path={'/retailer/about'} component={About}/>
+                    </> : <Route path={'/*'} component={App}/>}
+
+                    {/*miscellaneous*/}
+                    <Route exact path={'/journey/:id'} component={TrackProduct}/>
+            </Router>
+        );
 };
 
 export default AppRouter;
