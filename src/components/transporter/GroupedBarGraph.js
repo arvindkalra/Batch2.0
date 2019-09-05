@@ -3,7 +3,7 @@ import Col from "react-bootstrap/Col";
 import { Bar } from "react-chartjs-2";
 import Row from "react-bootstrap/Row";
 
-const colors = ["#1e88e5", "#0d47a1", "#82b1ff"];
+const colors = ["#42aea3", "#ed553b"];
 
 const options = {
   responsive: true,
@@ -21,28 +21,22 @@ const options = {
   }
 };
 
-const GroupedBarGraph = ({ ObjectToShow }) => {
+const GroupedBarGraph = ({ row1, row2 }) => {
   const [labels, setLabels] = useState([]);
-  const [packed, setPacked] = useState([]);
-  const [dispatched, setDispatched] = useState([]);
-  const [delivered, setDelivered] = useState([]);
+  const [approved, setApproved] = useState([]);
+  const [rejected, setRejected] = useState([]);
   useEffect(() => {
-    let objectKeys = Object.keys(ObjectToShow);
+    let objectKeys = Object.keys(row1);
     setLabels(objectKeys);
-    let tempPacked = [];
-    let tempDispatched = [];
-    let tempDelivered = [];
+    let tempApproved = [];
+    let tempRejected = [];
     for (let i = 0; i < objectKeys.length; i++) {
-      let key = ObjectToShow[objectKeys[i]];
-      tempPacked.push(key[0]);
-      tempDispatched.push(key[1]);
-      tempDelivered.push(key[2]);
+      tempApproved.push(row1[objectKeys[i]]);
+      tempRejected.push(row2[objectKeys[i]]);
     }
-    console.log(tempPacked);
-    setPacked(tempPacked);
-    setDelivered(tempDelivered);
-    setDispatched(tempDispatched);
-  }, [JSON.stringify(ObjectToShow)]);
+    setApproved(tempApproved);
+    setRejected(tempRejected);
+  }, [JSON.stringify(row1), JSON.stringify(row2)]);
 
   return (
     <Row>
@@ -50,16 +44,15 @@ const GroupedBarGraph = ({ ObjectToShow }) => {
         <Bar
           data={{
             datasets: [
-              { data: packed, label: "Packed", backgroundColor: colors[0] },
               {
-                data: dispatched,
-                label: "Dispatched",
-                backgroundColor: colors[1]
+                data: approved,
+                label: "Approved",
+                backgroundColor: colors[0]
               },
               {
-                data: delivered,
-                label: "Delivered",
-                backgroundColor: colors[2]
+                data: rejected,
+                label: "Rejected",
+                backgroundColor: colors[1]
               }
             ],
             labels: labels

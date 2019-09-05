@@ -18,6 +18,7 @@ import PieChart1 from "./graphs/PieChart1";
 import BarGraph from "../farmer/graphs/dashboard/BarGraph";
 import Loader from "../Loader";
 import Badge from "react-bootstrap/Badge";
+import GroupedBarGraph from "../transporter/GroupedBarGraph";
 
 const LabDashboard = props => {
   const [pendingReportsArray, setPendingReportsArray] = useState([]);
@@ -27,7 +28,7 @@ const LabDashboard = props => {
   const [numApproved, setNumApproved] = useState(0);
   const [seedObjArr, setSeedObjArr] = useState({});
   const [preloader, setPreloader] = useState(true);
-  const [objectForBarGraph, setObjectForBarGraph] = useState({
+  const [objectForApprovedBarGraph] = useState({
     Jan: 10,
     Feb: 12,
     Mar: 4,
@@ -39,6 +40,19 @@ const LabDashboard = props => {
     Oct: 34,
     Nov: 15,
     Dec: 37
+  });
+  const [objectForRejectedBarGraph] = useState({
+    Jan: 4,
+    Feb: 7,
+    Mar: 2,
+    April: 10,
+    June: 4,
+    July: 8,
+    Aug: 3,
+    Sep: 0,
+    Oct: 8,
+    Nov: 2,
+    Dec: 9
   });
   useEffect(() => {
     connectToMetamask().then(() => {
@@ -247,7 +261,10 @@ const LabDashboard = props => {
                 <strong>Monthly Approval in Year 2018-19</strong>
               </div>
             </div>
-            <BarGraph ObjectToShow={objectForBarGraph} label={"Approvals"} />
+            <GroupedBarGraph
+              row1={objectForApprovedBarGraph}
+              row2={objectForRejectedBarGraph}
+            />
           </section>
         </Col>
       </Row>
