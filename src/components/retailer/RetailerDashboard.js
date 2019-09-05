@@ -4,7 +4,6 @@ import { setBreadcrumb } from "../../helpers";
 import Row from "react-bootstrap/Row";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import "../../assets/stylesheets/App.scss";
-import Table from "react-bootstrap/Table";
 import { connectToMetamask } from "../../dbController/init";
 import { getRowsForRetailer } from "../../dbController/retailerRole";
 import { fetchProductUnitDetailsUsingUID } from "../../dbController/manufacturerRole";

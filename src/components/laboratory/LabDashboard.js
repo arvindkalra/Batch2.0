@@ -18,7 +18,7 @@ import PieChart1 from "./graphs/PieChart1";
 import BarGraph from "../farmer/graphs/dashboard/BarGraph";
 import Loader from "../Loader";
 import Badge from "react-bootstrap/Badge";
-import GroupedBarGraph from "../transporter/GroupedBarGraph";
+import StackedBarGraph from "../transporter/StackedBarGraph";
 
 const LabDashboard = props => {
   const [pendingReportsArray, setPendingReportsArray] = useState([]);
@@ -28,6 +28,8 @@ const LabDashboard = props => {
   const [numApproved, setNumApproved] = useState(0);
   const [seedObjArr, setSeedObjArr] = useState({});
   const [preloader, setPreloader] = useState(true);
+  const [testPlantsGraphObject, setTestPlantsGraphObject] = useState({});
+  const [changed, setChanged] = useState(0);
   const [objectForApprovedBarGraph] = useState({
     Jan: 10,
     Feb: 12,
@@ -60,6 +62,8 @@ const LabDashboard = props => {
       let tempNumApproved = numApproved;
       let tempNumTested = numTested;
       let numRows = 0;
+      let tempChanged = 0;
+      let tempBarObject = testPlantsGraphObject;
       getRowsForLaboratory((row, total) => {
         if (row) {
           numRows++;
@@ -70,6 +74,14 @@ const LabDashboard = props => {
             let tempSeedObjArr = seedObjArr;
             tempSeedObjArr[row.uid.toString()] = row;
             setSeedObjArr(tempSeedObjArr);
+
+            addToGraphData(
+              row.details.plantName,
+              1,
+              tempBarObject,
+              setTestPlantsGraphObject,
+              tempChanged
+            );
 
             if (row.currentState.value === 5) {
               rowArr = [
@@ -136,6 +148,20 @@ const LabDashboard = props => {
       });
     });
   }, []);
+
+  function addToGraphData(which, howMuch, getter, setter, tempChanged) {
+    let tempBarObject = getter;
+    if (tempBarObject[which]) {
+      let old = tempBarObject[which];
+      tempBarObject[which] = old + howMuch;
+    } else {
+      if (howMuch > 0) {
+        tempBarObject[which] = howMuch;
+      }
+    }
+    setChanged(tempChanged);
+    setter(tempBarObject);
+  }
 
   return (
     <>
@@ -245,12 +271,12 @@ const LabDashboard = props => {
           <section className="dashboard-section card">
             <div className={"card-header"}>
               <div className={"utils__title"}>
-                <strong>Approved Samples</strong>
+                <strong>Crop Samples Received</strong>
               </div>
             </div>
-            <PieChart1
-              numRejected={numTested - numApproved}
-              numApproved={numApproved}
+            <BarGraph
+              ObjectToShow={testPlantsGraphObject}
+              label={"Crop Samples"}
             />
           </section>
         </Col>
@@ -261,7 +287,7 @@ const LabDashboard = props => {
                 <strong>Monthly Approval in Year 2018-19</strong>
               </div>
             </div>
-            <GroupedBarGraph
+            <StackedBarGraph
               row1={objectForApprovedBarGraph}
               row2={objectForRejectedBarGraph}
             />

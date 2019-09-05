@@ -13,15 +13,21 @@ const options = {
   scales: {
     yAxes: [
       {
+        stacked: true,
         ticks: {
           beginAtZero: true
         }
+      }
+    ],
+    xAxes: [
+      {
+        stacked: true
       }
     ]
   }
 };
 
-const GroupedBarGraph = ({ row1, row2 }) => {
+const StackedBarGraph = ({ row1, row2 }) => {
   const [labels, setLabels] = useState([]);
   const [approved, setApproved] = useState([]);
   const [rejected, setRejected] = useState([]);
@@ -64,4 +70,4 @@ const GroupedBarGraph = ({ row1, row2 }) => {
   );
 };
 
-export default GroupedBarGraph;
+export default StackedBarGraph;
