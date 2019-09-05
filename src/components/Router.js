@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter as Router, Route} from "react-router-dom";
+import {BrowserRouter as Router, Route, Redirect} from "react-router-dom";
 import App from "../App";
 import Farmer from "./farmer/Farmer";
 import Product from "./farmer/Product";
@@ -51,7 +51,7 @@ const AppRouter = () => {
                             <Route exact path={'/retailer/dashboard'} component={Retailer}/>
                             <Route exact path={'/retailer/products/:id'} component={RetailProduct}/>
                             <Route exact path={'/retailer/about'} component={About}/>
-                    </> : <Route path={'/*'} component={App}/>}
+                    </> : <Redirect from ={'/*'} to={'/'} />}
 
                     {/*miscellaneous*/}
                     <Route exact path={'/journey/:id'} component={TrackProduct}/>

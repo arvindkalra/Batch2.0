@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Bar } from "react-chartjs-2";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
-import colors from '../../../colors'
+import colors from "../../../colors";
 // const data = {
 //     labels: ['Gundza', 'Ruddee', 'Tazzie'],
 //     datasets:[{
@@ -32,14 +32,7 @@ const BarGraph = ({ ObjectToShow, changed, label }) => {
   const [dataArray, setDataArray] = useState([]);
   const [labels, setLabels] = useState([]);
   const options = {
-
-    title: {
-      display: false
-    },
     responsive: true,
-    legend: {
-      display: false
-    },
     scales: {
       yAxes: [
         {
@@ -65,9 +58,7 @@ const BarGraph = ({ ObjectToShow, changed, label }) => {
       ]
     }
   };
-  const graphLabel = label;
   useEffect(() => {
-
     let objectKeys = Object.keys(ObjectToShow);
     setLabels(objectKeys);
     let tempDataArray = [];
@@ -82,7 +73,7 @@ const BarGraph = ({ ObjectToShow, changed, label }) => {
         <Bar
           data={{
             datasets: [
-              { data: dataArray, label: graphLabel, backgroundColor: graphColors }
+              { data: dataArray, label: label, backgroundColor: graphColors }
             ],
             labels: labels
           }}

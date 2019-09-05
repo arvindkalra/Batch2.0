@@ -5,7 +5,7 @@ import AdminTab from "./AdminTab";
 
 const LandingPage = ({dashboards}) => {
     return (
-        <main>
+        <main className={'landing-page'}>
             <Row>
                 <Col md={12}>
                     <div className="utils__title ">

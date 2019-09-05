@@ -63,7 +63,7 @@ const Login = ({setDashboards, setUser}) => {
 
 
     return (
-        <main>
+        <main className={'landing-page'}>
             <Row>
                 <Col md={{span: 6, offset: 3}} xs={{span: 8, offset: 2}}>
                     <Form className={'login-form card'}>
