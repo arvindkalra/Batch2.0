@@ -214,9 +214,9 @@ const ReportForm = ({formDetails, labDetails}) => {
                                     <Col md={12}>
                                         <Form.Group controlId={"report-status"}>
                                             <Form.Label>Test Result</Form.Label>
-                                            <Form.Control as={"select"} onClick={handleSelect}>
-                                                <option value="">Passed</option>
-                                                <option value="">Failed</option>
+                                            <Form.Control as={"select"} onChange={handleSelect}>
+                                                <option value="Passed">Passed</option>
+                                                <option value="Failed">Failed</option>
                                             </Form.Control>
                                         </Form.Group>
                                     </Col>
