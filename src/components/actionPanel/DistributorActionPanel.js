@@ -10,6 +10,7 @@ import Layout from "../Layout";
 import Loader from "../Loader";
 import { createTransactionModal, fileToString } from "../../helpers";
 import { Card, FormControl } from "react-bootstrap";
+import config from "../../config";
 
 const DistributorActionPanel = ({ left, total, prevDetails }) => {
   const [unitsPerPacket, setUnitsPerPacket] = useState(0);
@@ -69,10 +70,9 @@ const DistributorActionPanel = ({ left, total, prevDetails }) => {
       containerType,
       sentToRetailerOn: new Date().toLocaleString(),
       productUnitId: prevDetails.uid,
-      distributorAddress: "0x7949173E38cEf39e75E05D2d2C232FBE8BAe5E20",
-      distributorToRetailerTransporter:
-        "0x7949173E38cEf39e75E05D2d2C232FBE8BAe5E20",
-      retailerAddress: "0x7949173E38cEf39e75E05D2d2C232FBE8BAe5E20",
+      distributorAddress: config.ADDRESS,
+      distributorToRetailerTransporter: config.ADDRESS,
+      retailerAddress: config.ADDRESS,
       retailProductImage: plantImage
     };
     let oldUnitsUsed = prevDetails.details.totalPacketsUsed
@@ -182,7 +182,7 @@ const DistributorActionPanel = ({ left, total, prevDetails }) => {
                 <Form.Control
                   type={"text"}
                   onChange={e => {
-                    setPacketName((e.target.value).captialize());
+                    setPacketName(e.target.value.captialize());
                   }}
                   placeholder={"Enter the name of the packet"}
                   isInvalid={clicked ? packetName.length === 0 : false}

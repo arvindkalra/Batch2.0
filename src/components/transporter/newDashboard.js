@@ -17,9 +17,9 @@ import { getRetailerDetails } from "../../dbController/retailerRole";
 import ShipmentTable from "./ShipmentTable";
 import Loader from "../Loader";
 import { OWN_ADDRESS } from "../../dbController/Web3Connections";
+import config from "../../config";
 
 const NewDashboard = ({ location }) => {
-
   const [changed, setChanged] = useState(0);
   const [harvestShipments, setHarvestShipments] = useState([]);
   const [packagedShipments, setPackagedShipments] = useState([]);
@@ -101,7 +101,7 @@ const NewDashboard = ({ location }) => {
         }
       });
       getLabSampleConsignments(row => {
-          console.log(row);
+        console.log(row);
         let tempRow = sampleRowObjArr;
         tempRow[row.uid] = row;
         setSampleRowObjArr(tempRow);
@@ -137,8 +137,7 @@ const NewDashboard = ({ location }) => {
         setPackageObjRowArr(tempRow);
         let rowObj = {};
         let manufacturerAddress =
-          row.details.manufacturerAddress ||
-          "0x7949173E38cEf39e75E05D2d2C232FBE8BAe5E20";
+          row.details.manufacturerAddress || config.ADDRESS;
         let manufacturerName;
         getManufacturerDetails(manufacturerAddress).then(name => {
           manufacturerName = name;
@@ -172,8 +171,7 @@ const NewDashboard = ({ location }) => {
         setRetailRowObjArr(tempRow);
         let rowObj = {};
         let distributorAddress =
-          row.details.distributorAddress ||
-          "0x7949173E38cEf39e75E05D2d2C232FBE8BAe5E20";
+          row.details.distributorAddress || config.ADDRESS;
         let distributorName;
         getDistributorDetails(distributorAddress)
           .then(name => {

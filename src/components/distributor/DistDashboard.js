@@ -8,6 +8,7 @@ import { fetchProductUnitsForDistributor } from "../../dbController/distributorR
 import { getManufacturerDetails } from "../../dbController/manufacturerRole";
 import AvailableUnitsTable from "./AvailableUnitsTable";
 import Loader from "../Loader";
+import config from "../../config";
 
 const DistDashboard = ({ location }) => {
   const [
@@ -32,8 +33,7 @@ const DistDashboard = ({ location }) => {
       fetchProductUnitsForDistributor((rowObj, total) => {
         totalEntries++;
         let manufacturerAddress =
-          rowObj.details.manufacturerAddress ||
-          "0x7949173E38cEf39e75E05D2d2C232FBE8BAe5E20";
+          rowObj.details.manufacturerAddress || config.ADDRESS;
         getManufacturerDetails(manufacturerAddress).then(({ name }) => {
           let packetsTransferred = rowObj.details.totalPacketsUsed
             ? rowObj.details.totalPacketsUsed

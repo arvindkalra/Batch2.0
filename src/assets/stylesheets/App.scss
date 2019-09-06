@@ -187,17 +187,16 @@ main {
 }
 
 $min-height: 300px;
-.progress-bar{
+.progress-bar {
   background-color: #20639b;
 }
 .status-tab {
-  .progress{
+  .progress {
     height: 1.4rem;
     font-weight: bold;
   }
   .progress-bar {
     background-color: $blue;
-
   }
 
   p.status-tab-description {
@@ -420,6 +419,14 @@ p.description {
   text-align: right;
   canvas {
     min-height: inherit !important;
+  }
+}
+
+.accordion {
+  .card {
+    .card-header {
+      cursor: pointer;
+    }
   }
 }
 

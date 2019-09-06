@@ -13,6 +13,7 @@ import { sendProductToDistributor } from "../../dbController/manufacturerRole";
 import Loader from "../Loader";
 import { OWN_ADDRESS } from "../../dbController/Web3Connections";
 import { FormControl } from "react-bootstrap";
+import config from "../../config";
 
 const ManufacturedPacketsTable = ({
   array,
@@ -56,9 +57,8 @@ const ManufacturedPacketsTable = ({
 
     let prevDetails = array[showModal.id].details;
     let newDetails = {
-      distributorAddress: "0x7949173E38cEf39e75E05D2d2C232FBE8BAe5E20",
-      manufacturerToDistributorTransporter:
-        "0x7949173E38cEf39e75E05D2d2C232FBE8BAe5E20",
+      distributorAddress: config.ADDRESS,
+      manufacturerToDistributorTransporter: config.ADDRESS,
       manufacturerToDistributorPrice: price,
       sentToDistributorOn: new Date().toLocaleString()
     };

@@ -15,6 +15,7 @@ import Modal from "react-bootstrap/Modal";
 import Manifesto from "./Manifesto";
 import Form from "react-bootstrap/Form";
 import ProgressBar from "react-bootstrap/ProgressBar";
+import config from "../../config";
 
 const ShipmentRow = ({
   value,
@@ -107,8 +108,7 @@ const ShipmentRow = ({
       rowObj.details.manufacturerToDistributorDispatchTime = new Date().toLocaleString();
       dispatchFactoryToDistributorConsignment(
         value.uid,
-        rowObj.details.distributorAddress ||
-          "0x7949173E38cEf39e75E05D2d2C232FBE8BAe5E20",
+        rowObj.details.distributorAddress || config.ADDRESS,
         rowObj.details,
         openSignatureModal
       ).then(txHash => {
@@ -118,8 +118,7 @@ const ShipmentRow = ({
       rowObj.details.manufacturerToDistributorDeliveryTime = new Date().toLocaleString();
       deliverFactoryToDistributorConsignment(
         value.uid,
-        rowObj.details.distributorAddress ||
-          "0x7949173E38cEf39e75E05D2d2C232FBE8BAe5E20",
+        rowObj.details.distributorAddress || config.ADDRESS,
         rowObj.details,
         openSignatureModal
       ).then(txHash => {
@@ -136,8 +135,7 @@ const ShipmentRow = ({
       rowObj.details.distributorToRetailerDispatchTime = new Date().toLocaleString();
       dispatchDistributorToShopConsignment(
         value.uid,
-        rowObj.details.retailerAddress ||
-          "0x7949173E38cEf39e75E05D2d2C232FBE8BAe5E20",
+        rowObj.details.retailerAddress || config.ADDRESS,
         rowObj.details,
         openSignatureModal
       ).then(txHash => {
@@ -147,8 +145,7 @@ const ShipmentRow = ({
       rowObj.details.distributorToRetailerDeliveryTime = new Date().toLocaleString();
       deliverDistributorToShopConsignment(
         value.uid,
-        rowObj.details.retailerAddress ||
-          "0x7949173E38cEf39e75E05D2d2C232FBE8BAe5E20",
+        rowObj.details.retailerAddress || config.ADDRESS,
         rowObj.details,
         openSignatureModal
       ).then(txHash => {

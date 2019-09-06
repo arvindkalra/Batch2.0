@@ -138,7 +138,11 @@ const RetailerDashboard = ({ location }) => {
                 <strong>Products Sold in 2019</strong>
               </div>
             </div>
-            <BarGraph ObjectToShow={barGraphObject} changed={changed} />
+            <BarGraph
+              ObjectToShow={barGraphObject}
+              changed={changed}
+              label={"Products Sold"}
+            />
           </section>
         </Col>
       </Row>
