@@ -57,8 +57,8 @@ const Dashboard = props => {
       numToBeTested: 0
     };
     getRowsForFarmer((rowObject, total) => {
-      tableRows++;
       if (rowObject) {
+        tableRows++;
         let objToBeAdded = {
           harvestUnitId: rowObject.harvestUnitId,
           plantName: rowObject.details.plantName,

@@ -66,12 +66,12 @@ function signTransaction(tx) {
   return new Promise((resolve, reject) => {
     SIGN_TRANSACTION(tx, (err, { rawTransaction }) => {
       if (err) reject(err);
-
       web3.eth
         .sendSignedTransaction(rawTransaction)
         .on("transactionHash", hash => {
           resolve(hash);
-        });
+        })
+        .on("error", e => console.log(e));
     });
   });
 }

@@ -2,6 +2,21 @@ export default {
   SERVER_URL: "http://35.154.84.229:2000",
   NETWORK_NAME: "Truffle",
 
+  // For Matic Latest
+  RPC_URL: "https://testnet2.matic.network",
+  OWN_PRIVATE_KEY:
+      "0xB9A081AE2A58FCFDA0BD85B3852A251F57A3D146676DD168097206CC03EBBA85",
+  ADDRESS: "0x7949173E38cEf39e75E05D2d2C232FBE8BAe5E20",
+
+  STORAGE_ADDRESS: "0x07016506b95c087961dbc2cdea56a84d2dc58ef9",
+  FARMER_ADDRESS: "0xf3f4e4a362ec3c9d3a7833a146ea669bae3f6712",
+  LABORATORY_ADDRESS: "0x313de80801a7c56193b5f1530932ad7cf0dd2741",
+  TRANSPORTER_ADDRESS: "0x49aa31227502ea46f130952c2c27628680c15525",
+  MANUFACTURER_ADDRESS: "0x138316896b6a285ac211ad38848a412ceec1bef5",
+  DISTRIBUTOR_ADDRESS: "0x0753aeae1f5ac22b61e723038b1ed501276e97cb",
+  RETAILER_ADDRESS: "0xbce71cb4d6c15a557df55126cbe063bc5da4abab",
+
+/*
   // For Matic Testnet
   RPC_URL: "https://testnet2.matic.network",
   OWN_PRIVATE_KEY:
@@ -15,6 +30,7 @@ export default {
   MANUFACTURER_ADDRESS: "0x9edd4cb8d079fb55cd8ec8d5a18e7849ff3eccb7",
   DISTRIBUTOR_ADDRESS: "0x59a658842fa8cb0e968143f0ca5ee9216635c686",
   RETAILER_ADDRESS: "0xa5df1c2d0ab0e1ebb3a6d057bd0db0f33e65b1ea",
+*/
 
   /*
   // For AWS Truffle
@@ -31,2047 +47,2047 @@ export default {
 
   STORAGE: [
     {
-      constant: false,
-      inputs: [
+      "constant": false,
+      "inputs": [
         {
-          name: "allowed",
-          type: "address"
+          "name": "allowed",
+          "type": "address"
         }
       ],
-      name: "addAllowedContract",
-      outputs: [],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      "name": "addAllowedContract",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
-      constant: true,
-      inputs: [
+      "constant": true,
+      "inputs": [
         {
-          name: "who",
-          type: "address"
+          "name": "who",
+          "type": "address"
         }
       ],
-      name: "getHarvestUnitsForFarmer",
-      outputs: [
+      "name": "getHarvestUnitsForFarmer",
+      "outputs": [
         {
-          name: "huids",
-          type: "uint256[]"
+          "name": "huids",
+          "type": "uint256[]"
         }
       ],
-      payable: false,
-      stateMutability: "view",
-      type: "function"
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
     },
     {
-      constant: false,
-      inputs: [
+      "constant": false,
+      "inputs": [
         {
-          name: "who",
-          type: "address"
+          "name": "who",
+          "type": "address"
         },
         {
-          name: "which",
-          type: "uint256"
+          "name": "which",
+          "type": "uint256"
         }
       ],
-      name: "addFarmerToLabConsignment",
-      outputs: [],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      "name": "addFarmerToLabConsignment",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
-      constant: true,
-      inputs: [
+      "constant": true,
+      "inputs": [
         {
-          name: "who",
-          type: "address"
+          "name": "who",
+          "type": "address"
         }
       ],
-      name: "getFarmerToLabConsignments",
-      outputs: [
+      "name": "getFarmerToLabConsignments",
+      "outputs": [
         {
-          name: "huids",
-          type: "uint256[]"
+          "name": "huids",
+          "type": "uint256[]"
         }
       ],
-      payable: false,
-      stateMutability: "view",
-      type: "function"
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
     },
     {
-      constant: false,
-      inputs: [
+      "constant": false,
+      "inputs": [
         {
-          name: "who",
-          type: "address"
+          "name": "who",
+          "type": "address"
         },
         {
-          name: "which",
-          type: "uint256"
+          "name": "which",
+          "type": "uint256"
         }
       ],
-      name: "addLabReportsForLab",
-      outputs: [],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      "name": "addLabReportsForLab",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
-      constant: true,
-      inputs: [
+      "constant": true,
+      "inputs": [
         {
-          name: "who",
-          type: "address"
+          "name": "who",
+          "type": "address"
         }
       ],
-      name: "getLabReportsForLab",
-      outputs: [
+      "name": "getLabReportsForLab",
+      "outputs": [
         {
-          name: "huids",
-          type: "uint256[]"
+          "name": "huids",
+          "type": "uint256[]"
         }
       ],
-      payable: false,
-      stateMutability: "view",
-      type: "function"
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
     },
     {
-      constant: false,
-      inputs: [
+      "constant": false,
+      "inputs": [
         {
-          name: "who",
-          type: "address"
+          "name": "who",
+          "type": "address"
         },
         {
-          name: "which",
-          type: "uint256"
+          "name": "which",
+          "type": "uint256"
         }
       ],
-      name: "addFarmerToFactoryConsignment",
-      outputs: [],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      "name": "addFarmerToFactoryConsignment",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
-      constant: true,
-      inputs: [
+      "constant": true,
+      "inputs": [
         {
-          name: "who",
-          type: "address"
+          "name": "who",
+          "type": "address"
         }
       ],
-      name: "getFarmerToFactoryConsignments",
-      outputs: [
+      "name": "getFarmerToFactoryConsignments",
+      "outputs": [
         {
-          name: "huids",
-          type: "uint256[]"
+          "name": "huids",
+          "type": "uint256[]"
         }
       ],
-      payable: false,
-      stateMutability: "view",
-      type: "function"
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
     },
     {
-      constant: false,
-      inputs: [
+      "constant": false,
+      "inputs": [
         {
-          name: "who",
-          type: "address"
+          "name": "who",
+          "type": "address"
         },
         {
-          name: "which",
-          type: "uint256"
+          "name": "which",
+          "type": "uint256"
         }
       ],
-      name: "addHarvestUnitForManufacturer",
-      outputs: [],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      "name": "addHarvestUnitForManufacturer",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
-      constant: true,
-      inputs: [
+      "constant": true,
+      "inputs": [
         {
-          name: "who",
-          type: "address"
+          "name": "who",
+          "type": "address"
         }
       ],
-      name: "getHarvestUnitsForManufacturer",
-      outputs: [
+      "name": "getHarvestUnitsForManufacturer",
+      "outputs": [
         {
-          name: "huids",
-          type: "uint256[]"
+          "name": "huids",
+          "type": "uint256[]"
         }
       ],
-      payable: false,
-      stateMutability: "view",
-      type: "function"
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
     },
     {
-      constant: true,
-      inputs: [
+      "constant": true,
+      "inputs": [
         {
-          name: "who",
-          type: "address"
+          "name": "who",
+          "type": "address"
         }
       ],
-      name: "getProductionUnitsForManufacturer",
-      outputs: [
+      "name": "getProductionUnitsForManufacturer",
+      "outputs": [
         {
-          name: "puids",
-          type: "uint256[]"
+          "name": "puids",
+          "type": "uint256[]"
         }
       ],
-      payable: false,
-      stateMutability: "view",
-      type: "function"
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
     },
     {
-      constant: false,
-      inputs: [
+      "constant": false,
+      "inputs": [
         {
-          name: "who",
-          type: "address"
+          "name": "who",
+          "type": "address"
         },
         {
-          name: "which",
-          type: "uint256"
+          "name": "which",
+          "type": "uint256"
         }
       ],
-      name: "addFactoryToDistributionConsignment",
-      outputs: [],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      "name": "addFactoryToDistributionConsignment",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
-      constant: true,
-      inputs: [
+      "constant": true,
+      "inputs": [
         {
-          name: "who",
-          type: "address"
+          "name": "who",
+          "type": "address"
         }
       ],
-      name: "getFactoryToDistributionConsignments",
-      outputs: [
+      "name": "getFactoryToDistributionConsignments",
+      "outputs": [
         {
-          name: "puids",
-          type: "uint256[]"
+          "name": "puids",
+          "type": "uint256[]"
         }
       ],
-      payable: false,
-      stateMutability: "view",
-      type: "function"
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
     },
     {
-      constant: false,
-      inputs: [
+      "constant": false,
+      "inputs": [
         {
-          name: "who",
-          type: "address"
+          "name": "who",
+          "type": "address"
         },
         {
-          name: "which",
-          type: "uint256"
+          "name": "which",
+          "type": "uint256"
         }
       ],
-      name: "addProductUnitForDistributor",
-      outputs: [],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      "name": "addProductUnitForDistributor",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
-      constant: true,
-      inputs: [
+      "constant": true,
+      "inputs": [
         {
-          name: "who",
-          type: "address"
+          "name": "who",
+          "type": "address"
         }
       ],
-      name: "getProductionUnitsForDistributor",
-      outputs: [
+      "name": "getProductionUnitsForDistributor",
+      "outputs": [
         {
-          name: "puids",
-          type: "uint256[]"
+          "name": "puids",
+          "type": "uint256[]"
         }
       ],
-      payable: false,
-      stateMutability: "view",
-      type: "function"
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
     },
     {
-      constant: true,
-      inputs: [
+      "constant": true,
+      "inputs": [
         {
-          name: "who",
-          type: "address"
+          "name": "who",
+          "type": "address"
         }
       ],
-      name: "getBatchesForDistributor",
-      outputs: [
+      "name": "getBatchesForDistributor",
+      "outputs": [
         {
-          name: "buids",
-          type: "uint256[]"
+          "name": "buids",
+          "type": "uint256[]"
         }
       ],
-      payable: false,
-      stateMutability: "view",
-      type: "function"
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
     },
     {
-      constant: false,
-      inputs: [
+      "constant": false,
+      "inputs": [
         {
-          name: "who",
-          type: "address"
+          "name": "who",
+          "type": "address"
         },
         {
-          name: "which",
-          type: "uint256"
+          "name": "which",
+          "type": "uint256"
         }
       ],
-      name: "addDistributorToRetailerConsignment",
-      outputs: [],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      "name": "addDistributorToRetailerConsignment",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
-      constant: true,
-      inputs: [
+      "constant": true,
+      "inputs": [
         {
-          name: "who",
-          type: "address"
+          "name": "who",
+          "type": "address"
         }
       ],
-      name: "getDistributorToRetailerConsignments",
-      outputs: [
+      "name": "getDistributorToRetailerConsignments",
+      "outputs": [
         {
-          name: "buids",
-          type: "uint256[]"
+          "name": "buids",
+          "type": "uint256[]"
         }
       ],
-      payable: false,
-      stateMutability: "view",
-      type: "function"
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
     },
     {
-      constant: false,
-      inputs: [
+      "constant": false,
+      "inputs": [
         {
-          name: "who",
-          type: "address"
+          "name": "who",
+          "type": "address"
         },
         {
-          name: "which",
-          type: "uint256"
+          "name": "which",
+          "type": "uint256"
         }
       ],
-      name: "addBatchForRetailer",
-      outputs: [],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      "name": "addBatchForRetailer",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
-      constant: true,
-      inputs: [
+      "constant": true,
+      "inputs": [
         {
-          name: "who",
-          type: "address"
+          "name": "who",
+          "type": "address"
         }
       ],
-      name: "getBatchesForRetailer",
-      outputs: [
+      "name": "getBatchesForRetailer",
+      "outputs": [
         {
-          name: "buids",
-          type: "uint256[]"
+          "name": "buids",
+          "type": "uint256[]"
         }
       ],
-      payable: false,
-      stateMutability: "view",
-      type: "function"
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
     },
     {
-      constant: false,
-      inputs: [
+      "constant": false,
+      "inputs": [
         {
-          name: "currentOwner",
-          type: "address"
+          "name": "currentOwner",
+          "type": "address"
         },
         {
-          name: "hash",
-          type: "string"
+          "name": "hash",
+          "type": "string"
         }
       ],
-      name: "createHarvestUnit",
-      outputs: [],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      "name": "createHarvestUnit",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
-      constant: true,
-      inputs: [
+      "constant": true,
+      "inputs": [
         {
-          name: "harvestUid",
-          type: "uint256"
+          "name": "harvestUid",
+          "type": "uint256"
         }
       ],
-      name: "getHarvestUnit",
-      outputs: [
+      "name": "getHarvestUnit",
+      "outputs": [
         {
-          name: "currentOwner",
-          type: "address"
+          "name": "currentOwner",
+          "type": "address"
         },
         {
-          name: "latestHash",
-          type: "string"
+          "name": "latestHash",
+          "type": "string"
         },
         {
-          name: "currentState",
-          type: "uint8"
+          "name": "currentState",
+          "type": "uint8"
         }
       ],
-      payable: false,
-      stateMutability: "view",
-      type: "function"
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
     },
     {
-      constant: false,
-      inputs: [
+      "constant": false,
+      "inputs": [
         {
-          name: "harvestUid",
-          type: "uint256"
+          "name": "harvestUid",
+          "type": "uint256"
         },
         {
-          name: "newAddress",
-          type: "address"
+          "name": "newAddress",
+          "type": "address"
         },
         {
-          name: "latestHash",
-          type: "string"
+          "name": "latestHash",
+          "type": "string"
         },
         {
-          name: "newState",
-          type: "uint8"
+          "name": "newState",
+          "type": "uint8"
         }
       ],
-      name: "setHarvestUnit",
-      outputs: [],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      "name": "setHarvestUnit",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
-      constant: false,
-      inputs: [
+      "constant": false,
+      "inputs": [
         {
-          name: "currentOwner",
-          type: "address"
+          "name": "currentOwner",
+          "type": "address"
         },
         {
-          name: "hash",
-          type: "string"
+          "name": "hash",
+          "type": "string"
         }
       ],
-      name: "createProductUnit",
-      outputs: [],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      "name": "createProductUnit",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
-      constant: true,
-      inputs: [
+      "constant": true,
+      "inputs": [
         {
-          name: "productUid",
-          type: "uint256"
+          "name": "productUid",
+          "type": "uint256"
         }
       ],
-      name: "getProductUnit",
-      outputs: [
+      "name": "getProductUnit",
+      "outputs": [
         {
-          name: "currentOwner",
-          type: "address"
+          "name": "currentOwner",
+          "type": "address"
         },
         {
-          name: "latestHash",
-          type: "string"
+          "name": "latestHash",
+          "type": "string"
         },
         {
-          name: "currentState",
-          type: "uint8"
+          "name": "currentState",
+          "type": "uint8"
         }
       ],
-      payable: false,
-      stateMutability: "view",
-      type: "function"
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
     },
     {
-      constant: false,
-      inputs: [
+      "constant": false,
+      "inputs": [
         {
-          name: "productUid",
-          type: "uint256"
+          "name": "productUid",
+          "type": "uint256"
         },
         {
-          name: "newAddress",
-          type: "address"
+          "name": "newAddress",
+          "type": "address"
         },
         {
-          name: "latestHash",
-          type: "string"
+          "name": "latestHash",
+          "type": "string"
         },
         {
-          name: "newState",
-          type: "uint8"
+          "name": "newState",
+          "type": "uint8"
         }
       ],
-      name: "setProductUnit",
-      outputs: [],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      "name": "setProductUnit",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
-      constant: false,
-      inputs: [
+      "constant": false,
+      "inputs": [
         {
-          name: "currentOwner",
-          type: "address"
+          "name": "currentOwner",
+          "type": "address"
         },
         {
-          name: "hash",
-          type: "string"
+          "name": "hash",
+          "type": "string"
         }
       ],
-      name: "createBatchUnit",
-      outputs: [
+      "name": "createBatchUnit",
+      "outputs": [
         {
-          name: "buid",
-          type: "uint256"
+          "name": "buid",
+          "type": "uint256"
         }
       ],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
-      constant: true,
-      inputs: [
+      "constant": true,
+      "inputs": [
         {
-          name: "batchUid",
-          type: "uint256"
+          "name": "batchUid",
+          "type": "uint256"
         }
       ],
-      name: "getBatchUnit",
-      outputs: [
+      "name": "getBatchUnit",
+      "outputs": [
         {
-          name: "currentOwner",
-          type: "address"
+          "name": "currentOwner",
+          "type": "address"
         },
         {
-          name: "latestHash",
-          type: "string"
+          "name": "latestHash",
+          "type": "string"
         },
         {
-          name: "currentState",
-          type: "uint8"
+          "name": "currentState",
+          "type": "uint8"
         }
       ],
-      payable: false,
-      stateMutability: "view",
-      type: "function"
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
     },
     {
-      constant: false,
-      inputs: [
+      "constant": false,
+      "inputs": [
         {
-          name: "batchUid",
-          type: "uint256"
+          "name": "batchUid",
+          "type": "uint256"
         },
         {
-          name: "newAddress",
-          type: "address"
+          "name": "newAddress",
+          "type": "address"
         },
         {
-          name: "latestHash",
-          type: "string"
+          "name": "latestHash",
+          "type": "string"
         },
         {
-          name: "newState",
-          type: "uint8"
+          "name": "newState",
+          "type": "uint8"
         }
       ],
-      name: "setBatchUnit",
-      outputs: [],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      "name": "setBatchUnit",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     }
   ],
   FARMER: [
     {
-      constant: false,
-      inputs: [],
-      name: "renounceOwnership",
-      outputs: [],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      "constant": false,
+      "inputs": [],
+      "name": "renounceOwnership",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
-      constant: true,
-      inputs: [],
-      name: "owner",
-      outputs: [
+      "constant": true,
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
         {
-          name: "",
-          type: "address"
+          "name": "",
+          "type": "address"
         }
       ],
-      payable: false,
-      stateMutability: "view",
-      type: "function"
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
     },
     {
-      constant: true,
-      inputs: [],
-      name: "isOwner",
-      outputs: [
+      "constant": true,
+      "inputs": [],
+      "name": "isOwner",
+      "outputs": [
         {
-          name: "",
-          type: "bool"
+          "name": "",
+          "type": "bool"
         }
       ],
-      payable: false,
-      stateMutability: "view",
-      type: "function"
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
     },
     {
-      constant: false,
-      inputs: [
+      "constant": false,
+      "inputs": [
         {
-          name: "newOwner",
-          type: "address"
+          "name": "newOwner",
+          "type": "address"
         }
       ],
-      name: "transferOwnership",
-      outputs: [],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      "name": "transferOwnership",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
-      inputs: [
+      "inputs": [
         {
-          name: "storeAddress",
-          type: "address"
+          "name": "storeAddress",
+          "type": "address"
         }
       ],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "constructor"
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "constructor"
     },
     {
-      anonymous: false,
-      inputs: [
+      "anonymous": false,
+      "inputs": [
         {
-          indexed: true,
-          name: "oldOwner",
-          type: "address"
+          "indexed": true,
+          "name": "oldOwner",
+          "type": "address"
         },
         {
-          indexed: true,
-          name: "newOwner",
-          type: "address"
+          "indexed": true,
+          "name": "newOwner",
+          "type": "address"
         }
       ],
-      name: "TransferOwnership",
-      type: "event"
+      "name": "TransferOwnership",
+      "type": "event"
     },
     {
-      constant: false,
-      inputs: [
+      "constant": false,
+      "inputs": [
         {
-          name: "hash",
-          type: "string"
+          "name": "hash",
+          "type": "string"
         }
       ],
-      name: "setFarmerDetails",
-      outputs: [],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      "name": "setFarmerDetails",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
-      constant: true,
-      inputs: [
+      "constant": true,
+      "inputs": [
         {
-          name: "who",
-          type: "address"
+          "name": "who",
+          "type": "address"
         }
       ],
-      name: "getFarmerDetails",
-      outputs: [
+      "name": "getFarmerDetails",
+      "outputs": [
         {
-          name: "hash",
-          type: "string"
+          "name": "hash",
+          "type": "string"
         }
       ],
-      payable: false,
-      stateMutability: "view",
-      type: "function"
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
     },
     {
-      constant: true,
-      inputs: [
+      "constant": true,
+      "inputs": [
         {
-          name: "account",
-          type: "address"
+          "name": "account",
+          "type": "address"
         }
       ],
-      name: "isFarmer",
-      outputs: [
+      "name": "isFarmer",
+      "outputs": [
         {
-          name: "",
-          type: "bool"
+          "name": "",
+          "type": "bool"
         }
       ],
-      payable: false,
-      stateMutability: "view",
-      type: "function"
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
     },
     {
-      constant: false,
-      inputs: [
+      "constant": false,
+      "inputs": [
         {
-          name: "account",
-          type: "address"
+          "name": "account",
+          "type": "address"
         }
       ],
-      name: "addFarmer",
-      outputs: [],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      "name": "addFarmer",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
-      constant: false,
-      inputs: [
+      "constant": false,
+      "inputs": [
         {
-          name: "hash",
-          type: "string"
+          "name": "hash",
+          "type": "string"
         }
       ],
-      name: "seedsSown",
-      outputs: [],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      "name": "seedsSown",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
-      constant: true,
-      inputs: [],
-      name: "fetchSeeds",
-      outputs: [
+      "constant": true,
+      "inputs": [],
+      "name": "fetchSeeds",
+      "outputs": [
         {
-          name: "harvestUnitIds",
-          type: "uint256[]"
+          "name": "harvestUnitIds",
+          "type": "uint256[]"
         }
       ],
-      payable: false,
-      stateMutability: "view",
-      type: "function"
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
     },
     {
-      constant: false,
-      inputs: [
+      "constant": false,
+      "inputs": [
         {
-          name: "harvestUid",
-          type: "uint256"
+          "name": "harvestUid",
+          "type": "uint256"
         },
         {
-          name: "hash",
-          type: "string"
+          "name": "hash",
+          "type": "string"
         },
         {
-          name: "currentState",
-          type: "uint8"
+          "name": "currentState",
+          "type": "uint8"
         }
       ],
-      name: "moveLocation",
-      outputs: [],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      "name": "moveLocation",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
-      constant: false,
-      inputs: [
+      "constant": false,
+      "inputs": [
         {
-          name: "harvestUid",
-          type: "uint256"
+          "name": "harvestUid",
+          "type": "uint256"
         },
         {
-          name: "hash",
-          type: "string"
+          "name": "hash",
+          "type": "string"
         }
       ],
-      name: "plantHarvest",
-      outputs: [],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      "name": "plantHarvest",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
-      constant: false,
-      inputs: [
+      "constant": false,
+      "inputs": [
         {
-          name: "harvestUid",
-          type: "uint256"
+          "name": "harvestUid",
+          "type": "uint256"
         },
         {
-          name: "hash",
-          type: "string"
+          "name": "hash",
+          "type": "string"
         },
         {
-          name: "laboratory",
-          type: "address"
+          "name": "laboratory",
+          "type": "address"
         },
         {
-          name: "transporter",
-          type: "address"
+          "name": "transporter",
+          "type": "address"
         }
       ],
-      name: "sendToLabForTest",
-      outputs: [],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      "name": "sendToLabForTest",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
-      constant: false,
-      inputs: [
+      "constant": false,
+      "inputs": [
         {
-          name: "harvestUid",
-          type: "uint256"
+          "name": "harvestUid",
+          "type": "uint256"
         },
         {
-          name: "hash",
-          type: "string"
+          "name": "hash",
+          "type": "string"
         },
         {
-          name: "transporter",
-          type: "address"
+          "name": "transporter",
+          "type": "address"
         },
         {
-          name: "manufacturer",
-          type: "address"
+          "name": "manufacturer",
+          "type": "address"
         }
       ],
-      name: "packForDelivery",
-      outputs: [],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      "name": "packForDelivery",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
-      constant: false,
-      inputs: [
+      "constant": false,
+      "inputs": [
         {
-          name: "harvestUid",
-          type: "uint256"
+          "name": "harvestUid",
+          "type": "uint256"
         },
         {
-          name: "hash",
-          type: "string"
+          "name": "hash",
+          "type": "string"
         }
       ],
-      name: "destroyCrop",
-      outputs: [],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      "name": "destroyCrop",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     }
   ],
   LABORATORY: [
     {
-      constant: false,
-      inputs: [],
-      name: "renounceOwnership",
-      outputs: [],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      "constant": false,
+      "inputs": [],
+      "name": "renounceOwnership",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
-      constant: true,
-      inputs: [],
-      name: "owner",
-      outputs: [
+      "constant": true,
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
         {
-          name: "",
-          type: "address"
+          "name": "",
+          "type": "address"
         }
       ],
-      payable: false,
-      stateMutability: "view",
-      type: "function"
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
     },
     {
-      constant: true,
-      inputs: [],
-      name: "isOwner",
-      outputs: [
+      "constant": true,
+      "inputs": [],
+      "name": "isOwner",
+      "outputs": [
         {
-          name: "",
-          type: "bool"
+          "name": "",
+          "type": "bool"
         }
       ],
-      payable: false,
-      stateMutability: "view",
-      type: "function"
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
     },
     {
-      constant: false,
-      inputs: [
+      "constant": false,
+      "inputs": [
         {
-          name: "newOwner",
-          type: "address"
+          "name": "newOwner",
+          "type": "address"
         }
       ],
-      name: "transferOwnership",
-      outputs: [],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      "name": "transferOwnership",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
-      inputs: [
+      "inputs": [
         {
-          name: "storeAddress",
-          type: "address"
+          "name": "storeAddress",
+          "type": "address"
         }
       ],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "constructor"
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "constructor"
     },
     {
-      anonymous: false,
-      inputs: [
+      "anonymous": false,
+      "inputs": [
         {
-          indexed: true,
-          name: "oldOwner",
-          type: "address"
+          "indexed": true,
+          "name": "oldOwner",
+          "type": "address"
         },
         {
-          indexed: true,
-          name: "newOwner",
-          type: "address"
+          "indexed": true,
+          "name": "newOwner",
+          "type": "address"
         }
       ],
-      name: "TransferOwnership",
-      type: "event"
+      "name": "TransferOwnership",
+      "type": "event"
     },
     {
-      constant: false,
-      inputs: [
+      "constant": false,
+      "inputs": [
         {
-          name: "hash",
-          type: "string"
+          "name": "hash",
+          "type": "string"
         }
       ],
-      name: "setLaboratoryDetails",
-      outputs: [],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      "name": "setLaboratoryDetails",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
-      constant: true,
-      inputs: [
+      "constant": true,
+      "inputs": [
         {
-          name: "who",
-          type: "address"
+          "name": "who",
+          "type": "address"
         }
       ],
-      name: "getLaboratoryDetails",
-      outputs: [
+      "name": "getLaboratoryDetails",
+      "outputs": [
         {
-          name: "hash",
-          type: "string"
+          "name": "hash",
+          "type": "string"
         }
       ],
-      payable: false,
-      stateMutability: "view",
-      type: "function"
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
     },
     {
-      constant: true,
-      inputs: [
+      "constant": true,
+      "inputs": [
         {
-          name: "account",
-          type: "address"
+          "name": "account",
+          "type": "address"
         }
       ],
-      name: "isLaboratory",
-      outputs: [
+      "name": "isLaboratory",
+      "outputs": [
         {
-          name: "",
-          type: "bool"
+          "name": "",
+          "type": "bool"
         }
       ],
-      payable: false,
-      stateMutability: "view",
-      type: "function"
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
     },
     {
-      constant: false,
-      inputs: [
+      "constant": false,
+      "inputs": [
         {
-          name: "account",
-          type: "address"
+          "name": "account",
+          "type": "address"
         }
       ],
-      name: "addLaboratory",
-      outputs: [],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      "name": "addLaboratory",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
-      constant: true,
-      inputs: [],
-      name: "fetchReportRequests",
-      outputs: [
+      "constant": true,
+      "inputs": [],
+      "name": "fetchReportRequests",
+      "outputs": [
         {
-          name: "reports",
-          type: "uint256[]"
+          "name": "reports",
+          "type": "uint256[]"
         }
       ],
-      payable: false,
-      stateMutability: "view",
-      type: "function"
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
     },
     {
-      constant: false,
-      inputs: [
+      "constant": false,
+      "inputs": [
         {
-          name: "harvestUid",
-          type: "uint256"
+          "name": "harvestUid",
+          "type": "uint256"
         },
         {
-          name: "hash",
-          type: "string"
+          "name": "hash",
+          "type": "string"
         },
         {
-          name: "approved",
-          type: "uint8"
+          "name": "approved",
+          "type": "uint8"
         },
         {
-          name: "farmer",
-          type: "address"
+          "name": "farmer",
+          "type": "address"
         }
       ],
-      name: "uploadReport",
-      outputs: [],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      "name": "uploadReport",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     }
   ],
   TRANSPORTER: [
     {
-      constant: false,
-      inputs: [],
-      name: "renounceOwnership",
-      outputs: [],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      "constant": false,
+      "inputs": [],
+      "name": "renounceOwnership",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
-      constant: true,
-      inputs: [],
-      name: "owner",
-      outputs: [
+      "constant": true,
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
         {
-          name: "",
-          type: "address"
+          "name": "",
+          "type": "address"
         }
       ],
-      payable: false,
-      stateMutability: "view",
-      type: "function"
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
     },
     {
-      constant: true,
-      inputs: [],
-      name: "isOwner",
-      outputs: [
+      "constant": true,
+      "inputs": [],
+      "name": "isOwner",
+      "outputs": [
         {
-          name: "",
-          type: "bool"
+          "name": "",
+          "type": "bool"
         }
       ],
-      payable: false,
-      stateMutability: "view",
-      type: "function"
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
     },
     {
-      constant: false,
-      inputs: [
+      "constant": false,
+      "inputs": [
         {
-          name: "newOwner",
-          type: "address"
+          "name": "newOwner",
+          "type": "address"
         }
       ],
-      name: "transferOwnership",
-      outputs: [],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      "name": "transferOwnership",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
-      inputs: [
+      "inputs": [
         {
-          name: "storeAddress",
-          type: "address"
+          "name": "storeAddress",
+          "type": "address"
         }
       ],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "constructor"
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "constructor"
     },
     {
-      anonymous: false,
-      inputs: [
+      "anonymous": false,
+      "inputs": [
         {
-          indexed: true,
-          name: "oldOwner",
-          type: "address"
+          "indexed": true,
+          "name": "oldOwner",
+          "type": "address"
         },
         {
-          indexed: true,
-          name: "newOwner",
-          type: "address"
+          "indexed": true,
+          "name": "newOwner",
+          "type": "address"
         }
       ],
-      name: "TransferOwnership",
-      type: "event"
+      "name": "TransferOwnership",
+      "type": "event"
     },
     {
-      constant: false,
-      inputs: [
+      "constant": false,
+      "inputs": [
         {
-          name: "hash",
-          type: "string"
+          "name": "hash",
+          "type": "string"
         }
       ],
-      name: "setTransporterDetails",
-      outputs: [],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      "name": "setTransporterDetails",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
-      constant: true,
-      inputs: [
+      "constant": true,
+      "inputs": [
         {
-          name: "who",
-          type: "address"
+          "name": "who",
+          "type": "address"
         }
       ],
-      name: "getTransporterDetails",
-      outputs: [
+      "name": "getTransporterDetails",
+      "outputs": [
         {
-          name: "hash",
-          type: "string"
+          "name": "hash",
+          "type": "string"
         }
       ],
-      payable: false,
-      stateMutability: "view",
-      type: "function"
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
     },
     {
-      constant: true,
-      inputs: [
+      "constant": true,
+      "inputs": [
         {
-          name: "account",
-          type: "address"
+          "name": "account",
+          "type": "address"
         }
       ],
-      name: "isTransporter",
-      outputs: [
+      "name": "isTransporter",
+      "outputs": [
         {
-          name: "",
-          type: "bool"
+          "name": "",
+          "type": "bool"
         }
       ],
-      payable: false,
-      stateMutability: "view",
-      type: "function"
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
     },
     {
-      constant: false,
-      inputs: [
+      "constant": false,
+      "inputs": [
         {
-          name: "account",
-          type: "address"
+          "name": "account",
+          "type": "address"
         }
       ],
-      name: "addTransporter",
-      outputs: [],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      "name": "addTransporter",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
-      constant: true,
-      inputs: [],
-      name: "getFarmerToLabConsignments",
-      outputs: [
+      "constant": true,
+      "inputs": [],
+      "name": "getFarmerToLabConsignments",
+      "outputs": [
         {
-          name: "huids",
-          type: "uint256[]"
+          "name": "huids",
+          "type": "uint256[]"
         }
       ],
-      payable: false,
-      stateMutability: "view",
-      type: "function"
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
     },
     {
-      constant: false,
-      inputs: [
+      "constant": false,
+      "inputs": [
         {
-          name: "isDispatch",
-          type: "uint8"
+          "name": "isDispatch",
+          "type": "uint8"
         },
         {
-          name: "harvestUid",
-          type: "uint256"
+          "name": "harvestUid",
+          "type": "uint256"
         },
         {
-          name: "hash",
-          type: "string"
+          "name": "hash",
+          "type": "string"
         },
         {
-          name: "laboratory",
-          type: "address"
+          "name": "laboratory",
+          "type": "address"
         }
       ],
-      name: "dispatchOrDeliverFarmerToLab",
-      outputs: [],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      "name": "dispatchOrDeliverFarmerToLab",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
-      constant: true,
-      inputs: [],
-      name: "getFarmerToFactoryConsignments",
-      outputs: [
+      "constant": true,
+      "inputs": [],
+      "name": "getFarmerToFactoryConsignments",
+      "outputs": [
         {
-          name: "huids",
-          type: "uint256[]"
+          "name": "huids",
+          "type": "uint256[]"
         }
       ],
-      payable: false,
-      stateMutability: "view",
-      type: "function"
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
     },
     {
-      constant: false,
-      inputs: [
+      "constant": false,
+      "inputs": [
         {
-          name: "isDispatch",
-          type: "uint8"
+          "name": "isDispatch",
+          "type": "uint8"
         },
         {
-          name: "harvestUid",
-          type: "uint256"
+          "name": "harvestUid",
+          "type": "uint256"
         },
         {
-          name: "hash",
-          type: "string"
+          "name": "hash",
+          "type": "string"
         },
         {
-          name: "manufacturer",
-          type: "address"
+          "name": "manufacturer",
+          "type": "address"
         }
       ],
-      name: "dispatchOrDeliverFarmerToFactory",
-      outputs: [],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      "name": "dispatchOrDeliverFarmerToFactory",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
-      constant: true,
-      inputs: [],
-      name: "getFactoryToDistributorConsignments",
-      outputs: [
+      "constant": true,
+      "inputs": [],
+      "name": "getFactoryToDistributorConsignments",
+      "outputs": [
         {
-          name: "puids",
-          type: "uint256[]"
+          "name": "puids",
+          "type": "uint256[]"
         }
       ],
-      payable: false,
-      stateMutability: "view",
-      type: "function"
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
     },
     {
-      constant: false,
-      inputs: [
+      "constant": false,
+      "inputs": [
         {
-          name: "isDispatch",
-          type: "uint8"
+          "name": "isDispatch",
+          "type": "uint8"
         },
         {
-          name: "productUid",
-          type: "uint256"
+          "name": "productUid",
+          "type": "uint256"
         },
         {
-          name: "hash",
-          type: "string"
+          "name": "hash",
+          "type": "string"
         },
         {
-          name: "distributor",
-          type: "address"
+          "name": "distributor",
+          "type": "address"
         }
       ],
-      name: "dispatchOrDeliverFactoryToDistributor",
-      outputs: [],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      "name": "dispatchOrDeliverFactoryToDistributor",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
-      constant: true,
-      inputs: [],
-      name: "getDistributorToRetailerConsignments",
-      outputs: [
+      "constant": true,
+      "inputs": [],
+      "name": "getDistributorToRetailerConsignments",
+      "outputs": [
         {
-          name: "buids",
-          type: "uint256[]"
+          "name": "buids",
+          "type": "uint256[]"
         }
       ],
-      payable: false,
-      stateMutability: "view",
-      type: "function"
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
     },
     {
-      constant: false,
-      inputs: [
+      "constant": false,
+      "inputs": [
         {
-          name: "isDispatch",
-          type: "uint8"
+          "name": "isDispatch",
+          "type": "uint8"
         },
         {
-          name: "batchUid",
-          type: "uint256"
+          "name": "batchUid",
+          "type": "uint256"
         },
         {
-          name: "hash",
-          type: "string"
+          "name": "hash",
+          "type": "string"
         },
         {
-          name: "retailer",
-          type: "address"
+          "name": "retailer",
+          "type": "address"
         }
       ],
-      name: "dispatchOrDeliverDistributorToRetailer",
-      outputs: [],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      "name": "dispatchOrDeliverDistributorToRetailer",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     }
   ],
   MANUFACTURER: [
     {
-      constant: false,
-      inputs: [],
-      name: "renounceOwnership",
-      outputs: [],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      "constant": false,
+      "inputs": [],
+      "name": "renounceOwnership",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
-      constant: true,
-      inputs: [],
-      name: "owner",
-      outputs: [
+      "constant": true,
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
         {
-          name: "",
-          type: "address"
+          "name": "",
+          "type": "address"
         }
       ],
-      payable: false,
-      stateMutability: "view",
-      type: "function"
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
     },
     {
-      constant: true,
-      inputs: [],
-      name: "isOwner",
-      outputs: [
+      "constant": true,
+      "inputs": [],
+      "name": "isOwner",
+      "outputs": [
         {
-          name: "",
-          type: "bool"
+          "name": "",
+          "type": "bool"
         }
       ],
-      payable: false,
-      stateMutability: "view",
-      type: "function"
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
     },
     {
-      constant: false,
-      inputs: [
+      "constant": false,
+      "inputs": [
         {
-          name: "newOwner",
-          type: "address"
+          "name": "newOwner",
+          "type": "address"
         }
       ],
-      name: "transferOwnership",
-      outputs: [],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      "name": "transferOwnership",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
-      inputs: [
+      "inputs": [
         {
-          name: "storeAddress",
-          type: "address"
+          "name": "storeAddress",
+          "type": "address"
         }
       ],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "constructor"
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "constructor"
     },
     {
-      anonymous: false,
-      inputs: [
+      "anonymous": false,
+      "inputs": [
         {
-          indexed: true,
-          name: "oldOwner",
-          type: "address"
+          "indexed": true,
+          "name": "oldOwner",
+          "type": "address"
         },
         {
-          indexed: true,
-          name: "newOwner",
-          type: "address"
+          "indexed": true,
+          "name": "newOwner",
+          "type": "address"
         }
       ],
-      name: "TransferOwnership",
-      type: "event"
+      "name": "TransferOwnership",
+      "type": "event"
     },
     {
-      constant: false,
-      inputs: [
+      "constant": false,
+      "inputs": [
         {
-          name: "hash",
-          type: "string"
+          "name": "hash",
+          "type": "string"
         }
       ],
-      name: "setManufacturerDetails",
-      outputs: [],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      "name": "setManufacturerDetails",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
-      constant: true,
-      inputs: [
+      "constant": true,
+      "inputs": [
         {
-          name: "who",
-          type: "address"
+          "name": "who",
+          "type": "address"
         }
       ],
-      name: "getManufacturerDetails",
-      outputs: [
+      "name": "getManufacturerDetails",
+      "outputs": [
         {
-          name: "hash",
-          type: "string"
+          "name": "hash",
+          "type": "string"
         }
       ],
-      payable: false,
-      stateMutability: "view",
-      type: "function"
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
     },
     {
-      constant: true,
-      inputs: [
+      "constant": true,
+      "inputs": [
         {
-          name: "account",
-          type: "address"
+          "name": "account",
+          "type": "address"
         }
       ],
-      name: "isManufacturer",
-      outputs: [
+      "name": "isManufacturer",
+      "outputs": [
         {
-          name: "",
-          type: "bool"
+          "name": "",
+          "type": "bool"
         }
       ],
-      payable: false,
-      stateMutability: "view",
-      type: "function"
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
     },
     {
-      constant: false,
-      inputs: [
+      "constant": false,
+      "inputs": [
         {
-          name: "account",
-          type: "address"
+          "name": "account",
+          "type": "address"
         }
       ],
-      name: "addManufacturer",
-      outputs: [],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      "name": "addManufacturer",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
-      constant: true,
-      inputs: [],
-      name: "getHarvestUnits",
-      outputs: [
+      "constant": true,
+      "inputs": [],
+      "name": "getHarvestUnits",
+      "outputs": [
         {
-          name: "huids",
-          type: "uint256[]"
+          "name": "huids",
+          "type": "uint256[]"
         }
       ],
-      payable: false,
-      stateMutability: "view",
-      type: "function"
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
     },
     {
-      constant: false,
-      inputs: [
+      "constant": false,
+      "inputs": [
         {
-          name: "harvestUid",
-          type: "uint256"
+          "name": "harvestUid",
+          "type": "uint256"
         },
         {
-          name: "harvestHash",
-          type: "string"
+          "name": "harvestHash",
+          "type": "string"
         },
         {
-          name: "productHash",
-          type: "string"
+          "name": "productHash",
+          "type": "string"
         }
       ],
-      name: "productsManufactured",
-      outputs: [],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      "name": "productsManufactured",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
-      constant: true,
-      inputs: [],
-      name: "getProductUnits",
-      outputs: [
+      "constant": true,
+      "inputs": [],
+      "name": "getProductUnits",
+      "outputs": [
         {
-          name: "puids",
-          type: "uint256[]"
+          "name": "puids",
+          "type": "uint256[]"
         }
       ],
-      payable: false,
-      stateMutability: "view",
-      type: "function"
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
     },
     {
-      constant: false,
-      inputs: [
+      "constant": false,
+      "inputs": [
         {
-          name: "productUid",
-          type: "uint256"
+          "name": "productUid",
+          "type": "uint256"
         },
         {
-          name: "hash",
-          type: "string"
+          "name": "hash",
+          "type": "string"
         },
         {
-          name: "distributor",
-          type: "address"
+          "name": "distributor",
+          "type": "address"
         },
         {
-          name: "transporter",
-          type: "address"
+          "name": "transporter",
+          "type": "address"
         }
       ],
-      name: "sendProductsManufacturedToDistributor",
-      outputs: [],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      "name": "sendProductsManufacturedToDistributor",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     }
   ],
   DISTRIBUTOR: [
     {
-      constant: false,
-      inputs: [],
-      name: "renounceOwnership",
-      outputs: [],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      "constant": false,
+      "inputs": [],
+      "name": "renounceOwnership",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
-      constant: true,
-      inputs: [],
-      name: "owner",
-      outputs: [
+      "constant": true,
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
         {
-          name: "",
-          type: "address"
+          "name": "",
+          "type": "address"
         }
       ],
-      payable: false,
-      stateMutability: "view",
-      type: "function"
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
     },
     {
-      constant: true,
-      inputs: [],
-      name: "isOwner",
-      outputs: [
+      "constant": true,
+      "inputs": [],
+      "name": "isOwner",
+      "outputs": [
         {
-          name: "",
-          type: "bool"
+          "name": "",
+          "type": "bool"
         }
       ],
-      payable: false,
-      stateMutability: "view",
-      type: "function"
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
     },
     {
-      constant: false,
-      inputs: [
+      "constant": false,
+      "inputs": [
         {
-          name: "newOwner",
-          type: "address"
+          "name": "newOwner",
+          "type": "address"
         }
       ],
-      name: "transferOwnership",
-      outputs: [],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      "name": "transferOwnership",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
-      inputs: [
+      "inputs": [
         {
-          name: "storeAddress",
-          type: "address"
+          "name": "storeAddress",
+          "type": "address"
         }
       ],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "constructor"
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "constructor"
     },
     {
-      anonymous: false,
-      inputs: [
+      "anonymous": false,
+      "inputs": [
         {
-          indexed: true,
-          name: "oldOwner",
-          type: "address"
+          "indexed": true,
+          "name": "oldOwner",
+          "type": "address"
         },
         {
-          indexed: true,
-          name: "newOwner",
-          type: "address"
+          "indexed": true,
+          "name": "newOwner",
+          "type": "address"
         }
       ],
-      name: "TransferOwnership",
-      type: "event"
+      "name": "TransferOwnership",
+      "type": "event"
     },
     {
-      constant: false,
-      inputs: [
+      "constant": false,
+      "inputs": [
         {
-          name: "hash",
-          type: "string"
+          "name": "hash",
+          "type": "string"
         }
       ],
-      name: "setDistributorDetails",
-      outputs: [],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      "name": "setDistributorDetails",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
-      constant: true,
-      inputs: [
+      "constant": true,
+      "inputs": [
         {
-          name: "who",
-          type: "address"
+          "name": "who",
+          "type": "address"
         }
       ],
-      name: "getDistributorDetails",
-      outputs: [
+      "name": "getDistributorDetails",
+      "outputs": [
         {
-          name: "hash",
-          type: "string"
+          "name": "hash",
+          "type": "string"
         }
       ],
-      payable: false,
-      stateMutability: "view",
-      type: "function"
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
     },
     {
-      constant: true,
-      inputs: [
+      "constant": true,
+      "inputs": [
         {
-          name: "account",
-          type: "address"
+          "name": "account",
+          "type": "address"
         }
       ],
-      name: "isDistributor",
-      outputs: [
+      "name": "isDistributor",
+      "outputs": [
         {
-          name: "",
-          type: "bool"
+          "name": "",
+          "type": "bool"
         }
       ],
-      payable: false,
-      stateMutability: "view",
-      type: "function"
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
     },
     {
-      constant: false,
-      inputs: [
+      "constant": false,
+      "inputs": [
         {
-          name: "account",
-          type: "address"
+          "name": "account",
+          "type": "address"
         }
       ],
-      name: "addDistributor",
-      outputs: [],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      "name": "addDistributor",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
-      constant: true,
-      inputs: [],
-      name: "getProductUnits",
-      outputs: [
+      "constant": true,
+      "inputs": [],
+      "name": "getProductUnits",
+      "outputs": [
         {
-          name: "puids",
-          type: "uint256[]"
+          "name": "puids",
+          "type": "uint256[]"
         }
       ],
-      payable: false,
-      stateMutability: "view",
-      type: "function"
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
     },
     {
-      constant: false,
-      inputs: [
+      "constant": false,
+      "inputs": [
         {
-          name: "productUid",
-          type: "uint256"
+          "name": "productUid",
+          "type": "uint256"
         },
         {
-          name: "productHash",
-          type: "string"
+          "name": "productHash",
+          "type": "string"
         },
         {
-          name: "batchHash",
-          type: "string"
+          "name": "batchHash",
+          "type": "string"
         },
         {
-          name: "transporter",
-          type: "address"
+          "name": "transporter",
+          "type": "address"
         },
         {
-          name: "retailer",
-          type: "address"
+          "name": "retailer",
+          "type": "address"
         }
       ],
-      name: "createBatch",
-      outputs: [],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      "name": "createBatch",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
-      constant: true,
-      inputs: [],
-      name: "getBatchUnits",
-      outputs: [
+      "constant": true,
+      "inputs": [],
+      "name": "getBatchUnits",
+      "outputs": [
         {
-          name: "buids",
-          type: "uint256[]"
+          "name": "buids",
+          "type": "uint256[]"
         }
       ],
-      payable: false,
-      stateMutability: "view",
-      type: "function"
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
     },
     {
-      constant: false,
-      inputs: [
+      "constant": false,
+      "inputs": [
         {
-          name: "batchUid",
-          type: "uint256"
+          "name": "batchUid",
+          "type": "uint256"
         },
         {
-          name: "hash",
-          type: "string"
+          "name": "hash",
+          "type": "string"
         },
         {
-          name: "retailer",
-          type: "address"
+          "name": "retailer",
+          "type": "address"
         },
         {
-          name: "transporter",
-          type: "address"
+          "name": "transporter",
+          "type": "address"
         }
       ],
-      name: "sendToRetailer",
-      outputs: [],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      "name": "sendToRetailer",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     }
   ],
   RETAILER: [
     {
-      constant: false,
-      inputs: [],
-      name: "renounceOwnership",
-      outputs: [],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      "constant": false,
+      "inputs": [],
+      "name": "renounceOwnership",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
-      constant: true,
-      inputs: [],
-      name: "owner",
-      outputs: [
+      "constant": true,
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
         {
-          name: "",
-          type: "address"
+          "name": "",
+          "type": "address"
         }
       ],
-      payable: false,
-      stateMutability: "view",
-      type: "function"
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
     },
     {
-      constant: true,
-      inputs: [],
-      name: "isOwner",
-      outputs: [
+      "constant": true,
+      "inputs": [],
+      "name": "isOwner",
+      "outputs": [
         {
-          name: "",
-          type: "bool"
+          "name": "",
+          "type": "bool"
         }
       ],
-      payable: false,
-      stateMutability: "view",
-      type: "function"
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
     },
     {
-      constant: false,
-      inputs: [
+      "constant": false,
+      "inputs": [
         {
-          name: "newOwner",
-          type: "address"
+          "name": "newOwner",
+          "type": "address"
         }
       ],
-      name: "transferOwnership",
-      outputs: [],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      "name": "transferOwnership",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
-      inputs: [
+      "inputs": [
         {
-          name: "storeAddress",
-          type: "address"
+          "name": "storeAddress",
+          "type": "address"
         }
       ],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "constructor"
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "constructor"
     },
     {
-      anonymous: false,
-      inputs: [
+      "anonymous": false,
+      "inputs": [
         {
-          indexed: true,
-          name: "oldOwner",
-          type: "address"
+          "indexed": true,
+          "name": "oldOwner",
+          "type": "address"
         },
         {
-          indexed: true,
-          name: "newOwner",
-          type: "address"
+          "indexed": true,
+          "name": "newOwner",
+          "type": "address"
         }
       ],
-      name: "TransferOwnership",
-      type: "event"
+      "name": "TransferOwnership",
+      "type": "event"
     },
     {
-      constant: false,
-      inputs: [
+      "constant": false,
+      "inputs": [
         {
-          name: "hash",
-          type: "string"
+          "name": "hash",
+          "type": "string"
         }
       ],
-      name: "setRetailerDetails",
-      outputs: [],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      "name": "setRetailerDetails",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
-      constant: true,
-      inputs: [
+      "constant": true,
+      "inputs": [
         {
-          name: "who",
-          type: "address"
+          "name": "who",
+          "type": "address"
         }
       ],
-      name: "getRetailerDetails",
-      outputs: [
+      "name": "getRetailerDetails",
+      "outputs": [
         {
-          name: "hash",
-          type: "string"
+          "name": "hash",
+          "type": "string"
         }
       ],
-      payable: false,
-      stateMutability: "view",
-      type: "function"
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
     },
     {
-      constant: true,
-      inputs: [
+      "constant": true,
+      "inputs": [
         {
-          name: "account",
-          type: "address"
+          "name": "account",
+          "type": "address"
         }
       ],
-      name: "isRetailer",
-      outputs: [
+      "name": "isRetailer",
+      "outputs": [
         {
-          name: "",
-          type: "bool"
+          "name": "",
+          "type": "bool"
         }
       ],
-      payable: false,
-      stateMutability: "view",
-      type: "function"
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
     },
     {
-      constant: false,
-      inputs: [
+      "constant": false,
+      "inputs": [
         {
-          name: "account",
-          type: "address"
+          "name": "account",
+          "type": "address"
         }
       ],
-      name: "addRetailer",
-      outputs: [],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      "name": "addRetailer",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
-      constant: true,
-      inputs: [],
-      name: "getBatchUnits",
-      outputs: [
+      "constant": true,
+      "inputs": [],
+      "name": "getBatchUnits",
+      "outputs": [
         {
-          name: "buids",
-          type: "uint256[]"
+          "name": "buids",
+          "type": "uint256[]"
         }
       ],
-      payable: false,
-      stateMutability: "view",
-      type: "function"
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
     },
     {
-      constant: true,
-      inputs: [
+      "constant": true,
+      "inputs": [
         {
-          name: "account",
-          type: "address"
+          "name": "account",
+          "type": "address"
         }
       ],
-      name: "isConsumer",
-      outputs: [
+      "name": "isConsumer",
+      "outputs": [
         {
-          name: "",
-          type: "bool"
+          "name": "",
+          "type": "bool"
         }
       ],
-      payable: false,
-      stateMutability: "view",
-      type: "function"
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
     },
     {
-      constant: true,
-      inputs: [
+      "constant": true,
+      "inputs": [
         {
-          name: "account",
-          type: "address"
+          "name": "account",
+          "type": "address"
         }
       ],
-      name: "getConsumerDetails",
-      outputs: [
+      "name": "getConsumerDetails",
+      "outputs": [
         {
-          name: "hash",
-          type: "string"
+          "name": "hash",
+          "type": "string"
         }
       ],
-      payable: false,
-      stateMutability: "view",
-      type: "function"
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
     },
     {
-      constant: false,
-      inputs: [
+      "constant": false,
+      "inputs": [
         {
-          name: "batchUid",
-          type: "uint256"
+          "name": "batchUid",
+          "type": "uint256"
         },
         {
-          name: "buyer",
-          type: "address"
+          "name": "buyer",
+          "type": "address"
         },
         {
-          name: "buyerHash",
-          type: "string"
+          "name": "buyerHash",
+          "type": "string"
         },
         {
-          name: "saleHash",
-          type: "string"
+          "name": "saleHash",
+          "type": "string"
         }
       ],
-      name: "sellToConsumer",
-      outputs: [],
-      payable: false,
-      stateMutability: "nonpayable",
-      type: "function"
+      "name": "sellToConsumer",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
     }
   ]
 };
