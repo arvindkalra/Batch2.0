@@ -18,7 +18,7 @@ const Login = ({setDashboards}) => {
         if (pvtKey.length === 66) {
             setPvtKeyIsValid(true);
             setPreloader(true);
-            sessionStorage.setItem('pkey', JSON.stringify(pvtKey));
+            localStorage.setItem('pkey', JSON.stringify(pvtKey));
             setDashboards()
 
         } else {

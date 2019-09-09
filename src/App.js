@@ -41,7 +41,7 @@ function App() {
                     setLoggedIn(true)
                 } else {
                     alert("This account is not registered");
-                    sessionStorage.setItem('pkey', '');
+                    localStorage.setItem('pkey', '');
                     window.location.reload()
 
                 }
@@ -52,8 +52,12 @@ function App() {
 
     };
     useEffect(() => {
-        const pkey = JSON.parse(sessionStorage.getItem('pkey'));
+
+
+        let pkey = localStorage.getItem('pkey');
         if (pkey) {
+            pkey = JSON.parse(pkey)
+            console.log("pkey found")
             setDashboards()
         }
     }, []);

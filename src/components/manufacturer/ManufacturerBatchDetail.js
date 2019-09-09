@@ -48,7 +48,7 @@ const ManufacturerBatchDetail = props => {
 
   return (
     <>
-      <Layout location={props.location}>
+      <Layout location={props.location} history={props.history}>
         <Row>
           <Col>
             {setBreadcrumb(

@@ -33,7 +33,7 @@ const Retailer = ({location, history, userRole}) => {
 
     return (
 
-        <Layout userName={userName} profileImage={profileImage} location={location}>
+        <Layout userName={userName} profileImage={profileImage} location={location} history={history}>
             <RetailerDashboard location={location}/>
         </Layout>
 

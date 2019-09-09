@@ -16,8 +16,8 @@ export let OWN_ADDRESS;
 let SIGN_TRANSACTION;
 
 export function initialSetup(resolve, reject) {
-    if (sessionStorage.getItem("pkey")) {
-        PRIVATE_KEY = JSON.parse(sessionStorage.getItem("pkey"));
+    if (localStorage.getItem("pkey")) {
+        PRIVATE_KEY = JSON.parse(localStorage.getItem("pkey"));
         let obj = web3.eth.accounts.privateKeyToAccount(PRIVATE_KEY);
         OWN_ADDRESS = obj.address;
         SIGN_TRANSACTION = obj.signTransaction;
@@ -35,7 +35,7 @@ export function initSetup(pvtKey, resolve, reject) {
 
     let obj = web3.eth.accounts.privateKeyToAccount(pvtKey);
     OWN_ADDRESS = obj.address;
-    sessionStorage.setItem("pkey", JSON.stringify(pvtKey));
+    localStorage.setItem("pkey", JSON.stringify(pvtKey));
     SIGN_TRANSACTION = obj.signTransaction;
     createContractInstance();
     resolve(OWN_ADDRESS);
