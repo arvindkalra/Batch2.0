@@ -1,5 +1,7 @@
 import {
-  batchStates, convertFromHex, convertToHex,
+  batchStates,
+  convertFromHex,
+  convertToHex,
   getJsonFromIPFS,
   makeRetailerTransaction,
   makeStorageTransaction,
@@ -91,6 +93,9 @@ export function getRowsForRetailer(rowCallbacks) {
           .then(x => handleObject(x, val))
           .then(x => rowCallbacks(x, array.length))
           .catch(handleError);
+      }
+      if (array.length === 0) {
+        rowCallbacks();
       }
     })
     .catch(handleError);

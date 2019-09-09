@@ -65,6 +65,9 @@ export function fetchProductUnitsForDistributor(rowCallback) {
         .then(x => rowCallback(x, array.length))
         .catch(handleError);
     }
+    if (array.length === 0) {
+      rowCallback();
+    }
   });
 }
 

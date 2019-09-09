@@ -31,6 +31,10 @@ const DistDashboard = ({ location }) => {
       let tempChanged = changed;
       let totalEntries = 0;
       fetchProductUnitsForDistributor((rowObj, total) => {
+        if (!rowObj) {
+          setPreloader(false);
+          return;
+        }
         totalEntries++;
         let manufacturerAddress =
           rowObj.details.manufacturerAddress || config.ADDRESS;

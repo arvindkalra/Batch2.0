@@ -32,6 +32,10 @@ const ManufacturerDashboard = ({ location }) => {
     let tempChanged = changed;
     connectToWeb3().then(() => {
       fetchHarvestUnitsByManufacturer((harvestObject, total) => {
+        if (!harvestObject) {
+          setPreloader(false);
+          return;
+        }
         totalHarvest++;
         let tempAvailableArray = availableArray;
         getFarmerDetails(harvestObject.details.farmerAddress).then(

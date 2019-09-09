@@ -23,6 +23,10 @@ const RetailerDashboard = ({ location }) => {
       let tempChanged = changed;
       let totalEntries = 0;
       getRowsForRetailer((row, total) => {
+        if (!row) {
+          setPreloader(false);
+          return;
+        }
         totalEntries++;
         if (row.currentState.value === 4) {
           getObjectForRow(row, (...args) => {
