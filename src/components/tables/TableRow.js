@@ -6,7 +6,6 @@ const TableRow = ({ tableRow, rowDetails, labDetails }) => {
   useEffect(() => {
     setRow(tableRow);
   }, [tableRow]);
-
   const getClassName = data => {
     data = data.toString().toLowerCase();
     switch (data) {

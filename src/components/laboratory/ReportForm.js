@@ -29,7 +29,6 @@ const ReportForm = ({ formDetails, labDetails }) => {
   const [transactionMining, setTrasactionMining] = useState(false);
   const [transactionObject, setTransactionObject] = useState(null);
   const [clicked, setClicked] = useState(false);
-
   useEffect(() => {
     if (formDetails.details.testResults) {
       let {

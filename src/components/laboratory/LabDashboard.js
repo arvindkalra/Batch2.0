@@ -273,6 +273,7 @@ const LabDashboard = props => {
                       <AlreadyTestedReportTable
                         array={testedReportsArray}
                         seedObjArr={seedObjArr}
+                        labDetails={props.labDetails}
                       />
                     ) : (
                       <div>You Have Not Tested any Report Yet</div>

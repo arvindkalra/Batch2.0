@@ -22,8 +22,8 @@ const Laboratory = ({location, history, userRole}) => {
           localStorage.setItem('name', obj.name);
           setProfileImage(obj.profileImage);
           localStorage.setItem('profileImage', obj.profileImage)
+          setLabDetails(obj);
         }else{
-
           history.push(`/${userRole}/about`)
 
         }

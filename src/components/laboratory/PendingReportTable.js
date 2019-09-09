@@ -10,7 +10,6 @@ const PendingReportTable = ({array, seedObjArr, labDetails}) => {
         "Date Harvested",
         "Action"
     ];
-
     return (
         <TableLayout tableHead={tableHead} rows={array} tableParams={seedObjArr} labDetails={labDetails}/>
     );

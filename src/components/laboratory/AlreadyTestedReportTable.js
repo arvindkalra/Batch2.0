@@ -15,7 +15,7 @@ const AlreadyTestedReportTable = props => {
 
     return (
 
-        <TableLayout tableHead={tableHead} rows={tableRows} tableParams={props.seedObjArr}/>
+        <TableLayout tableHead={tableHead} rows={tableRows} tableParams={props.seedObjArr} labDetails={props.labDetails}/>
     );
 };
 
