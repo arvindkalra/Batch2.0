@@ -8,7 +8,7 @@ import SideBar from "./SideBar";
 import { Link } from "react-router-dom";
 import "../assets/stylesheets/layout.scss";
 
-const Layout = ({ children, userName, profileImage, location }) => {
+const Layout = ({ children, userName, profileImage, location, history }) => {
   const [showSideBar, setShowSideBar] = useState(false);
   const [overlayDisplay, setOverlayDisplay] = useState("none");
 
@@ -30,6 +30,8 @@ const Layout = ({ children, userName, profileImage, location }) => {
             hidden={showSideBar?'sidebar visible':'sidebar hidden'}
           profession={location.pathname.split("/")[1]}
           userName={userName}
+            history={history}
+
           profileImage={profileImage}
           closeSideBar={closeSideBar}
         />

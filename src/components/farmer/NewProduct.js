@@ -34,7 +34,7 @@ const NewProduct = props => {
   const [preloader, setPreloader] = useState(true);
   return (
     <>
-      <Layout location={props.location}>
+      <Layout location={props.location} history={props.history}>
         <Row>
           <Col>
             {setBreadcrumb(

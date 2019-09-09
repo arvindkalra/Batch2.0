@@ -9,7 +9,7 @@ import Table from "react-bootstrap/Table";
 import LabBarGraph from "./LabBarGraph";
 import { Card } from "react-bootstrap";
 
-const Report = ({ location, match }) => {
+const Report = ({ location, match, history }) => {
   const [seedObject, setSeedObject] = useState({
     details: {},
     currentState: { value: "" }
@@ -39,7 +39,7 @@ const Report = ({ location, match }) => {
     });
   }, [match.params.id]);
   return (
-    <Layout location={location}>
+    <Layout location={location} history={history}>
       <Row>
         <Col>
           {setBreadcrumb(

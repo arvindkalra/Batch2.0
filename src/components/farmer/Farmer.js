@@ -46,7 +46,7 @@ const Farmer = ({location, history, userRole}) => {
             <Notification show={showNotification} onClose={() => {
                 setShowNotification(false)
             }} message={notificationMessage}/>
-            <Layout userName={userName} profileImage={profileImage} location={location}>
+            <Layout userName={userName} profileImage={profileImage} location={location} history={history}>
                 <Dashboard location={location} history={history}/>
 
             </Layout>

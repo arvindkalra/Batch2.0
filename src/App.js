@@ -52,8 +52,12 @@ function App() {
 
     };
     useEffect(() => {
-        const pkey = JSON.parse(sessionStorage.getItem('pkey'));
+
+
+        let pkey = sessionStorage.getItem('pkey');
         if (pkey) {
+            pkey = JSON.parse(pkey)
+            console.log("pkey found")
             setDashboards()
         }
     }, []);

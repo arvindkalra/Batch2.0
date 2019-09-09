@@ -37,6 +37,7 @@ const Laboratory = ({location, history, userRole}) => {
       profileImage={profileImage}
       userName={userName}
       location={location}
+      history={history}
     >
       <LabDashboard location={location} labDetails={labDetails}/>
     </Layout>

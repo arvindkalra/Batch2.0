@@ -7,7 +7,7 @@ import {clearLocal} from "../../helpers";
 import NewDashboard from "./newDashboard";
 import TransporterDashboardUnused from "./TransporterDashboard (unused)";
 
-const Transporter = ({location}) => {
+const Transporter = ({location, history}) => {
     const [userName, setUserName] = useState('');
     const [profileImage, setProfileImage] = useState('');
     useEffect(() => {
@@ -26,7 +26,7 @@ const Transporter = ({location}) => {
     });
 
     return (
-        <Layout userName={userName} profileImage={profileImage} location={location}>
+        <Layout userName={userName} profileImage={profileImage} location={location} history={history}>
             {/*<TransporterDashboard location={location}/>*/}
             <NewDashboard location={location}/>
         </Layout>
