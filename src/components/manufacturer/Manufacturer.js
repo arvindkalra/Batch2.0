@@ -14,7 +14,7 @@ const Manufacturer = ({location,history, userRole}) => {
         connectToMetamask().then(() => {
             clearLocal();
             getManufacturerDetails().then((obj) => {
-                console.log(obj);
+
                 if(typeof obj !== 'undefined'){
                     setUserName(obj.name);
                     localStorage.setItem('name', obj.name);

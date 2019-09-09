@@ -5,20 +5,21 @@ import {connectToMetamask} from "../../dbController/init";
 import {getDistributorDetails} from "../../dbController/distributorRole";
 import {clearLocal} from "../../helpers";
 
-const Distributor = ({location}) => {
+const Distributor = ({location, history, userRole}) => {
     const [userName, setUserName] = useState('');
     const [profileImage, setProfileImage] = useState('');
     useEffect(() => {
         clearLocal();
         connectToMetamask().then(() => {
-
             getDistributorDetails().then((obj) => {
-
-                setUserName(obj.name);
-                localStorage.setItem('name', obj.name);
-                setProfileImage(obj.profileImage);
-                localStorage.setItem('profileImage', obj.profileImage)
-
+                if(typeof obj !== 'undefined'){
+                    setUserName(obj.name);
+                    localStorage.setItem('name', obj.name);
+                    setProfileImage(obj.profileImage);
+                    localStorage.setItem('profileImage', obj.profileImage)
+                }else{
+                    history.push(`/${userRole}/about`)
+                }
             })
         })
     });

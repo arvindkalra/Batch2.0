@@ -6,7 +6,7 @@ import {connectToMetamask} from "../../dbController/init";
 import {getRetailerDetails} from "../../dbController/retailerRole";
 import {clearLocal} from "../../helpers";
 
-const Retailer = ({location}) => {
+const Retailer = ({location, history, userRole}) => {
     const [userName, setUserName] = useState('');
     const [profileImage, setProfileImage] = useState('');
     useEffect(() => {
@@ -14,10 +14,17 @@ const Retailer = ({location}) => {
             clearLocal();
 
             getRetailerDetails().then((obj) => {
-                setUserName(obj.name);
-                localStorage.setItem('name', obj.name);
-                setProfileImage(obj.profileImage);
-                localStorage.setItem('profileImage', obj.profileImage)
+                if(typeof obj !== 'undefined'){
+                    setUserName(obj.name);
+                    localStorage.setItem('name', obj.name);
+                    setProfileImage(obj.profileImage);
+                    localStorage.setItem('profileImage', obj.profileImage)
+                }else{
+
+                    history.push(`/${userRole}/about`)
+
+                }
+
 
             })
         })

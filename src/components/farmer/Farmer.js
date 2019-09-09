@@ -7,7 +7,7 @@ import {connectToMetamask} from "../../dbController/init";
 import Notification from "../Notification";
 
 
-const Farmer = (props) => {
+const Farmer = ({location, history, userRole}) => {
     const [userName, setUserName] = useState('');
     const [profileImage, setProfileImage] = useState('');
     const [showNotification, setShowNotification] = useState(false);
@@ -15,20 +15,26 @@ const Farmer = (props) => {
     useEffect(() => {
 
 
-        if (props.location.state && JSON.stringify(props.location.state) !== "{}") {
-          setNotificationMessage(props.location.state.setMessage);
-          setShowNotification(props.location.state.setNotification);
+        if (location.state && JSON.stringify(location.state) !== "{}") {
+          setNotificationMessage(location.state.setMessage);
+          setShowNotification(location.state.setNotification);
           // props.location.state.setNotification = false
-          props.history.replace({ state: {} });
+          history.replace({ state: {} });
         }
         connectToMetamask().then(() => {
 
             getFarmerDetails().then((obj) => {
 
-                setUserName(obj.name);
-                localStorage.setItem('name', obj.name);
-                setProfileImage(obj.profileImage);
-                localStorage.setItem('profileImage', obj.profileImage)
+                if(typeof obj !== 'undefined'){
+                    setUserName(obj.name);
+                    localStorage.setItem('name', obj.name);
+                    setProfileImage(obj.profileImage);
+                    localStorage.setItem('profileImage', obj.profileImage)
+                }else{
+
+                    history.push(`/${userRole}/about`)
+
+                }
 
 
             })
@@ -40,8 +46,8 @@ const Farmer = (props) => {
             <Notification show={showNotification} onClose={() => {
                 setShowNotification(false)
             }} message={notificationMessage}/>
-            <Layout userName={userName} profileImage={profileImage} location={props.location}>
-                <Dashboard location={props.location} history={props.history}/>
+            <Layout userName={userName} profileImage={profileImage} location={location}>
+                <Dashboard location={location} history={history}/>
 
             </Layout>
         </>

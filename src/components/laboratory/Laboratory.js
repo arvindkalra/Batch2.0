@@ -9,7 +9,7 @@ import { getFarmerDetails } from "../../dbController/farmerRole";
 import { getLaboratoryDetails } from "../../dbController/laboratoryRole";
 import { clearLocal } from "../../helpers";
 
-const Laboratory = props => {
+const Laboratory = ({location, history, userRole}) => {
   const [userName, setUserName] = useState("");
   const [profileImage, setProfileImage] = useState("");
   const [labDetails, setLabDetails] = useState({});
@@ -17,11 +17,17 @@ const Laboratory = props => {
     clearLocal();
     connectToMetamask().then(() => {
       getLaboratoryDetails().then(obj => {
-        setLabDetails(obj);
-        setUserName(obj.name);
-        localStorage.setItem("name", obj.name);
-        setProfileImage(obj.profileImage);
-        localStorage.setItem("profileImage", obj.profileImage);
+        if(typeof obj !== 'undefined'){
+          setUserName(obj.name);
+          localStorage.setItem('name', obj.name);
+          setProfileImage(obj.profileImage);
+          localStorage.setItem('profileImage', obj.profileImage)
+        }else{
+
+          history.push(`/${userRole}/about`)
+
+        }
+
       });
     });
   }, []);
@@ -30,9 +36,9 @@ const Laboratory = props => {
     <Layout
       profileImage={profileImage}
       userName={userName}
-      location={props.location}
+      location={location}
     >
-      <LabDashboard location={props.location} labDetails={labDetails}/>
+      <LabDashboard location={location} labDetails={labDetails}/>
     </Layout>
   );
 };
