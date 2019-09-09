@@ -51,9 +51,9 @@ const Layout = ({ children, userName, profileImage, location }) => {
                             <Link to={'/' + location.pathname.split('/')[1] + '/about'}>
 
                             <Navbar.Text
-                                className={'profile-name'}> {userName || localStorage.getItem('name') || 'Loading...'} </Navbar.Text>
+                                className={'profile-name'}> {userName || localStorage.getItem('name') !=='null'? localStorage.getItem('name'):'Set Profile Details' || 'Loading...'} </Navbar.Text>
                             <img
-                                src={profileImage || localStorage.getItem('profileImage') || "https://picsum.photos/id/1074/50"}
+                                src={profileImage || localStorage.getItem('profileImage') !=='null'? localStorage.getItem('profileImage'):'https://www.cmcaindia.org/wp-content/uploads/2015/11/default-profile-picture-gmail-2.png'}
                                 alt="" className={'profile-image'}/>
                             </Link>
                         </Navbar.Collapse>

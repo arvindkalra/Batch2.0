@@ -37,7 +37,7 @@ const ProfileCard = ({ role, history, stopLoading }) => {
   const [licenseNumber, setLicenseNumber] = useState("");
   const [licenseType, setLicenseType] = useState("Light Tier 2");
   const [profileImage, setProfileImage] = useState(
-    "https://picsum.photos/id/1074/480"
+    "https://www.cmcaindia.org/wp-content/uploads/2015/11/default-profile-picture-gmail-2.png"
   );
   const profileImageSetterRef = useRef(null);
   const profileImageRef = useRef(null);
@@ -65,6 +65,8 @@ const ProfileCard = ({ role, history, stopLoading }) => {
 
   const setStates = obj => {
     setPrevObject(obj);
+    if(typeof obj !== 'undefined'){
+
     if (obj.name) setName(obj.name);
     if (obj.companyName) setCompanyName(obj.companyName);
     if (obj.address) setAddress(obj.address);
@@ -72,6 +74,7 @@ const ProfileCard = ({ role, history, stopLoading }) => {
     if (obj.profileImage) setProfileImage(obj.profileImage);
     if (obj.license) setLicense(obj.license);
     if (obj.licenseNumber) setLicenseNumber(obj.licenseNumber);
+    }
     stopLoading();
   };
 
@@ -163,11 +166,9 @@ const ProfileCard = ({ role, history, stopLoading }) => {
         <Row>
           <Col md={4}>
             <section className={"profile-image-section card"}>
-              <div className={"card-header"}>
-                <strong className={"utils__title"}>Profile Image</strong>
-              </div>
+              
               <img
-                src={profileImage || "https://picsum.photos/id/1074/450"}
+                src={profileImage || "https://www.cmcaindia.org/wp-content/uploads/2015/11/default-profile-picture-gmail-2.png"}
                 alt=""
                 className={"profile-image"}
                 ref={profileImageRef}

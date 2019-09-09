@@ -143,7 +143,8 @@ $min-height: 400px;
     transition: all 0.1s linear;
 
     &:hover {
-      opacity: 0.8;
+      opacity: 0.1;
+      background-color: grey;
 
       .image-overlay {
         display: block;
