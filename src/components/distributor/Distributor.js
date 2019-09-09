@@ -22,7 +22,7 @@ const Distributor = ({location, history, userRole}) => {
                 }
             })
         })
-    });
+    },[]);
 
 
     return (
