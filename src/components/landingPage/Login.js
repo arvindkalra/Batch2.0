@@ -1,10 +1,9 @@
 import React, {useState} from 'react';
 import {Button, Col, Form, FormControl, Row} from "react-bootstrap";
-import {authneticateUser, connectToWeb3} from "../../dbController/init";
 import Loader from "../Loader";
 
-const Login = ({setDashboards, setUser}) => {
-    const roles = ['farmer', 'manufacturer', 'laboratory', 'distributor', 'retailer', 'transporter'];
+const Login = ({setDashboards}) => {
+
     const [pvtKey, setPvtKey] = useState('');
     const [clicked, setClicked] = useState(false);
     const [pvtKeyIsValid, setPvtKeyIsValid] = useState(false);
@@ -17,42 +16,10 @@ const Login = ({setDashboards, setUser}) => {
         e.stopPropagation();
         setClicked(true);
         if (pvtKey.length === 66) {
-            setPvtKeyIsValid(true)
+            setPvtKeyIsValid(true);
             setPreloader(true);
-
-            connectToWeb3(pvtKey).then((res) => {
-                return new Promise((resolve, reject) => {
-
-
-                    let accessibleDashboards = [];
-                    let count = 0;
-                    roles.forEach(role => {
-                        authneticateUser(role).then(bool => {
-
-                            if (bool) {
-                                accessibleDashboards.push(role)
-                            }
-                            count++;
-                            if (count === 6) {
-                                resolve(accessibleDashboards)
-                            }
-                        })
-                    });
-
-                }).then(dashBoardList => {
-                    if (dashBoardList.length > 0) {
-
-                        setDashboards(dashBoardList);
-                        setUser()
-                    } else {
-                        alert("This account is not registered");
-                        sessionStorage.setItem('pkey','');
-                        window.location.reload()
-
-                    }
-                })
-
-            })
+            sessionStorage.setItem('pkey', JSON.stringify(pvtKey));
+            setDashboards()
 
         } else {
             console.log("inside else");

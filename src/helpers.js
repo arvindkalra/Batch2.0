@@ -158,3 +158,6 @@ export const clearLocal = () => {
   localStorage.setItem("name", null);
   localStorage.setItem("profileImage", null);
 };
+
+
+
