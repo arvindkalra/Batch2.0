@@ -117,64 +117,6 @@ $min-height: 400px;
   margin-bottom: 20px;
 }
 
-.profile-section {
-  .profile-image-section {
-    .image-overlay {
-      //background: rgba(0, 0, 0, 0.09);
-      display: none;
-      position: absolute;
-      left: 0;
-      top: 0;
-      height: 100%;
-      width: 100%;
-
-      .upload-button-section {
-        margin-top: 180px;
-
-        p {
-          text-align: center;
-          font-weight: bold;
-          color: white;
-          font-size: 1.2em;
-        }
-      }
-    }
-
-    transition: all 0.1s linear;
-
-    &:hover {
-      opacity: 0.1;
-      background-color: grey;
-
-      .image-overlay {
-        display: block;
-        cursor: pointer;
-      }
-    }
-
-    padding: 30px;
-
-    img {
-      max-width: 100%;
-    }
-  }
-
-  .form-group {
-    padding: 30px;
-  }
-
-  .custom-file-label {
-    margin: 60px auto;
-    width: 80%;
-    color: grey;
-  }
-
-  button[type="submit"] {
-    display: block;
-    margin: 0 auto;
-  }
-}
-
 .table-links-list {
   padding: 0;
   list-style: none;

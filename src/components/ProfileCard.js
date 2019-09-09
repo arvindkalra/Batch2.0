@@ -3,6 +3,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import '../assets/stylesheets/profileCard.scss'
 import { getFarmerDetails, setFarmerDetails } from "../dbController/farmerRole";
 import { createTransactionModal, fileToString } from "../helpers";
 import { checkMined, connectToWeb3 } from "../dbController/init";
