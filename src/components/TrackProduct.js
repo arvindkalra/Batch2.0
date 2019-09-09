@@ -3,7 +3,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import {
-  connectToMetamask,
+  connectToWeb3,
   fetchEntireChain,
   fetchEntireJourney
 } from "../dbController/init";
@@ -38,7 +38,7 @@ const TrackProduct = ({ location }) => {
 
   useEffect(() => {
     setLoader(true);
-    connectToMetamask().then(() => {
+    connectToWeb3().then(() => {
       let tempJourneyObj = {};
       fetchEntireJourney(trackingId)
         .then(obj => {

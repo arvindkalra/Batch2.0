@@ -6,7 +6,7 @@ import "../../assets/stylesheets/laboratory.scss";
 import PendingReportTable from "./PendingReportTable";
 import AlreadyTestedReportTable from "./AlreadyTestedReportTable";
 import ProgressBar from "react-bootstrap/ProgressBar";
-import { connectToMetamask } from "../../dbController/init";
+import { connectToWeb3 } from "../../dbController/init";
 import {
   getLaboratoryDetails,
   getRowsForLaboratory
@@ -58,7 +58,7 @@ const LabDashboard = props => {
     Dec: 9
   });
   useEffect(() => {
-    connectToMetamask().then(() => {
+    connectToWeb3().then(() => {
       let tempNumPending = numPending;
       let tempNumApproved = numApproved;
       let tempNumTested = numTested;

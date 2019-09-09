@@ -9,7 +9,7 @@ import {
   getLabSampleConsignments, getTransporterDetails,
 
 } from "../../dbController/transporterRole";
-import { connectToMetamask } from "../../dbController/init";
+import { connectToWeb3 } from "../../dbController/init";
 import { getFarmerDetails } from "../../dbController/farmerRole";
 import { getManufacturerDetails } from "../../dbController/manufacturerRole";
 import { getRetailerDetails } from "../../dbController/retailerRole";
@@ -57,7 +57,7 @@ const TransporterDashboardUnused = ({ location }) => {
   });
   const [changed, setChanged] = useState(0);
   useEffect(() => {
-    connectToMetamask().then(() => {
+    connectToWeb3().then(() => {
       let tempHarvestShipments = harvestShipments;
       let tempPackagedShipment = packagedShipments;
       let tempSampleShipments = sampleShipments;

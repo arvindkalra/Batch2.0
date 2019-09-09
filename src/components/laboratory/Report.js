@@ -3,7 +3,7 @@ import Layout from "../Layout";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { setBreadcrumb } from "../../helpers";
-import { connectToMetamask } from "../../dbController/init";
+import { connectToWeb3 } from "../../dbController/init";
 import { getSeedUnitDetails } from "../../dbController/farmerRole";
 import Table from "react-bootstrap/Table";
 import LabBarGraph from "./LabBarGraph";
@@ -31,7 +31,7 @@ const Report = ({ location, match }) => {
   };
   useEffect(() => {
     const buid = match.params.id;
-    connectToMetamask().then(() => {
+    connectToWeb3().then(() => {
       getSeedUnitDetails(buid).then(seedObject => {
         setSeedObject(seedObject);
         console.log(seedObject);

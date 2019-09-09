@@ -4,7 +4,7 @@ import Container from "react-bootstrap/es/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Jumbotron from "react-bootstrap/Jumbotron";
-import {authneticateUser, connectToMetamask} from "./dbController/init";
+import {authneticateUser, connectToWeb3} from "./dbController/init";
 import LandingPage from "./components/landingPage/LandingPage";
 import Login from "./components/landingPage/Login";
 
@@ -16,7 +16,7 @@ function App() {
     const roles = ['farmer', 'manufacturer', 'laboratory', 'distributor', 'retailer', 'transporter'];
 
     const setDashboards = () => {
-        connectToMetamask().then((res) => {
+        connectToWeb3().then((res) => {
 
             return new Promise((resolve, reject) => {
                 let accessibleDashboards = [];

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Col, Row } from "react-bootstrap";
 import { createTransactionModal, setBreadcrumb } from "../../helpers";
-import { connectToMetamask } from "../../dbController/init";
+import { connectToWeb3 } from "../../dbController/init";
 import {
   getDistributorToRetailerConsignments,
   getFactoryToDistributorConsignments,
@@ -45,7 +45,7 @@ const NewDashboard = ({ location }) => {
     third: false
   });
   useEffect(() => {
-    connectToMetamask().then(() => {
+    connectToWeb3().then(() => {
       let tempHarvestShipments = harvestShipments;
       let tempPackagedShipment = packagedShipments;
       let tempSampleShipments = sampleShipments;

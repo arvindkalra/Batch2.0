@@ -9,7 +9,7 @@ import {
   fetchHarvestUnitsByManufacturer,
   fetchPackagedUnitsByManufacturer
 } from "../../dbController/manufacturerRole";
-import { connectToMetamask } from "../../dbController/init";
+import { connectToWeb3 } from "../../dbController/init";
 import { getFarmerDetails } from "../../dbController/farmerRole";
 import BarGraph from "../farmer/graphs/dashboard/BarGraph";
 import Loader from "../Loader";
@@ -30,7 +30,7 @@ const ManufacturerDashboard = ({ location }) => {
   useEffect(() => {
     let totalHarvest = 0;
     let tempChanged = changed;
-    connectToMetamask().then(() => {
+    connectToWeb3().then(() => {
       fetchHarvestUnitsByManufacturer((harvestObject, total) => {
         totalHarvest++;
         let tempAvailableArray = availableArray;

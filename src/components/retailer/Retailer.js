@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import Layout from "../Layout";
 import RetailerDashboard from "./RetailerDashboard";
-import {connectToMetamask} from "../../dbController/init";
+import {connectToWeb3} from "../../dbController/init";
 
 import {getRetailerDetails} from "../../dbController/retailerRole";
 import {clearLocal} from "../../helpers";
@@ -10,7 +10,7 @@ const Retailer = ({location, history, userRole}) => {
     const [userName, setUserName] = useState('');
     const [profileImage, setProfileImage] = useState('');
     useEffect(() => {
-        connectToMetamask().then(() => {
+        connectToWeb3().then(() => {
             clearLocal();
 
             getRetailerDetails().then((obj) => {

@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import Layout from "../Layout";
 import "../../assets/stylesheets/transporter.scss";
-import {connectToMetamask} from "../../dbController/init";
+import {connectToWeb3} from "../../dbController/init";
 import {getTransporterDetails} from "../../dbController/transporterRole";
 import {clearLocal} from "../../helpers";
 import NewDashboard from "./newDashboard";
@@ -11,7 +11,7 @@ const Transporter = ({location}) => {
     const [userName, setUserName] = useState('');
     const [profileImage, setProfileImage] = useState('');
     useEffect(() => {
-        connectToMetamask().then(() => {
+        connectToWeb3().then(() => {
             clearLocal();
 
             getTransporterDetails().then((obj) => {

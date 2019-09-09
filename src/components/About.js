@@ -4,13 +4,13 @@ import { setBreadcrumb } from "../helpers";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import ProfileCard from "./ProfileCard";
-import { connectToMetamask } from "../dbController/init";
+import { connectToWeb3 } from "../dbController/init";
 import Loader from "./Loader";
 
 const About = props => {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    connectToMetamask();
+    connectToWeb3();
   });
 
   return (

@@ -3,7 +3,7 @@ import '../../assets/stylesheets/farmer.scss';
 import Dashboard from "./Dashboard";
 import Layout from "../Layout";
 import {getFarmerDetails} from "../../dbController/farmerRole";
-import {connectToMetamask} from "../../dbController/init";
+import {connectToWeb3} from "../../dbController/init";
 import Notification from "../Notification";
 
 
@@ -21,7 +21,7 @@ const Farmer = ({location, history, userRole}) => {
           // props.location.state.setNotification = false
           history.replace({ state: {} });
         }
-        connectToMetamask().then(() => {
+        connectToWeb3().then(() => {
 
             getFarmerDetails().then((obj) => {
 

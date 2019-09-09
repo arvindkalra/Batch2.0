@@ -6,7 +6,7 @@ import ProgressBar from "react-bootstrap/ProgressBar";
 import { getSeedProgress, setBreadcrumb } from "../../helpers";
 import ActionPanel from "../actionPanel/ActionPanel";
 import { getSeedUnitDetails } from "../../dbController/farmerRole";
-import { connectToMetamask } from "../../dbController/init";
+import { connectToWeb3 } from "../../dbController/init";
 import Loader from "../Loader";
 import Button from "react-bootstrap/Button";
 import ActionForm from "../actionPanel/ActionForm";
@@ -15,7 +15,7 @@ const NewProduct = props => {
   useEffect(() => {
     // const buid = props.match.params.product;
     const buid = '0001A'
-    connectToMetamask().then(() => {
+    connectToWeb3().then(() => {
       getSeedUnitDetails(buid).then(seedDetails => {
         console.log(seedDetails);
         setSeedObject(seedDetails);

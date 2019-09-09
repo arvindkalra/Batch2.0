@@ -10,7 +10,7 @@ import PieChart1 from "./graphs/dashboard/PieChart1";
 import PieChart2 from "./graphs/dashboard/PieChart2";
 import PieChart3 from "./graphs/dashboard/PieChart3";
 import { getRowsForFarmer } from "../../dbController/farmerRole";
-import { connectToMetamask } from "../../dbController/init";
+import { connectToWeb3 } from "../../dbController/init";
 import Notification from "../Notification";
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
@@ -37,7 +37,7 @@ const Dashboard = props => {
   const [numDiscarded, setNumDiscarded] = useState(0);
   const [preloader, setPreloader] = useState(true);
   useEffect(() => {
-    connectToMetamask().then(setData);
+    connectToWeb3().then(setData);
   }, []);
 
   function setData() {

@@ -5,7 +5,7 @@ import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 
 import LabBarGraph from "./LabBarGraph";
-import { checkMined, connectToMetamask } from "../../dbController/init";
+import { checkMined, connectToWeb3 } from "../../dbController/init";
 import {
   uploadPendingReportDetails,
   uploadReport
@@ -99,7 +99,7 @@ const ReportForm = ({ formDetails, labDetails }) => {
     };
     console.log(labResult);
     if (pending) {
-      connectToMetamask().then(() => {
+      connectToWeb3().then(() => {
         uploadPendingReportDetails(
           formDetails.uid,
           details,
@@ -109,7 +109,7 @@ const ReportForm = ({ formDetails, labDetails }) => {
         });
       });
     } else {
-      connectToMetamask().then(() => {
+      connectToWeb3().then(() => {
         uploadReport(
           formDetails.uid,
           OWN_ADDRESS,

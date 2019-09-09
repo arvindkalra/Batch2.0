@@ -9,7 +9,7 @@ import {
 } from "../../helpers";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { checkMined, connectToMetamask } from "../../dbController/init";
+import { checkMined, connectToWeb3 } from "../../dbController/init";
 import { seedSownByFarmer } from "../../dbController/farmerRole";
 import Loader from "../Loader";
 import { OWN_ADDRESS } from "../../dbController/Web3Connections";
@@ -68,7 +68,7 @@ const NewHarvest = ({ location, history }) => {
       plantName: plantName,
       plantImage: plantImage
     };
-    connectToMetamask().then(() => {
+    connectToWeb3().then(() => {
       setTransactionMining(true);
       objToBeUploaded.farmerAddress = OWN_ADDRESS;
       seedSownByFarmer(objToBeUploaded, openSignatureModal).then(txHash => {

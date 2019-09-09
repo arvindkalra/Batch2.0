@@ -3,7 +3,7 @@ import { setBreadcrumb } from "../../helpers";
 import Row from "react-bootstrap/es/Row";
 import Col from "react-bootstrap/Col";
 import BarGraph from "../farmer/graphs/dashboard/BarGraph";
-import { connectToMetamask } from "../../dbController/init";
+import { connectToWeb3 } from "../../dbController/init";
 import { fetchProductUnitsForDistributor } from "../../dbController/distributorRole";
 import { getManufacturerDetails } from "../../dbController/manufacturerRole";
 import AvailableUnitsTable from "./AvailableUnitsTable";
@@ -26,7 +26,7 @@ const DistDashboard = ({ location }) => {
   const [preloader, setPreloader] = useState(true);
 
   useEffect(() => {
-    connectToMetamask().then(() => {
+    connectToWeb3().then(() => {
       let tempAvailableArray = availablePackedProductsArray;
       let tempChanged = changed;
       let totalEntries = 0;

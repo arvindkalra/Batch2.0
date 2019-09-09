@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Table from "react-bootstrap/Table";
 import { getRowsForFarmer } from "../../dbController/farmerRole";
-import { connectToMetamask } from "../../dbController/init";
+import { connectToWeb3 } from "../../dbController/init";
 import Loader from "../Loader";
 import { Card } from "react-bootstrap";
 
@@ -10,7 +10,7 @@ const CompleteProductsTable = () => {
   const [rows, setRows] = useState([]);
   const [preloader, setPreloader] = useState(true);
   useEffect(() => {
-    connectToMetamask().then(() => {
+    connectToWeb3().then(() => {
       let tempRows = rows;
       getRowsForFarmer((rowObj, total) => {
         tempRows.push(rowObj);

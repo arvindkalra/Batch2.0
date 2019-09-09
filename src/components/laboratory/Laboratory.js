@@ -4,7 +4,7 @@ import "../../assets/stylesheets/laboratory.scss";
 
 import Layout from "../Layout";
 import LabDashboard from "./LabDashboard";
-import { connectToMetamask } from "../../dbController/init";
+import { connectToWeb3 } from "../../dbController/init";
 import { getFarmerDetails } from "../../dbController/farmerRole";
 import { getLaboratoryDetails } from "../../dbController/laboratoryRole";
 import { clearLocal } from "../../helpers";
@@ -15,7 +15,7 @@ const Laboratory = ({location, history, userRole}) => {
   const [labDetails, setLabDetails] = useState({});
   useEffect(() => {
     clearLocal();
-    connectToMetamask().then(() => {
+    connectToWeb3().then(() => {
       getLaboratoryDetails().then(obj => {
         if(typeof obj !== 'undefined'){
           setUserName(obj.name);

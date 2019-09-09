@@ -39,20 +39,15 @@ export const ipfsNode = new IPFS("ipfs.infura.io", "5001", {
 export const NETWORK_NAME = config.NETWORK_NAME;
 */
 
-export function connectToMetamask() {
+export function connectToWeb3() {
   return new Promise((resolve, reject) => {
     initialSetup(resolve, reject);
   });
 }
 
 
-// replacement function for connectToMetamask
-export function connectToWeb3(pvtKey){
-  return new Promise((resolve, reject)=>{
-    initSetup(pvtKey, resolve, reject)
 
-  })
-}
+
 export function makeStorageTransaction(functionName, ...args) {
   return new Promise((resolve, reject) => {
     callStorageContract(functionName, resolve, reject, ...args);

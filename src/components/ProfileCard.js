@@ -5,7 +5,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { getFarmerDetails, setFarmerDetails } from "../dbController/farmerRole";
 import { createTransactionModal, fileToString } from "../helpers";
-import { checkMined, connectToMetamask } from "../dbController/init";
+import { checkMined, connectToWeb3 } from "../dbController/init";
 import {
   getLaboratoryDetails,
   setLaboratoryDetails
@@ -46,7 +46,7 @@ const ProfileCard = ({ role, history, stopLoading }) => {
   const [transactionObject, setTransactionObject] = useState(null);
 
   useEffect(() => {
-    connectToMetamask().then(() => {
+    connectToWeb3().then(() => {
       if (role === "cultivator") {
         getFarmerDetails().then(setStates);
       } else if (role === "laboratory") {

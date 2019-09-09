@@ -5,7 +5,7 @@ import { setBreadcrumb } from "../../helpers";
 import Layout from "../Layout";
 import ManufacturerActionPanel from "../actionPanel/ManufacturerActionPanel";
 import { fetchHarvestUnitDetailsUsingUID } from "../../dbController/manufacturerRole";
-import { connectToMetamask } from "../../dbController/init";
+import { connectToWeb3 } from "../../dbController/init";
 import { getFarmerDetails } from "../../dbController/farmerRole";
 import Loader from "../Loader";
 
@@ -18,7 +18,7 @@ const ManufacturerBatchDetail = props => {
   useEffect(() => {
     // Fetch the buid from the params
     let buid = props.match.params.buid;
-    connectToMetamask().then(() => {
+    connectToWeb3().then(() => {
       fetchHarvestUnitDetailsUsingUID(buid).then(object => {
         getFarmerDetails(object.details.farmerAddress).then(farmerObj => {
           let alreadyUsed = object.details.totalHarvestUsed

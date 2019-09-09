@@ -1,5 +1,5 @@
 import {
-  connectToMetamask,
+  connectToWeb3,
   makeDistributorTransaction,
   makeFarmerTransaction,
   makeLaboratoryTransaction,
@@ -21,7 +21,7 @@ function acceptTransaction(obj) {
 }
 
 export function setUp() {
-  connectToMetamask(config.OWN_PRIVATE_KEY)
+  connectToWeb3(config.OWN_PRIVATE_KEY)
     .then(() => {
       return new Promise((resolve, reject) => {
         sendStorageContract(
@@ -148,7 +148,7 @@ function initialAddRolesAndSetDetails() {
 }
 
 export function setDetails() {
-  connectToMetamask(config.OWN_PRIVATE_KEY).then(() => {
+  connectToWeb3(config.OWN_PRIVATE_KEY).then(() => {
     let init = {
       name: "Name",
       companyName: "Company"

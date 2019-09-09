@@ -4,7 +4,7 @@ import Col from "react-bootstrap/Col";
 import { setBreadcrumb } from "../../helpers";
 import Row from "react-bootstrap/Row";
 import ProgressBar from "react-bootstrap/ProgressBar";
-import { connectToMetamask } from "../../dbController/init";
+import { connectToWeb3 } from "../../dbController/init";
 import { fetchBatchUnitDetailsUsingUID } from "../../dbController/distributorRole";
 import { fetchProductUnitDetailsUsingUID } from "../../dbController/manufacturerRole";
 import SaleActionForm from "./SaleActionForm";
@@ -22,7 +22,7 @@ const RetailProduct = props => {
   const [retailerDetails, setRetailerDetails] = useState({});
 
   useEffect(() => {
-    connectToMetamask().then(txHash => {
+    connectToWeb3().then(txHash => {
       let puid = props.match.params.id;
       let batchUnit;
       getRetailerDetails().then(setRetailerDetails);

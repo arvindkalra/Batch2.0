@@ -4,7 +4,7 @@ import { setBreadcrumb } from "../../helpers";
 import Row from "react-bootstrap/Row";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import "../../assets/stylesheets/App.scss";
-import { connectToMetamask } from "../../dbController/init";
+import { connectToWeb3 } from "../../dbController/init";
 import { getRowsForRetailer } from "../../dbController/retailerRole";
 import { fetchProductUnitDetailsUsingUID } from "../../dbController/manufacturerRole";
 import RetailerProductTable from "./RetailerProductTable";
@@ -17,7 +17,7 @@ const RetailerDashboard = ({ location }) => {
   const [changed, setChanged] = useState(0);
   const [preloader, setPreloader] = useState(true);
   useEffect(() => {
-    connectToMetamask().then(() => {
+    connectToWeb3().then(() => {
       let tempInventory = inventoryTable;
       let tempBarGraphObject = barGraphObject;
       let tempChanged = changed;

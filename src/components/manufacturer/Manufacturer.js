@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import Layout from "../Layout";
 import ManufacturerDashboard from "./ManufacturerDashboard";
 import "../../assets/stylesheets/manufacturer.scss";
-import {connectToMetamask} from "../../dbController/init";
+import {connectToWeb3} from "../../dbController/init";
 import {getManufacturerDetails} from "../../dbController/manufacturerRole";
 import {clearLocal} from "../../helpers";
 
@@ -11,7 +11,7 @@ const Manufacturer = ({location,history, userRole}) => {
     const [profileImage, setProfileImage] = useState('');
     useEffect(() => {
 
-        connectToMetamask().then(() => {
+        connectToWeb3().then(() => {
             clearLocal();
             getManufacturerDetails().then((obj) => {
 

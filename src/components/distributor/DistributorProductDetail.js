@@ -3,7 +3,7 @@ import Layout from "../Layout";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { setBreadcrumb } from "../../helpers";
-import { connectToMetamask } from "../../dbController/init";
+import { connectToWeb3 } from "../../dbController/init";
 import {
   fetchHarvestUnitDetailsUsingUID,
   fetchProductUnitDetailsUsingUID,
@@ -24,7 +24,7 @@ const DistributorProductDetail = props => {
     let puid = props.match.params.buid;
     let manufacturerName;
     let manufacturerCompany;
-    connectToMetamask()
+    connectToWeb3()
       .then(() => {
         return fetchProductUnitDetailsUsingUID(puid);
       })

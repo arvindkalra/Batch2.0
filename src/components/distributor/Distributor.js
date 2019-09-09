@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import Layout from "../Layout";
 import DistDashboard from "./DistDashboard";
-import {connectToMetamask} from "../../dbController/init";
+import {connectToWeb3} from "../../dbController/init";
 import {getDistributorDetails} from "../../dbController/distributorRole";
 import {clearLocal} from "../../helpers";
 
@@ -10,7 +10,7 @@ const Distributor = ({location, history, userRole}) => {
     const [profileImage, setProfileImage] = useState('');
     useEffect(() => {
         clearLocal();
-        connectToMetamask().then(() => {
+        connectToWeb3().then(() => {
             getDistributorDetails().then((obj) => {
                 if(typeof obj !== 'undefined'){
                     setUserName(obj.name);
