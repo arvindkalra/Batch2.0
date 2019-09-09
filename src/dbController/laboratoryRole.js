@@ -60,6 +60,18 @@ export function uploadReport(
   });
 }
 
+export function uploadPendingReportDetails(harvestUid, details, callback) {
+  harvestUid = convertFromHex(harvestUid);
+  return uploadJsonToIPFS(details).then(hash => {
+    return makeLaboratoryTransaction(
+      callback,
+      "addReportDetails",
+      harvestUid,
+      hash
+    );
+  });
+}
+
 export function getRowsForLaboratory(rowCallback) {
   let handleRow = (obj, uid, total) => {
     uid = convertToHex(uid);

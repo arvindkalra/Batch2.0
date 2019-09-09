@@ -102,7 +102,12 @@ const Report = ({ location, match }) => {
               <li>
                 <strong>Tested On</strong>
                 <br />{" "}
-                <span> {seedObject.details.testedOn || "Loading.."}</span>
+                <span>
+                  {" "}
+                  {seedObject.details.testResults
+                    ? seedObject.details.testResults.testedOn
+                    : "Loading.."}
+                </span>
               </li>
               <li>
                 <strong>Sample Received on</strong>
@@ -137,17 +142,30 @@ const Report = ({ location, match }) => {
               <tbody>
                 <tr>
                   <td> Cannabinoids</td>
-                  <td> {seedObject.details.cannabinoids} </td>
+                  <td>
+                    {" "}
+                    {seedObject.details.testResults
+                      ? seedObject.details.testResults.cannabinoids
+                      : "Loading..."}{" "}
+                  </td>
                   <td> 4-5%</td>
                 </tr>
                 <tr>
                   <td>THC Content</td>
-                  <td>{seedObject.details.thc}</td>
+                  <td>
+                    {seedObject.details.testResults
+                      ? seedObject.details.testResults.thc
+                      : "Loading..."}
+                  </td>
                   <td>3-2%</td>
                 </tr>
                 <tr>
                   <td>CBD</td>
-                  <td>{seedObject.details.cbd}</td>
+                  <td>
+                    {seedObject.details.testResults
+                      ? seedObject.details.testResults.cbd
+                      : "Loading..."}
+                  </td>
                   <td>7-8%</td>
                 </tr>
               </tbody>
@@ -169,7 +187,11 @@ const Report = ({ location, match }) => {
                 {" "}
                 Attached Report:{" "}
                 <a
-                  href={seedObject.details.physicalReport}
+                  href={
+                    seedObject.details.testResults
+                      ? seedObject.details.testResults.physicalReport
+                      : "Loading..."
+                  }
                   target={"_blank"}
                   onClick={downloadReport}
                 >
@@ -190,9 +212,15 @@ const Report = ({ location, match }) => {
             <LabBarGraph
               labels={["THC %", "CBD %", "Cannabinoids %"]}
               dataArray={[
-                seedObject.details.thc,
-                seedObject.details.cbd,
-                seedObject.details.cannabinoids
+                seedObject.details.testResults
+                  ? seedObject.details.testResults.thc
+                  : 0,
+                seedObject.details.testResults
+                  ? seedObject.details.testResults.cbd
+                  : 0,
+                seedObject.details.testResults
+                  ? seedObject.details.testResults.cannabinoids
+                  : 0
               ]}
             />
           </Card>

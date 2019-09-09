@@ -1087,6 +1087,24 @@ export default {
         {
           "name": "hash",
           "type": "string"
+        }
+      ],
+      "name": "addReportDetails",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "harvestUid",
+          "type": "uint256"
+        },
+        {
+          "name": "hash",
+          "type": "string"
         },
         {
           "name": "approved",

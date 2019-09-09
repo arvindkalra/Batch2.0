@@ -22,6 +22,7 @@ import StackedBarGraph from "../transporter/StackedBarGraph";
 
 const LabDashboard = props => {
   const [pendingReportsArray, setPendingReportsArray] = useState([]);
+  const [incompleteReportsArray, setIncompleteReportsArray] = useState([]);
   const [testedReportsArray, setTestedReportsArray] = useState([]);
   const [numTested, setNumTested] = useState(0);
   const [numPending, setNumPending] = useState(0);
@@ -67,6 +68,7 @@ const LabDashboard = props => {
       getRowsForLaboratory((row, total) => {
         if (row) {
           numRows++;
+          let tempIncomplete = incompleteReportsArray;
           let tempPendingReports = pendingReportsArray;
           let tempTestedReports = testedReportsArray;
           let rowArr;
@@ -82,7 +84,6 @@ const LabDashboard = props => {
               setTestPlantsGraphObject,
               tempChanged
             );
-
             if (row.currentState.value === 5) {
               rowArr = [
                 row.uid,
@@ -92,10 +93,14 @@ const LabDashboard = props => {
                 row.details.sentToLabOn,
                 "Upload Report"
               ];
-              tempPendingReports.push(rowArr);
-              setPendingReportsArray([...tempPendingReports]);
-              tempNumPending = tempNumPending + 1;
-              setNumPending(tempNumPending);
+              if (row.details.testResults) {
+                tempIncomplete.push(rowArr);
+                setIncompleteReportsArray([...tempIncomplete]);
+              } else {
+                tempPendingReports.push(rowArr);
+                setPendingReportsArray([...tempPendingReports]);
+              }
+              setNumPending(++tempNumPending);
             } else if (row.currentState.value === 10) {
               rowArr = [
                 row.uid,
@@ -103,8 +108,7 @@ const LabDashboard = props => {
                 row.details.plantName,
                 row.details.totalHarvestAmount,
                 row.details.harvestTime,
-                row.details.testedOn,
-
+                row.details.testResults.testedOn,
                 "view report"
               ];
               tempTestedReports.push(rowArr);
@@ -126,7 +130,7 @@ const LabDashboard = props => {
                 row.details.plantName,
                 row.details.totalHarvestAmount,
                 row.details.harvestTime,
-                row.details.testedOn,
+                row.details.testResults.testedOn,
 
                 "view report"
               ];
@@ -204,22 +208,16 @@ const LabDashboard = props => {
         <Col md={12}>
           <Accordion>
             <Card>
-              <Card.Header>
+              <Accordion.Toggle as={Card.Header} variant="link" eventKey="0">
                 <strong className={"utils__title"}>
-                  <Accordion.Toggle
-                    as={Card.Header}
-                    variant="link"
-                    eventKey="0"
-                  >
-                    Pending Tests &nbsp;
-                    {pendingReportsArray.length !== 0 ? (
-                      <Badge pill variant="success">
-                        New samples
-                      </Badge>
-                    ) : null}
-                  </Accordion.Toggle>
+                  New Samples &nbsp;
+                  {pendingReportsArray.length !== 0 ? (
+                    <Badge pill variant="success">
+                      New Samples for Test
+                    </Badge>
+                  ) : null}
                 </strong>
-              </Card.Header>
+              </Accordion.Toggle>
               <Accordion.Collapse eventKey="0">
                 <Card.Body>
                   <section className={"report-table-section"}>
@@ -230,24 +228,44 @@ const LabDashboard = props => {
                         labDetails={props.labDetails}
                       />
                     ) : (
-                      <div>You Don't have any harvest samples to be tested</div>
+                      <div>You Don't have any new samples to be tested</div>
                     )}
                   </section>
                 </Card.Body>
               </Accordion.Collapse>
             </Card>
             <Card>
-              <Card.Header>
+              <Accordion.Toggle as={Card.Header} variant="link" eventKey="2">
                 <strong className={"utils__title"}>
-                  <Accordion.Toggle
-                    as={Card.Header}
-                    variant="link"
-                    eventKey="1"
-                  >
-                    Completed Tests
-                  </Accordion.Toggle>
+                  Pending Samples &nbsp;
+                  {incompleteReportsArray.length !== 0 ? (
+                    <Badge pill variant="success">
+                      Pending Samples for Test
+                    </Badge>
+                  ) : null}
                 </strong>
-              </Card.Header>
+              </Accordion.Toggle>
+              <Accordion.Collapse eventKey="2">
+                <Card.Body>
+                  <section className={"report-table-section"}>
+                    {incompleteReportsArray.length !== 0 ? (
+                      <PendingReportTable
+                        array={incompleteReportsArray}
+                        seedObjArr={seedObjArr}
+                        labDetails={props.labDetails}
+                      />
+                    ) : (
+                      <div>You Don't have any samples pending to be tested</div>
+                    )}
+                  </section>
+                </Card.Body>
+              </Accordion.Collapse>
+            </Card>
+            <Card>
+              <Accordion.Toggle as={Card.Header} variant="link" eventKey="1">
+                <strong className={"utils__title"}>Completed Tests</strong>
+              </Accordion.Toggle>
+
               <Accordion.Collapse eventKey="1">
                 <Card.Body>
                   <section className={"report-table-section"}>
