@@ -24,7 +24,7 @@ const AppRouter = () => {
         <Router>
             <Route exact path={'/'} component={App}/>
             {/*farmer router*/}
-            {sessionStorage.getItem('pkey') ? <>
+            {localStorage.getItem('pkey') ? <>
                 {/*cultivator routes*/}
                 <Route exact path={'/cultivator/dashboard'} render={props => <Farmer {...props} userRole={'cultivator'}/>}/>
                 <Route exact path={'/cultivator/about'} component={About}/>

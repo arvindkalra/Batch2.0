@@ -76,7 +76,7 @@ const SideBar = ({closeSideBar, userName, profileImage, profession, hidden, hist
                         <i className="fas fa-sign-out-alt"/>
                         <Link  to={'/'} onClick={(e)=>{
                             e.preventDefault()
-                          sessionStorage.setItem("pkey", '');
+                          localStorage.setItem("pkey", '');
                             history.push('/',{
                                 signOut: 'false'
                             })
