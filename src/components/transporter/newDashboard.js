@@ -31,7 +31,7 @@ const NewDashboard = ({ location }) => {
   const [retailRowObjArr, setRetailRowObjArr] = useState({});
   const [transactionMining, setTransactionMining] = useState(false);
   const [transactionObject, setTransactionObject] = useState(null);
-  const [loading, setLoader] = useState(true);
+  const [loading, setLoader] = useState(0);
 
   const [pendingShipments, setPendingShipments] = useState([]);
   const [dispatchedShipments, setDispatchedShipments] = useState([]);
@@ -53,7 +53,7 @@ const NewDashboard = ({ location }) => {
       let tempPendingShipments = [];
       let tempDispatchedShipments = [];
       let tempDeliveredShipments = [];
-
+      let tempLoader = loading;
       let tempChanged = changed;
       let totalHarvests = 0;
       getFarmToFactoryConsignments((row, total) => {
@@ -91,17 +91,22 @@ const NewDashboard = ({ location }) => {
                 setDispatchedShipments(tempDispatchedShipments);
                 setHarvestShipments([...tempHarvestShipments]);
                 if (totalHarvests === total) {
-                  setLoader(false);
+                  setLoader(++tempLoader);
                 }
               }
             );
           });
         } else {
-          setLoader(false);
+          setLoader(++tempLoader);
         }
       });
-      getLabSampleConsignments(row => {
-        console.log(row);
+      let totalSamples = 0;
+      getLabSampleConsignments((row, total) => {
+        if (!row) {
+          setLoader(++tempLoader);
+          return;
+        }
+        totalSamples++;
         let tempRow = sampleRowObjArr;
         tempRow[row.uid] = row;
         setSampleRowObjArr(tempRow);
@@ -133,9 +138,18 @@ const NewDashboard = ({ location }) => {
             setDeliveredShipments(tempDeliveredShipments);
             setDispatchedShipments(tempDispatchedShipments);
             setSampleShipment([...tempSampleShipments]);
+            if (totalSamples === total) {
+              setLoader(++tempLoader);
+            }
           });
       });
-      getFactoryToDistributorConsignments(row => {
+      let totalUnits = 0;
+      getFactoryToDistributorConsignments((row, total) => {
+        if (!row) {
+          setLoader(++tempLoader);
+          return;
+        }
+        totalUnits++;
         let tempRow = packageRowObjArr;
         tempRow[row.uid] = row;
         setPackageObjRowArr(tempRow);
@@ -169,11 +183,20 @@ const NewDashboard = ({ location }) => {
               setDeliveredShipments(tempDeliveredShipments);
               setDispatchedShipments(tempDispatchedShipments);
               setPackagedShipments([...tempPackagedShipment]);
+              if (totalUnits === total) {
+                setLoader(++tempLoader);
+              }
             }
           );
         });
       });
-      getDistributorToRetailerConsignments(row => {
+      let totalRetail = 0;
+      getDistributorToRetailerConsignments((row, total) => {
+        if (!row) {
+          setLoader(++tempLoader);
+          return
+        }
+        totalRetail++;
         let tempRow = retailRowObjArr;
         tempRow[row.uid] = row;
         setRetailRowObjArr(tempRow);
@@ -208,6 +231,9 @@ const NewDashboard = ({ location }) => {
             setDeliveredShipments(tempDeliveredShipments);
             setDispatchedShipments(tempDispatchedShipments);
             setRetailShipments([...tempRetailShipments]);
+            if (totalRetail === total) {
+              setLoader(++tempLoader);
+            }
           });
       });
       getTransporterDetails(OWN_ADDRESS).then(obj => {
@@ -287,7 +313,7 @@ const NewDashboard = ({ location }) => {
         </Row>
       </section>
       {transactionMining ? <Loader /> : null}
-      {loading ? <Loader message={"Fetching Pending Shipments"} /> : null}
+      {loading < 4 ? <Loader message={"Fetching Pending Shipments"} /> : null}
       {transactionObject ? createTransactionModal(transactionObject) : null}
     </>
   );

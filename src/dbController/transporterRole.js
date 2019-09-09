@@ -1,5 +1,7 @@
 import {
-  batchStates, convertFromHex, convertToHex,
+  batchStates,
+  convertFromHex,
+  convertToHex,
   getJsonFromIPFS,
   harvestStates,
   makeStorageTransaction,
@@ -71,10 +73,14 @@ export function getLabSampleConsignments(rowCallback) {
               return handleObject(o, x, true);
             })
             .then(x => {
-              rowCallback(x);
+              rowCallback(x, array.length);
               complete(i, array.length - 1);
             })
             .catch(handleError);
+        }
+
+        if (array.length === 0) {
+          rowCallback(undefined, 0);
         }
 
         function complete(iteration, max) {
@@ -207,8 +213,11 @@ export function getFactoryToDistributorConsignments(rowCallback) {
         .then(o => {
           return handleObject(o, x);
         })
-        .then(rowCallback)
+        .then(o => rowCallback(o, array.length))
         .catch(handleError);
+    }
+    if (array.length === 0) {
+      rowCallback(undefined, 0);
     }
   });
 }
@@ -263,8 +272,11 @@ export function getDistributorToRetailerConsignments(rowCallback) {
         .then(o => {
           return handleObject(o, x, false, true);
         })
-        .then(rowCallback)
+        .then(o => rowCallback(o, array.length))
         .catch(handleError);
+    }
+    if (array.length === 0) {
+      rowCallback(undefined, 0);
     }
   });
 }
