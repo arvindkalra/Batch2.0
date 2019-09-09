@@ -128,6 +128,10 @@ const NewDashboard = ({ location }) => {
             } else if (rowObj.currentStatus.value >= 5) {
               tempDeliveredShipments.push(rowObj);
             }
+            setPendingShipments(tempPendingShipments);
+            setTableArray(tempPendingShipments);
+            setDeliveredShipments(tempDeliveredShipments);
+            setDispatchedShipments(tempDispatchedShipments);
             setSampleShipment([...tempSampleShipments]);
           });
       });
@@ -160,6 +164,10 @@ const NewDashboard = ({ location }) => {
               } else if (rowObj.currentStatus.value >= 4) {
                 tempDeliveredShipments.push(rowObj);
               }
+              setPendingShipments(tempPendingShipments);
+              setTableArray(tempPendingShipments);
+              setDeliveredShipments(tempDeliveredShipments);
+              setDispatchedShipments(tempDispatchedShipments);
               setPackagedShipments([...tempPackagedShipment]);
             }
           );
@@ -195,6 +203,10 @@ const NewDashboard = ({ location }) => {
             } else if (rowObj.currentStatus.value >= 4) {
               tempDeliveredShipments.push(rowObj);
             }
+            setPendingShipments(tempPendingShipments);
+            setTableArray(tempPendingShipments);
+            setDeliveredShipments(tempDeliveredShipments);
+            setDispatchedShipments(tempDispatchedShipments);
             setRetailShipments([...tempRetailShipments]);
           });
       });
