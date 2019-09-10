@@ -402,7 +402,7 @@ const ActionForm = ({
                     placeholder={"Enter the Selling Price"}
                     value={pricePerUnit}
                     onChange={e =>
-                      setPrice(parseInt(e.target.value), totalPrice)
+                      setPrice(parseFloat(e.target.value), totalPrice)
                     }
                     isInvalid={clicked ? pricePerUnit <= 0 : false}
                   />
