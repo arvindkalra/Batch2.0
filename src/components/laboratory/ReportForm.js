@@ -18,9 +18,9 @@ import { getFarmerDetails } from "../../dbController/farmerRole";
 
 const ReportForm = ({ formDetails, labDetails }) => {
   // Report Form States
-  const [thc, setThc] = useState(0);
-  const [cbd, setCbd] = useState(0);
-  const [cannabinoids, setCannabinoids] = useState(0);
+  const [thc, setThc] = useState("");
+  const [cbd, setCbd] = useState("");
+  const [cannabinoids, setCannabinoids] = useState("");
   const [labResult, setLabResult] = useState(true);
   const [pending, setPending] = useState(true);
   const [physicalReport, setPhysicalReport] = useState("");
@@ -37,9 +37,9 @@ const ReportForm = ({ formDetails, labDetails }) => {
         cannabinoids,
         physicalReport
       } = formDetails.details.testResults;
-      setThc(parseInt(thc));
-      setCbd(parseInt(cbd));
-      setCannabinoids(parseInt(cannabinoids));
+      setThc(parseFloat(thc));
+      setCbd(parseFloat(cbd));
+      setCannabinoids(parseFloat(cannabinoids));
       setPhysicalReport(physicalReport);
     }
     getFarmerDetails(formDetails.details.farmerAddress).then(setFarmerDetails);
@@ -54,14 +54,11 @@ const ReportForm = ({ formDetails, labDetails }) => {
 
   const handleSelect = e => {
     if (e.target.value === "Passed") {
-      console.log("Passed");
       setPending(false);
       setLabResult(true);
     } else if (e.target.value === "Pending") {
-      console.log("Pending");
       setPending(true);
     } else {
-      console.log("Failed");
       setPending(false);
       setLabResult(false);
     }
@@ -96,7 +93,6 @@ const ReportForm = ({ formDetails, labDetails }) => {
       testedOn: new Date().toLocaleString(),
       physicalReport
     };
-    console.log(labResult);
     if (pending) {
       connectToWeb3().then(() => {
         uploadPendingReportDetails(
@@ -199,7 +195,9 @@ const ReportForm = ({ formDetails, labDetails }) => {
                         value={thc}
                         onChange={e => {
                           setThc(
-                            parseInt(e.target.value === "" ? 0 : e.target.value)
+                            parseFloat(
+                              e.target.value === "" ? 0 : e.target.value
+                            )
                           );
                         }}
                         isInvalid={
@@ -223,7 +221,9 @@ const ReportForm = ({ formDetails, labDetails }) => {
                         value={cbd}
                         onChange={e => {
                           setCbd(
-                            parseInt(e.target.value === "" ? 0 : e.target.value)
+                            parseFloat(
+                              e.target.value === "" ? 0 : e.target.value
+                            )
                           );
                         }}
                         isInvalid={
@@ -247,7 +247,9 @@ const ReportForm = ({ formDetails, labDetails }) => {
                         placeholder={"Enter the Cannabiniods content"}
                         onChange={e => {
                           setCannabinoids(
-                            parseInt(e.target.value === "" ? 0 : e.target.value)
+                            parseFloat(
+                              e.target.value === "" ? 0 : e.target.value
+                            )
                           );
                         }}
                         isInvalid={
@@ -308,7 +310,7 @@ const ReportForm = ({ formDetails, labDetails }) => {
                   <Col md={12}>
                     <Button type={"submit"} onClick={handleClick}>
                       {" "}
-                      Submit Report{" "}
+                      {pending ? "Save Draft" : "Submit Report"}{" "}
                     </Button>
                   </Col>
                 </Row>
