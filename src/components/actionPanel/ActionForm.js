@@ -35,7 +35,8 @@ const ActionForm = ({
   const [clicked, setClicked] = useState(false);
 
   // Send to Manufacturer Form States
-  const [sellingPrice, setSellingPrice] = useState(0);
+  const [pricePerUnit, setPricePerUnits] = useState("");
+  const [totalPrice, setTotalPrice] = useState("");
 
   // Harvest For States
   const [formFieldValue, setFormFieldValue] = useState(0);
@@ -122,12 +123,12 @@ const ActionForm = ({
     e.preventDefault();
     e.stopPropagation();
     setClicked(true);
-    if (sellingPrice <= 0) {
+    if (pricePerUnit <= 0) {
       return;
     }
     setTransactionMining(true);
     seedObj.details.sentToManufacturerOn = new Date().toLocaleString();
-    seedObj.details.farmerToManufacturerPrice = sellingPrice;
+    seedObj.details.farmerToManufacturerPrice = pricePerUnit;
     let transporter = config.ADDRESS;
     let manufacturer = config.ADDRESS;
     seedObj.details.manufacturerAddress = manufacturer;
@@ -200,6 +201,17 @@ const ActionForm = ({
         });
       });
     });
+  };
+
+  const setPrice = (perUnitInput, totalInput) => {
+    let quantity = seedObj.details.totalHarvestAmount;
+    if (perUnitInput === pricePerUnit) {
+      setTotalPrice(totalInput);
+      setPricePerUnits((totalInput / quantity).toFixed(2));
+    } else {
+      setPricePerUnits(perUnitInput);
+      setTotalPrice(quantity * perUnitInput);
+    }
   };
 
   const setForm = () => {
@@ -381,19 +393,45 @@ const ActionForm = ({
       return (
         <Row>
           <Col md={12}>
-            <Form.Group>
-              <Form.Label>Price</Form.Label>
-              <Form.Control
-                type={"number"}
-                placeholder={"Enter the Selling Price"}
-                onChange={e => setSellingPrice(parseInt(e.target.value))}
-                isInvalid={clicked ? sellingPrice <= 0 : false}
-              />
-              <FormControl.Feedback type={"invalid"}>
-                <strong>Required</strong> : Selling price should be more than
-                zero
-              </FormControl.Feedback>
-            </Form.Group>
+            <Row>
+              <Col md={6}>
+                <Form.Group>
+                  <Form.Label>Price ($x.xx / Pound)</Form.Label>
+                  <Form.Control
+                    type={"number"}
+                    placeholder={"Enter the Selling Price"}
+                    value={pricePerUnit}
+                    onChange={e =>
+                      setPrice(parseInt(e.target.value), totalPrice)
+                    }
+                    isInvalid={clicked ? pricePerUnit <= 0 : false}
+                  />
+                  <FormControl.Feedback type={"invalid"}>
+                    <strong>Required</strong> : Selling price should be more
+                    than zero
+                  </FormControl.Feedback>
+                </Form.Group>
+              </Col>
+              <Col md={6}>
+                <Form.Group>
+                  <Form.Label>Total Price ($x.xx)</Form.Label>
+                  <Form.Control
+                    type={"number"}
+                    placeholder={"Enter the Selling Price"}
+                    value={totalPrice}
+                    onChange={e =>
+                      setPrice(pricePerUnit, parseInt(e.target.value))
+                    }
+                    readOnly
+                    isInvalid={clicked ? totalPrice <= 0 : false}
+                  />
+                  <FormControl.Feedback type={"invalid"}>
+                    <strong>Required</strong> : Selling price should be more
+                    than zero
+                  </FormControl.Feedback>
+                </Form.Group>
+              </Col>
+            </Row>
             <Form.Group>
               <Form.Label>Select Manufacturer</Form.Label>
               <Form.Control as={"select"} required>

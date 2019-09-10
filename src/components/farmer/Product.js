@@ -117,11 +117,22 @@ const Product = props => {
                         </span>
                       </li>
                       <li>
-                        <strong>Quantity:</strong>
+                        <strong>Seed Count:</strong>
                         <span>
-                          {seedObject.details.seedCount || "Loading..."}
+                          {seedObject.details.seedCount + " Seeds"|| "Loading..."}
                         </span>
                       </li>
+                      {seedObject.details ? (
+                        seedObject.details.totalHarvestAmount ? (
+                          <li>
+                            <strong>Amount Harvested:</strong>
+                            <span>
+                              {seedObject.details.totalHarvestAmount +
+                                " Pounds" || "Loading..."}
+                            </span>
+                          </li>
+                        ) : null
+                      ) : null}
                     </ul>
                   </section>
                 </Col>
