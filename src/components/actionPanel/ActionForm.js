@@ -435,15 +435,15 @@ const ActionForm = ({
             <Form.Group>
               <Form.Label>Select Manufacturer</Form.Label>
               <Form.Control as={"select"} required>
-                <option value="">ABC</option>
+                <option value="">Profacturing</option>
                 <option value="">DEF</option>
               </Form.Control>
             </Form.Group>
             <Form.Group>
               <Form.Label>Select Transporter</Form.Label>
               <Form.Control as={"select"} required>
-                <option value="">EKart</option>
-                <option value="">Delhivery</option>
+                <option value="">Kamath Transportation</option>
+                <option value="">E-Kart</option>
               </Form.Control>
             </Form.Group>
           </Col>
