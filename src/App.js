@@ -25,7 +25,12 @@ function App() {
                     authneticateUser(role).then(bool => {
 
                         if (bool) {
+                            if(role ==='farmer'){
+                                accessibleDashboards.push('Cultivator')
+                            }else{
+
                             accessibleDashboards.push(role)
+                            }
                         }
                         count++;
                         if (count === 6) {

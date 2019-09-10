@@ -29,6 +29,7 @@ const Transporter = ({location, history}) => {
         <Layout userName={userName} profileImage={profileImage} location={location} history={history}>
             {/*<TransporterDashboard location={location}/>*/}
             <NewDashboard location={location}/>
+
         </Layout>
     );
 };
