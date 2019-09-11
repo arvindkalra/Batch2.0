@@ -82,9 +82,8 @@ const ManufacturedPacketsTable = ({
         <thead>
           <tr>
             <th>#ID</th>
-            <th>Product Type</th>
-            <th>Units</th>
-            <th>Size</th>
+            <th>Product Name</th>
+            <th>Packet Count</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -93,9 +92,8 @@ const ManufacturedPacketsTable = ({
             return (
               <tr key={id + "" + element.productUnitId}>
                 <td className={"uid"}>{element.productUnitId}</td>
-                <td>{element.productType}</td>
+                <td>{element.productName}</td>
                 <td>{element.totalPacketsManufactured}</td>
-                <td>{element.packetSize}</td>
                 <td>
                   <Button onClick={e => handleClick(e, id)}>Sell</Button>
                 </td>

@@ -74,17 +74,16 @@ const ManufacturerDashboard = ({ location }) => {
         if (packageUnit.currentState.value === 1) {
           let obj = {
             productUnitId: packageUnit.uid,
-            productType: packageUnit.details.productType,
+            productName: packageUnit.details.productName,
             totalPacketsManufactured:
               packageUnit.details.totalPacketsManufactured,
-            packetSize: packageUnit.details.packetSize,
             details: packageUnit.details
           };
           tempAvailablePackets.push(obj);
           setPacketsReadyForDispatch([...tempAvailablePackets]);
         }
         addToGraphData(
-          packageUnit.details.productType,
+          packageUnit.details.productName,
           parseInt(packageUnit.details.totalPacketsManufactured),
           packetsManufacturedGraphData,
           setPacketsManufacturedGraphData,
@@ -170,7 +169,7 @@ const ManufacturerDashboard = ({ location }) => {
             </div>
             <BarGraph
               ObjectToShow={packetsManufacturedGraphData}
-              label={"Processed Units"}
+              label={"Product Units"}
             />
           </section>
         </Col>
