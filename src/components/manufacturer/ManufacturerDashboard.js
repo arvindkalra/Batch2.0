@@ -54,14 +54,14 @@ const ManufacturerDashboard = ({ location }) => {
               };
               tempAvailableArray.push(rowArray);
               setAvailableArray([...tempAvailableArray]);
+              addToGraphData(
+                harvestObject.details.plantName,
+                leftAmount,
+                availableGraphData,
+                setAvailableGraphData,
+                ++tempChanged
+              );
             }
-            addToGraphData(
-              harvestObject.details.plantName,
-              leftAmount,
-              availableGraphData,
-              setAvailableGraphData,
-              ++tempChanged
-            );
             if (totalHarvest === total) {
               setPreloader(false);
             }
