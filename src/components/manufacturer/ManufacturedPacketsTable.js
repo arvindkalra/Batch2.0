@@ -44,6 +44,7 @@ const ManufacturedPacketsTable = ({
     e.preventDefault();
     e.stopPropagation();
     setShowModal({ open: true, id: id });
+    console.log(array[showModal.id].details.container);
   };
 
   const handleSend = e => {
@@ -113,20 +114,44 @@ const ManufacturedPacketsTable = ({
         <Modal.Body>
           <Row>
             <Col md={12}>
-              <Form.Group>
-                <Form.Label>Selling Price</Form.Label>
-                <Form.Control
-                  type={"number"}
-                  placeholder={"Enter the price to sell to the distributor"}
-                  onChange={e => {
-                    setPrice(parseInt(e.target.value));
-                  }}
-                  isInvalid={modalConfirmed ? price <= 0 : false}
-                />
-                <FormControl.Feedback type={"invalid"}>
-                  <strong>Required</strong> : Selling Price can not be zero
-                </FormControl.Feedback>
-              </Form.Group>
+              <Row>
+                <Col md={6}>
+                  <Form.Group>
+                    <Form.Label>
+                      Selling Price ($x.xx /{" "}
+                      {showModal.open
+                        ? array[showModal.id].details.container
+                        : null}
+                      )
+                    </Form.Label>
+                    <Form.Control
+                      type={"number"}
+                      placeholder={"Enter the price to sell to the distributor"}
+                      onChange={e => {
+                        setPrice(parseFloat(e.target.value));
+                      }}
+                      isInvalid={modalConfirmed ? price <= 0 : false}
+                    />
+                    <FormControl.Feedback type={"invalid"}>
+                      <strong>Required</strong> : Selling Price can not be zero
+                    </FormControl.Feedback>
+                  </Form.Group>
+                </Col>
+                <Col md={6}>
+                  <Form.Label>Total Price ($x.xx)</Form.Label>
+                  <Form.Control
+                    type={"number"}
+                    placeholder={"Enter the Selling Price"}
+                    readOnly
+                    value={
+                      showModal.open
+                        ? array[showModal.id].details.totalPacketsManufactured *
+                          price
+                        : 0
+                    }
+                  />
+                </Col>
+              </Row>
             </Col>
             <Col md={12}>
               <Form.Group>
