@@ -15,7 +15,7 @@ const OrderRow = ({product, setAmount}) => {
             setInvalid(true)
         } else {
             setTotal(cost)
-            setAmount(cost)
+            setAmount(cost,amount)
             setInvalid(false)
         }
 

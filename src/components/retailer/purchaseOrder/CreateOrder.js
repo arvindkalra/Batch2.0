@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React, {useState} from 'react';
 import Layout from "../../Layout";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -6,13 +6,40 @@ import {setBreadcrumb} from "../../../helpers";
 import '../../../assets/stylesheets/App.scss'
 
 import OrderTable from "./OrderTable";
+import {Button} from "react-bootstrap";
+import Modal from "react-bootstrap/Modal";
+import ConfirmOrder from "./ConfirmOrder";
+
 const CreateOrder = ({location, history}) => {
     const taxes = {
         stateSales: 3,
         stateExcise: 15,
-        local:5
+        local: 5
+    };
+    const [grandTotal, setGrandTotal] = useState(0);
+    const [showModal, setShowModal] = useState(false)
+    const [productList, setProductList] = useState([{
+        id: '000001',
+        productName: 'Gundza',
+        distributor: 'dan the distributor',
+        availableQuantity: '100',
+        price: '20'
+    },
+        {
+            id: '000002',
+            productName: 'Gundza',
+            distributor: 'dan the distributor',
+            availableQuantity: '400',
+            price: '30'
+        }
+    ]);
+    const updateProduct = (index, key, value) => {
+        let newProductList = productList;
+         newProductList[index][key] = value;
+         setProductList(newProductList)
+
+        // setProductList(newProductList)
     }
-    const [grandTotal, setGrandTotal] = useState(0)
 
     return (
         <Layout location={location} history={history}>
@@ -22,26 +49,23 @@ const CreateOrder = ({location, history}) => {
             <Row>
                 <Col>
                     <section className={'table-section card'}>
-                        <OrderTable setGrandTotal={arr => {
-                            setGrandTotal(arr.reduce((a,b)=> a+b,0))
-                        }} />
+                        <OrderTable productList={productList} updateProduct={(index,key,value)=>{
+                            updateProduct(index,key,value)
+                        }}  setGrandTotal={arr => {
+                            setGrandTotal(arr.reduce((a, b) => a + b, 0))
+                        }}/>
                         <Row>
-                            <Col md={12} className={"text-right"}>
-                                <p>
-                                    Sub - Total Amount: <strong>$ {grandTotal}</strong>
-                                </p>
-                                <p>
-                                    State Excise (15%): <strong>$ {grandTotal*taxes.stateExcise/100} </strong>
-                                </p>
-                                <p>
-                                    State Sales Tax (3%): <strong>$ {grandTotal*taxes.stateSales/100}</strong>
-                                </p>
-                                <p>
-                                    Local Tax (5%): <strong>$ {grandTotal*taxes.local/100}</strong>
-                                </p>
-                                <p>
-                                    Grand Total: <strong>$ {grandTotal +grandTotal*taxes.stateExcise/100 +grandTotal*taxes.stateSales/100+ grandTotal*taxes.local/100 }</strong>
-                                </p>
+
+                            <Col md={12} className={'text-right'}>
+                                <Button onClick={()=>{setShowModal(true)}}>
+                                    Create Order
+                                </Button>
+                                <Modal size={"xl"} show={showModal} onHide={()=>{setShowModal(false)}}>
+                                        <ConfirmOrder productList={productList.filter((product)=>{
+                                            return product.orderedAmount
+                                        })}/>
+
+                                </Modal>
                             </Col>
                         </Row>
 

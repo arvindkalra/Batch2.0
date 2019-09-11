@@ -2,28 +2,15 @@ import React, {useState, useEffect} from 'react';
 import {Table} from "react-bootstrap";
 import OrderRow from "./OrderRow";
 
-const OrderTable = ({setGrandTotal}) => {
-    const [productList, setProductList] = useState([{
-        id: '000001',
-        productName: 'Gundza',
-        distributor: 'dan the distributor',
-        availableQuantity: '100',
-        price: '20'
-    },
-        {
-            id: '000002',
-            productName: 'Gundza',
-            distributor: 'dan the distributor',
-            availableQuantity: '400',
-            price: '30'
-        }
-    ]);
+const OrderTable = ({setGrandTotal, productList,updateProduct}) => {
+
     const [total, setTotal] = useState([]);
     useEffect(() => {
         // fetch the available products and set them in the productList state
     }, []);
-    const setAmount = (amount, index) => {
-        total[index] = amount;
+    const setAmount = (cost, amount, index) => {
+        total[index] = cost;
+        updateProduct(index, 'orderedAmount', amount)
 
         setTotal(total);
         setGrandTotal(total)
@@ -45,8 +32,8 @@ const OrderTable = ({setGrandTotal}) => {
             <tbody>
             {productList.map((product, index) => {
                 return (
-                    <OrderRow product={product} key={product.id} setAmount={(amount) => {
-                        setAmount(amount, index)
+                    <OrderRow product={product} key={product.id} setAmount={(cost,amount) => {
+                        setAmount(cost,amount, index)
                     }}/>
                 )
             })}
