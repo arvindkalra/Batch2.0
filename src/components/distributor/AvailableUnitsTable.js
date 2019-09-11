@@ -9,9 +9,9 @@ const AvailableUnitsTable = ({ array }) => {
         <thead>
           <tr>
             <th>#ID</th>
-            <th>Product Type</th>
+            <th>Product Name</th>
             <th>Manufacturer Name</th>
-            <th>Available Units</th>
+            <th>Available Boxes</th>
           </tr>
         </thead>
         <tbody>

@@ -14,10 +14,7 @@ const DistDashboard = ({ location }) => {
   const [
     availablePackedProductsGraph,
     setAvailablePackedProductsGraph
-  ] = useState({
-    Preroll: 0,
-    Edibles: 0
-  });
+  ] = useState({});
   const [
     availablePackedProductsArray,
     setAvailablePackedProductsArray
@@ -49,14 +46,14 @@ const DistDashboard = ({ location }) => {
               packetUnitId: rowObj.uid,
               manufacturerName: name,
               pendingAmount: left,
-              productType: rowObj.details.productType
+              productType: rowObj.details.productName
             };
             tempAvailableArray.push(rowArray);
             setAvailablePackedProductsArray([...tempAvailableArray]);
           }
           if (rowObj.currentState.value === 4) {
             addToGraphData(
-              rowObj.details.productType,
+              rowObj.details.productName,
               left,
               availablePackedProductsGraph,
               setAvailablePackedProductsGraph,
@@ -109,7 +106,7 @@ const DistDashboard = ({ location }) => {
             <div className={"card-header"}>
               <div className={"utils__title"}>
                 <strong className={"section-title"}>
-                  Available Processed Products
+                  Inventory Detail
                 </strong>
               </div>
             </div>

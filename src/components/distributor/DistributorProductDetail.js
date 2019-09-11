@@ -9,14 +9,14 @@ import {
   fetchProductUnitDetailsUsingUID,
   getManufacturerDetails
 } from "../../dbController/manufacturerRole";
-import DistributorActionPanel from "../actionPanel/DistributorActionPanel";
+import DistributorActionPanelUnused from "../actionPanel/DistributorActionPanel(unused)";
 import Loader from "../Loader";
+import { Card } from "react-bootstrap";
+import ProgressBar from "react-bootstrap/ProgressBar";
 
 const DistributorProductDetail = props => {
-  const [productInfo, setProductInfo] = useState({
-    currentStatus: { value: 0 }
-  });
-  const [prevDetails, setPrevDetails] = useState({});
+  const [productInfo, setProductInfo] = useState({});
+  const [harvestInfo, setHarvestInfo] = useState({});
   const [preloader, setPreloader] = useState(true);
 
   useEffect(() => {
@@ -29,36 +29,22 @@ const DistributorProductDetail = props => {
         return fetchProductUnitDetailsUsingUID(puid);
       })
       .then(object => {
-        console.log(object);
-        productObject = object;
-        setPrevDetails(productObject);
-        return getManufacturerDetails(object.details.manufacturerAddress);
+        productObject = object.details;
+        let alreadyUsed = productObject.totalPacketsUsed
+          ? productObject.totalPacketsUsed
+          : 0;
+        setProductInfo({ ...productObject, puid, alreadyUsed });
+        console.log("product", productObject);
+        return getManufacturerDetails(object.manufacturerAddress);
       })
       .then(({ name, companyName }) => {
         manufacturerName = name;
         manufacturerCompany = companyName;
-        return fetchHarvestUnitDetailsUsingUID(
-          productObject.details.harvestUnitId
-        );
+        return fetchHarvestUnitDetailsUsingUID(productObject.harvestUnitId);
       })
       .then(({ details }) => {
-        let alreadyUsed = productObject.details.totalPacketsUsed
-          ? productObject.details.totalPacketsUsed
-          : 0;
-        setProductInfo({
-          productUnitId: productObject.uid,
-          plantName: details.plantName,
-          dateHarvested: details.harvestTime,
-          currentStatus: productObject.currentState,
-          amountAlreadyUsed: alreadyUsed,
-          amountManufactured: productObject.details.totalPacketsManufactured,
-          amountLeft:
-            productObject.details.totalPacketsManufactured - alreadyUsed,
-          productType: productObject.details.productType,
-          packetSize: productObject.details.packetSize,
-          packedOn: productObject.details.packedOn,
-          costPrice: productObject.details.manufacturerToDistributorPrice,
-          productImage: productObject.details.productImage,
+        setHarvestInfo({
+          ...details,
           manufacturerName,
           manufacturerCompany
         });
@@ -109,50 +95,61 @@ const DistributorProductDetail = props => {
                       <li>
                         <strong>#ID</strong>
                         <span className={"uid"}>
-                          {productInfo.productUnitId || "Loading..."}
+                          {productInfo.puid || "Loading..."}
                         </span>
                       </li>
                       <li>
                         <strong>Manufacturer Name</strong>
                         <span>
-                          {productInfo.manufacturerName || "Loading..."}
+                          {harvestInfo.manufacturerName || "Loading..."}
                         </span>
                       </li>
                       <li>
                         <strong>Manufacturer Company</strong>
                         <span>
-                          {productInfo.manufacturerCompany || "Loading..."}
+                          {harvestInfo.manufacturerCompany || "Loading..."}
                         </span>
-                      </li>
-                      <li>
-                        <strong>Plant Name</strong>
-                        <span>{productInfo.plantName || "Loading..."}</span>
                       </li>
                       <li>
                         <strong>Date of Packaging</strong>
                         <span>{productInfo.packedOn || "Loading..."}</span>
                       </li>
                       <li>
-                        <strong>Date of Harvest</strong>
-                        <span>{productInfo.dateHarvested || "Loading..."}</span>
-                      </li>
-                      <li>
-                        <strong>Packet Size</strong>
-                        <span>{productInfo.packetSize || "Loading..."}</span>
+                        <strong>Container Type</strong>
+                        <span>{productInfo.container || "Loading..."}</span>
                       </li>
                       <li>
                         <strong>Cost Price</strong>
                         <span>
-                          {productInfo.costPrice
-                            ? "$" + productInfo.costPrice
+                          {productInfo.manufacturerToDistributorPrice
+                            ? `$${productInfo.manufacturerToDistributorPrice} / ${productInfo.container}`
                             : "Loading..."}
                         </span>
                       </li>
                       <li>
-                        <strong>Units Bought</strong>
+                        <strong>Bought {productInfo.container} Count</strong>
                         <span>
-                          {productInfo.amountManufactured
-                            ? productInfo.amountManufactured + "Units"
+                          {productInfo.totalPacketsManufactured
+                            ? `${productInfo.totalPacketsManufactured} Units`
+                            : "Loading..."}
+                        </span>
+                      </li>
+                      <li>
+                        <strong>
+                          {productInfo.productType} Count in Each{" "}
+                          {productInfo.container}
+                        </strong>
+                        <span>
+                          {productInfo.unitsPerPacket
+                            ? `${productInfo.unitsPerPacket} Units`
+                            : "Loading..."}
+                        </span>
+                      </li>
+                      <li>
+                        <strong>M.R.P.</strong>
+                        <span>
+                          {productInfo.mrp
+                            ? `$${productInfo.mrp}`
                             : "Loading..."}
                         </span>
                       </li>
@@ -161,19 +158,45 @@ const DistributorProductDetail = props => {
                 </Col>
               </Row>
             </section>
-            <Row>
-              {productInfo.currentStatus.value === 4 ? (
-                <DistributorActionPanel
-                  left={productInfo.amountLeft}
-                  total={productInfo.amountManufactured}
-                  prevDetails={prevDetails}
-                />
-              ) : (
-                <div className={"delivery-notification-manufacturer"}>
-                  The Shipment is Yet to be Delivered by the Transporter
-                </div>
-              )}
-            </Row>
+            <Card>
+              <Row>
+                <Col md={12}>
+                  <section className="product-status-section card">
+                    <div className={"card-header"}>
+                      <div className="utils__title ">
+                        <strong className="text-uppercase ">
+                          {productInfo.container} Available for Sale
+                        </strong>
+                      </div>
+                    </div>
+                    <ProgressBar
+                      now={(
+                        ((productInfo.totalPacketsManufactured -
+                          productInfo.alreadyUsed) /
+                          productInfo.totalPacketsManufactured) *
+                        100
+                      ).toFixed(2)}
+                      label={`${productInfo.totalPacketsManufactured -
+                        productInfo.alreadyUsed} Units`}
+                      striped
+                    />
+                  </section>
+                </Col>
+              </Row>
+            </Card>
+            {/*<Row>*/}
+            {/*  {productInfo.currentStatus.value === 4 ? (*/}
+            {/*    <DistributorActionPanel*/}
+            {/*      left={productInfo.amountLeft}*/}
+            {/*      total={productInfo.amountManufactured}*/}
+            {/*      prevDetails={prevDetails}*/}
+            {/*    />*/}
+            {/*  ) : (*/}
+            {/*    <div className={"delivery-notification-manufacturer"}>*/}
+            {/*      The Shipment is Yet to be Delivered by the Transporter*/}
+            {/*    </div>*/}
+            {/*  )}*/}
+            {/*</Row>*/}
           </Col>
         </Row>
       </Layout>
