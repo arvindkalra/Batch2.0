@@ -20,7 +20,6 @@ import { OWN_ADDRESS } from "../../dbController/Web3Connections";
 import config from "../../config";
 
 const NewDashboard = ({ location }) => {
-  const [changed, setChanged] = useState(0);
   const [harvestShipments, setHarvestShipments] = useState([]);
   const [packagedShipments, setPackagedShipments] = useState([]);
   const [harvestRowObjArr, setHarvestRowObjArr] = useState({});
@@ -54,7 +53,6 @@ const NewDashboard = ({ location }) => {
       let tempDispatchedShipments = [];
       let tempDeliveredShipments = [];
       let tempLoader = loading;
-      let tempChanged = changed;
       let totalHarvests = 0;
       getFarmToFactoryConsignments((row, total) => {
         if (row) {
@@ -247,7 +245,7 @@ const NewDashboard = ({ location }) => {
         <Col>{setBreadcrumb(location.pathname)}</Col>
       </Row>
       <Row>
-        <Col md={4}>
+        <Col md={12} sm={12} xs={12} xl={12}>
           <section className={"nav-buttons-section"}>
             <ul className={"horizontal-list"}>
               <li
@@ -298,6 +296,12 @@ const NewDashboard = ({ location }) => {
         </Col>
       </Row>
       <section className={"shipment-table-section card"}>
+          <div className={"card-header"}>
+              <div className={"utils__title"}>
+                  <strong> {tableType.captialize() + ' Shipments'} </strong>
+
+              </div>
+          </div>
         <Row>
           <Col md={12}>
             <ShipmentTable

@@ -1,5 +1,5 @@
 @import "colors";
-
+@import "utils";
 .shipment-section{
   padding: 0 10px 10px 10px;
 
@@ -21,30 +21,44 @@
   }
 }
 
+$margin: 8px;
 .no-pending-shipment{
   background-color: #dfe2e7;
 }
 .nav-buttons-section{
 
   ul{
+    margin-left: $margin;
+    margin-right: $margin;
+    font-size: rem(24);
+    font-weight: bold;
+    color:white;
     li{
       cursor: pointer;
-      background: #dfe2e7;
+      background: $blue;
 
       border-top-left-radius: 10px;
       border-top-right-radius: 10px;
       transition: all 0.2s linear;
       padding: 10px;
+      width: 100%;
     }
     li.active{
-      background: grey;
-      color:white;
+      background: $blue-darken;
+
     }
   }
 }
 .shipment-table-section{
 
   border-left: 1px solid $grey;
+  border-radius: 0;
+
+
+  margin: 0 $margin ;
+
+
+
 }
 .manifesto-details-section{
 
