@@ -8,13 +8,14 @@ export default {
       "0xB9A081AE2A58FCFDA0BD85B3852A251F57A3D146676DD168097206CC03EBBA85",
   ADDRESS: "0x7949173E38cEf39e75E05D2d2C232FBE8BAe5E20",
 
-  STORAGE_ADDRESS: "0x07016506b95c087961dbc2cdea56a84d2dc58ef9",
-  FARMER_ADDRESS: "0xf3f4e4a362ec3c9d3a7833a146ea669bae3f6712",
-  LABORATORY_ADDRESS: "0x313de80801a7c56193b5f1530932ad7cf0dd2741",
-  TRANSPORTER_ADDRESS: "0x49aa31227502ea46f130952c2c27628680c15525",
-  MANUFACTURER_ADDRESS: "0x138316896b6a285ac211ad38848a412ceec1bef5",
-  DISTRIBUTOR_ADDRESS: "0x0753aeae1f5ac22b61e723038b1ed501276e97cb",
-  RETAILER_ADDRESS: "0xbce71cb4d6c15a557df55126cbe063bc5da4abab",
+  STORAGE_ADDRESS: "0xE345136812E7a90E2f5736bCAA0AEd6a85B1cfB0",
+  FARMER_ADDRESS: "0x64568c8B751a24423Fd00c2Dfbd89f40DA9D7Df6",
+  LABORATORY_ADDRESS: "0x335ef7a9dCf212f82C00942a4819a7Ca61Dc762F",
+  TRANSPORTER_ADDRESS: "0x115581905907B00Ce47bEbcbfB5ea994a45fcBe6",
+  MANUFACTURER_ADDRESS: "0x2a5ac1e144576a35be1349b2e0c704f3f19f407b",
+  DISTRIBUTOR_ADDRESS: "0x37dcc226761918a4d996213b9ff7a6bf71bf5f45",
+  // Change on ipfsServer as well
+  RETAILER_ADDRESS: "0x292ed9259fddae0477dc054545c6ea45f322d005",
 
 /*
   // For Matic Testnet
@@ -1719,6 +1720,33 @@ export default {
       "anonymous": false,
       "inputs": [
         {
+          "indexed": false,
+          "name": "retailer",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "distributor",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "puid",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "orderID",
+          "type": "uint256"
+        }
+      ],
+      "name": "BatchCreated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
           "indexed": true,
           "name": "oldOwner",
           "type": "address"
@@ -1822,6 +1850,24 @@ export default {
         {
           "name": "productHash",
           "type": "string"
+        }
+      ],
+      "name": "setPrice",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "productUid",
+          "type": "uint256"
+        },
+        {
+          "name": "productHash",
+          "type": "string"
         },
         {
           "name": "batchHash",
@@ -1834,6 +1880,10 @@ export default {
         {
           "name": "retailer",
           "type": "address"
+        },
+        {
+          "name": "orderId",
+          "type": "uint256"
         }
       ],
       "name": "createBatch",
@@ -2108,4 +2158,5 @@ export default {
       "type": "function"
     }
   ]
+  // Change to ipfsServes as well
 };

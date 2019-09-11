@@ -7,267 +7,285 @@ const cors = require("cors");
 const Web3 = require("web3");
 const abi = [
   {
-    constant: false,
-    inputs: [
+    "constant": false,
+    "inputs": [],
+    "name": "renounceOwnership",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "owner",
+    "outputs": [
       {
-        name: "productUid",
-        type: "uint256"
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "isOwner",
+    "outputs": [
+      {
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "newOwner",
+        "type": "address"
+      }
+    ],
+    "name": "transferOwnership",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "name": "storeAddress",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "name": "retailer",
+        "type": "address"
       },
       {
-        name: "productHash",
-        type: "string"
+        "indexed": false,
+        "name": "distributor",
+        "type": "address"
       },
       {
-        name: "batchHash",
-        type: "string"
+        "indexed": false,
+        "name": "puid",
+        "type": "uint256"
       },
       {
-        name: "transporter",
-        type: "address"
+        "indexed": false,
+        "name": "orderID",
+        "type": "uint256"
+      }
+    ],
+    "name": "BatchCreated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "oldOwner",
+        "type": "address"
       },
       {
-        name: "retailer",
-        type: "address"
+        "indexed": true,
+        "name": "newOwner",
+        "type": "address"
+      }
+    ],
+    "name": "TransferOwnership",
+    "type": "event"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "hash",
+        "type": "string"
+      }
+    ],
+    "name": "setDistributorDetails",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "who",
+        "type": "address"
+      }
+    ],
+    "name": "getDistributorDetails",
+    "outputs": [
+      {
+        "name": "hash",
+        "type": "string"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "account",
+        "type": "address"
+      }
+    ],
+    "name": "isDistributor",
+    "outputs": [
+      {
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "account",
+        "type": "address"
+      }
+    ],
+    "name": "addDistributor",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "getProductUnits",
+    "outputs": [
+      {
+        "name": "puids",
+        "type": "uint256[]"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "productUid",
+        "type": "uint256"
       },
       {
-        name: "orderId",
-        type: "uint256"
+        "name": "productHash",
+        "type": "string"
       }
     ],
-    name: "createBatch",
-    outputs: [],
-    payable: false,
-    stateMutability: "nonpayable",
-    type: "function"
+    "name": "setPrice",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
-    constant: true,
-    inputs: [],
-    name: "getProductUnits",
-    outputs: [
+    "constant": false,
+    "inputs": [
       {
-        name: "puids",
-        type: "uint256[]"
-      }
-    ],
-    payable: false,
-    stateMutability: "view",
-    type: "function"
-  },
-  {
-    constant: false,
-    inputs: [],
-    name: "renounceOwnership",
-    outputs: [],
-    payable: false,
-    stateMutability: "nonpayable",
-    type: "function"
-  },
-  {
-    constant: false,
-    inputs: [
-      {
-        name: "account",
-        type: "address"
-      }
-    ],
-    name: "addDistributor",
-    outputs: [],
-    payable: false,
-    stateMutability: "nonpayable",
-    type: "function"
-  },
-  {
-    constant: true,
-    inputs: [],
-    name: "owner",
-    outputs: [
-      {
-        name: "",
-        type: "address"
-      }
-    ],
-    payable: false,
-    stateMutability: "view",
-    type: "function"
-  },
-  {
-    constant: true,
-    inputs: [
-      {
-        name: "account",
-        type: "address"
-      }
-    ],
-    name: "isDistributor",
-    outputs: [
-      {
-        name: "",
-        type: "bool"
-      }
-    ],
-    payable: false,
-    stateMutability: "view",
-    type: "function"
-  },
-  {
-    constant: true,
-    inputs: [],
-    name: "isOwner",
-    outputs: [
-      {
-        name: "",
-        type: "bool"
-      }
-    ],
-    payable: false,
-    stateMutability: "view",
-    type: "function"
-  },
-  {
-    constant: true,
-    inputs: [
-      {
-        name: "who",
-        type: "address"
-      }
-    ],
-    name: "getDistributorDetails",
-    outputs: [
-      {
-        name: "hash",
-        type: "string"
-      }
-    ],
-    payable: false,
-    stateMutability: "view",
-    type: "function"
-  },
-  {
-    constant: false,
-    inputs: [
-      {
-        name: "hash",
-        type: "string"
-      }
-    ],
-    name: "setDistributorDetails",
-    outputs: [],
-    payable: false,
-    stateMutability: "nonpayable",
-    type: "function"
-  },
-  {
-    constant: false,
-    inputs: [
-      {
-        name: "batchUid",
-        type: "uint256"
+        "name": "productUid",
+        "type": "uint256"
       },
       {
-        name: "hash",
-        type: "string"
+        "name": "productHash",
+        "type": "string"
       },
       {
-        name: "retailer",
-        type: "address"
+        "name": "batchHash",
+        "type": "string"
       },
       {
-        name: "transporter",
-        type: "address"
+        "name": "transporter",
+        "type": "address"
+      },
+      {
+        "name": "retailer",
+        "type": "address"
+      },
+      {
+        "name": "orderId",
+        "type": "uint256"
       }
     ],
-    name: "sendToRetailer",
-    outputs: [],
-    payable: false,
-    stateMutability: "nonpayable",
-    type: "function"
+    "name": "createBatch",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
-    constant: true,
-    inputs: [],
-    name: "getBatchUnits",
-    outputs: [
+    "constant": true,
+    "inputs": [],
+    "name": "getBatchUnits",
+    "outputs": [
       {
-        name: "buids",
-        type: "uint256[]"
+        "name": "buids",
+        "type": "uint256[]"
       }
     ],
-    payable: false,
-    stateMutability: "view",
-    type: "function"
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    constant: false,
-    inputs: [
+    "constant": false,
+    "inputs": [
       {
-        name: "newOwner",
-        type: "address"
-      }
-    ],
-    name: "transferOwnership",
-    outputs: [],
-    payable: false,
-    stateMutability: "nonpayable",
-    type: "function"
-  },
-  {
-    inputs: [
-      {
-        name: "storeAddress",
-        type: "address"
-      }
-    ],
-    payable: false,
-    stateMutability: "nonpayable",
-    type: "constructor"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        name: "retailer",
-        type: "address"
+        "name": "batchUid",
+        "type": "uint256"
       },
       {
-        indexed: false,
-        name: "distributor",
-        type: "address"
+        "name": "hash",
+        "type": "string"
       },
       {
-        indexed: false,
-        name: "puid",
-        type: "uint256"
+        "name": "retailer",
+        "type": "address"
       },
       {
-        indexed: false,
-        name: "orderID",
-        type: "uint256"
+        "name": "transporter",
+        "type": "address"
       }
     ],
-    name: "BatchCreated",
-    type: "event"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        name: "oldOwner",
-        type: "address"
-      },
-      {
-        indexed: true,
-        name: "newOwner",
-        type: "address"
-      }
-    ],
-    name: "TransferOwnership",
-    type: "event"
+    "name": "sendToRetailer",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
   }
 ];
-const address = "0xcE1a7D9AB3aEBBC000bCCB96640016C7F78e8387";
+const address = "0x37dcc226761918a4d996213b9ff7a6bf71bf5f45";
 const web3 = new Web3(
   new Web3.providers.HttpProvider("https://testnet2.matic.network/")
 );
@@ -277,38 +295,6 @@ const orderStates = {
   fail: "Rejected"
 };
 app.use(cors());
-
-// web3.eth.getTransactionReceipt(
-//   "0x974516760348932567de45fc7c62d7a6441c6f4cb276998289e92b03e303f1b8",
-//   function(err, receipt) {
-//     if (err) throw err;
-//     console.log("Checked");
-//     if (receipt !== null) {
-//       console.log(receipt);
-//     }
-//   }
-// );
-
-/*
-const getProvider = () => {
-  const provider = new Web3.providers.WebsocketProvider(
-    "wss://testnet2.matic.network/ws"
-  );
-  provider.on("connect", () => console.log("WS Connected"));
-  provider.on("error", e => {
-    console.error("WS Error", e);
-    web3.setProvider(getProvider());
-  });
-  provider.on("end", e => {
-    console.error("WS End", e);
-    web3.setProvider(getProvider());
-  });
-
-  return provider;
-};
-const web3 = new Web3(getProvider());
-*/
-
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
 
