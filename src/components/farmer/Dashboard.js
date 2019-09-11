@@ -11,15 +11,14 @@ import PieChart2 from "./graphs/dashboard/PieChart2";
 import PieChart3 from "./graphs/dashboard/PieChart3";
 import { getRowsForFarmer } from "../../dbController/farmerRole";
 import { connectToWeb3 } from "../../dbController/init";
-import Notification from "../Notification";
+
 import Button from "react-bootstrap/Button";
-import { Link } from "react-router-dom";
+
 import Loader from "../Loader";
 import Card from "react-bootstrap/Card";
 import Accordion from "react-bootstrap/Accordion";
 import Badge from "react-bootstrap/Badge";
-import PendingReportTable from "../laboratory/PendingReportTable";
-import AlreadyTestedReportTable from "../laboratory/AlreadyTestedReportTable";
+
 
 const Dashboard = props => {
   const [sownArray, setSownArray] = useState([]);

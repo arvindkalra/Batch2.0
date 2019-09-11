@@ -17,6 +17,7 @@ import Distributor from "./distributor/Distributor";
 import Report from "./laboratory/Report";
 import DistributorProductDetail from "./distributor/DistributorProductDetail";
 import NewProduct from "./farmer/NewProduct";
+import CreateOrder from "./retailer/purchaseOrder/CreateOrder";
 
 const AppRouter = () => {
 
@@ -74,6 +75,7 @@ const AppRouter = () => {
                 <Route exact path={'/retailer/dashboard'} render={props => <Retailer {...props} userRole={'retailer'} /> }  />
                 <Route exact path={'/retailer/products/:id'} component={RetailProduct}/>
                 <Route exact path={'/retailer/about'} component={About}/>
+                <Route exact path={'/retailer/Order'} component={CreateOrder}/>
             </> : <Redirect from={'/*'} to={'/'}/>}
 
             {/*miscellaneous*/}
