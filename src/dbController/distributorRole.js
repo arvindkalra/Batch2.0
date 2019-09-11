@@ -144,3 +144,15 @@ export function sendBatchToTheRetailer(
     );
   });
 }
+
+export function setSalePrice(productUnitId, details, callback) {
+  productUnitId = convertFromHex(productUnitId);
+  return uploadJsonToIPFS(details).then(hash => {
+    return makeDistributorTransaction(
+      callback,
+      "setPrice",
+      productUnitId,
+      hash
+    );
+  });
+}

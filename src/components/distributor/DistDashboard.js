@@ -41,17 +41,18 @@ const DistDashboard = ({ location }) => {
             : 0;
           let left =
             rowObj.details.totalPacketsManufactured - packetsTransferred;
-          if (left > 0 && rowObj.currentState.value === 4) {
+          if (left > 0 && rowObj.currentState.value >= 4) {
             let rowArray = {
               packetUnitId: rowObj.uid,
               manufacturerName: name,
               pendingAmount: left,
+              sellingPrice: rowObj.details.distributorToRetailerPrice,
               productType: rowObj.details.productName
             };
             tempAvailableArray.push(rowArray);
             setAvailablePackedProductsArray([...tempAvailableArray]);
           }
-          if (rowObj.currentState.value === 4) {
+          if (rowObj.currentState.value >= 4) {
             addToGraphData(
               rowObj.details.productName,
               left,
@@ -105,9 +106,7 @@ const DistDashboard = ({ location }) => {
           <section className={"dashboard-section card"}>
             <div className={"card-header"}>
               <div className={"utils__title"}>
-                <strong className={"section-title"}>
-                  Inventory Detail
-                </strong>
+                <strong className={"section-title"}>Inventory Detail</strong>
               </div>
             </div>
             <AvailableUnitsTable array={availablePackedProductsArray} />

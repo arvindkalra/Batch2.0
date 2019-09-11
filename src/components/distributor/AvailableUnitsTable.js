@@ -11,6 +11,7 @@ const AvailableUnitsTable = ({ array }) => {
             <th>#ID</th>
             <th>Product Name</th>
             <th>Manufacturer Name</th>
+            <th>Selling Price</th>
             <th>Available Boxes</th>
           </tr>
         </thead>
@@ -27,6 +28,11 @@ const AvailableUnitsTable = ({ array }) => {
                   </span>
                 </td>
                 <td>{element.manufacturerName}</td>
+                <td>
+                  {element.sellingPrice
+                    ? "$" + element.sellingPrice
+                    : "Not Set"}
+                </td>
                 <td>{element.pendingAmount} Units</td>
               </tr>
             );
