@@ -31,7 +31,7 @@ const ManufacturerBatchDetail = props => {
             plantType: object.details.lineage,
             dateHarvested: object.details.harvestTime,
             nutrients: object.details.nutrients,
-            dateTested: object.details.testedOn,
+            dateTested: object.details.testResults.testedOn,
             farmerName: farmerObj.name,
             farmerAddress: farmerObj.companyName,
             currentStatus: object.currentState,

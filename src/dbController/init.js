@@ -12,8 +12,10 @@ import {
   callManufacturerContract,
   callRetailerContract,
   callStorageContract,
-  callTransporterContract, createContractInstance,
-  initialSetup, initSetup,
+  callTransporterContract,
+  createContractInstance,
+  initialSetup,
+  initSetup,
   OWN_ADDRESS,
   sendDistributorContract,
   sendFarmerContract,
@@ -44,9 +46,6 @@ export function connectToWeb3() {
     initialSetup(resolve, reject);
   });
 }
-
-
-
 
 export function makeStorageTransaction(functionName, ...args) {
   return new Promise((resolve, reject) => {
@@ -250,6 +249,10 @@ export function packetStates(id) {
 
     case 4:
       rv.status = "Delivered by Transporter";
+      return rv;
+
+    case 5:
+      rv.status = "Price Set By Distributor";
       return rv;
 
     default:
