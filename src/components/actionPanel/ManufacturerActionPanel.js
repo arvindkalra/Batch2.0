@@ -270,7 +270,7 @@ const ManufacturerActionPanel = ({ left, total, prevDetails }) => {
             </Col>
             <Col md={6}>
               <Form.Group>
-                <Form.Label>M.R.P. Of Each {packageType}</Form.Label>
+                <Form.Label>M.R.P. Of Each {packageType} ($x.xx)</Form.Label>
                 <Form.Control
                   type={"number"}
                   min={0}

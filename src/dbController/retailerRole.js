@@ -8,6 +8,7 @@ import {
   uploadJsonToIPFS
 } from "./init";
 import { OWN_ADDRESS } from "./Web3Connections";
+import { fetchProductUnitsForDistributor } from "./distributorRole";
 
 export function setRetailerDetails(details, callback) {
   return new Promise((resolve, reject) => {
@@ -119,4 +120,12 @@ export function getRowsForRetailer(rowCallbacks) {
   function handleError(err) {
     throw err;
   }
+}
+
+export function fetchRowsForCreatingPurchaseOrder(
+  distributorAddress,
+  callback
+) {
+  // TODO update here for Issue #33
+  fetchProductUnitsForDistributor(callback);
 }

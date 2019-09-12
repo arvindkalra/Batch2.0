@@ -4,6 +4,7 @@ import Modal from "react-bootstrap/Modal";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
+import config from "./config";
 
 String.prototype.captialize = function() {
   let str = this.valueOf();
@@ -159,5 +160,16 @@ export const clearLocal = () => {
   localStorage.setItem("profileImage", null);
 };
 
-
-
+export const makeXHR = (method, route, object) => {
+  let url = `${config.PURCHASE_ORDER_SERVER}/${route}`;
+  let body = {
+    payload: object
+  };
+  return fetch(url, {
+    method,
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(body)
+  }).then(response => response.json());
+};

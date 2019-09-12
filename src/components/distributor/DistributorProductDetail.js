@@ -192,7 +192,7 @@ const DistributorProductDetail = props => {
                         <strong>M.R.P.</strong>
                         <span>
                           {productInfo.mrp
-                            ? `$${productInfo.mrp}`
+                            ? `$${productInfo.mrp} / ${productInfo.container}`
                             : "Loading..."}
                         </span>
                       </li>
@@ -201,7 +201,8 @@ const DistributorProductDetail = props => {
                 </Col>
               </Row>
             </section>
-            {productInfo.productName && !productInfo.distributorToRetailerPrice ? (
+            {productInfo.productName &&
+            !productInfo.distributorToRetailerPrice ? (
               <Card>
                 <Card.Header>
                   <div className="utils__title ">
@@ -220,6 +221,7 @@ const DistributorProductDetail = props => {
                           setDistributorSalePrice(parseFloat(e.target.value))
                         }
                         isInvalid={clicked && distributorSalePrice <= 0}
+                        placeholder={`$x.xx/${productInfo.container}`}
                       />
                       <FormControl.Feedback type={"invalid"}>
                         <strong>Required</strong>
