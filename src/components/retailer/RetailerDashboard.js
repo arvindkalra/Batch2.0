@@ -69,10 +69,10 @@ const RetailerDashboard = ({ location }) => {
         .then(productDetails => {
           let objToBeAdded = {
             batchUnitId: row.batchUnitId,
-            productName: row.details.packetName,
+            productName: productDetails.details.productName,
             left: left,
             productType: productDetails.details.productType,
-            containerType: row.details.containerType
+            containerType: productDetails.details.container
           };
           addToGraph(objToBeAdded.productName, unitsAlreadySold);
           resolve(objToBeAdded);

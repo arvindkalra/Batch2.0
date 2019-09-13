@@ -29,14 +29,12 @@ const RetailProduct = props => {
       fetchBatchUnitDetailsUsingUID(puid)
         .then(obj => {
           batchUnit = obj;
-          console.log(batchUnit);
           return fetchProductUnitDetailsUsingUID(obj.details.productUnitId);
         })
         .then(productUnit => {
           setBatchId(batchUnit.uid);
           setCurrentState(batchUnit.currentState);
-          let details = batchUnit.details;
-          details.productType = productUnit.details.productType;
+          let details = { ...batchUnit.details, ...productUnit.details };
           setDetails(details);
           let unitsAlreadySold = batchUnit.details.totalUnitsAlreadySold
             ? batchUnit.details.totalUnitsAlreadySold
@@ -54,7 +52,7 @@ const RetailProduct = props => {
         <Row>
           <Col>
             {setBreadcrumb(
-              `/retailer/products/${details.packetName || "Loading Name..."}`
+              `/retailer/products/${details.productName || "Loading Name..."}`
             )}
           </Col>
         </Row>
@@ -70,8 +68,8 @@ const RetailProduct = props => {
                 <Col md={6}>
                   <section className={"product-image-section"}>
                     {details.productType ? (
-                      details.retailProductImage ? (
-                        <img src={details.retailProductImage} alt={""} />
+                      details.productImage ? (
+                        <img src={details.productImage} alt={""} />
                       ) : (
                         <img
                           src={
@@ -140,6 +138,12 @@ const RetailProduct = props => {
                           ) : (
                             "Loading..."
                           )}
+                        </span>
+                      </li>
+                      <li>
+                        <strong>M.R.P.</strong>
+                        <span>
+                          ${details.mrp} / {details.container}
                         </span>
                       </li>
                     </ul>

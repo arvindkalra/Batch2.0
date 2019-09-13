@@ -29,7 +29,7 @@ const SaleActionForm = ({ buid, details, left, retailerDetails }) => {
   const [showFullForm, setShowFullForm] = useState(false);
   const [buyerAddress, setBuyerAddress] = useState("");
   const [amount, setAmount] = useState(0);
-  const [sellingPrice, setSellingPrice] = useState(0);
+  const [sellingPrice, setSellingPrice] = useState(details.mrp);
   const [consumerName, setConsumerName] = useState("");
   const [license, setLicense] = useState("");
   const [buyerDetails, setBuyerDetails] = useState("");
@@ -61,9 +61,9 @@ const SaleActionForm = ({ buid, details, left, retailerDetails }) => {
     }
     isConsumer(buyerAddress).then(boolean => {
       setClicked(false);
+      setSellingPrice(details.mrp);
       if (boolean) {
         getConsumerDetails(buyerAddress).then(buyerObject => {
-          console.log(buyerObject);
           setShowFullForm(true);
           setRegistered(true);
           setBuyerDetails(buyerObject);
@@ -297,23 +297,6 @@ const SaleActionForm = ({ buid, details, left, retailerDetails }) => {
                         </Form.Group>
                       </Col>
                       <Col md={12}>
-                        <Form.Group controlId={"price"}>
-                          <Form.Label>Selling Price</Form.Label>
-                          <Form.Control
-                            type={"number"}
-                            placeholder={"Enter the selling price"}
-                            onChange={e => {
-                              setSellingPrice(parseInt(e.target.value));
-                            }}
-                            isInvalid={clicked ? sellingPrice <= 0 : false}
-                          />
-                          <FormControl.Feedback type={"invalid"}>
-                            <strong>Required</strong> : Enter a valid selling
-                            price
-                          </FormControl.Feedback>
-                        </Form.Group>
-                      </Col>
-                      <Col md={12}>
                         <Button
                           onClick={
                             registered ? sellToRegistered : sellToNewConsumer
@@ -331,7 +314,7 @@ const SaleActionForm = ({ buid, details, left, retailerDetails }) => {
           <Col md={7}>
             <Invoice
               retailerDetails={retailerDetails}
-              productName={details.packetName}
+              productName={details.productName}
               quantity={amount}
               price={sellingPrice}
               total={amount * sellingPrice}
