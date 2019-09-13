@@ -349,7 +349,12 @@ app.post("/get", function(req, res) {
 });
 
 app.post("/createOrder", function(req, res) {
-  let { distributorAddress, retailerAddress, orders } = req.body.payload;
+  let {
+    distributorAddress,
+    retailerAddress,
+    orders,
+    orderDate
+  } = req.body.payload;
   let purchaseOrderId = purchaseOrders.length;
 
   let arr = [];
@@ -358,7 +363,8 @@ app.post("/createOrder", function(req, res) {
       productUnitId,
       amount,
       currentState: orderStates.pending,
-      orderNumber: arr.length
+      orderNumber: arr.length,
+      orderDate
     };
     arr.push(order);
   });

@@ -116,8 +116,10 @@ const CreateOrder = ({ location, history }) => {
                       productList={productList.filter(product => {
                         return product.orderedAmount;
                       })}
-                      retailerDetails={retailerDetails}
+                      header={retailerDetails}
                       closeModal={() => setShowModal(false)}
+                      isUsedOnConfirm={true}
+                      canPlace={false}
                     />
                   </Modal>
                 </Col>

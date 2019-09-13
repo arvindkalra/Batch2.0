@@ -2,7 +2,12 @@ import React, { useEffect, useState } from "react";
 import Layout from "../Layout";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { createTransactionModal, setBreadcrumb } from "../../helpers";
+import {
+  createPurchaseOrderId,
+  createTransactionModal,
+  makeXHR,
+  setBreadcrumb
+} from "../../helpers";
 import { checkMined, connectToWeb3 } from "../../dbController/init";
 import {
   fetchHarvestUnitDetailsUsingUID,
@@ -12,7 +17,13 @@ import {
 import Loader from "../Loader";
 import { Button, Card, Form, FormControl } from "react-bootstrap";
 import ProgressBar from "react-bootstrap/ProgressBar";
-import { setSalePrice } from "../../dbController/distributorRole";
+import {
+  getDistributorDetails,
+  setSalePrice
+} from "../../dbController/distributorRole";
+import PurchaseOrderTable from "./PurchaseOrderTable";
+import { OWN_ADDRESS } from "../../dbController/Web3Connections";
+import { getRetailerDetails } from "../../dbController/retailerRole";
 
 const DistributorProductDetail = props => {
   const [productInfo, setProductInfo] = useState({});
@@ -21,7 +32,9 @@ const DistributorProductDetail = props => {
   const [preloader, setPreloader] = useState(true);
   const [distributorSalePrice, setDistributorSalePrice] = useState(0);
   const [clicked, setClicked] = useState(false);
+  const [distributor, setDistributor] = useState({});
 
+  const [ordersArray, setOrdersArray] = useState([]);
   const [transactionMining, setTransactionMining] = useState(false);
   const [transactionObject, setTransactionObject] = useState(null);
 
@@ -42,6 +55,10 @@ const DistributorProductDetail = props => {
         setCleanDetails(productObject);
         setProductInfo({ ...productObject, puid, alreadyUsed });
         console.log("product", productObject);
+        makeXHR(
+          "GET",
+          `order/get/pending?address=${OWN_ADDRESS}&productId=${object.uid}`
+        ).then(handleXHRResponse);
         return getManufacturerDetails(object.manufacturerAddress);
       })
       .then(({ name, companyName }) => {
@@ -56,8 +73,31 @@ const DistributorProductDetail = props => {
           manufacturerCompany
         });
         setPreloader(false);
+        getDistributorDetails().then(setDistributor);
       });
   }, []);
+
+  const handleXHRResponse = ({ result }) => {
+    let tempOrders = ordersArray;
+    result.forEach(order => {
+      getRetailerDetails(order.retailerAddress).then(
+        ({ name, companyName }) => {
+          let obj = {
+            purchaseOrderId: createPurchaseOrderId(
+              order.purchaseOrderId,
+              order.orderNumber
+            ),
+            retailerName: name,
+            retailerCompany: companyName,
+            orderDate: order.orderDate,
+            orderAmount: order.amount
+          };
+          tempOrders.push(obj);
+          setOrdersArray([...tempOrders]);
+        }
+      );
+    });
+  };
 
   const handleClick = e => {
     e.preventDefault();
@@ -259,21 +299,30 @@ const DistributorProductDetail = props => {
                 </Col>
               </Row>
             </Card>
-            {/*<Row>*/}
-            {/*  {productInfo.currentStatus.value === 4 ? (*/}
-            {/*    <DistributorActionPanel*/}
-            {/*      left={productInfo.amountLeft}*/}
-            {/*      total={productInfo.amountManufactured}*/}
-            {/*      prevDetails={prevDetails}*/}
-            {/*    />*/}
-            {/*  ) : (*/}
-            {/*    <div className={"delivery-notification-manufacturer"}>*/}
-            {/*      The Shipment is Yet to be Delivered by the Transporter*/}
-            {/*    </div>*/}
-            {/*  )}*/}
-            {/*</Row>*/}
           </Col>
         </Row>
+        {ordersArray.length > 0 ? (
+          <Row>
+            <Col md={12}>
+              <Card>
+                <Card.Header>
+                  <div className="utils__title ">
+                    <strong className="text-uppercase ">
+                      Pending Purchase Orders for {productInfo.productName}
+                    </strong>
+                  </div>
+                </Card.Header>
+                <Card.Body>
+                  <PurchaseOrderTable
+                    array={ordersArray}
+                    productDetail={productInfo}
+                    distributorDetail={distributor}
+                  />
+                </Card.Body>
+              </Card>
+            </Col>
+          </Row>
+        ) : null}
       </Layout>
       {transactionMining ? <Loader /> : null}
       {transactionObject ? createTransactionModal(transactionObject) : null}
