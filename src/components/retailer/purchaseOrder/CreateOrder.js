@@ -37,6 +37,9 @@ const CreateOrder = ({ location, history }) => {
           }
           numRows++;
           if (row.currentState.value !== 5) {
+            if (numRows === total) {
+              setLoader(false);
+            }
             return;
           }
           getDistributorDetails(row.details.distributorAddress).then(

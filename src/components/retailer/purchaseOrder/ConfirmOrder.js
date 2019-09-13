@@ -3,7 +3,7 @@ import Modal from "react-bootstrap/Modal";
 import { Button, Card, Table } from "react-bootstrap";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { makeXHR } from "../../../helpers";
+import { makeXHR, parsePurchaseOrderId } from "../../../helpers";
 import { OWN_ADDRESS } from "../../../dbController/Web3Connections";
 
 const ConfirmOrder = ({ productList, retailerDetails, closeModal }) => {
@@ -20,18 +20,19 @@ const ConfirmOrder = ({ productList, retailerDetails, closeModal }) => {
   const handleClick = e => {
     e.preventDefault();
     e.stopPropagation();
+    console.log(productList);
     let orders = productList.map(ele => {
       return {
-        retailerAddress: OWN_ADDRESS,
-        distributorAddress: ele.distributorAddress,
         productUnitId: ele.id,
         amount: ele.orderedAmount
       };
     });
-    let callObj = {
+    let callObject = {
+      distributorAddress: "0x7949173E38cEf39e75E05D2d2C232FBE8BAe5E20",
+      retailerAddress: "0x7949173E38cEf39e75E05D2d2C232FBE8BAe5E20",
       orders
     };
-    makeXHR("POST", "createOrder", callObj).then(() => {
+    makeXHR("POST", "createOrder", callObject).then(() => {
       closeModal();
       window.location.reload();
     });
