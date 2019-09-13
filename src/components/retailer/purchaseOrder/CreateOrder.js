@@ -44,12 +44,16 @@ const CreateOrder = ({ location, history }) => {
           }
           getDistributorDetails(row.details.distributorAddress).then(
             ({ companyName }) => {
+              let oldUnitsUsed = row.details.totalPacketsUsed
+                ? row.details.totalPacketsUsed
+                : 0;
+              let left = row.details.totalPacketsManufactured - oldUnitsUsed;
               let obj = {
                 id: row.uid,
                 productName: row.details.productName,
                 distributor: companyName,
                 distributorAddress: row.details.distributorAddress,
-                availableQuantity: row.details.totalPacketsManufactured,
+                availableQuantity: left,
                 price: row.details.distributorToRetailerPrice
               };
               tempProductList.push(obj);

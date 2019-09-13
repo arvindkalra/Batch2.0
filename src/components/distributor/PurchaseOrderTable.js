@@ -2,10 +2,28 @@ import React, { useState } from "react";
 import { Button, Table } from "react-bootstrap";
 import ConfirmOrder from "../retailer/purchaseOrder/ConfirmOrder";
 import Modal from "react-bootstrap/Modal";
+import config from "../../config";
+import Loader from "../Loader";
+import {
+  createTransactionModal,
+  makeXHR,
+  parsePurchaseOrderId
+} from "../../helpers";
+import Col from "react-bootstrap/Col";
+import { createBatchByDistributor } from "../../dbController/distributorRole";
+import { checkMined } from "../../dbController/init";
 
-const PurchaseOrderTable = ({ array, productDetail, distributorDetail }) => {
+const PurchaseOrderTable = ({
+  array,
+  productDetail,
+  distributorDetail,
+  untouchedDetail
+}) => {
   const [showModal, setShowModal] = useState(false);
   const [orderList, setOrderList] = useState(true);
+
+  const [transactionMining, setTransactionMining] = useState(false);
+  const [transactionObject, setTransactionObject] = useState(null);
 
   const handleClick = (e, orderId) => {
     let arr = [
@@ -23,7 +41,58 @@ const PurchaseOrderTable = ({ array, productDetail, distributorDetail }) => {
   };
 
   const handleSale = index => {
-    console.log("here", index);
+    let batchObject = {
+      totalUnitsForSale: array[index].orderAmount,
+      sentToRetailerOn: new Date().toLocaleString(),
+      productUnitId: productDetail.puid,
+      distributorAddress: config.ADDRESS,
+      distributorToRetailerTransporter: config.ADDRESS,
+      retailerAddress: config.ADDRESS
+    };
+    let newProductDetail = untouchedDetail;
+    let oldUnitsUsed = newProductDetail.totalPacketsUsed
+      ? newProductDetail.totalPacketsUsed
+      : 0;
+    newProductDetail.totalPacketsUsed =
+      parseInt(oldUnitsUsed) + batchObject.totalUnitsForSale;
+    setShowModal(false);
+    setTransactionMining(true);
+    let [purchaseOrderId, orderNum] = parsePurchaseOrderId(
+      array[index].purchaseOrderId
+    );
+    console.log(purchaseOrderId, orderNum);
+    console.log(batchObject);
+    console.log(newProductDetail);
+    createBatchByDistributor(
+      batchObject.productUnitId,
+      newProductDetail,
+      batchObject,
+      batchObject.retailerAddress,
+      batchObject.distributorToRetailerTransporter,
+      purchaseOrderId,
+      orderNum,
+      openSignatureModal
+    ).then(hash => {
+      checkMined(hash, () => {
+        makeXHR("POST", "completeOrder", { transactionHash: hash }).then(() => {
+          window.location.reload();
+        });
+      });
+    });
+  };
+
+  const openSignatureModal = obj => {
+    setTransactionObject({
+      ...obj,
+      showModal: true,
+      setShowModal: () => {
+        setTransactionObject(null);
+      },
+      cancel: () => {
+        setTransactionMining(false);
+        setTransactionObject(null);
+      }
+    });
   };
 
   return (
@@ -49,7 +118,15 @@ const PurchaseOrderTable = ({ array, productDetail, distributorDetail }) => {
                 <td>{ele.orderDate}</td>
                 <td>{ele.orderAmount}</td>
                 <td>
-                  <Button onClick={e => handleClick(e, key)}>Sell</Button>
+                  {ele.possible ? (
+                    <Button onClick={e => handleClick(e, key)}>
+                      Sell Units
+                    </Button>
+                  ) : (
+                    <Button variant={"secondary"} disabled={true}>
+                      Not Enough
+                    </Button>
+                  )}
                 </td>
               </tr>
             );
@@ -71,6 +148,8 @@ const PurchaseOrderTable = ({ array, productDetail, distributorDetail }) => {
           sellOrder={handleSale}
         />
       </Modal>
+      {transactionMining ? <Loader /> : null}
+      {transactionObject ? createTransactionModal(transactionObject) : null}
     </>
   );
 };

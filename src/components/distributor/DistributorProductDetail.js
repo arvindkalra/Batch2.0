@@ -52,13 +52,13 @@ const DistributorProductDetail = props => {
         let alreadyUsed = productObject.totalPacketsUsed
           ? productObject.totalPacketsUsed
           : 0;
+        let unitsLeft = productObject.totalPacketsManufactured - alreadyUsed;
         setCleanDetails(productObject);
         setProductInfo({ ...productObject, puid, alreadyUsed });
-        console.log("product", productObject);
         makeXHR(
           "GET",
           `order/get/pending?address=${OWN_ADDRESS}&productId=${object.uid}`
-        ).then(handleXHRResponse);
+        ).then(o => handleXHRResponse(o, unitsLeft));
         return getManufacturerDetails(object.manufacturerAddress);
       })
       .then(({ name, companyName }) => {
@@ -77,7 +77,7 @@ const DistributorProductDetail = props => {
       });
   }, []);
 
-  const handleXHRResponse = ({ result }) => {
+  const handleXHRResponse = ({ result }, left) => {
     let tempOrders = ordersArray;
     result.forEach(order => {
       getRetailerDetails(order.retailerAddress).then(
@@ -90,7 +90,8 @@ const DistributorProductDetail = props => {
             retailerName: name,
             retailerCompany: companyName,
             orderDate: order.orderDate,
-            orderAmount: order.amount
+            orderAmount: order.amount,
+            possible: order.amount <= left
           };
           tempOrders.push(obj);
           setOrdersArray([...tempOrders]);
@@ -317,6 +318,7 @@ const DistributorProductDetail = props => {
                     array={ordersArray}
                     productDetail={productInfo}
                     distributorDetail={distributor}
+                    untouchedDetail={cleanDetails}
                   />
                 </Card.Body>
               </Card>

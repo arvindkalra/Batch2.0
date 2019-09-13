@@ -77,6 +77,8 @@ export function createBatchByDistributor(
   batchDetailsNew,
   retailerAddress,
   transporterAddress,
+  purchaseOrderId,
+  orderNumber,
   signCallback
 ) {
   productUnitId = convertFromHex(productUnitId);
@@ -94,7 +96,9 @@ export function createBatchByDistributor(
         productHash,
         batchHash,
         transporterAddress,
-        retailerAddress
+        retailerAddress,
+        purchaseOrderId,
+        orderNumber
       );
     });
 }

@@ -469,19 +469,27 @@ app.get("/purchase-order/get", function(req, res) {
 app.post("/completeOrder", function(req, res) {
   let payload = req.body.payload;
   let transactionHash = payload.transactionHash;
+  console.log("hash", transactionHash);
   let contract = new web3.eth.Contract(abi, address);
   contract.getPastEvents("BatchCreated", { fromBlock: 0 }, (err, array) => {
     if (err) throw err;
-    let { returnValues } = array.find(x => {
-      return x.transactionHash === transactionHash;
-    });
-    let purchaseOrderId = returnValues.purchaseOrderId;
-    let orderNumber = returnValues.orderNumber;
-    if (purchaseOrders[purchaseOrderId]) {
-      purchaseOrders[purchaseOrderId].orders[orderNumber].currentState =
-        orderStates.success;
-      res.send(purchaseOrders[purchaseOrderId].orders[orderNumber]);
-    }
+    console.log("array", array);
+    let interval = setInterval(() => {
+      let obj = array.find(x => {
+        return x.transactionHash === transactionHash;
+      });
+      if (!obj) return;
+      clearInterval(interval);
+      let { returnValues } = obj;
+      console.log("rev", returnValues);
+      let purchaseOrderId = returnValues.purchaseOrderId;
+      let orderNumber = returnValues.orderNumber;
+      if (purchaseOrders[purchaseOrderId]) {
+        purchaseOrders[purchaseOrderId].orders[orderNumber].currentState =
+          orderStates.success;
+        res.send(purchaseOrders[purchaseOrderId].orders[orderNumber]);
+      }
+    }, 1000);
   });
 });
 
@@ -504,6 +512,10 @@ app.post("/authenticateUser", function(req, res) {
 
 app.listen(5001, function() {
   console.log("Server Listening on Port 5001");
+  // let contract = new web3.eth.Contract(abi, address);
+  // contract.getPastEvents("BatchCreated", { fromBlock: 0 }, (err, array) => {
+  //   console.log(err, array);
+  // });
   /*contract.events
     .BatchCreated({ fromBlock: 0 }, function(err, event) {
       console.log(err, event);

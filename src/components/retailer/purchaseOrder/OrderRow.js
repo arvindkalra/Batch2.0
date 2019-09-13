@@ -11,7 +11,7 @@ const OrderRow = ({ product, setAmount }) => {
   useEffect(() => {
     makeXHR(
       "GET",
-      `order/get/all?address=${product.distributorAddress}&productId=${product.id}`
+      `order/get/pending?address=${product.distributorAddress}&productId=${product.id}`
     ).then(({ result }) => {
       result.forEach(order => {
         if (order.retailerAddress === OWN_ADDRESS) {
