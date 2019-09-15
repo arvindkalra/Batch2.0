@@ -9,7 +9,10 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import { checkMined, connectToWeb3 } from "../../dbController/init";
-import { sendProductToDistributor } from "../../dbController/manufacturerRole";
+import {
+  fetchHarvestUnitDetailsUsingUID,
+  sendProductToDistributor
+} from "../../dbController/manufacturerRole";
 import Loader from "../Loader";
 import { OWN_ADDRESS } from "../../dbController/Web3Connections";
 import { FormControl } from "react-bootstrap";
@@ -25,6 +28,7 @@ const ManufacturedPacketsTable = ({
   const [distributorName, setDistributorName] = useState("Distributor A");
   const [transporterName, setTransporterName] = useState("Transporter A");
   const [price, setPrice] = useState(0);
+  const [showLoader, setShowLoader] = useState("");
 
   const openSignatureModal = obj => {
     setTransactionObject({
@@ -43,8 +47,21 @@ const ManufacturedPacketsTable = ({
   const handleClick = (e, id) => {
     e.preventDefault();
     e.stopPropagation();
-    setShowModal({ open: true, id: id });
-    console.log(array[showModal.id].details.container);
+    let materialUsed = array[showModal.id].details.materialUsed;
+    let harvestUnitId = array[showModal.id].details.harvestUnitId;
+    setShowLoader("Please Wait...");
+    connectToWeb3().then(() => {
+      fetchHarvestUnitDetailsUsingUID(harvestUnitId).then(obj => {
+        let pricePerUnits = obj.details.farmerToManufacturerPrice;
+        setShowLoader("");
+        setShowModal({
+          open: true,
+          id: id,
+          pricePerUnits,
+          materialUsed
+        });
+      });
+    });
   };
 
   const handleSend = e => {
@@ -117,8 +134,30 @@ const ManufacturedPacketsTable = ({
               <Row>
                 <Col md={6}>
                   <Form.Group>
+                    <Form.Label>Cost To Company ( $x.xx / Pound )</Form.Label>
+                    <Form.Control
+                      type={"number"}
+                      value={showModal.pricePerUnits}
+                      readOnly
+                    />
+                  </Form.Group>
+                </Col>
+                <Col md={6}>
+                  <Form.Label>
+                    Total ( $x.xx for {showModal.materialUsed} Pounds)
+                  </Form.Label>
+                  <Form.Control
+                    type={"number"}
+                    readOnly
+                    value={showModal.materialUsed * showModal.pricePerUnits}
+                  />
+                </Col>
+              </Row>
+              <Row>
+                <Col md={6}>
+                  <Form.Group>
                     <Form.Label>
-                      Selling Price ($x.xx /{" "}
+                      Selling Price ( $x.xx /{" "}
                       {showModal.open
                         ? array[showModal.id].details.container
                         : null}
@@ -138,7 +177,7 @@ const ManufacturedPacketsTable = ({
                   </Form.Group>
                 </Col>
                 <Col md={6}>
-                  <Form.Label>Total Price ($x.xx)</Form.Label>
+                  <Form.Label>Total Price ( $x.xx )</Form.Label>
                   <Form.Control
                     type={"number"}
                     placeholder={"Enter the Selling Price"}
@@ -195,6 +234,7 @@ const ManufacturedPacketsTable = ({
           </Button>
         </Modal.Footer>
       </Modal>
+      {showLoader.length > 0 ? <Loader message={showLoader} /> : null}
     </>
   );
 };
