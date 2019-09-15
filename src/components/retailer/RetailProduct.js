@@ -20,15 +20,17 @@ const RetailProduct = props => {
   const [packetsSold, setPacketsSold] = useState("");
   const [preloader, setPreloader] = useState(true);
   const [retailerDetails, setRetailerDetails] = useState({});
+  const [unusedBatchDetail, setUnusedBatchDetail] = useState({});
 
   useEffect(() => {
-    connectToWeb3().then(txHash => {
+    connectToWeb3().then(() => {
       let puid = props.match.params.id;
       let batchUnit;
       getRetailerDetails().then(setRetailerDetails);
       fetchBatchUnitDetailsUsingUID(puid)
         .then(obj => {
           batchUnit = obj;
+          setUnusedBatchDetail(batchUnit.details);
           return fetchProductUnitDetailsUsingUID(obj.details.productUnitId);
         })
         .then(productUnit => {
@@ -188,6 +190,7 @@ const RetailProduct = props => {
                 buid={batchId}
                 left={totalPackets - packetsSold}
                 retailerDetails={retailerDetails}
+                unusedBatchDetail={unusedBatchDetail}
               />
             </Row>
           </Col>

@@ -60,13 +60,16 @@ const RetailerDashboard = ({ location }) => {
         ? row.details.totalUnitsAlreadySold
         : 0;
       let left = row.details.totalUnitsForSale - unitsAlreadySold;
-      if (left <= 0 || row.currentState.value !== 4) {
-        addToGraph(row.details.packetName, unitsAlreadySold);
-        resolve(null);
-        return;
-      }
+
       fetchProductUnitDetailsUsingUID(row.details.productUnitId)
         .then(productDetails => {
+
+          if (left <= 0 || row.currentState.value !== 4) {
+            addToGraph(productDetails.details.productName, unitsAlreadySold);
+            resolve(null);
+            return;
+          }
+
           let objToBeAdded = {
             batchUnitId: row.batchUnitId,
             productName: productDetails.details.productName,

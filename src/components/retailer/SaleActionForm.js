@@ -24,7 +24,13 @@ import { OWN_ADDRESS } from "../../dbController/Web3Connections";
 import { Card, FormControl } from "react-bootstrap";
 import Invoice from "./Invoice";
 
-const SaleActionForm = ({ buid, details, left, retailerDetails }) => {
+const SaleActionForm = ({
+  buid,
+  details,
+  left,
+  retailerDetails,
+  unusedBatchDetail
+}) => {
   const [registered, setRegistered] = useState(false);
   const [showFullForm, setShowFullForm] = useState(false);
   const [buyerAddress, setBuyerAddress] = useState("");
@@ -128,10 +134,10 @@ const SaleActionForm = ({ buid, details, left, retailerDetails }) => {
   };
 
   const sell = jsonToBeUploaded => {
-    let unitsAlreadySold = details.totalUnitsAlreadySold
-      ? details.totalUnitsAlreadySold
+    let unitsAlreadySold = unusedBatchDetail.totalUnitsAlreadySold
+      ? unusedBatchDetail.totalUnitsAlreadySold
       : 0;
-    details.totalUnitsAlreadySold = unitsAlreadySold + amount;
+    unusedBatchDetail.totalUnitsAlreadySold = unitsAlreadySold + amount;
     if (!formValidity) {
       alert("Invalid Amount Entered");
       return;
@@ -140,7 +146,7 @@ const SaleActionForm = ({ buid, details, left, retailerDetails }) => {
     sellPacketsToBuyer(
       buid,
       buyerAddress,
-      details,
+      unusedBatchDetail,
       jsonToBeUploaded,
       openSignatureModal
     ).then(txHash => {
