@@ -192,7 +192,7 @@ const NewDashboard = ({ location }) => {
       getDistributorToRetailerConsignments((row, total) => {
         if (!row) {
           setLoader(++tempLoader);
-          return
+          return;
         }
         totalRetail++;
         let tempRow = retailRowObjArr;
@@ -296,12 +296,6 @@ const NewDashboard = ({ location }) => {
         </Col>
       </Row>
       <section className={"shipment-table-section card"}>
-          <div className={"card-header"}>
-              <div className={"utils__title"}>
-                  <strong> {tableType.captialize() + ' Shipments'} </strong>
-
-              </div>
-          </div>
         <Row>
           <Col md={12}>
             <ShipmentTable
