@@ -16,6 +16,10 @@ html {
   z-index: 1;
 }
 
+#root {
+  height: 100vh;
+}
+
 strong {
   font-size: inherit;
 }
@@ -62,6 +66,7 @@ main {
       cursor: auto;
     }
   }
+  flex-grow: 1;
 }
 
 .utils__title {
@@ -74,6 +79,9 @@ main {
   padding-left: 0;
   padding-right: 0;
   overflow-x: hidden;
+  height: inherit;
+  display: flex;
+  flex-flow: column;
 }
 
 .uid {
