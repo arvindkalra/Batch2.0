@@ -49,6 +49,7 @@ const ManufacturedPacketsTable = ({
     e.stopPropagation();
     let materialUsed = array[id].details.materialUsed;
     let harvestUnitId = array[id].details.harvestUnitId;
+    let mrp = array[id].details.mrp;
     setShowLoader("Please Wait...");
     connectToWeb3().then(() => {
       fetchHarvestUnitDetailsUsingUID(harvestUnitId).then(obj => {
@@ -57,6 +58,7 @@ const ManufacturedPacketsTable = ({
         setShowModal({
           open: true,
           id: id,
+          mrp,
           pricePerUnits,
           materialUsed
         });
@@ -132,7 +134,7 @@ const ManufacturedPacketsTable = ({
           <Row>
             <Col md={12}>
               <Row>
-                <Col md={6}>
+                <Col md={4}>
                   <Form.Group>
                     <Form.Label>Cost To Company ( $x.xx / Pound )</Form.Label>
                     <Form.Control
@@ -142,7 +144,7 @@ const ManufacturedPacketsTable = ({
                     />
                   </Form.Group>
                 </Col>
-                <Col md={6}>
+                <Col md={4}>
                   <Form.Label>
                     Total ( $x.xx for {showModal.materialUsed} Pounds)
                   </Form.Label>
@@ -150,6 +152,20 @@ const ManufacturedPacketsTable = ({
                     type={"number"}
                     readOnly
                     value={showModal.materialUsed * showModal.pricePerUnits}
+                  />
+                </Col>
+                <Col md={4}>
+                  <Form.Label>
+                    M.R.P ( $x.xx /{" "}
+                    {showModal.open
+                      ? array[showModal.id].details.container
+                      : null}
+                    )
+                  </Form.Label>
+                  <Form.Control
+                    type={"number"}
+                    readOnly
+                    value={showModal.mrp}
                   />
                 </Col>
               </Row>

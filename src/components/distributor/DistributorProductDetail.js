@@ -195,22 +195,6 @@ const DistributorProductDetail = props => {
                         <span>{productInfo.container || "Loading..."}</span>
                       </li>
                       <li>
-                        <strong>Cost Price</strong>
-                        <span>
-                          {productInfo.manufacturerToDistributorPrice
-                            ? `$${productInfo.manufacturerToDistributorPrice} / ${productInfo.container}`
-                            : "Loading..."}
-                        </span>
-                      </li>
-                      {productInfo.distributorToRetailerPrice ? (
-                        <li>
-                          <strong>Sale Price</strong>
-                          <span>
-                            {`$${productInfo.distributorToRetailerPrice} / ${productInfo.container}`}
-                          </span>
-                        </li>
-                      ) : null}
-                      <li>
                         <strong>Bought {productInfo.container} Count</strong>
                         <span>
                           {productInfo.totalPacketsManufactured
@@ -237,6 +221,22 @@ const DistributorProductDetail = props => {
                             : "Loading..."}
                         </span>
                       </li>
+                      <li>
+                        <strong>Cost Price</strong>
+                        <span>
+                          {productInfo.manufacturerToDistributorPrice
+                            ? `$${productInfo.manufacturerToDistributorPrice} / ${productInfo.container}`
+                            : "Loading..."}
+                        </span>
+                      </li>
+                      {productInfo.distributorToRetailerPrice ? (
+                        <li>
+                          <strong>Sale Price</strong>
+                          <span>
+                            {`$${productInfo.distributorToRetailerPrice} / ${productInfo.container}`}
+                          </span>
+                        </li>
+                      ) : null}
                     </ul>
                   </section>
                 </Col>
