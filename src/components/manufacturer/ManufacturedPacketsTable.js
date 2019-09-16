@@ -47,8 +47,8 @@ const ManufacturedPacketsTable = ({
   const handleClick = (e, id) => {
     e.preventDefault();
     e.stopPropagation();
-    let materialUsed = array[showModal.id].details.materialUsed;
-    let harvestUnitId = array[showModal.id].details.harvestUnitId;
+    let materialUsed = array[id].details.materialUsed;
+    let harvestUnitId = array[id].details.harvestUnitId;
     setShowLoader("Please Wait...");
     connectToWeb3().then(() => {
       fetchHarvestUnitDetailsUsingUID(harvestUnitId).then(obj => {
