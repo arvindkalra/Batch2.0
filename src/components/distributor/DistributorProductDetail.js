@@ -110,7 +110,7 @@ const DistributorProductDetail = props => {
     let newDetail = cleanDetails;
     newDetail.distributorToRetailerPrice = distributorSalePrice;
     setSalePrice(productInfo.puid, newDetail, openSignatureModal).then(hash => {
-      checkMined(hash, () => window.location.reload());
+      checkMined(hash, () => props.history.push("/distributor/dashboard"));
     });
   };
 
@@ -319,6 +319,7 @@ const DistributorProductDetail = props => {
                     productDetail={productInfo}
                     distributorDetail={distributor}
                     untouchedDetail={cleanDetails}
+                    history={props.history}
                   />
                 </Card.Body>
               </Card>

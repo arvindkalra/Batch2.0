@@ -29,7 +29,8 @@ const SaleActionForm = ({
   details,
   left,
   retailerDetails,
-  unusedBatchDetail
+  unusedBatchDetail,
+  history
 }) => {
   const [registered, setRegistered] = useState(false);
   const [showFullForm, setShowFullForm] = useState(false);
@@ -150,7 +151,7 @@ const SaleActionForm = ({
       jsonToBeUploaded,
       openSignatureModal
     ).then(txHash => {
-      checkMined(txHash, () => window.location.reload());
+      checkMined(txHash, () => history.push("/retailer/dashboard"));
     });
   };
 

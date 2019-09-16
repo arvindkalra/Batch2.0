@@ -14,7 +14,7 @@ import {
 } from "../../helpers";
 import { Card, FormControl } from "react-bootstrap";
 
-const ManufacturerActionPanel = ({ left, total, prevDetails }) => {
+const ManufacturerActionPanel = ({ left, total, prevDetails, history }) => {
   const [materialUsed, setMaterialUsed] = useState(0);
   const [plantImage, setPlantImage] = useState("");
   // Preroll or Edible
@@ -93,8 +93,6 @@ const ManufacturerActionPanel = ({ left, total, prevDetails }) => {
       alert("You Don't have enough RAW MATERIAL.!");
       return;
     }
-    console.log(prevDetails.details);
-    console.log(packetObj);
     setTransactionMining(true);
     packetsManufactured(
       prevDetails.uid,
@@ -102,7 +100,7 @@ const ManufacturerActionPanel = ({ left, total, prevDetails }) => {
       packetObj,
       openSignatureModal
     ).then(hash => {
-      checkMined(hash, () => window.location.reload());
+      checkMined(hash, () => history.push("/manufacturer/dashboard"));
     });
   };
 

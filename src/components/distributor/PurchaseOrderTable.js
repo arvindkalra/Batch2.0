@@ -17,7 +17,8 @@ const PurchaseOrderTable = ({
   array,
   productDetail,
   distributorDetail,
-  untouchedDetail
+  untouchedDetail,
+  history
 }) => {
   const [showModal, setShowModal] = useState(false);
   const [orderList, setOrderList] = useState(true);
@@ -60,9 +61,6 @@ const PurchaseOrderTable = ({
     let [purchaseOrderId, orderNum] = parsePurchaseOrderId(
       array[index].purchaseOrderId
     );
-    console.log(purchaseOrderId, orderNum);
-    console.log(batchObject);
-    console.log(newProductDetail);
     createBatchByDistributor(
       batchObject.productUnitId,
       newProductDetail,
@@ -75,7 +73,7 @@ const PurchaseOrderTable = ({
     ).then(hash => {
       checkMined(hash, () => {
         makeXHR("POST", "completeOrder", { transactionHash: hash }).then(() => {
-          window.location.reload();
+          history.push("/distributor/dashboard");
         });
       });
     });

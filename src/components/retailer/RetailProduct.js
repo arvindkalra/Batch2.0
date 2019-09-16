@@ -191,6 +191,7 @@ const RetailProduct = props => {
                 left={totalPackets - packetsSold}
                 retailerDetails={retailerDetails}
                 unusedBatchDetail={unusedBatchDetail}
+                history={props.history}
               />
             </Row>
           </Col>
