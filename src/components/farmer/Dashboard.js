@@ -19,7 +19,6 @@ import Card from "react-bootstrap/Card";
 import Accordion from "react-bootstrap/Accordion";
 import Badge from "react-bootstrap/Badge";
 
-
 const Dashboard = props => {
   const [sownArray, setSownArray] = useState([]);
   const [harvestedArray, setHarvestedArray] = useState([]);
@@ -275,9 +274,7 @@ const Dashboard = props => {
             </Card>
             <Card>
               <Accordion.Toggle as={Card.Header} variant="link" eventKey="1">
-                <strong className={"utils__title"}>
-                  Harvested Crops{" "}
-                </strong>
+                <strong className={"utils__title"}>Harvested Crops </strong>
               </Accordion.Toggle>
 
               <Accordion.Collapse eventKey="1">
@@ -290,7 +287,7 @@ const Dashboard = props => {
               <Accordion.Toggle as={Card.Header} variant="link" eventKey="2">
                 <strong className={"utils__title"}>
                   Tested Crops{" "}
-                  {numApproved > 0 || numRejected > 0 ? (
+                  {testedArray.length > 0 ? (
                     <Badge variant="success">Test Results Received</Badge>
                   ) : null}
                 </strong>
