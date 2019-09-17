@@ -48,16 +48,18 @@ const CreateOrder = ({ location, history }) => {
                 ? row.details.totalPacketsUsed
                 : 0;
               let left = row.details.totalPacketsManufactured - oldUnitsUsed;
-              let obj = {
-                id: row.uid,
-                productName: row.details.productName,
-                distributor: companyName,
-                distributorAddress: row.details.distributorAddress,
-                availableQuantity: left,
-                price: row.details.distributorToRetailerPrice
-              };
-              tempProductList.push(obj);
-              setProductList([...tempProductList]);
+              if(left > 0){
+                  let obj = {
+                      id: row.uid,
+                      productName: row.details.productName,
+                      distributor: companyName,
+                      distributorAddress: row.details.distributorAddress,
+                      availableQuantity: left,
+                      price: row.details.distributorToRetailerPrice
+                  };
+                  tempProductList.push(obj);
+                  setProductList([...tempProductList]);
+              }
               if (numRows === total) {
                 setLoader(false);
               }
