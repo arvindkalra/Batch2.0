@@ -183,3 +183,9 @@ export const parsePurchaseOrderId = purchaseId => {
   let arr = purchaseId.split("|");
   return [convertFromHex(arr[0]), parseInt(arr[1])];
 };
+
+export function createSortFunction(keyName) {
+  return (a, b) => {
+    return b[keyName] - a[keyName];
+  };
+}
