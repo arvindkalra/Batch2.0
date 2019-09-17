@@ -6,7 +6,7 @@ import {setBreadcrumb} from "../../../helpers";
 import "../../../assets/stylesheets/App.scss";
 
 import OrderTable from "./OrderTable";
-import {Button} from "react-bootstrap";
+import {Button, Card} from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
 import ConfirmOrder from "./ConfirmOrder";
 import {connectToWeb3} from "../../../dbController/init";
@@ -95,9 +95,12 @@ const CreateOrder = ({location, history}) => {
                 <Row>
                     <Col>
                         <section className={"table-section card"}>
+                            <Card.Header>
                             <div className="utils__title ">
                                 <strong className="text-uppercase ">Available Products</strong>
                             </div>
+                            </Card.Header>
+
                             <OrderTable
                                 productList={productList}
                                 updateProduct={(index, key, value) => {

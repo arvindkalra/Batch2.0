@@ -1,7 +1,9 @@
 import React, {useState, useEffect} from "react";
 import {Form, FormControl} from "react-bootstrap";
-import {createPurchaseOrderId, makeXHR} from "../../../helpers";
+import {createPurchaseOrderId, makeXHR, parsePurchaseOrderId} from "../../../helpers";
 import {OWN_ADDRESS} from "../../../dbController/Web3Connections";
+import {Link} from "react-router-dom";
+import {convertToHex} from "../../../dbController/init";
 
 const OrderRow = ({product, setAmount}) => {
     const [total, setTotal] = useState(0);
@@ -63,11 +65,12 @@ const OrderRow = ({product, setAmount}) => {
                         <strong>Required: </strong>Amount cant exceed available quantity
                     </FormControl.Feedback>
 
-                  {order.amount?
-                      <span className={'warning'}>
-                        <i className="fas fa-exclamation-circle" /> &nbsp; A purchase order for this product has already been placed. <a href={order.url}>  Click here</a> to view
-                  </span>: null
-                  }
+                    {order.amount ?
+                        <span className={'warning'}>
+                        <i className="fas fa-exclamation-circle"/> &nbsp; A purchase order for this product has already been placed. <Link
+                            to={`/retailer/order/${convertToHex(parsePurchaseOrderId(order.url)[0])}`}>  Click here</Link> to view
+                  </span> : null
+                    }
 
                 </Form.Group>
             </td>
