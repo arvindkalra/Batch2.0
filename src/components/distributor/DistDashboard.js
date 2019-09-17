@@ -9,6 +9,8 @@ import { getManufacturerDetails } from "../../dbController/manufacturerRole";
 import AvailableUnitsTable from "./AvailableUnitsTable";
 import Loader from "../Loader";
 import config from "../../config";
+import { Accordion, Card } from "react-bootstrap";
+import AllPurchaseOrders from "../retailer/AllPurchaseOrders";
 
 const DistDashboard = ({ location }) => {
   const [
@@ -21,6 +23,7 @@ const DistDashboard = ({ location }) => {
   ] = useState([]);
   const [changed, setChanged] = useState(1);
   const [preloader, setPreloader] = useState(true);
+  const [hasPurchaseOrders, setHasPurchaseOrders] = useState(true);
 
   useEffect(() => {
     connectToWeb3().then(() => {
@@ -112,6 +115,29 @@ const DistDashboard = ({ location }) => {
             <AvailableUnitsTable array={availablePackedProductsArray} />
           </section>
         </Col>
+        {hasPurchaseOrders ? (
+          <Col md={12}>
+            <Accordion>
+              <Card>
+                <Accordion.Toggle as={Card.Header} variant="link" eventKey="0">
+                  <div className={"utils__title"}>
+                    <strong className={"section-title"}>Purchase Orders</strong>
+                  </div>
+                </Accordion.Toggle>
+                <Accordion.Collapse eventKey={"0"}>
+                  <Card.Body>
+                    <section>
+                      <AllPurchaseOrders
+                        noPurchaseOrder={() => setHasPurchaseOrders(false)}
+                        forRetailer={false}
+                      />
+                    </section>
+                  </Card.Body>
+                </Accordion.Collapse>
+              </Card>
+            </Accordion>
+          </Col>
+        ) : null}
       </Row>
       {preloader ? <Loader message={"Fetching Data"} /> : null}
     </>
