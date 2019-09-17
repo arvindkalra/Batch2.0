@@ -77,6 +77,8 @@ export function createBatchByDistributor(
   batchDetailsNew,
   retailerAddress,
   transporterAddress,
+  purchaseOrderId,
+  orderNumber,
   signCallback
 ) {
   productUnitId = convertFromHex(productUnitId);
@@ -94,7 +96,9 @@ export function createBatchByDistributor(
         productHash,
         batchHash,
         transporterAddress,
-        retailerAddress
+        retailerAddress,
+        purchaseOrderId,
+        orderNumber
       );
     });
 }
@@ -141,6 +145,18 @@ export function sendBatchToTheRetailer(
       hash,
       retailerAddress,
       transporterAddress
+    );
+  });
+}
+
+export function setSalePrice(productUnitId, details, callback) {
+  productUnitId = convertFromHex(productUnitId);
+  return uploadJsonToIPFS(details).then(hash => {
+    return makeDistributorTransaction(
+      callback,
+      "setPrice",
+      productUnitId,
+      hash
     );
   });
 }

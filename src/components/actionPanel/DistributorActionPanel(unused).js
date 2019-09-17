@@ -12,7 +12,7 @@ import { createTransactionModal, fileToString } from "../../helpers";
 import { Card, FormControl } from "react-bootstrap";
 import config from "../../config";
 
-const DistributorActionPanel = ({ left, total, prevDetails }) => {
+const DistributorActionPanelUnused = ({ left, total, prevDetails }) => {
   const [unitsPerPacket, setUnitsPerPacket] = useState(0);
   const [numPackets, setNumPackets] = useState(0);
   const [packetName, setPacketName] = useState("");
@@ -269,4 +269,4 @@ const DistributorActionPanel = ({ left, total, prevDetails }) => {
   );
 };
 
-export default DistributorActionPanel;
+export default DistributorActionPanelUnused;

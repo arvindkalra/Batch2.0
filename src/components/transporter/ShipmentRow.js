@@ -164,7 +164,7 @@ const ShipmentRow = ({
           >
             {value.currentStatus.value === 3
               ? "Dispatch Sample"
-              : "Confirm Delivery"}
+              : "Confirm Sample Delivery"}
           </Button>
         );
 
@@ -176,7 +176,7 @@ const ShipmentRow = ({
           >
             {value.currentStatus.value === 7
               ? "Dispatch Harvest"
-              : "Confirm Delivery"}
+              : "Confirm Harvest Delivery"}
           </Button>
         );
 
@@ -188,7 +188,7 @@ const ShipmentRow = ({
           >
             {value.currentStatus.value === 2
               ? "Dispatch Product"
-              : "Confirm Delivery"}
+              : "Confirm Product Delivery"}
           </Button>
         );
 
@@ -199,8 +199,8 @@ const ShipmentRow = ({
             onClick={handleRetailShipment}
           >
             {value.currentStatus.value === 2
-              ? "Dispatch Product"
-              : "Confirm Delivery"}
+              ? "Dispatch Batch"
+              : "Confirm Batch Delivery"}
           </Button>
         );
 

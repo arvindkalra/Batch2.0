@@ -2,11 +2,7 @@ import React, { useEffect, useState } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import {
-  connectToWeb3,
-  fetchEntireChain,
-  fetchEntireJourney
-} from "../dbController/init";
+import { connectToWeb3, fetchEntireJourney } from "../dbController/init";
 import "../assets/stylesheets/trackProduct.scss";
 import { getFarmerDetails } from "../dbController/farmerRole";
 import { getManufacturerDetails } from "../dbController/manufacturerRole";
@@ -88,7 +84,7 @@ const TrackProduct = ({ location }) => {
         .then(obj => {
           tempJourneyObj.retailer = obj;
           setJourneyObj(tempJourneyObj);
-          setProductImage(tempJourneyObj.retailProductImage);
+          setProductImage(tempJourneyObj.productImage);
           console.log(tempJourneyObj);
           setLoader(false);
         });
@@ -136,7 +132,7 @@ const TrackProduct = ({ location }) => {
                       </li>
                       <li>
                         <strong>Packet Name</strong>
-                        <span>{journeyObj.packetName || "Loading..."}</span>
+                        <span>{journeyObj.productName || "Loading..."}</span>
                       </li>
                       <li>
                         <strong>Product Type</strong>
@@ -190,7 +186,11 @@ const TrackProduct = ({ location }) => {
               </div>
             </Card>
           </Col>
-          <Col md={{ span: 6, offset: 6 }} sm={{span:6, offset: 6}} className={"story-col"}>
+          <Col
+            md={{ span: 6, offset: 6 }}
+            sm={{ span: 6, offset: 6 }}
+            className={"story-col"}
+          >
             <Card>
               <div className={"story-div"}>
                 <h2> Transporter </h2>
@@ -265,7 +265,11 @@ const TrackProduct = ({ location }) => {
               </div>
             </Card>
           </Col>
-          <Col md={{ span: 6, offset: 6 }} sm={{ span: 6, offset: 6 }} className={"story-col"}>
+          <Col
+            md={{ span: 6, offset: 6 }}
+            sm={{ span: 6, offset: 6 }}
+            className={"story-col"}
+          >
             <Card>
               <div className={"story-div"}>
                 <h2> Transporter </h2>
@@ -344,7 +348,11 @@ const TrackProduct = ({ location }) => {
               </div>
             </Card>
           </Col>
-          <Col md={{ span: 6, offset: 6 }} sm={{ span: 6, offset: 6 }} className={"story-col"}>
+          <Col
+            md={{ span: 6, offset: 6 }}
+            sm={{ span: 6, offset: 6 }}
+            className={"story-col"}
+          >
             <Card>
               <div className="story-div">
                 <h2> Transporter </h2>
@@ -420,7 +428,11 @@ const TrackProduct = ({ location }) => {
                     </li>
                     <li>
                       Test Submission Time:{" "}
-                      <span className={"detail"}>{journeyObj.testedOn}</span>
+                      <span className={"detail"}>
+                        {journeyObj.testResults
+                          ? journeyObj.testResults.testedOn
+                          : "Loading..."}
+                      </span>
                     </li>
                     <li>
                       View Report:{" "}
@@ -439,7 +451,11 @@ const TrackProduct = ({ location }) => {
               </div>
             </Card>
           </Col>
-          <Col md={{ span: 6, offset: 6 }} sm={{ span: 6, offset: 6 }} className={"story-col"}>
+          <Col
+            md={{ span: 6, offset: 6 }}
+            sm={{ span: 6, offset: 6 }}
+            className={"story-col"}
+          >
             <Card>
               <div className="story-div">
                 <h2> Transporter </h2>

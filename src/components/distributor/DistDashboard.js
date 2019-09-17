@@ -9,21 +9,21 @@ import { getManufacturerDetails } from "../../dbController/manufacturerRole";
 import AvailableUnitsTable from "./AvailableUnitsTable";
 import Loader from "../Loader";
 import config from "../../config";
+import { Accordion, Card } from "react-bootstrap";
+import AllPurchaseOrders from "../retailer/AllPurchaseOrders";
 
 const DistDashboard = ({ location }) => {
   const [
     availablePackedProductsGraph,
     setAvailablePackedProductsGraph
-  ] = useState({
-    Preroll: 0,
-    Edibles: 0
-  });
+  ] = useState({});
   const [
     availablePackedProductsArray,
     setAvailablePackedProductsArray
   ] = useState([]);
   const [changed, setChanged] = useState(1);
   const [preloader, setPreloader] = useState(true);
+  const [hasPurchaseOrders, setHasPurchaseOrders] = useState(true);
 
   useEffect(() => {
     connectToWeb3().then(() => {
@@ -44,19 +44,20 @@ const DistDashboard = ({ location }) => {
             : 0;
           let left =
             rowObj.details.totalPacketsManufactured - packetsTransferred;
-          if (left > 0 && rowObj.currentState.value === 4) {
+          if (left > 0 && rowObj.currentState.value >= 4) {
             let rowArray = {
               packetUnitId: rowObj.uid,
               manufacturerName: name,
               pendingAmount: left,
-              productType: rowObj.details.productType
+              sellingPrice: rowObj.details.distributorToRetailerPrice,
+              productType: rowObj.details.productName
             };
             tempAvailableArray.push(rowArray);
             setAvailablePackedProductsArray([...tempAvailableArray]);
           }
-          if (rowObj.currentState.value === 4) {
+          if (rowObj.currentState.value >= 4) {
             addToGraphData(
-              rowObj.details.productType,
+              rowObj.details.productName,
               left,
               availablePackedProductsGraph,
               setAvailablePackedProductsGraph,
@@ -93,7 +94,7 @@ const DistDashboard = ({ location }) => {
             <div className={"card-header"}>
               <div className={"utils__title"}>
                 <strong className={"section-title"}>
-                  Available Processed Products
+                  Inventory Product Detail
                 </strong>
               </div>
             </div>
@@ -108,14 +109,35 @@ const DistDashboard = ({ location }) => {
           <section className={"dashboard-section card"}>
             <div className={"card-header"}>
               <div className={"utils__title"}>
-                <strong className={"section-title"}>
-                  Available Processed Products
-                </strong>
+                <strong className={"section-title"}>Inventory Detail</strong>
               </div>
             </div>
             <AvailableUnitsTable array={availablePackedProductsArray} />
           </section>
         </Col>
+        {hasPurchaseOrders ? (
+          <Col md={12}>
+            <Accordion>
+              <Card>
+                <Accordion.Toggle as={Card.Header} variant="link" eventKey="0">
+                  <div className={"utils__title"}>
+                    <strong className={"section-title"}>Purchase Orders</strong>
+                  </div>
+                </Accordion.Toggle>
+                <Accordion.Collapse eventKey={"0"}>
+                  <Card.Body>
+                    <section>
+                      <AllPurchaseOrders
+                        noPurchaseOrder={() => setHasPurchaseOrders(false)}
+                        forRetailer={false}
+                      />
+                    </section>
+                  </Card.Body>
+                </Accordion.Collapse>
+              </Card>
+            </Accordion>
+          </Col>
+        ) : null}
       </Row>
       {preloader ? <Loader message={"Fetching Data"} /> : null}
     </>

@@ -3,7 +3,7 @@
 @import "colors";
 
 * {
-  font-family: "Nunito Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 html {
@@ -14,6 +14,10 @@ html {
   top: 0;
   right: 0;
   z-index: 1;
+}
+
+#root {
+  height: 100vh;
 }
 
 strong {
@@ -62,6 +66,7 @@ main {
       cursor: auto;
     }
   }
+  flex-grow: 1;
 }
 
 .utils__title {
@@ -74,6 +79,9 @@ main {
   padding-left: 0;
   padding-right: 0;
   overflow-x: hidden;
+  height: inherit;
+  display: flex;
+  flex-flow: column;
 }
 
 .uid {
@@ -385,7 +393,7 @@ p.description {
   font-size: rem(30);
   font-weight: 400;
   text-align: left;
-  font-family: "Nunito Sans", sans-serif !important;
+  font-family: "Poppins", sans-serif !important;
 
   a {
     text-decoration: none;
@@ -428,6 +436,9 @@ p.description {
       cursor: pointer;
     }
   }
+}
+button[disabled]{
+  cursor: not-allowed;
 }
 
 @import "responsive";

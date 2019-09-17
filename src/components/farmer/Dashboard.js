@@ -11,15 +11,13 @@ import PieChart2 from "./graphs/dashboard/PieChart2";
 import PieChart3 from "./graphs/dashboard/PieChart3";
 import { getRowsForFarmer } from "../../dbController/farmerRole";
 import { connectToWeb3 } from "../../dbController/init";
-import Notification from "../Notification";
+
 import Button from "react-bootstrap/Button";
-import { Link } from "react-router-dom";
+
 import Loader from "../Loader";
 import Card from "react-bootstrap/Card";
 import Accordion from "react-bootstrap/Accordion";
 import Badge from "react-bootstrap/Badge";
-import PendingReportTable from "../laboratory/PendingReportTable";
-import AlreadyTestedReportTable from "../laboratory/AlreadyTestedReportTable";
 
 const Dashboard = props => {
   const [sownArray, setSownArray] = useState([]);
@@ -276,9 +274,7 @@ const Dashboard = props => {
             </Card>
             <Card>
               <Accordion.Toggle as={Card.Header} variant="link" eventKey="1">
-                <strong className={"utils__title"}>
-                  Harvested Crops{" "}
-                </strong>
+                <strong className={"utils__title"}>Harvested Crops </strong>
               </Accordion.Toggle>
 
               <Accordion.Collapse eventKey="1">
@@ -291,7 +287,7 @@ const Dashboard = props => {
               <Accordion.Toggle as={Card.Header} variant="link" eventKey="2">
                 <strong className={"utils__title"}>
                   Tested Crops{" "}
-                  {numApproved > 0 || numRejected > 0 ? (
+                  {testedArray.length > 0 ? (
                     <Badge variant="success">Test Results Received</Badge>
                   ) : null}
                 </strong>

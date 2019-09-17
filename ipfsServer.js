@@ -7,285 +7,279 @@ const cors = require("cors");
 const Web3 = require("web3");
 const abi = [
   {
-    "constant": false,
-    "inputs": [],
-    "name": "renounceOwnership",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
+    constant: false,
+    inputs: [],
+    name: "renounceOwnership",
+    outputs: [],
+    payable: false,
+    stateMutability: "nonpayable",
+    type: "function"
   },
   {
-    "constant": true,
-    "inputs": [],
-    "name": "owner",
-    "outputs": [
+    constant: true,
+    inputs: [],
+    name: "owner",
+    outputs: [
       {
-        "name": "",
-        "type": "address"
+        name: "",
+        type: "address"
       }
     ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
+    payable: false,
+    stateMutability: "view",
+    type: "function"
   },
   {
-    "constant": true,
-    "inputs": [],
-    "name": "isOwner",
-    "outputs": [
+    constant: true,
+    inputs: [],
+    name: "isOwner",
+    outputs: [
       {
-        "name": "",
-        "type": "bool"
+        name: "",
+        type: "bool"
       }
     ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
+    payable: false,
+    stateMutability: "view",
+    type: "function"
   },
   {
-    "constant": false,
-    "inputs": [
+    constant: false,
+    inputs: [
       {
-        "name": "newOwner",
-        "type": "address"
+        name: "newOwner",
+        type: "address"
       }
     ],
-    "name": "transferOwnership",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
+    name: "transferOwnership",
+    outputs: [],
+    payable: false,
+    stateMutability: "nonpayable",
+    type: "function"
   },
   {
-    "inputs": [
+    inputs: [
       {
-        "name": "storeAddress",
-        "type": "address"
+        name: "storeAddress",
+        type: "address"
       }
     ],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "constructor"
+    payable: false,
+    stateMutability: "nonpayable",
+    type: "constructor"
   },
   {
-    "anonymous": false,
-    "inputs": [
+    anonymous: false,
+    inputs: [
       {
-        "indexed": false,
-        "name": "retailer",
-        "type": "address"
+        indexed: false,
+        name: "purchaseOrderId",
+        type: "uint256"
       },
       {
-        "indexed": false,
-        "name": "distributor",
-        "type": "address"
-      },
-      {
-        "indexed": false,
-        "name": "puid",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "name": "orderID",
-        "type": "uint256"
+        indexed: false,
+        name: "orderNumber",
+        type: "uint256"
       }
     ],
-    "name": "BatchCreated",
-    "type": "event"
+    name: "BatchCreated",
+    type: "event"
   },
   {
-    "anonymous": false,
-    "inputs": [
+    anonymous: false,
+    inputs: [
       {
-        "indexed": true,
-        "name": "oldOwner",
-        "type": "address"
+        indexed: true,
+        name: "oldOwner",
+        type: "address"
       },
       {
-        "indexed": true,
-        "name": "newOwner",
-        "type": "address"
+        indexed: true,
+        name: "newOwner",
+        type: "address"
       }
     ],
-    "name": "TransferOwnership",
-    "type": "event"
+    name: "TransferOwnership",
+    type: "event"
   },
   {
-    "constant": false,
-    "inputs": [
+    constant: false,
+    inputs: [
       {
-        "name": "hash",
-        "type": "string"
+        name: "hash",
+        type: "string"
       }
     ],
-    "name": "setDistributorDetails",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
+    name: "setDistributorDetails",
+    outputs: [],
+    payable: false,
+    stateMutability: "nonpayable",
+    type: "function"
   },
   {
-    "constant": true,
-    "inputs": [
+    constant: true,
+    inputs: [
       {
-        "name": "who",
-        "type": "address"
+        name: "who",
+        type: "address"
       }
     ],
-    "name": "getDistributorDetails",
-    "outputs": [
+    name: "getDistributorDetails",
+    outputs: [
       {
-        "name": "hash",
-        "type": "string"
+        name: "hash",
+        type: "string"
       }
     ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
+    payable: false,
+    stateMutability: "view",
+    type: "function"
   },
   {
-    "constant": true,
-    "inputs": [
+    constant: true,
+    inputs: [
       {
-        "name": "account",
-        "type": "address"
+        name: "account",
+        type: "address"
       }
     ],
-    "name": "isDistributor",
-    "outputs": [
+    name: "isDistributor",
+    outputs: [
       {
-        "name": "",
-        "type": "bool"
+        name: "",
+        type: "bool"
       }
     ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
+    payable: false,
+    stateMutability: "view",
+    type: "function"
   },
   {
-    "constant": false,
-    "inputs": [
+    constant: false,
+    inputs: [
       {
-        "name": "account",
-        "type": "address"
+        name: "account",
+        type: "address"
       }
     ],
-    "name": "addDistributor",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
+    name: "addDistributor",
+    outputs: [],
+    payable: false,
+    stateMutability: "nonpayable",
+    type: "function"
   },
   {
-    "constant": true,
-    "inputs": [],
-    "name": "getProductUnits",
-    "outputs": [
+    constant: true,
+    inputs: [],
+    name: "getProductUnits",
+    outputs: [
       {
-        "name": "puids",
-        "type": "uint256[]"
+        name: "puids",
+        type: "uint256[]"
       }
     ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
+    payable: false,
+    stateMutability: "view",
+    type: "function"
   },
   {
-    "constant": false,
-    "inputs": [
+    constant: false,
+    inputs: [
       {
-        "name": "productUid",
-        "type": "uint256"
+        name: "productUid",
+        type: "uint256"
       },
       {
-        "name": "productHash",
-        "type": "string"
+        name: "productHash",
+        type: "string"
       }
     ],
-    "name": "setPrice",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
+    name: "setPrice",
+    outputs: [],
+    payable: false,
+    stateMutability: "nonpayable",
+    type: "function"
   },
   {
-    "constant": false,
-    "inputs": [
+    constant: false,
+    inputs: [
       {
-        "name": "productUid",
-        "type": "uint256"
+        name: "productUid",
+        type: "uint256"
       },
       {
-        "name": "productHash",
-        "type": "string"
+        name: "productHash",
+        type: "string"
       },
       {
-        "name": "batchHash",
-        "type": "string"
+        name: "batchHash",
+        type: "string"
       },
       {
-        "name": "transporter",
-        "type": "address"
+        name: "transporter",
+        type: "address"
       },
       {
-        "name": "retailer",
-        "type": "address"
+        name: "retailer",
+        type: "address"
       },
       {
-        "name": "orderId",
-        "type": "uint256"
+        name: "purchaseOrderId",
+        type: "uint256"
+      },
+      {
+        name: "orderNumber",
+        type: "uint256"
       }
     ],
-    "name": "createBatch",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
+    name: "createBatch",
+    outputs: [],
+    payable: false,
+    stateMutability: "nonpayable",
+    type: "function"
   },
   {
-    "constant": true,
-    "inputs": [],
-    "name": "getBatchUnits",
-    "outputs": [
+    constant: true,
+    inputs: [],
+    name: "getBatchUnits",
+    outputs: [
       {
-        "name": "buids",
-        "type": "uint256[]"
+        name: "buids",
+        type: "uint256[]"
       }
     ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
+    payable: false,
+    stateMutability: "view",
+    type: "function"
   },
   {
-    "constant": false,
-    "inputs": [
+    constant: false,
+    inputs: [
       {
-        "name": "batchUid",
-        "type": "uint256"
+        name: "batchUid",
+        type: "uint256"
       },
       {
-        "name": "hash",
-        "type": "string"
+        name: "hash",
+        type: "string"
       },
       {
-        "name": "retailer",
-        "type": "address"
+        name: "retailer",
+        type: "address"
       },
       {
-        "name": "transporter",
-        "type": "address"
+        name: "transporter",
+        type: "address"
       }
     ],
-    "name": "sendToRetailer",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
+    name: "sendToRetailer",
+    outputs: [],
+    payable: false,
+    stateMutability: "nonpayable",
+    type: "function"
   }
 ];
-const address = "0x37dcc226761918a4d996213b9ff7a6bf71bf5f45";
+const address = "0xe8ece56214f607dea63282a4085027d7213e6d9e";
 const web3 = new Web3(
   new Web3.providers.HttpProvider("https://testnet2.matic.network/")
 );
@@ -304,7 +298,10 @@ app.use(bodyParser.json());
 let ipfsObject = {};
 let pendingUsers = [];
 let registeredUsers = [];
-let purchaseOrders = {};
+
+let purchaseOrders = [];
+let distributors = {};
+let retailers = {};
 
 function createHash(obj) {
   let data = JSON.stringify(obj);
@@ -331,6 +328,11 @@ headers["Access-Control-Max-Age"] = "86400"; // 24 hours
 headers["Access-Control-Allow-Headers"] =
   "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept";
 
+app.use("/", (req, res, next) => {
+  console.log(req.method, req.url, "\n");
+  next();
+});
+
 app.post("/add", function(req, res) {
   let object = req.body.object;
   console.log(object);
@@ -347,73 +349,102 @@ app.post("/get", function(req, res) {
 });
 
 app.post("/createOrder", function(req, res) {
-  let payload = req.body.payload;
-  let orders = payload.orders;
-  orders.forEach(
-    ({ retailerAddress, distributorAddress, productUnitId, amount }) => {
-      if (!purchaseOrders[distributorAddress])
-        purchaseOrders[distributorAddress] = [];
-      let order = {
-        retailerAddress,
-        productUnitId,
-        amount,
-        currentState: orderStates.pending,
-        orderID: purchaseOrders[distributorAddress].length
-      };
-      purchaseOrders[distributorAddress].push(order);
-    }
-  );
+  let {
+    distributorAddress,
+    retailerAddress,
+    orders,
+    orderDate
+  } = req.body.payload;
+  let purchaseOrderId = purchaseOrders.length;
 
+  let arr = [];
+  orders.forEach(({ productUnitId, amount }) => {
+    let order = {
+      productUnitId,
+      amount,
+      currentState: orderStates.pending,
+      orderNumber: arr.length,
+      orderDate
+    };
+    arr.push(order);
+  });
+  let objToBeAdded = {
+    purchaseOrderId,
+    distributorAddress,
+    retailerAddress,
+    orders: arr
+  };
+  purchaseOrders.push(objToBeAdded);
+  distributors[distributorAddress]
+    ? distributors[distributorAddress].push(purchaseOrderId)
+    : (distributors[distributorAddress] = [purchaseOrderId]);
+  retailers[retailerAddress]
+    ? retailers[retailerAddress].push(purchaseOrderId)
+    : (retailers[retailerAddress] = [purchaseOrderId]);
   res.send({
-    message: "Order Created"
+    message: "Order Created",
+    result: objToBeAdded
   });
 });
 
-function filterArray(array, filters) {
-  return array.filter(
-    ele => filters.findIndex(e => e === ele.currentState) !== -1
-  );
+function filterArray(array, filter) {
+  return array.filter(ele => ele.currentState === orderStates[filter]);
 }
 
-app.post("/getOrders", function(req, res) {
-  let payload = req.body.payload;
-  let { distributorAddress, retailerAddress, filters } = payload;
-  if (purchaseOrders[distributorAddress]) {
-    if (retailerAddress) {
-      let array = purchaseOrders[distributorAddress].filter(
-        x => x.retailerAddress === retailerAddress
-      );
-      res.send({
-        message: "Fetched Orders",
-        array: filters ? filterArray(array, filters) : array
+app.get("/order/get/:query", function(req, res) {
+  let query = req.params.query;
+  let distributor = req.query.address;
+  let puid = req.query.productId;
+  let purchaseOrdersForDistributor = distributors[distributor];
+
+  if (
+    purchaseOrdersForDistributor &&
+    purchaseOrdersForDistributor.length !== 0
+  ) {
+    let arr = [];
+    purchaseOrdersForDistributor.forEach(purchaseOrderId => {
+      let purchaseOrder = purchaseOrders[purchaseOrderId];
+      purchaseOrder.orders.forEach(order => {
+        if (puid && order.productUnitId === puid)
+          arr.push({
+            ...order,
+            distributorAddress: distributor,
+            retailerAddress: purchaseOrder.retailerAddress,
+            purchaseOrderId
+          });
+        else if (!puid)
+          arr.push({
+            ...order,
+            distributorAddress: distributor,
+            retailerAddress: purchaseOrder.retailerAddress,
+            purchaseOrderId
+          });
       });
-    } else {
-      res.send({
-        message: "Fetched Orders",
-        array: filters
-          ? filterArray(purchaseOrders[distributorAddress], filters)
-          : purchaseOrders[distributorAddress]
-      });
-    }
+    });
+    res.send({
+      message: "Found Some for the Distributor, See Result",
+      result: query !== "all" ? filterArray(arr, query) : arr
+    });
   } else {
     res.send({
-      message: "Fetched Orders",
-      array: []
+      message: "Could Not Find Distributor",
+      result: []
     });
   }
 });
 
 app.patch("/editOrder", function(req, res) {
   let payload = req.body.payload;
-  let { orderID, distributorAddress, amount } = payload;
+  let { orderId, retailerAddress, amount, purchaseOrderId } = payload;
   if (
-    purchaseOrders[distributorAddress] &&
-    purchaseOrders[distributorAddress][orderID]
+    purchaseOrders[purchaseOrderId] &&
+    purchaseOrders[purchaseOrderId].retailerAddress === retailerAddress &&
+    purchaseOrders[purchaseOrderId].orders[orderId]
   ) {
-    purchaseOrders[distributorAddress][orderID].amount = amount;
+    purchaseOrders[purchaseOrderId].orders[orderId].amount = amount;
     res.send({
       message: "Order Edited",
-      order: purchaseOrders[distributorAddress][orderID]
+      result: purchaseOrders[purchaseOrderId].orders[orderId]
     });
   } else {
     res.send({
@@ -422,22 +453,43 @@ app.patch("/editOrder", function(req, res) {
   }
 });
 
+app.get("/purchase-order/get", function(req, res) {
+  let purchaseOrderId = req.query.purchaseOrder;
+  purchaseOrders[purchaseOrderId]
+    ? res.send({
+        message: "Purchase Order Found",
+        result: purchaseOrders[purchaseOrderId]
+      })
+    : res.send({
+        message: "Order Not Found",
+        result: {}
+      });
+});
+
 app.post("/completeOrder", function(req, res) {
   let payload = req.body.payload;
   let transactionHash = payload.transactionHash;
+  console.log("hash", transactionHash);
   let contract = new web3.eth.Contract(abi, address);
   contract.getPastEvents("BatchCreated", { fromBlock: 0 }, (err, array) => {
     if (err) throw err;
-    let { returnValues } = array.find(x => {
-      return x.transactionHash === transactionHash;
-    });
-    let distributorAddress = returnValues.distributor;
-    let orderID = returnValues.orderID;
-    if (purchaseOrders[distributorAddress]) {
-      purchaseOrders[distributorAddress][orderID].currentState =
-        orderStates.success;
-      res.send(purchaseOrders[distributorAddress][orderID]);
-    }
+    console.log("array", array);
+    let interval = setInterval(() => {
+      let obj = array.find(x => {
+        return x.transactionHash === transactionHash;
+      });
+      if (!obj) return;
+      clearInterval(interval);
+      let { returnValues } = obj;
+      console.log("rev", returnValues);
+      let purchaseOrderId = returnValues.purchaseOrderId;
+      let orderNumber = returnValues.orderNumber;
+      if (purchaseOrders[purchaseOrderId]) {
+        purchaseOrders[purchaseOrderId].orders[orderNumber].currentState =
+          orderStates.success;
+        res.send(purchaseOrders[purchaseOrderId].orders[orderNumber]);
+      }
+    }, 1000);
   });
 });
 
@@ -460,6 +512,10 @@ app.post("/authenticateUser", function(req, res) {
 
 app.listen(5001, function() {
   console.log("Server Listening on Port 5001");
+  // let contract = new web3.eth.Contract(abi, address);
+  // contract.getPastEvents("BatchCreated", { fromBlock: 0 }, (err, array) => {
+  //   console.log(err, array);
+  // });
   /*contract.events
     .BatchCreated({ fromBlock: 0 }, function(err, event) {
       console.log(err, event);
@@ -470,8 +526,8 @@ app.listen(5001, function() {
       let distributorAddress = event.returnValues.distributor;
       let puid = event.returnValues.puid;
       let orderID = event.returnValues.orderID;
-      if (purchaseOrders[distributorAddress]) {
-        purchaseOrders[distributorAddress][orderID].currentState =
+      if (distributorOrders[distributorAddress]) {
+        distributorOrders[distributorAddress][orderID].currentState =
           orderStates.success;
         console.log("Order Completed", retailerAddress, puid);
       }

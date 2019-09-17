@@ -20,23 +20,23 @@ const RetailProduct = props => {
   const [packetsSold, setPacketsSold] = useState("");
   const [preloader, setPreloader] = useState(true);
   const [retailerDetails, setRetailerDetails] = useState({});
+  const [unusedBatchDetail, setUnusedBatchDetail] = useState({});
 
   useEffect(() => {
-    connectToWeb3().then(txHash => {
+    connectToWeb3().then(() => {
       let puid = props.match.params.id;
       let batchUnit;
       getRetailerDetails().then(setRetailerDetails);
       fetchBatchUnitDetailsUsingUID(puid)
         .then(obj => {
           batchUnit = obj;
-          console.log(batchUnit);
+          setUnusedBatchDetail(batchUnit.details);
           return fetchProductUnitDetailsUsingUID(obj.details.productUnitId);
         })
         .then(productUnit => {
           setBatchId(batchUnit.uid);
           setCurrentState(batchUnit.currentState);
-          let details = batchUnit.details;
-          details.productType = productUnit.details.productType;
+          let details = { ...batchUnit.details, ...productUnit.details };
           setDetails(details);
           let unitsAlreadySold = batchUnit.details.totalUnitsAlreadySold
             ? batchUnit.details.totalUnitsAlreadySold
@@ -54,7 +54,7 @@ const RetailProduct = props => {
         <Row>
           <Col>
             {setBreadcrumb(
-              `/retailer/products/${details.packetName || "Loading Name..."}`
+              `/retailer/products/${details.productName || "Loading Name..."}`
             )}
           </Col>
         </Row>
@@ -70,8 +70,8 @@ const RetailProduct = props => {
                 <Col md={6}>
                   <section className={"product-image-section"}>
                     {details.productType ? (
-                      details.retailProductImage ? (
-                        <img src={details.retailProductImage} alt={""} />
+                      details.productImage ? (
+                        <img src={details.productImage} alt={""} />
                       ) : (
                         <img
                           src={
@@ -142,6 +142,12 @@ const RetailProduct = props => {
                           )}
                         </span>
                       </li>
+                      <li>
+                        <strong>M.R.P.</strong>
+                        <span>
+                          ${details.mrp} / {details.container}
+                        </span>
+                      </li>
                     </ul>
                   </section>
                 </Col>
@@ -184,6 +190,8 @@ const RetailProduct = props => {
                 buid={batchId}
                 left={totalPackets - packetsSold}
                 retailerDetails={retailerDetails}
+                unusedBatchDetail={unusedBatchDetail}
+                history={props.history}
               />
             </Row>
           </Col>

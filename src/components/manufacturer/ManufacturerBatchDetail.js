@@ -137,6 +137,7 @@ const ManufacturerBatchDetail = props => {
               left={batchInfo.amountLeft}
               total={batchInfo.amountHarvested}
               prevDetails={prevDetails}
+              history={props.history}
             />
           ) : (
             <Col md={12}>

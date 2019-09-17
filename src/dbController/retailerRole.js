@@ -8,6 +8,8 @@ import {
   uploadJsonToIPFS
 } from "./init";
 import { OWN_ADDRESS } from "./Web3Connections";
+import { fetchProductUnitsForDistributor } from "./distributorRole";
+import { fetchProductUnitDetailsUsingUID } from "./manufacturerRole";
 
 export function setRetailerDetails(details, callback) {
   return new Promise((resolve, reject) => {
@@ -119,4 +121,24 @@ export function getRowsForRetailer(rowCallbacks) {
   function handleError(err) {
     throw err;
   }
+}
+
+export function fetchRowsForCreatingPurchaseOrder(
+  distributorAddress,
+  callback
+) {
+  makeRetailerTransaction(
+    "call",
+    "getProductUnitsForDistributor",
+    distributorAddress
+  ).then(array => {
+    array = array.valueOf();
+    for (let i = 0; i < array.length; i++) {
+      let val = convertToHex(parseInt(array[i]));
+      fetchProductUnitDetailsUsingUID(val).then(o => callback(o, array.length));
+    }
+    if (array.length === 0) {
+      callback();
+    }
+  });
 }

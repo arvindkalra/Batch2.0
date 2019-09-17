@@ -4,6 +4,8 @@ import Modal from "react-bootstrap/Modal";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
+import config from "./config";
+import { convertFromHex, convertToHex } from "./dbController/init";
 
 String.prototype.captialize = function() {
   let str = this.valueOf();
@@ -159,5 +161,25 @@ export const clearLocal = () => {
   localStorage.setItem("profileImage", null);
 };
 
+export const makeXHR = (method, route, object) => {
+  let url = `${config.PURCHASE_ORDER_SERVER}/${route}`;
+  let body = {
+    payload: object
+  };
+  return fetch(url, {
+    method,
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: object ? JSON.stringify(body) : null
+  }).then(response => response.json());
+};
 
+export const createPurchaseOrderId = (purchaseOrderId, orderNumber) => {
+  return `${convertToHex(purchaseOrderId)}|${orderNumber}`;
+};
 
+export const parsePurchaseOrderId = purchaseId => {
+  let arr = purchaseId.split("|");
+  return [convertFromHex(arr[0]), parseInt(arr[1])];
+};
