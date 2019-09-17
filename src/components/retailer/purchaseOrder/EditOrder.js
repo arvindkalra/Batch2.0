@@ -4,12 +4,13 @@ import Col from "react-bootstrap/Col";
 import { makeXHR, setBreadcrumb } from "../../../helpers";
 import Row from "react-bootstrap/Row";
 import { connectToWeb3, convertFromHex } from "../../../dbController/init";
-import { Table } from "react-bootstrap";
+import {Card, Form, Table} from "react-bootstrap";
 import { fetchRowsForCreatingPurchaseOrder } from "../../../dbController/retailerRole";
 import { getDistributorDetails } from "../../../dbController/distributorRole";
+import EditRow from "./EditRow";
 
 const EditOrder = ({ history, location, match }) => {
-  const [orderList, setOrderList] = useState([]);
+  const [orderList, setOrderList] = useState({orders:[]});
 
   const orderId = match.params.id;
   useEffect(() => {
@@ -44,6 +45,8 @@ const EditOrder = ({ history, location, match }) => {
                 : 0;
               x.availableUnits =
                 row.details.totalPacketsManufactured - oldUnitsUsed;
+              x.price = row.details.distributorToRetailerPrice
+                x.productName = row.details.productName
 
               if (totalFetched === total) {
                 setOrderList(result);
@@ -67,6 +70,9 @@ const EditOrder = ({ history, location, match }) => {
       <Row>
         <Col>
           <section className={"table-section card"}>
+              <Card.Header>
+                  <strong className={"utils__title"}>Edit Purchase Order</strong>
+              </Card.Header>
             <Table>
               <thead>
                 <tr>
@@ -79,6 +85,13 @@ const EditOrder = ({ history, location, match }) => {
                   <th>Total</th>
                 </tr>
               </thead>
+
+                <tbody>
+                {orderList.orders.map((order,index) => {
+                    return(<EditRow key={index} order={order} index={index} distributorName={orderList.distributorName} />)
+                })}
+
+                </tbody>
             </Table>
           </section>
         </Col>

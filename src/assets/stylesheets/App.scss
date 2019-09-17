@@ -437,5 +437,8 @@ p.description {
     }
   }
 }
+button[disabled]{
+  cursor: not-allowed;
+}
 
 @import "responsive";
