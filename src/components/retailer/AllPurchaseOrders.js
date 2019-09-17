@@ -101,11 +101,15 @@ const AllPurchaseOrders = ({ noPurchaseOrder, forRetailer }) => {
             return (
               <tr key={idx}>
                 <td>
-                  <span className={"under-linked"}>
-                    <Link to={`/retailer/order/${element.purchaseOrderId}`}>
-                      {element.purchaseOrderId}
-                    </Link>
-                  </span>
+                  {forRetailer ? (
+                    <span className={"under-linked"}>
+                      <Link to={`/retailer/order/${element.purchaseOrderId}`}>
+                        {element.purchaseOrderId}
+                      </Link>
+                    </span>
+                  ) : (
+                    element.purchaseOrderId
+                  )}
                 </td>
                 <td>{element.numOrders}</td>
                 <td>{element.orderTime}</td>

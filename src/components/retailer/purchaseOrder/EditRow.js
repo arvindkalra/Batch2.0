@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Form, FormControl } from "react-bootstrap";
+import { Button, Col, Form, FormControl } from "react-bootstrap";
 import { makeXHR, parsePurchaseOrderId } from "../../../helpers";
 import { connectToWeb3 } from "../../../dbController/init";
 import { OWN_ADDRESS } from "../../../dbController/Web3Connections";
@@ -14,6 +14,7 @@ const EditRow = ({ index, order, distributorName }) => {
   const [isInvalid, setIsInvalid] = useState(false);
 
   const handleUpdate = e => {
+    setUpdateBtnDisabled(true);
     makeUpdateRequest({ url: order.url, amount }).then(() => {
       window.location.reload();
     });
@@ -64,27 +65,34 @@ const EditRow = ({ index, order, distributorName }) => {
       <td>{distributorName}</td>
       <td>
         <Form.Group>
-          <Form.Control
-            type={"number"}
-            value={amount}
-            onChange={handleChange}
-            disabled={disabled}
-            isInvalid={isInvalid}
-          />
-          <FormControl.Feedback type={"invalid"}>
-            <strong>Amount cant exceed available quantity</strong>
-          </FormControl.Feedback>
-          <Button
-            onClick={() => {
-              setDisabled(false);
-            }}
-          >
-            Edit
-          </Button>
-
-          <Button disabled={updateBtnDisabled} onClick={handleUpdate}>
-            Update
-          </Button>
+          <Form.Row>
+            <Col md={9}>
+              <Form.Control
+                type={"number"}
+                value={amount}
+                onChange={handleChange}
+                disabled={disabled}
+                isInvalid={isInvalid}
+              />
+              <FormControl.Feedback type={"invalid"}>
+                <strong>Amount cant exceed available quantity</strong>
+              </FormControl.Feedback>
+            </Col>
+            <Col md={1}>
+              <Button
+                onClick={() => {
+                  setDisabled(false);
+                }}
+              >
+                Edit
+              </Button>
+            </Col>
+            <Col md={2}>
+              <Button disabled={updateBtnDisabled} onClick={handleUpdate}>
+                Update
+              </Button>
+            </Col>
+          </Form.Row>
         </Form.Group>
         {/*{order.amount}*/}
       </td>
