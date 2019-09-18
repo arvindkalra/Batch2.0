@@ -47,6 +47,7 @@ export const createTransactionModal = ({
 }) => {
   return (
     <Modal
+        size={'lg'}
       show={showModal}
       onHide={() => {
         cancel();
