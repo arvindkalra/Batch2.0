@@ -108,7 +108,11 @@ const AllPurchaseOrders = ({ noPurchaseOrder, forRetailer }) => {
                       </Link>
                     </span>
                   ) : (
-                    element.purchaseOrderId
+                      <span className={'under-linked'}>
+                      <Link to={`/distributor/order/${element.purchaseOrderId}`}>
+                    {element.purchaseOrderId}
+                      </Link>
+                          </span>
                   )}
                 </td>
                 <td>{element.numOrders}</td>

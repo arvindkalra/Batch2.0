@@ -27,7 +27,7 @@ const Distributor = ({location, history, userRole}) => {
 
     return (
         <Layout profileImage={profileImage} userName={userName} location={location} history={history}>
-            <DistDashboard location={location}/>
+            <DistDashboard location={location} history={history}/>
 
         </Layout>
     );

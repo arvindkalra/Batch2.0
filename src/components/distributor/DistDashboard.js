@@ -11,8 +11,9 @@ import Loader from "../Loader";
 import config from "../../config";
 import { Accordion, Card } from "react-bootstrap";
 import AllPurchaseOrders from "../retailer/AllPurchaseOrders";
+import Button from "react-bootstrap/Button";
 
-const DistDashboard = ({ location }) => {
+const DistDashboard = ({ location, history }) => {
   const [
     availablePackedProductsGraph,
     setAvailablePackedProductsGraph
@@ -122,7 +123,9 @@ const DistDashboard = ({ location }) => {
                 <Accordion.Toggle as={Card.Header} variant="link" eventKey="0">
                   <div className={"utils__title"}>
                     <strong className={"section-title"}>Purchase Orders</strong>
+
                   </div>
+
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey={"0"}>
                   <Card.Body>

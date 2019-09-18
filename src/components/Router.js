@@ -19,6 +19,7 @@ import DistributorProductDetail from "./distributor/DistributorProductDetail";
 import NewProduct from "./farmer/NewProduct";
 import CreateOrder from "./retailer/purchaseOrder/CreateOrder";
 import EditOrder from "./retailer/purchaseOrder/EditOrder";
+import PurchaseOrder from "./distributor/PurchaseOrder";
 
 const AppRouter = () => {
 
@@ -63,6 +64,7 @@ const AppRouter = () => {
                        render={props => <Distributor {...props} userRole={'distributor'}/>}/>
                 <Route exact path={'/distributor/product/:buid'} component={DistributorProductDetail}/>
                 <Route exact path={'/distributor/about'} component={About}/>
+                <Route exact path={'/distributor/order/:id'} component={PurchaseOrder} />
 
 
 
