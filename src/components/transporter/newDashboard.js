@@ -84,7 +84,7 @@ const NewDashboard = ({ location }) => {
                   tempPendingShipments.push(rowObj);
                 }
                 setPendingShipments(tempPendingShipments);
-                setTableArray(tempPendingShipments);
+                setTableArray([...tempPendingShipments]);
                 setDeliveredShipments(tempDeliveredShipments);
                 setDispatchedShipments(tempDispatchedShipments);
                 setHarvestShipments([...tempHarvestShipments]);
@@ -132,7 +132,7 @@ const NewDashboard = ({ location }) => {
               tempDeliveredShipments.push(rowObj);
             }
             setPendingShipments(tempPendingShipments);
-            setTableArray(tempPendingShipments);
+            setTableArray([...tempPendingShipments]);
             setDeliveredShipments(tempDeliveredShipments);
             setDispatchedShipments(tempDispatchedShipments);
             setSampleShipment([...tempSampleShipments]);
@@ -177,7 +177,7 @@ const NewDashboard = ({ location }) => {
                 tempDeliveredShipments.push(rowObj);
               }
               setPendingShipments(tempPendingShipments);
-              setTableArray(tempPendingShipments);
+              setTableArray([...tempPendingShipments]);
               setDeliveredShipments(tempDeliveredShipments);
               setDispatchedShipments(tempDispatchedShipments);
               setPackagedShipments([...tempPackagedShipment]);
@@ -225,7 +225,7 @@ const NewDashboard = ({ location }) => {
               tempDeliveredShipments.push(rowObj);
             }
             setPendingShipments(tempPendingShipments);
-            setTableArray(tempPendingShipments);
+            setTableArray([...tempPendingShipments]);
             setDeliveredShipments(tempDeliveredShipments);
             setDispatchedShipments(tempDispatchedShipments);
             setRetailShipments([...tempRetailShipments]);
@@ -251,6 +251,7 @@ const NewDashboard = ({ location }) => {
               <li
                 className={buttonStates.first ? "active" : null}
                 onClick={() => {
+                  console.log(pendingShipments);
                   setTableArray(pendingShipments);
                   setTableType("pending");
                   setButtonStates({
@@ -266,6 +267,7 @@ const NewDashboard = ({ location }) => {
               <li
                 className={buttonStates.second ? "active" : null}
                 onClick={() => {
+                  console.log(dispatchedShipments);
                   setTableArray(dispatchedShipments);
                   setTableType("dispatched");
                   setButtonStates({
@@ -280,6 +282,7 @@ const NewDashboard = ({ location }) => {
               <li
                 className={buttonStates.third ? "active" : null}
                 onClick={() => {
+                  console.log(deliveredShipments);
                   setTableArray(deliveredShipments);
                   setTableType("delivered");
                   setButtonStates({

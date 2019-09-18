@@ -12,19 +12,28 @@ const ShipmentTable = ({
   tableType
 }) => {
   const [viewableArray, setViewableArray] = useState([]);
+  const [showSort, setShowSort] = useState(false);
 
   useEffect(() => {
     let sortFunction = createSortFunction("dispatchTime", "string");
     let temp = array;
-    temp.sort(sortFunction);
-    setViewableArray([...temp]);
+    if (array.length > 0 && array[0]["dispatchTime"] === undefined) {
+      setViewableArray([...temp]);
+    } else {
+      temp.sort(sortFunction);
+      setViewableArray([...temp]);
+      setShowSort(temp.length > 2);
+    }
   }, [array]);
 
   const sort = e => {
     let val = e.target.value;
     let isInc = val === "true";
-    let sortFunction = createSortFunction("dispatchTime", "string", isInc);
     let temp = array;
+    if (temp[0]["dispatchTime"] === undefined) {
+      return;
+    }
+    let sortFunction = createSortFunction("dispatchTime", "string", isInc);
     temp.sort(sortFunction);
     setViewableArray([...temp]);
   };
@@ -32,7 +41,7 @@ const ShipmentTable = ({
   return (
     <>
       <Row>
-        {array.length > 2 ? (
+        {showSort ? (
           <Col md={12}>
             <Form.Group>
               <Form.Label>Sort Order</Form.Label>
