@@ -184,3 +184,34 @@ export const parsePurchaseOrderId = purchaseId => {
   let arr = purchaseId.split("|");
   return [convertFromHex(arr[0]), parseInt(arr[1])];
 };
+
+export function createSortFunction(keyName, type, inc) {
+  let keySplit = keyName.split(".");
+  let obj1 = {
+    number: (a, b) => {
+      return !inc
+        ? b[keySplit[0]] - a[keySplit[0]]
+        : a[keySplit[0]] - b[keySplit[0]];
+    },
+    string: (a, b) => {
+      return !inc
+        ? b[keySplit[0]].localeCompare(a[keySplit[0]])
+        : a[keySplit[0]].localeCompare(b[keySplit[0]]);
+    }
+  };
+  let obj2 = {
+    number: (a, b) => {
+      return !inc
+        ? b[keySplit[0]][keySplit[1]] - a[keySplit[0]][keySplit[1]]
+        : a[keySplit[0]][keySplit[1]] - b[keySplit[0]][keySplit[1]];
+    },
+    string: (a, b) => {
+      return !inc
+        ? b[keySplit[0]][keySplit[1]].localeCompare(a[keySplit[0]][keySplit[1]])
+        : a[keySplit[0]][keySplit[1]].localeCompare(
+            b[keySplit[0]][keySplit[1]]
+          );
+    }
+  };
+  return keySplit.length === 1 ? obj1[type] : obj2[type];
+}
