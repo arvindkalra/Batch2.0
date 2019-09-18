@@ -26,16 +26,19 @@ const AvailableRawMaterialTable = ({ array }) => {
   return (
     <>
       <Row>
-        <Col md={12}>
-          <Form.Group>
-            <Form.Label>Sort By</Form.Label>
-            <Form.Control as={"select"} onChange={sort}>
-              <option value={"harvestUnitId|number"}>ID</option>
-              <option value={"plantName|string"}>Plant Name</option>
-              <option value={"pendingAmount|number"}>Pending Amount</option>
-            </Form.Control>
-          </Form.Group>
-        </Col>
+        {array.length > 2 ? (
+          <Col md={12}>
+            <Form.Group>
+              <Form.Label>Sort By</Form.Label>
+              <Form.Control as={"select"} onChange={sort}>
+                <option value={"harvestUnitId|number"}>ID</option>
+                <option value={"plantName|string"}>Plant Name</option>
+                <option value={"pendingAmount|number"}>Pending Amount</option>
+              </Form.Control>
+            </Form.Group>
+          </Col>
+        ) : null}
+
         <Col md={12}>
           <Table>
             <thead>

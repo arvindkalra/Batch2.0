@@ -14,18 +14,18 @@ const ShipmentTable = ({
   const [viewableArray, setViewableArray] = useState([]);
 
   useEffect(() => {
-    let sortFunction = createSortFunction("uid", "number");
+    let sortFunction = createSortFunction("dispatchTime", "string");
     let temp = array;
     temp.sort(sortFunction);
     setViewableArray([...temp]);
   }, [array]);
 
   const sort = e => {
-    let [key, type] = e.target.value.split("|");
-    let sortFunction = createSortFunction(key, type);
-    let temp = viewableArray;
+    let val = e.target.value;
+    let isInc = val === "true";
+    let sortFunction = createSortFunction("dispatchTime", "string", isInc);
+    let temp = array;
     temp.sort(sortFunction);
-    console.log(temp);
     setViewableArray([...temp]);
   };
 
@@ -35,10 +35,10 @@ const ShipmentTable = ({
         {array.length > 2 ? (
           <Col md={12}>
             <Form.Group>
-              <Form.Label>Sort By</Form.Label>
+              <Form.Label>Sort Order</Form.Label>
               <Form.Control as={"select"} onChange={sort}>
-                <option value={"uid|number"}>ID</option>
-                <option value={"dispatchTime|string"}>Dispatch Time</option>
+                <option value={"false"}>Latest First</option>
+                <option value={"true"}>Oldest First</option>
               </Form.Control>
             </Form.Group>
           </Col>
@@ -63,6 +63,7 @@ const ShipmentTable = ({
                 viewableArray.map((element, id) => {
                   return (
                     <ShipmentRow
+                      index={id}
                       transporterDetails={transporterDetails}
                       tableType={tableType}
                       setTransactionMining={setTransactionMining}

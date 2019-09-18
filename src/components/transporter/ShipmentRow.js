@@ -9,7 +9,7 @@ import {
   dispatchFarmToFactoryConsignment,
   dispatchLabSampleConsignment
 } from "../../dbController/transporterRole";
-import { checkMined } from "../../dbController/init";
+import { checkMined, convertToHex } from "../../dbController/init";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Manifesto from "./Manifesto";
@@ -18,6 +18,7 @@ import ProgressBar from "react-bootstrap/ProgressBar";
 import config from "../../config";
 
 const ShipmentRow = ({
+  index,
   value,
   rowObj,
   shipmentType,
@@ -212,7 +213,7 @@ const ShipmentRow = ({
   return (
     <>
       <tr>
-        <td className={"uid"}>{value.uid}</td>
+        <td className={"uid"}>{convertToHex(index + 1)}</td>
         <td>{value.senderCompany.name}</td>
         <td>{value.receiverCompany.name}</td>
         <td>{value.dispatchTime ? value.dispatchTime : "--"}</td>
