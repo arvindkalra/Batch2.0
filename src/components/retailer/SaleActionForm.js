@@ -39,7 +39,7 @@ const SaleActionForm = ({
   const [sellingPrice, setSellingPrice] = useState(details.mrp);
   const [consumerName, setConsumerName] = useState("");
   const [license, setLicense] = useState("");
-  const [buyerDetails, setBuyerDetails] = useState("");
+  const [buyerDetails, setBuyerDetails] = useState(null);
   const [transactionMining, setTransactionMining] = useState(false);
   const [transactionObject, setTransactionObject] = useState(null);
   const [formValidity, setFormValidity] = useState(true);
@@ -175,46 +175,10 @@ const SaleActionForm = ({
 
   return (
     <>
-      <Col md={12}>
-        <Card>
-          <div className={"card-header action-panel-head"}>
-            <div className="utils__title ">
-              <strong className="text-uppercase">Search Consumer</strong>
-            </div>
-          </div>
-          <Row>
-            <Col md={12}>
-              <Form.Group controlId={"buyer"}>
-                <Form.Label>Consumer Address</Form.Label>
-                <Form.Row>
-                  <Col md={9}>
-                    <Form.Control
-                      type={"text"}
-                      placeholder={"Enter the Consumer's ethereum address"}
-                      onChange={e => {
-                        setBuyerAddress(e.target.value);
-                      }}
-                      isInvalid={
-                        clicked ? !isEthereumAddress(buyerAddress) : false
-                      }
-                    />
-                    <FormControl.Feedback type={"invalid"}>
-                      <strong>Required</strong> : Enter a valid ethereum address
-                      of consumer
-                    </FormControl.Feedback>
-                  </Col>
-                  <Col>
-                    <Button onClick={fetchDetails}>
-                      Fetch Consumer Details
-                    </Button>
-                  </Col>
-                </Form.Row>
-              </Form.Group>
-            </Col>
-          </Row>
-        </Card>
-      </Col>
-
+      {/*{showFullForm ? (*/}
+      {/*  <></>*/}
+      {/*) : (*/}
+      {/*)}*/}
       {showFullForm ? (
         <>
           <Col md={5}>
@@ -328,7 +292,47 @@ const SaleActionForm = ({
             />
           </Col>
         </>
-      ) : null}
+      ) : (
+        <Col md={12}>
+          <Card>
+            <div className={"card-header action-panel-head"}>
+              <div className="utils__title ">
+                <strong className="text-uppercase">Search Consumer</strong>
+              </div>
+            </div>
+            <Row>
+              <Col md={12}>
+                <Form.Group controlId={"buyer"}>
+                  <Form.Label>Consumer Address</Form.Label>
+                  <Form.Row>
+                    <Col md={9}>
+                      <Form.Control
+                        type={"text"}
+                        placeholder={"Enter the Consumer's ethereum address"}
+                        onChange={e => {
+                          setBuyerAddress(e.target.value);
+                        }}
+                        isInvalid={
+                          clicked ? !isEthereumAddress(buyerAddress) : false
+                        }
+                      />
+                      <FormControl.Feedback type={"invalid"}>
+                        <strong>Required</strong> : Enter a valid ethereum
+                        address of consumer
+                      </FormControl.Feedback>
+                    </Col>
+                    <Col>
+                      <Button onClick={fetchDetails}>
+                        Fetch Consumer Details
+                      </Button>
+                    </Col>
+                  </Form.Row>
+                </Form.Group>
+              </Col>
+            </Row>
+          </Card>
+        </Col>
+      )}
       {transactionMining ? <Loader /> : null}
       {transactionObject ? createTransactionModal(transactionObject) : null}
     </>
