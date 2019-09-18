@@ -6,11 +6,18 @@ import { Col, Form, Row } from "react-bootstrap";
 import { createSortFunction } from "../../helpers";
 
 const AvailableRawMaterialTable = ({ array }) => {
-  const [viewableArray, setViewableArray] = useState(array);
-  const change = e => {
-    let key = e.target.value;
-    let x = {};
-    let sortFunction = createSortFunction(key);
+  const [viewableArray, setViewableArray] = useState([]);
+
+  useEffect(() => {
+    let sortFunction = createSortFunction("harvestUnitId", "number");
+    let temp = array;
+    temp.sort(sortFunction);
+    setViewableArray([...temp]);
+  }, [array]);
+
+  const sort = e => {
+    let [key, type] = e.target.value.split("|");
+    let sortFunction = createSortFunction(key, type);
     let temp = viewableArray;
     temp.sort(sortFunction);
     setViewableArray([...temp]);
@@ -22,10 +29,10 @@ const AvailableRawMaterialTable = ({ array }) => {
         <Col md={12}>
           <Form.Group>
             <Form.Label>Sort By</Form.Label>
-            <Form.Control as={"select"} onChange={change}>
-              <option value={"harvestUnitId"}>ID</option>
-              <option value={"plantName"}>Plant Name</option>
-              <option value={"pendingAmount"}>Pending Amount</option>
+            <Form.Control as={"select"} onChange={sort}>
+              <option value={"harvestUnitId|number"}>ID</option>
+              <option value={"plantName|string"}>Plant Name</option>
+              <option value={"pendingAmount|number"}>Pending Amount</option>
             </Form.Control>
           </Form.Group>
         </Col>
