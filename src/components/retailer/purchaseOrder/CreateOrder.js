@@ -113,6 +113,7 @@ const CreateOrder = ({location, history}) => {
                             <Row>
                                 <Col md={12} className={"text-right"}>
                                     <Button
+                                        disabled={grandTotal ===0}
                                         onClick={() => {
                                             if (
                                                 productList.filter(product => {
