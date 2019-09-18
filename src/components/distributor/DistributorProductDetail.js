@@ -187,7 +187,7 @@ const DistributorProductDetail = props => {
                         </span>
                       </li>
                       <li>
-                        <strong>Date of Packaging</strong>
+                        <strong>Packed on</strong>
                         <span>{productInfo.packedOn || "Loading..."}</span>
                       </li>
                       <li>
@@ -195,17 +195,22 @@ const DistributorProductDetail = props => {
                         <span>{productInfo.container || "Loading..."}</span>
                       </li>
                       <li>
-                        <strong>Bought {productInfo.container} Count</strong>
+                        <strong>Containers Received</strong>
                         <span>
                           {productInfo.totalPacketsManufactured
-                            ? `${productInfo.totalPacketsManufactured} Units`
+                            ? `${productInfo.totalPacketsManufactured} Containers`
                             : "Loading..."}
                         </span>
                       </li>
                       <li>
+                        <strong> Product Type</strong>
+                        <span>
+                          {productInfo.productType}
+                        </span>
+                      </li>
+                      <li>
                         <strong>
-                          {productInfo.productType} Count in Each{" "}
-                          {productInfo.container}
+                          Units in each Container
                         </strong>
                         <span>
                           {productInfo.unitsPerPacket
@@ -231,7 +236,7 @@ const DistributorProductDetail = props => {
                       </li>
                       {productInfo.distributorToRetailerPrice ? (
                         <li>
-                          <strong>Sale Price</strong>
+                          <strong>Selling Price</strong>
                           <span>
                             {`$${productInfo.distributorToRetailerPrice} / ${productInfo.container}`}
                           </span>
@@ -282,7 +287,7 @@ const DistributorProductDetail = props => {
                   <div className={"card-header"}>
                     <div className="utils__title ">
                       <strong className="text-uppercase ">
-                        {productInfo.container} Available for Sale
+                        Containers Available for Sale
                       </strong>
                     </div>
                   </div>
@@ -294,7 +299,7 @@ const DistributorProductDetail = props => {
                       100
                     ).toFixed(2)}
                     label={`${productInfo.totalPacketsManufactured -
-                      productInfo.alreadyUsed} Units`}
+                      productInfo.alreadyUsed} Containers`}
                     striped
                   />
                 </Col>

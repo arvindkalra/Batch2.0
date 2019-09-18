@@ -107,9 +107,9 @@ const PurchaseOrder = ({history, location, match}) => {
                                                 <th>Product Name</th>
 
                                                 <th>Ordered Quantity</th>
-                                                <th>Available</th>
+                                                <th>Available Quantity</th>
                                                 <th>Price( $ x.xx / unit)</th>
-                                                <th>Total</th>
+                                                <th>Total($)</th>
                                                 <th>Action</th>
                                             </tr>
                                             </thead>

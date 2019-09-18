@@ -95,7 +95,7 @@ const DistDashboard = ({ location, history }) => {
             <div className={"card-header"}>
               <div className={"utils__title"}>
                 <strong className={"section-title"}>
-                  Inventory Product Detail
+                  Stock Status
                 </strong>
               </div>
             </div>

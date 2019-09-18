@@ -89,7 +89,7 @@ const EditOrder = ({ history, location, match }) => {
                     <th>Product Name</th>
                     <th>Distributor</th>
                     <th>Quantity</th>
-                    <th>Available</th>
+                    <th>Available Units</th>
                     <th>Price( $ x.xx / unit)</th>
                     <th>Total</th>
                   </tr>

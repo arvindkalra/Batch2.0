@@ -221,7 +221,7 @@ const SaleActionForm = ({
             <Card>
               <div className={"card-header action-panel-head"}>
                 <div className="utils__title ">
-                  <strong className="text-uppercase">Sale Form</strong>
+                  <strong className="text-uppercase">Enter Sale Details</strong>
                 </div>
               </div>
               {registered ? (
@@ -309,7 +309,7 @@ const SaleActionForm = ({
                             registered ? sellToRegistered : sellToNewConsumer
                           }
                         >
-                          Sell Product
+                          Confirm Sale
                         </Button>
                       </Col>
                     </Row>

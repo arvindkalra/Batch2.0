@@ -1,5 +1,5 @@
 @import '../mixins.scss';
-
+@import '../../colors';
 /////////////////////////////////////////////////////////////////////////////////////////
 /*  CORE COMPONENTS & UTILITIES */
 
@@ -111,5 +111,14 @@
     .ant-table-body {
       overflow-x: auto !important;
     }
+  }
+}
+
+
+.status-success{
+  color: $success;
+  ::before{
+    content: "✓";
+    margin-right: rem(4);
   }
 }

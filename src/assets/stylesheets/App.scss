@@ -1,6 +1,6 @@
+@import "colors";
 @import "utils";
 @import "./themeUI/mixins";
-@import "colors";
 
 * {
   font-family: "Poppins", sans-serif;
@@ -440,5 +440,29 @@ p.description {
 button[disabled]{
   cursor: not-allowed;
 }
+
+.product-details-section {
+  padding-top: 30px;
+  border-bottom: 2px solid $grey;
+
+  //text-align: center;
+  .product-info{
+    height: 100%;
+    ul{
+      height: 100%;
+      margin-top: rem(10);
+      line-height: 1.6;
+      @extend .vertical-centered-list;
+      font-size: rem(18);
+      span{
+        margin-left:rem(10) ;
+      }
+    }
+  }
+}
+
+
+
+
 
 @import "responsive";

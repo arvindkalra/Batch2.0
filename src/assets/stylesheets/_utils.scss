@@ -108,6 +108,14 @@ a{
   float: right;
 }
 
+.status-success{
+  color: $success;
+  &::before{
+    content: "✓";
+    margin-right: rem(4);
+  }
+}
+
 
 // Font Size
 $base__font-size: 13 !default;

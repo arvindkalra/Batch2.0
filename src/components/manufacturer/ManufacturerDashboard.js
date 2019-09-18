@@ -117,12 +117,12 @@ const ManufacturerDashboard = ({ location }) => {
           <section className="dashboard-section card">
             <div className={"card-header"}>
               <div className={"utils__title"}>
-                <strong>Available Raw Material</strong>
+                <strong>Stock Status</strong>
               </div>
             </div>
             <BarGraph
               ObjectToShow={availableGraphData}
-              label={"Available Pounds"}
+              label={"Pounds"}
             />
           </section>
         </Col>
@@ -131,7 +131,7 @@ const ManufacturerDashboard = ({ location }) => {
             <div className={"card-header"}>
               <div className={"utils__title"}>
                 <strong className={"section-title"}>
-                  Available Raw Material
+                  Raw Material in Inventory
                 </strong>
               </div>
             </div>
@@ -146,7 +146,7 @@ const ManufacturerDashboard = ({ location }) => {
           <section className={"dashboard-section card"}>
             <div className={"card-header"}>
               <div className={"utils__title"}>
-                <strong className={"section-title"}>Created Packets</strong>
+                <strong className={"section-title"}>Processed Products in Inventory</strong>
               </div>
             </div>
             <ManufacturedPacketsTable
@@ -163,7 +163,7 @@ const ManufacturerDashboard = ({ location }) => {
             <div className={"card-header"}>
               <div className={"utils__title"}>
                 <strong className={"section-title"}>
-                  Products Manufactured in 2018-19
+                  Products Manufactured in 2019
                 </strong>
               </div>
             </div>

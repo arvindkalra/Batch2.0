@@ -136,7 +136,7 @@ const ManufacturedPacketsTable = ({
               <Row>
                 <Col md={4}>
                   <Form.Group>
-                    <Form.Label>Cost To Company ( $x.xx / Pound )</Form.Label>
+                    <Form.Label>Cost Price ( $x.xx / Pound )</Form.Label>
                     <Form.Control
                       type={"number"}
                       value={showModal.pricePerUnits}
@@ -146,7 +146,7 @@ const ManufacturedPacketsTable = ({
                 </Col>
                 <Col md={4}>
                   <Form.Label>
-                    Total ( $x.xx for {showModal.materialUsed} Pounds)
+                    Total Cost Price ( $x.xx for {showModal.materialUsed} Pounds)
                   </Form.Label>
                   <Form.Control
                     type={"number"}
@@ -217,8 +217,8 @@ const ManufacturedPacketsTable = ({
                     setDistributorName(e.target.value);
                   }}
                 >
-                  <option value={"Distributor A"}>Distributor A</option>
-                  <option value={"Distributor B"}>Distributor B</option>
+                  <option value={"Declan McVee"}>Declan McVee</option>
+
                 </Form.Control>
               </Form.Group>
             </Col>
@@ -231,8 +231,8 @@ const ManufacturedPacketsTable = ({
                     setTransporterName(e.target.value);
                   }}
                 >
-                  <option value={"Transporter A"}>Transporter A</option>
-                  <option value={"Transporter B"}>Transporter B</option>
+                  <option value={"Kiran Kamal"}>Kiran Kamal</option>
+
                 </Form.Control>
               </Form.Group>
             </Col>

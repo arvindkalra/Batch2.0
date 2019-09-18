@@ -212,21 +212,3 @@ $min-height: 400px;
   }
 }
 
-.product-details-section {
-  padding-top: 30px;
-  border-bottom: 2px solid $grey;
-
-  //text-align: center;
-  .product-info{
-    height: 100%;
-    ul{
-      height: 100%;
-      margin-top: rem(10);
-      @extend .vertical-centered-list;
-      font-size: rem(30);
-      span{
-        margin-left:rem(10) ;
-      }
-    }
-  }
-}

@@ -3,8 +3,9 @@ import { Button, Col, Form, FormControl } from "react-bootstrap";
 import { makeXHR, parsePurchaseOrderId } from "../../../helpers";
 import { connectToWeb3 } from "../../../dbController/init";
 import { OWN_ADDRESS } from "../../../dbController/Web3Connections";
-
+import '../../../assets/stylesheets/App.scss'
 const EditRow = ({ index, order, distributorName }) => {
+  console.log(order)
   const [total, setTotal] = useState(
     parseFloat(order.amount) * parseFloat(order.price)
   );
@@ -69,6 +70,7 @@ const EditRow = ({ index, order, distributorName }) => {
             <Col md={9}>
               <Form.Control
                 type={"number"}
+                placeholder={'Enter a new quantity '}
                 value={amount}
                 onChange={handleChange}
                 disabled={disabled}
@@ -78,7 +80,9 @@ const EditRow = ({ index, order, distributorName }) => {
                 <strong>Amount cant exceed available quantity</strong>
               </FormControl.Feedback>
             </Col>
+            {order.currentState !== 'Completed'?<>
             <Col md={1}>
+
               <Button
                 onClick={() => {
                   setDisabled(false);
@@ -91,7 +95,7 @@ const EditRow = ({ index, order, distributorName }) => {
               <Button disabled={updateBtnDisabled} onClick={handleUpdate}>
                 Update
               </Button>
-            </Col>
+            </Col></>: <Col md={3}  > <span className={'status-success'}>  Order Already Completed</span></Col>}
           </Form.Row>
         </Form.Group>
         {/*{order.amount}*/}

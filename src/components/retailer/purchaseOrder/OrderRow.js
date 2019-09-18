@@ -55,7 +55,7 @@ const OrderRow = ({product, setAmount}) => {
                         type={"number"}
                         min={0}
                         value={order.amount}
-                        placeholder={"Amount"}
+                        placeholder={"Units of this product to be ordered"}
                         onChange={!order.amount ? handleInput : () => {
                         }}
                         isInvalid={!order.amount ? invalid : false}
