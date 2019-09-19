@@ -239,10 +239,7 @@ const ShipmentRow = ({
                 }}
               >
                 {" "}
-                <Modal.Header closeButton>
-                  <h1 className={"title-center"}>Transfer Manifesto</h1>
-                </Modal.Header>{" "}
-                <Modal.Body>
+                <main>
                   {" "}
                   <Manifesto
                     transporterDetails={transporterDetails}
@@ -251,7 +248,7 @@ const ShipmentRow = ({
                     sender={value.senderCompany}
                     receiver={value.receiverCompany}
                   />
-                </Modal.Body>{" "}
+                </main>
               </Modal>{" "}
             </>
           )}

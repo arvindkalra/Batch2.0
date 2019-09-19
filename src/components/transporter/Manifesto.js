@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Container, Row, Table } from "react-bootstrap";
+import { Card, Container, Row, Table } from "react-bootstrap";
 import Col from "react-bootstrap/Col";
 import { getTransporterDetails } from "../../dbController/transporterRole";
 import { OWN_ADDRESS } from "../../dbController/Web3Connections";
+import Modal from "react-bootstrap/Modal";
 
 const Manifesto = ({ rowObj, item, transporterDetails, sender, receiver }) => {
   console.log(rowObj);
@@ -66,102 +67,103 @@ const Manifesto = ({ rowObj, item, transporterDetails, sender, receiver }) => {
   };
 
   return (
-    <Container>
-      <section className={"manifesto-header-section"}>
-        <Row>
-          <Col md={12} className={"center-align-text"}>
-            <h4>
-              <span>{transporterDetails.companyName}</span>
-            </h4>
-          </Col>
-
-          <Col md={12}></Col>
-        </Row>
-      </section>
-      <section className={"product-details-section"}>
-        <Row>
-          <Col md={{ span: 4 }} className={"product-info-tab"}>
-            <h2>Item Type</h2>
-            <p>{item.shipmentType.captialize()}</p>
-          </Col>
-          <Col md={4} className={"product-info-tab"}>
-            <h2>Dispatched On</h2>
-            <p>{dispatchTime}</p>
-          </Col>
-          <Col md={4} className={"product-info-tab"}>
-            <h2>Delivered On</h2>
-            <p>{deliveryTime}</p>
-          </Col>
-        </Row>
-      </section>
-
+    <Card>
+      <Card.Header closeButton>
+        <div className="utils__title title-center">
+          <strong className="text-uppercase">Transfer Manifesto</strong>
+        </div>
+      </Card.Header>{" "}
+      <Row>
+        <Col md={6}>
+          <h4>
+            <strong>Business Name: {transporterDetails.companyName}</strong>
+            <br />
+            Contact Person: {transporterDetails.name}
+          </h4>
+          <address>
+            {transporterDetails.address}
+            <br />
+            <abbr title={"License Number"}>License:</abbr>{" "}
+            {transporterDetails.licenseNumber}
+            <br />
+            <abbr title={"License Type"}>Type:</abbr>{" "}
+            {transporterDetails.licenseType}
+          </address>
+        </Col>
+      </Row>
+      <hr />
+      <Row>
+        <Col md={6}>
+          <h5>
+            <strong>Origin</strong>
+          </h5>
+          <div>
+            <strong>Business Name: {sender.companyName}</strong>
+            <br />
+            Contact Person: {sender.name}
+          </div>
+          <address>
+            {sender.address}
+            <br />
+            <abbr title={"License Number"}>License:</abbr>{" "}
+            {sender.licenseNumber}
+            <br />
+            <abbr title={"License Type"}>Type:</abbr> {sender.licenseType}
+          </address>
+        </Col>
+        <Col md={6} className={"float-right text-right"}>
+          <h5>
+            <strong>Destination</strong>
+          </h5>
+          <div>
+            <strong>Business Name: {receiver.companyName}</strong>
+            <br />
+            Contact Person: {receiver.name}
+          </div>
+          <address>
+            {receiver.address}
+            <br />
+            <abbr title={"License Number"}>License:</abbr>{" "}
+            {receiver.licenseNumber}
+            <br />
+            <abbr title={"License Type"}>Type:</abbr> {receiver.licenseType}
+          </address>
+        </Col>
+      </Row>
       <section className={"manifesto-details-section"}>
         <Row>
           <Col md={12}>
-            <ul className={"manifesto-list"}>
-              <li>
-                <h2>Originating Entity:</h2>
-                <ul>
-                  <li>
-                    Company Name: <span>{sender.companyName}</span>{" "}
-                  </li>
-                  <li>
-                    Address <span>{sender.name}</span>{" "}
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <h2>Destination:</h2>
-                <ul>
-                  <li>
-                    Company Name: <span>{receiver.companyName}</span>{" "}
-                  </li>
-                  <li>
-                    Address <span>{receiver.name}</span>{" "}
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <h2>Transporter:</h2>
-                <ul>
-                  <li>
-                    Company Name: <span>{transporterDetails.companyName}</span>{" "}
-                  </li>
-                  <li>
-                    Address <span>{transporterDetails.name}</span>{" "}
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </Col>
-          <Col md={12}>
-            <h1 className={"title"}>Cargo Details</h1>
             <Table responsive>
               <thead>
                 <tr>
+                  <th>#ID</th>
                   <th>Product Name</th>
-                  <th>Product Label Number(if Any)</th>
-                  <th>Weight/ Quanitity</th>
+                  <th>Shipment Type</th>
+                  <th>Dispatch Date</th>
+                  <th>Delivery Date</th>
                   <th>Delivery Cost</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td>{productName.captialize()}</td>
                   <td>{rowObj.uid}</td>
-                  <td>1 pound</td>
+                  <td>{productName.captialize()}</td>
+                  <td>{item.shipmentType.captialize()}</td>
+                  <td>{dispatchTime}</td>
+                  <td>{deliveryTime}</td>
                   <td>$120</td>
                 </tr>
               </tbody>
             </Table>
-            <span>
-              {" "}
-              Print Manifesto <i className="fas fa-download"></i>{" "}
-            </span>
           </Col>
         </Row>
       </section>
-    </Container>
+      <Card.Footer>
+        <span>
+          Print Manifesto <i className="fas fa-download"></i>{" "}
+        </span>
+      </Card.Footer>
+    </Card>
   );
 };
 
