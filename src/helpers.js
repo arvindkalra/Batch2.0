@@ -47,7 +47,7 @@ export const createTransactionModal = ({
 }) => {
   return (
     <Modal
-        size={'lg'}
+      size={"lg"}
       show={showModal}
       onHide={() => {
         cancel();
@@ -86,6 +86,7 @@ export const createTransactionModal = ({
             setShowModal(false);
             confirm();
           }}
+          variant={"success"}
         >
           Confirm Transaction
         </Button>

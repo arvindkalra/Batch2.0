@@ -39,12 +39,11 @@ const SaleActionForm = ({
   const [sellingPrice, setSellingPrice] = useState(details.mrp);
   const [consumerName, setConsumerName] = useState("");
   const [license, setLicense] = useState("");
-  const [buyerDetails, setBuyerDetails] = useState(null);
+  const [buyerDetails, setBuyerDetails] = useState({});
   const [transactionMining, setTransactionMining] = useState(false);
   const [transactionObject, setTransactionObject] = useState(null);
   const [formValidity, setFormValidity] = useState(true);
   const [clicked, setClicked] = useState(false);
-
   const openSignatureModal = obj => {
     setTransactionObject({
       ...obj,
@@ -71,9 +70,10 @@ const SaleActionForm = ({
       setSellingPrice(details.mrp);
       if (boolean) {
         getConsumerDetails(buyerAddress).then(buyerObject => {
+          console.log(buyerObject);
+          setBuyerDetails(buyerObject);
           setShowFullForm(true);
           setRegistered(true);
-          setBuyerDetails(buyerObject);
         });
       } else {
         setShowFullForm(true);
