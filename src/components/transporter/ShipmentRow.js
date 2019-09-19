@@ -31,7 +31,6 @@ const ShipmentRow = ({
   const [dispatchShow, setDispatchShow] = useState(false);
   const [transportationCost, setTransportationCost] = useState(0);
   const [costKey, setCostKey] = useState("");
-
   const openSignatureModal = obj => {
     setTransactionObject({
       ...obj,
@@ -213,7 +212,7 @@ const ShipmentRow = ({
   return (
     <>
       <tr>
-        <td className={"uid"}>{convertToHex(index + 1)}</td>
+        <td className={"uid"}>{value.url}</td>
         <td>{value.senderCompany.name}</td>
         <td>{value.receiverCompany.name}</td>
         <td>{value.dispatchTime ? value.dispatchTime : "--"}</td>

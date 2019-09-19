@@ -15,15 +15,16 @@ const ShipmentTable = ({
   const [showSort, setShowSort] = useState(false);
 
   useEffect(() => {
-    let sortFunction = createSortFunction("dispatchTime", "string");
+    let sortFunction;
     let temp = array;
     if (array.length > 0 && array[0]["dispatchTime"] === undefined) {
-      setViewableArray([...temp]);
+      sortFunction = createSortFunction("requestedAt", "string");
     } else {
-      temp.sort(sortFunction);
-      setViewableArray([...temp]);
-      setShowSort(temp.length > 2);
+      sortFunction = createSortFunction("dispatchTime", "string");
     }
+    temp.sort(sortFunction);
+    setViewableArray([...temp]);
+    setShowSort(temp.length > 2);
   }, [array]);
 
   const sort = e => {

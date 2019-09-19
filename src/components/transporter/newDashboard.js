@@ -66,9 +66,11 @@ const NewDashboard = ({ location }) => {
             getManufacturerDetails(row.details.manufacturerAddress).then(
               manufacturerObj => {
                 rowObj.uid = row.uid;
+                rowObj.url = `${row.uid}H`;
                 rowObj.senderCompany = farmerObj;
                 rowObj.receiverCompany = manufacturerObj;
                 rowObj.amount = row.details.totalHarvestAmount + " Pounds";
+                rowObj.requestedAt = row.details.sentToManufacturerOn;
                 rowObj.dispatchTime =
                   row.details.farmToFactoryConsignmentDispatchTime;
 
@@ -117,7 +119,9 @@ const NewDashboard = ({ location }) => {
           })
           .then(name => {
             rowObj.uid = row.uid;
+            rowObj.url = `${row.uid}S`;
             rowObj.senderCompany = farmerName;
+            rowObj.requestedAt = row.details.sentToLabOn;
             rowObj.receiverCompany = name;
             rowObj.currentStatus = row.currentState;
             rowObj.dispatchTime = row.details.labSampleConsignmentDispatchTime;
@@ -160,7 +164,9 @@ const NewDashboard = ({ location }) => {
           return getDistributorDetails(row.details.distributorAddress).then(
             name => {
               rowObj.uid = row.uid;
+              rowObj.url = `${row.uid}P`;
               rowObj.senderCompany = manufacturerName;
+              rowObj.requestedAt = row.details.packedOn;
               rowObj.receiverCompany = name;
               rowObj.currentStatus = row.currentState;
               rowObj.dispatchTime =
@@ -209,7 +215,9 @@ const NewDashboard = ({ location }) => {
           })
           .then(name => {
             rowObj.uid = row.uid;
+            rowObj.url = `${row.uid}B`;
             rowObj.senderCompany = distributorName;
+            rowObj.requestedAt = row.details.sentToRetailerOn;
             rowObj.receiverCompany = name;
             rowObj.currentStatus = row.currentState;
             rowObj.dispatchTime = row.details.distributorToRetailerDispatchTime;
