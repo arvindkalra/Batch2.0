@@ -15,7 +15,7 @@ import {
 } from "../../dbController/manufacturerRole";
 import Loader from "../Loader";
 import { OWN_ADDRESS } from "../../dbController/Web3Connections";
-import { FormControl } from "react-bootstrap";
+import { Card, FormControl } from "react-bootstrap";
 import config from "../../config";
 
 const ManufacturedPacketsTable = ({
@@ -129,51 +129,42 @@ const ManufacturedPacketsTable = ({
           setShowModal({ open: false });
         }}
       >
-        <Modal.Header>Send Product To Distributor</Modal.Header>
-        <Modal.Body>
-          <Row>
-            <Col md={12}>
-              <Row>
-                <Col md={4}>
-                  <Form.Group>
-                    <Form.Label>Cost Price ( $x.xx / Pound )</Form.Label>
+        <main>
+          <Card>
+            <Card.Header>
+              <div className="utils__title title-center">
+                <strong className="text-uppercase">
+                  Send Product To Distributor
+                </strong>
+              </div>
+            </Card.Header>
+            <Row>
+              <Col md={12}>
+                <Row>
+                  <Col md={4}>
+                    <Form.Group>
+                      <Form.Label>Cost Price ( $x.xx / Pound )</Form.Label>
+                      <Form.Control
+                        type={"number"}
+                        value={showModal.pricePerUnits}
+                        readOnly
+                      />
+                    </Form.Group>
+                  </Col>
+                  <Col md={4}>
+                    <Form.Label>
+                      Total Cost Price ( $x.xx for {showModal.materialUsed}{" "}
+                      Pounds)
+                    </Form.Label>
                     <Form.Control
                       type={"number"}
-                      value={showModal.pricePerUnits}
                       readOnly
+                      value={showModal.materialUsed * showModal.pricePerUnits}
                     />
-                  </Form.Group>
-                </Col>
-                <Col md={4}>
-                  <Form.Label>
-                    Total Cost Price ( $x.xx for {showModal.materialUsed} Pounds)
-                  </Form.Label>
-                  <Form.Control
-                    type={"number"}
-                    readOnly
-                    value={showModal.materialUsed * showModal.pricePerUnits}
-                  />
-                </Col>
-                <Col md={4}>
-                  <Form.Label>
-                    M.R.P ( $x.xx /{" "}
-                    {showModal.open
-                      ? array[showModal.id].details.container
-                      : null}
-                    )
-                  </Form.Label>
-                  <Form.Control
-                    type={"number"}
-                    readOnly
-                    value={showModal.mrp}
-                  />
-                </Col>
-              </Row>
-              <Row>
-                <Col md={6}>
-                  <Form.Group>
+                  </Col>
+                  <Col md={4}>
                     <Form.Label>
-                      Selling Price ( $x.xx /{" "}
+                      M.R.P ( $x.xx /{" "}
                       {showModal.open
                         ? array[showModal.id].details.container
                         : null}
@@ -181,74 +172,97 @@ const ManufacturedPacketsTable = ({
                     </Form.Label>
                     <Form.Control
                       type={"number"}
-                      placeholder={"Enter the price to sell to the distributor"}
-                      onChange={e => {
-                        setPrice(parseFloat(e.target.value));
-                      }}
-                      isInvalid={modalConfirmed ? price <= 0 : false}
+                      readOnly
+                      value={showModal.mrp}
                     />
-                    <FormControl.Feedback type={"invalid"}>
-                      <strong>Required</strong> : Selling Price can not be zero
-                    </FormControl.Feedback>
-                  </Form.Group>
-                </Col>
-                <Col md={6}>
-                  <Form.Label>Total Price ( $x.xx )</Form.Label>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col md={6}>
+                    <Form.Group>
+                      <Form.Label>
+                        Selling Price ( $x.xx /{" "}
+                        {showModal.open
+                          ? array[showModal.id].details.container
+                          : null}
+                        )
+                      </Form.Label>
+                      <Form.Control
+                        type={"number"}
+                        placeholder={
+                          "Enter the price to sell to the distributor"
+                        }
+                        onChange={e => {
+                          setPrice(parseFloat(e.target.value));
+                        }}
+                        isInvalid={modalConfirmed ? price <= 0 : false}
+                      />
+                      <FormControl.Feedback type={"invalid"}>
+                        <strong>Required</strong> : Selling Price can not be
+                        zero
+                      </FormControl.Feedback>
+                    </Form.Group>
+                  </Col>
+                  <Col md={6}>
+                    <Form.Label>Total Price ( $x.xx )</Form.Label>
+                    <Form.Control
+                      type={"number"}
+                      placeholder={"Enter the Selling Price"}
+                      readOnly
+                      value={
+                        showModal.open
+                          ? array[showModal.id].details
+                              .totalPacketsManufactured * price
+                          : 0
+                      }
+                    />
+                  </Col>
+                </Row>
+              </Col>
+              <Col md={12}>
+                <Form.Group>
+                  <Form.Label>Distributor Name</Form.Label>
                   <Form.Control
-                    type={"number"}
-                    placeholder={"Enter the Selling Price"}
-                    readOnly
-                    value={
-                      showModal.open
-                        ? array[showModal.id].details.totalPacketsManufactured *
-                          price
-                        : 0
-                    }
-                  />
-                </Col>
-              </Row>
-            </Col>
-            <Col md={12}>
-              <Form.Group>
-                <Form.Label>Distributor Name</Form.Label>
-                <Form.Control
-                  as={"select"}
-                  onChange={e => {
-                    setDistributorName(e.target.value);
-                  }}
+                    as={"select"}
+                    onChange={e => {
+                      setDistributorName(e.target.value);
+                    }}
+                  >
+                    <option value={"Declan McVee"}>Declan McVee</option>
+                  </Form.Control>
+                </Form.Group>
+              </Col>
+              <Col md={12}>
+                <Form.Group>
+                  <Form.Label>Transporter Name</Form.Label>
+                  <Form.Control
+                    as={"select"}
+                    onChange={e => {
+                      setTransporterName(e.target.value);
+                    }}
+                  >
+                    <option value={"Kiran Kamal"}>Kiran Kamal</option>
+                  </Form.Control>
+                </Form.Group>
+              </Col>
+            </Row>
+            <Card.Footer>
+              <span>
+                <Button className={"btn-success"} onClick={handleSend}>
+                  Send to Distributor
+                </Button>
+              </span>
+              <span>
+                <Button
+                  className={"btn-danger"}
+                  onClick={() => setShowModal({ open: false })}
                 >
-                  <option value={"Declan McVee"}>Declan McVee</option>
-
-                </Form.Control>
-              </Form.Group>
-            </Col>
-            <Col md={12}>
-              <Form.Group>
-                <Form.Label>Transporter Name</Form.Label>
-                <Form.Control
-                  as={"select"}
-                  onChange={e => {
-                    setTransporterName(e.target.value);
-                  }}
-                >
-                  <option value={"Kiran Kamal"}>Kiran Kamal</option>
-
-                </Form.Control>
-              </Form.Group>
-            </Col>
-          </Row>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button className={"btn-success"} onClick={handleSend}>
-            Send to Distributor
-          </Button>
-          <Button
-            className={"btn-danger"}
-            onClick={() => setShowModal({ open: false })}
-          >
-            Cancel
-          </Button>
-        </Modal.Footer>
+                  Cancel
+                </Button>
+              </span>
+            </Card.Footer>
+          </Card>
+        </main>
       </Modal>
       {showLoader.length > 0 ? <Loader message={showLoader} /> : null}
     </>

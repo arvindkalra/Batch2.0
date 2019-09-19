@@ -22,9 +22,7 @@ const FormModal = ({ buttonText, formDetails, labDetails }) => {
         }}
       >
         <main>
-          <Modal.Body>
-            <ReportForm formDetails={formDetails} labDetails={labDetails} />
-          </Modal.Body>
+          <ReportForm formDetails={formDetails} labDetails={labDetails} />
         </main>
       </Modal>
     </>

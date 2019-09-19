@@ -135,6 +135,11 @@ const ReportForm = ({ formDetails, labDetails }) => {
   return (
     <>
       <Card>
+        <Card.Header>
+          <div className="utils__title title-center">
+            <strong className="text-uppercase">Upload Report</strong>
+          </div>
+        </Card.Header>
         <section className={"report-form-header"}>
           <Row>
             <Col md={6}>
@@ -307,12 +312,7 @@ const ReportForm = ({ formDetails, labDetails }) => {
                       )}
                     </Form.Group>
                   </Col>
-                  <Col md={12}>
-                    <Button type={"submit"} onClick={handleClick}>
-                      {" "}
-                      {pending ? "Save Draft" : "Submit Report"}{" "}
-                    </Button>
-                  </Col>
+                  <Col md={12}></Col>
                 </Row>
               </Form>
             </Col>
@@ -325,6 +325,14 @@ const ReportForm = ({ formDetails, labDetails }) => {
             </Col>
           </Row>
         </section>
+        <Card.Footer>
+          <span>
+            <Button type={"submit"} onClick={handleClick}>
+              {" "}
+              {pending ? "Save Draft" : "Submit Report"}{" "}
+            </Button>
+          </span>
+        </Card.Footer>
       </Card>
       {transactionMining ? <Loader /> : null}
       {transactionObject ? createTransactionModal(transactionObject) : null}
