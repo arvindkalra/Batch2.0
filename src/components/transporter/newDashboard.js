@@ -20,13 +20,9 @@ import { OWN_ADDRESS } from "../../dbController/Web3Connections";
 import config from "../../config";
 
 const NewDashboard = ({ location }) => {
-  const [harvestShipments, setHarvestShipments] = useState([]);
-  const [packagedShipments, setPackagedShipments] = useState([]);
   const [harvestRowObjArr, setHarvestRowObjArr] = useState({});
   const [packageRowObjArr, setPackageObjRowArr] = useState({});
-  const [sampleShipments, setSampleShipment] = useState([]);
   const [sampleRowObjArr, setSampleRowObjArr] = useState({});
-  const [retailShipments, setRetailShipments] = useState([]);
   const [retailRowObjArr, setRetailRowObjArr] = useState({});
   const [transactionMining, setTransactionMining] = useState(false);
   const [transactionObject, setTransactionObject] = useState(null);
@@ -45,10 +41,6 @@ const NewDashboard = ({ location }) => {
   });
   useEffect(() => {
     connectToWeb3().then(() => {
-      let tempHarvestShipments = harvestShipments;
-      let tempPackagedShipment = packagedShipments;
-      let tempSampleShipments = sampleShipments;
-      let tempRetailShipments = retailShipments;
       let tempPendingShipments = [];
       let tempDispatchedShipments = [];
       let tempDeliveredShipments = [];
@@ -77,7 +69,6 @@ const NewDashboard = ({ location }) => {
                 rowObj.currentStatus = row.currentState;
                 rowObj.shipmentType = "harvest";
                 rowObj.ipfsData = row;
-                tempHarvestShipments.push(rowObj);
                 if (rowObj.currentStatus.value === 8) {
                   tempDispatchedShipments.push(rowObj);
                 } else if (rowObj.currentStatus.value >= 9) {
@@ -85,11 +76,10 @@ const NewDashboard = ({ location }) => {
                 } else {
                   tempPendingShipments.push(rowObj);
                 }
-                setPendingShipments(tempPendingShipments);
-                setTableArray([...tempPendingShipments]);
-                setDeliveredShipments(tempDeliveredShipments);
-                setDispatchedShipments(tempDispatchedShipments);
-                setHarvestShipments([...tempHarvestShipments]);
+                setPendingShipments([...tempPendingShipments]);
+                setTableArray([...pendingShipments]);
+                setDeliveredShipments([...tempDeliveredShipments]);
+                setDispatchedShipments([...tempDispatchedShipments]);
                 if (totalHarvests === total) {
                   setLoader(++tempLoader);
                 }
@@ -127,7 +117,6 @@ const NewDashboard = ({ location }) => {
             rowObj.dispatchTime = row.details.labSampleConsignmentDispatchTime;
             rowObj.shipmentType = "sample";
             rowObj.ipfsData = row;
-            tempSampleShipments.push(rowObj);
             if (rowObj.currentStatus.value === 3) {
               tempPendingShipments.push(rowObj);
             } else if (rowObj.currentStatus.value === 4) {
@@ -135,11 +124,10 @@ const NewDashboard = ({ location }) => {
             } else if (rowObj.currentStatus.value >= 5) {
               tempDeliveredShipments.push(rowObj);
             }
-            setPendingShipments(tempPendingShipments);
+            setPendingShipments([...tempPendingShipments]);
             setTableArray([...tempPendingShipments]);
-            setDeliveredShipments(tempDeliveredShipments);
-            setDispatchedShipments(tempDispatchedShipments);
-            setSampleShipment([...tempSampleShipments]);
+            setDeliveredShipments([...tempDeliveredShipments]);
+            setDispatchedShipments([...tempDispatchedShipments]);
             if (totalSamples === total) {
               setLoader(++tempLoader);
             }
@@ -172,7 +160,6 @@ const NewDashboard = ({ location }) => {
               rowObj.dispatchTime =
                 row.details.manufacturerToDistributorDispatchTime;
               rowObj.amount = row.details.totalPacketsManufactured;
-              tempPackagedShipment.push(rowObj);
               rowObj.shipmentType = "product";
               rowObj.ipfsData = row;
               if (rowObj.currentStatus.value === 2) {
@@ -182,11 +169,10 @@ const NewDashboard = ({ location }) => {
               } else if (rowObj.currentStatus.value >= 4) {
                 tempDeliveredShipments.push(rowObj);
               }
-              setPendingShipments(tempPendingShipments);
+              setPendingShipments([...tempPendingShipments]);
               setTableArray([...tempPendingShipments]);
-              setDeliveredShipments(tempDeliveredShipments);
-              setDispatchedShipments(tempDispatchedShipments);
-              setPackagedShipments([...tempPackagedShipment]);
+              setDeliveredShipments([...tempDeliveredShipments]);
+              setDispatchedShipments([...tempDispatchedShipments]);
               if (totalUnits === total) {
                 setLoader(++tempLoader);
               }
@@ -224,7 +210,6 @@ const NewDashboard = ({ location }) => {
             rowObj.amount = row.details.totalPacketsManufactured;
             rowObj.shipmentType = "retail";
             rowObj.ipfsData = row;
-            tempRetailShipments.push(rowObj);
             if (rowObj.currentStatus.value === 2) {
               tempPendingShipments.push(rowObj);
             } else if (rowObj.currentStatus.value === 3) {
@@ -232,11 +217,9 @@ const NewDashboard = ({ location }) => {
             } else if (rowObj.currentStatus.value >= 4) {
               tempDeliveredShipments.push(rowObj);
             }
-            setPendingShipments(tempPendingShipments);
-            setTableArray([...tempPendingShipments]);
-            setDeliveredShipments(tempDeliveredShipments);
-            setDispatchedShipments(tempDispatchedShipments);
-            setRetailShipments([...tempRetailShipments]);
+            setPendingShipments([...tempPendingShipments]);
+            setDeliveredShipments([...tempDeliveredShipments]);
+            setDispatchedShipments([...tempDispatchedShipments]);
             if (totalRetail === total) {
               setLoader(++tempLoader);
             }
@@ -247,6 +230,33 @@ const NewDashboard = ({ location }) => {
       });
     });
   }, []);
+
+  useEffect(() => {
+    console.log(tableType);
+    if (tableType === "pending") {
+      setTableArray(pendingShipments);
+      setButtonStates({
+        first: true,
+        second: false,
+        third: false
+      });
+    } else if (tableType === "dispatched") {
+      setTableArray(dispatchedShipments);
+      setButtonStates({
+        first: false,
+        second: true,
+        third: false
+      });
+    } else {
+      setTableArray(deliveredShipments);
+      setButtonStates({
+        first: false,
+        second: false,
+        third: true
+      });
+    }
+  }, [tableType, pendingShipments, dispatchedShipments, deliveredShipments]);
+
   return (
     <>
       <Row>
@@ -259,14 +269,8 @@ const NewDashboard = ({ location }) => {
               <li
                 className={buttonStates.first ? "active" : null}
                 onClick={() => {
-                  console.log(pendingShipments);
-                  setTableArray(pendingShipments);
+                  setTableArray([]);
                   setTableType("pending");
-                  setButtonStates({
-                    first: true,
-                    second: false,
-                    third: false
-                  });
                 }}
               >
                 Pending Shipments
@@ -275,14 +279,8 @@ const NewDashboard = ({ location }) => {
               <li
                 className={buttonStates.second ? "active" : null}
                 onClick={() => {
-                  console.log(dispatchedShipments);
-                  setTableArray(dispatchedShipments);
+                  setTableArray([]);
                   setTableType("dispatched");
-                  setButtonStates({
-                    first: false,
-                    second: true,
-                    third: false
-                  });
                 }}
               >
                 Dispatched Shipments
@@ -290,14 +288,8 @@ const NewDashboard = ({ location }) => {
               <li
                 className={buttonStates.third ? "active" : null}
                 onClick={() => {
-                  console.log(deliveredShipments);
-                  setTableArray(deliveredShipments);
+                  setTableArray([]);
                   setTableType("delivered");
-                  setButtonStates({
-                    first: false,
-                    second: false,
-                    third: true
-                  });
                 }}
               >
                 Delivered Shipments

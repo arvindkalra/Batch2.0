@@ -1,6 +1,6 @@
 @import "colors";
 @import "utils";
-.shipment-section{
+.shipment-section {
   padding: 0 10px 10px 10px;
 
   h3 {
@@ -22,57 +22,48 @@
 }
 
 $margin: 8px;
-.no-pending-shipment{
+.no-pending-shipment {
   background-color: #dfe2e7;
 }
-.nav-buttons-section{
-
-  ul{
+.nav-buttons-section {
+  ul {
     margin-left: $margin;
     margin-right: $margin;
     font-size: rem(24);
     font-weight: bold;
-    color:white;
-    li{
+    color: white;
+    li {
       cursor: pointer;
       background: $blue;
-
-      border-top-left-radius: 10px;
-      border-top-right-radius: 10px;
       transition: all 0.2s linear;
+      border-left: 1px solid $black;
+      border-right: 1px solid $black;
       padding: 10px;
       width: 100%;
     }
-    li.active{
+    li.active {
       background: $blue-darken;
-
     }
   }
 }
-.shipment-table-section{
-
+.shipment-table-section {
   border-left: 1px solid $grey;
   border-radius: 0;
 
-
-  margin: 0 $margin ;
-
-
-
+  margin: 0 $margin;
 }
-.manifesto-details-section{
-
-  ul{
+.manifesto-details-section {
+  ul {
     list-style: none;
   }
-  .manifesto-list{
-    ul{
-      $padding:200px;
-      padding-left:$padding;
-      padding-right:$padding;
-      li{
+  .manifesto-list {
+    ul {
+      $padding: 200px;
+      padding-left: $padding;
+      padding-right: $padding;
+      li {
         font-weight: bold;
-        span{
+        span {
           font-weight: normal;
           float: right;
         }
