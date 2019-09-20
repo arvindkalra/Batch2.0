@@ -4,6 +4,7 @@ import { Button, Card, Table } from "react-bootstrap";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { makeXHR, parsePurchaseOrderId } from "../../../helpers";
+import { convertFromHex } from "../../../dbController/init";
 
 const ConfirmOrder = ({
   productList,
@@ -27,18 +28,18 @@ const ConfirmOrder = ({
     console.log(productList);
     let orders = productList.map(ele => {
       return {
-        productUnitId: ele.id,
-        amount: ele.orderedAmount
+        puid: convertFromHex(ele.id),
+        orderedAmount: ele.orderedAmount
       };
     });
     let callObject = {
       distributorAddress: "0x7949173E38cEf39e75E05D2d2C232FBE8BAe5E20",
       retailerAddress: "0x7949173E38cEf39e75E05D2d2C232FBE8BAe5E20",
-      orderDate: new Date().toLocaleString(),
-      orders
+      orderPlacedOn: new Date().toLocaleString(),
+      itemsArray: orders
     };
     // console.log(callObject);
-    makeXHR("POST", "createOrder", callObject).then(() => {
+    makeXHR("POST", "createPurchaseOrder", callObject).then(() => {
       closeModal();
       window.location.reload();
     });

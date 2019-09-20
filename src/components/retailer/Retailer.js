@@ -14,7 +14,7 @@ const Retailer = ({ location, history, userRole }) => {
       clearLocal();
 
       getRetailerDetails().then(obj => {
-        if (typeof obj !== "undefined") {
+        if (obj !== null) {
           setUserName(obj.name);
           localStorage.setItem("name", obj.name);
           setProfileImage(obj.profileImage);
