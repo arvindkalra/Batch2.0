@@ -68,7 +68,7 @@ const Manifesto = ({ rowObj, item, transporterDetails, sender, receiver }) => {
 
   return (
     <Card>
-      <Card.Header closeButton>
+      <Card.Header>
         <div className="utils__title title-center">
           <strong className="text-uppercase">Transfer Manifesto</strong>
         </div>

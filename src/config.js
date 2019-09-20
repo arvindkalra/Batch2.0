@@ -1,7 +1,8 @@
 export default {
-  SERVER_URL: "http://13.127.54.87:2000",
-  PURCHASE_ORDER_SERVER: "http://13.127.54.87:2000",
-  // PURCHASE_ORDER_SERVER: "http://localhost:5001",
+  // SERVER_URL: "http://13.127.54.87:2000",
+  SERVER_URL: "http://10.5.50.36:2000",
+  // PURCHASE_ORDER_SERVER: "http://13.127.54.87:2000",
+  PURCHASE_ORDER_SERVER: "http://10.5.50.36:2000",
   NETWORK_NAME: "Truffle",
 
   // For Matic After resolving Issue #14
@@ -10,14 +11,14 @@ export default {
     "0xB9A081AE2A58FCFDA0BD85B3852A251F57A3D146676DD168097206CC03EBBA85",
   ADDRESS: "0x7949173E38cEf39e75E05D2d2C232FBE8BAe5E20",
 
-  STORAGE_ADDRESS: "0xc3a6444cc3adfdf2db22d3fa9ce603a3b1920f6c",
-  FARMER_ADDRESS: "0x418e539b2e7636625f72ae15057f8d0b31d222b9",
-  LABORATORY_ADDRESS: "0x8cbd44d1aa75d27217030be5b6471b2ef31e0299",
-  TRANSPORTER_ADDRESS: "0x942307f66956e42082164cf51cb57a9e994f11eb",
-  MANUFACTURER_ADDRESS: "0x0a09f4e620ef14780e2b13716156746c327678dc",
-  DISTRIBUTOR_ADDRESS: "0xa5a11ff8fc866ee91359d65371f30b01aef80332",
+  STORAGE_ADDRESS: "0x2341830dedc74e85e8c860de4df74c2f8a32a9bf",
+  FARMER_ADDRESS: "0x24afa7b70ce71ae0841423ef4ddbc8d0b233189c",
+  LABORATORY_ADDRESS: "0x28ec6a65c533405a09bde7724f9da8ac651ee659",
+  TRANSPORTER_ADDRESS: "0x40065bd97455ad81623bb967d774866a48c56a75",
+  MANUFACTURER_ADDRESS: "0xefadc85172082bb41c26bfc2b776ced6301b02b7",
+  DISTRIBUTOR_ADDRESS: "0xc76e8e267dd5b073b260878e23901c26c5190d7a",
   // Change on ipfsServer as well
-  RETAILER_ADDRESS: "0xa7129e6d38c37e567626009f9635fd145d139b45",
+  RETAILER_ADDRESS: "0x2841a59e6d561e1f7dfd230369289a9e1a52a93d",
 
   /*
   // For Matic Testnet
@@ -1728,7 +1729,7 @@ export default {
         },
         {
           indexed: false,
-          name: "orderNumber",
+          name: "productUnitId",
           type: "uint256"
         }
       ],
@@ -1875,10 +1876,6 @@ export default {
         },
         {
           name: "purchaseOrderId",
-          type: "uint256"
-        },
-        {
-          name: "orderNumber",
           type: "uint256"
         }
       ],

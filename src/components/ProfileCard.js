@@ -3,7 +3,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import '../assets/stylesheets/profileCard.scss'
+import "../assets/stylesheets/profileCard.scss";
 import { getFarmerDetails, setFarmerDetails } from "../dbController/farmerRole";
 import { createTransactionModal, fileToString } from "../helpers";
 import { checkMined, connectToWeb3 } from "../dbController/init";
@@ -66,15 +66,15 @@ const ProfileCard = ({ role, history, stopLoading }) => {
 
   const setStates = obj => {
     setPrevObject(obj);
-    if(typeof obj !== 'undefined'){
-
-    if (obj.name) setName(obj.name);
-    if (obj.companyName) setCompanyName(obj.companyName);
-    if (obj.address) setAddress(obj.address);
-    if (obj.licenseType) setLicenseType(obj.licenseType);
-    if (obj.profileImage) setProfileImage(obj.profileImage);
-    if (obj.license) setLicense(obj.license);
-    if (obj.licenseNumber) setLicenseNumber(obj.licenseNumber);
+    console.log(obj);
+    if (obj !== null) {
+      if (obj.name) setName(obj.name);
+      if (obj.companyName) setCompanyName(obj.companyName);
+      if (obj.address) setAddress(obj.address);
+      if (obj.licenseType) setLicenseType(obj.licenseType);
+      if (obj.profileImage) setProfileImage(obj.profileImage);
+      if (obj.license) setLicense(obj.license);
+      if (obj.licenseNumber) setLicenseNumber(obj.licenseNumber);
     }
     stopLoading();
   };
@@ -167,9 +167,11 @@ const ProfileCard = ({ role, history, stopLoading }) => {
         <Row>
           <Col md={4}>
             <section className={"profile-image-section card"}>
-
               <img
-                src={profileImage || "https://www.cmcaindia.org/wp-content/uploads/2015/11/default-profile-picture-gmail-2.png"}
+                src={
+                  profileImage ||
+                  "https://www.cmcaindia.org/wp-content/uploads/2015/11/default-profile-picture-gmail-2.png"
+                }
                 alt=""
                 className={"profile-image"}
                 ref={profileImageRef}

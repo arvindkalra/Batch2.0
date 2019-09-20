@@ -25,7 +25,7 @@ const Farmer = ({location, history, userRole}) => {
 
             getFarmerDetails().then((obj) => {
 
-                if(typeof obj !== 'undefined'){
+                if(obj !== null){
                     setUserName(obj.name);
                     localStorage.setItem('name', obj.name);
                     setProfileImage(obj.profileImage);

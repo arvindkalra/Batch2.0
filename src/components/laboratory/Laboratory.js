@@ -17,7 +17,7 @@ const Laboratory = ({location, history, userRole}) => {
     clearLocal();
     connectToWeb3().then(() => {
       getLaboratoryDetails().then(obj => {
-        if(typeof obj !== 'undefined'){
+        if(obj !== null){
           setUserName(obj.name);
           localStorage.setItem('name', obj.name);
           setProfileImage(obj.profileImage);

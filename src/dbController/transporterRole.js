@@ -40,6 +40,7 @@ function handleObject(object, uid, isHarvest, isBatch) {
   uid = convertToHex(uid);
   return new Promise((resolve, reject) => {
     object = object.valueOf();
+    console.log("Here", object[1]);
     getJsonFromIPFS(object[1])
       .then(details => {
         resolve({

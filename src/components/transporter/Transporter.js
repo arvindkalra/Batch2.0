@@ -15,7 +15,7 @@ const Transporter = ({ location, history, userRole }) => {
       clearLocal();
 
       getTransporterDetails().then(obj => {
-        if (typeof obj !== "undefined") {
+        if (obj !== null) {
           setUserName(obj.name);
           localStorage.setItem("name", obj.name);
           setProfileImage(obj.profileImage);
@@ -25,7 +25,7 @@ const Transporter = ({ location, history, userRole }) => {
         }
       });
     });
-  });
+  }, []);
 
   return (
     <Layout
