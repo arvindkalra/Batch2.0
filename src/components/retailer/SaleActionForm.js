@@ -229,19 +229,33 @@ const SaleActionForm = ({
                   </Col>
                   <Col md={12}>
                     <Form.Group>
-                      <Form.Label className={"custom-file-label"}>
-                        Customer ID-proof
-                      </Form.Label>
-                      <Form.Control
-                        className={"custom-file-input"}
-                        type={"file"}
-                        placeholder={"Upload the customer's id proof"}
-                        onChange={handleFileChange}
-                        isInvalid={clicked ? license.length === 0 : false}
-                      />
-                      <FormControl.Feedback type={"invalid"}>
-                        <strong>Required</strong>
-                      </FormControl.Feedback>
+                      {license ? (
+                        <a
+                          href={license}
+                          target={"_blank"}
+                          onClick={e =>
+                            (e.target.download = "test_download.txt")
+                          }
+                        >
+                          View License
+                        </a>
+                      ) : (
+                        <>
+                          <Form.Label className={"custom-file-label"}>
+                            Customer ID-proof
+                          </Form.Label>
+                          <Form.Control
+                            className={"custom-file-input"}
+                            type={"file"}
+                            placeholder={"Upload the customer's id proof"}
+                            onChange={handleFileChange}
+                            isInvalid={clicked ? license.length === 0 : false}
+                          />
+                          <FormControl.Feedback type={"invalid"}>
+                            <strong>Required</strong>
+                          </FormControl.Feedback>
+                        </>
+                      )}
                     </Form.Group>
                   </Col>
                 </>

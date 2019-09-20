@@ -312,7 +312,6 @@ const ReportForm = ({ formDetails, labDetails }) => {
                       )}
                     </Form.Group>
                   </Col>
-                  <Col md={12}></Col>
                 </Row>
               </Form>
             </Col>
