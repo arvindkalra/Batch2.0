@@ -3,9 +3,9 @@ import { Button, Col, Form, FormControl } from "react-bootstrap";
 import { makeXHR, parsePurchaseOrderId } from "../../../helpers";
 import { connectToWeb3 } from "../../../dbController/init";
 import { OWN_ADDRESS } from "../../../dbController/Web3Connections";
-import '../../../assets/stylesheets/App.scss'
+import config from "../../../config";
+import "../../../assets/stylesheets/App.scss";
 const EditRow = ({ index, order, distributorName }) => {
-  console.log(order)
   const [total, setTotal] = useState(
     parseFloat(order.amount) * parseFloat(order.price)
   );
@@ -16,6 +16,10 @@ const EditRow = ({ index, order, distributorName }) => {
 
   const handleUpdate = e => {
     setUpdateBtnDisabled(true);
+    if (amount === "" || amount < 1) {
+      alert("Enter a valid value for amount");
+      return;
+    }
     makeUpdateRequest({ url: order.url, amount }).then(() => {
       window.location.reload();
     });
@@ -24,11 +28,12 @@ const EditRow = ({ index, order, distributorName }) => {
   const makeUpdateRequest = ({ url, amount }) => {
     return connectToWeb3().then(() => {
       let retailerAddress = OWN_ADDRESS;
-      let [purchaseOrderId, orderId] = parsePurchaseOrderId(url);
+      let [orderId, puid] = parsePurchaseOrderId(url);
       return makeXHR("PATCH", "editOrder", {
         retailerAddress,
-        purchaseOrderId,
+        distributorAddress: config.ADDRESS,
         orderId,
+        puid,
         amount
       });
     });
@@ -69,8 +74,9 @@ const EditRow = ({ index, order, distributorName }) => {
           <Form.Row>
             <Col md={9}>
               <Form.Control
+                min={1}
                 type={"number"}
-                placeholder={'Enter a new quantity '}
+                placeholder={"Enter a new quantity "}
                 value={amount}
                 onChange={handleChange}
                 disabled={disabled}
@@ -80,22 +86,32 @@ const EditRow = ({ index, order, distributorName }) => {
                 <strong>Amount cant exceed available quantity</strong>
               </FormControl.Feedback>
             </Col>
-            {order.currentState !== 'Completed'?<>
-            <Col md={1}>
-
-              <Button
-                onClick={() => {
-                  setDisabled(false);
-                }}
-              >
-                Edit
-              </Button>
-            </Col>
-            <Col md={2}>
-              <Button disabled={updateBtnDisabled} onClick={handleUpdate}>
-                Update
-              </Button>
-            </Col></>: <Col md={3}  > <span className={'status-success'}>  Order Already Completed</span></Col>}
+            {order.currentState !== "Completed" ? (
+              <>
+                <Col md={1}>
+                  <Button
+                    onClick={() => {
+                      setDisabled(false);
+                    }}
+                  >
+                    Edit
+                  </Button>
+                </Col>
+                <Col md={2}>
+                  <Button disabled={updateBtnDisabled} onClick={handleUpdate}>
+                    Update
+                  </Button>
+                </Col>
+              </>
+            ) : (
+              <Col md={3}>
+                {" "}
+                <span className={"status-success"}>
+                  {" "}
+                  Order Already Completed
+                </span>
+              </Col>
+            )}
           </Form.Row>
         </Form.Group>
         {/*{order.amount}*/}

@@ -7,67 +7,68 @@ import {
   setBreadcrumb
 } from "../../../helpers";
 import Row from "react-bootstrap/Row";
-import { connectToWeb3, convertFromHex } from "../../../dbController/init";
+import {
+  connectToWeb3,
+  convertFromHex,
+  convertToHex
+} from "../../../dbController/init";
 import { Card, Form, Table } from "react-bootstrap";
 import { fetchRowsForCreatingPurchaseOrder } from "../../../dbController/retailerRole";
 import { getDistributorDetails } from "../../../dbController/distributorRole";
 import EditRow from "./EditRow";
 import Loader from "../../Loader";
+import { fetchProductUnitDetailsUsingUID } from "../../../dbController/manufacturerRole";
 
 const EditOrder = ({ history, location, match }) => {
-  const [orderList, setOrderList] = useState({ orders: [] });
+  const [orderList, setOrderList] = useState([]);
   const [loader, setLoader] = useState(true);
 
   const orderId = match.params.id;
   useEffect(() => {
-    makeXHR(
-      "GET",
-      `purchase-order/get?purchaseOrder=${convertFromHex(orderId)}`
-    ).then(({ result }) => {
-      connectToWeb3()
-        .then(() => {
-          return getDistributorDetails(result.distributorAddress);
-        })
-        .then(({ name, companyName }) => {
-          result.distributorName = name;
-          result.distributorCompany = companyName;
-          let totalFetched = 0;
-          fetchRowsForCreatingPurchaseOrder(
-            result.distributorAddress,
-            (row, total) => {
-              totalFetched++;
-              let x = result.orders.find(ele => {
-                return ele.productUnitId === row.uid;
-              });
-              if (!x) {
-                if (totalFetched === total) {
-                  setOrderList(result);
-                  doPendingJob(result);
+    makeXHR("GET", `getOrderDetails?orderId=${convertFromHex(orderId)}`).then(
+      ({ result }) => {
+        connectToWeb3()
+          .then(() => {
+            return getDistributorDetails(result.distributorAddress);
+          })
+          .then(({ name, companyName }) => {
+            result.distributorName = name;
+            result.distributorCompany = companyName;
+            let { itemsArray } = result;
+            let i = 0;
+            itemsArray.forEach(item => {
+              let { puid, orderedAmount, status } = item;
+              i++;
+              let tempArr = orderList;
+              puid = convertToHex(puid);
+              fetchProductUnitDetailsUsingUID(puid).then(productDetails => {
+                let x = {};
+                x.url = createPurchaseOrderId(orderId, convertFromHex(puid));
+                let oldUnitsUsed = productDetails.details.totalPacketsUsed
+                  ? productDetails.details.totalPacketsUsed
+                  : 0;
+                x.availableUnits =
+                  productDetails.details.totalPacketsManufactured -
+                  oldUnitsUsed;
+                x.price = productDetails.details.distributorToRetailerPrice;
+                x.productName = productDetails.details.productName;
+                x.distributorName = result.distributorName;
+                x.amount = orderedAmount;
+                x.currentState = status;
+                tempArr.push(x);
+                setOrderList([...tempArr]);
+                if (i === itemsArray.length) {
+                  doPendingJob();
                 }
-                return;
-              }
-              let oldUnitsUsed = row.details.totalPacketsUsed
-                ? row.details.totalPacketsUsed
-                : 0;
-              x.availableUnits =
-                row.details.totalPacketsManufactured - oldUnitsUsed;
-              x.price = row.details.distributorToRetailerPrice;
-              x.productName = row.details.productName;
-              x.url = createPurchaseOrderId(orderId, x.orderNumber);
-
-              if (totalFetched === total) {
-                setOrderList(result);
-                doPendingJob(result);
-              }
-            }
-          );
-        });
-    });
+              });
+            });
+          });
+      }
+    );
   }, []);
 
-  function doPendingJob(orderList) {
+  function doPendingJob() {
     setLoader(false);
-    console.log(orderList);
   }
 
   return (
@@ -96,7 +97,7 @@ const EditOrder = ({ history, location, match }) => {
                 </thead>
 
                 <tbody>
-                  {orderList.orders.map((order, index) => {
+                  {orderList.map((order, index) => {
                     return (
                       <EditRow
                         key={index}
