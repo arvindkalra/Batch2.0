@@ -42,6 +42,7 @@ const PurchaseOrderTable = ({
   };
 
   const handleSale = index => {
+    let [orderId, puid] = parsePurchaseOrderId(array[index].purchaseOrderId);
     let batchObject = {
       totalUnitsForSale: array[index].orderAmount,
       sentToRetailerOn: new Date().toLocaleString(),
@@ -58,17 +59,13 @@ const PurchaseOrderTable = ({
       parseInt(oldUnitsUsed) + batchObject.totalUnitsForSale;
     setShowModal(false);
     setTransactionMining(true);
-    let [purchaseOrderId, orderNum] = parsePurchaseOrderId(
-      array[index].purchaseOrderId
-    );
     createBatchByDistributor(
       batchObject.productUnitId,
       newProductDetail,
       batchObject,
       batchObject.retailerAddress,
       batchObject.distributorToRetailerTransporter,
-      purchaseOrderId,
-      orderNum,
+      orderId,
       openSignatureModal
     ).then(hash => {
       checkMined(hash, () => {

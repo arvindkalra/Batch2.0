@@ -8,7 +8,11 @@ import {
   makeXHR,
   setBreadcrumb
 } from "../../helpers";
-import { checkMined, connectToWeb3 } from "../../dbController/init";
+import {
+  checkMined,
+  connectToWeb3,
+  convertFromHex
+} from "../../dbController/init";
 import {
   fetchHarvestUnitDetailsUsingUID,
   fetchProductUnitDetailsUsingUID,
@@ -57,8 +61,12 @@ const DistributorProductDetail = props => {
         setProductInfo({ ...productObject, puid, alreadyUsed });
         makeXHR(
           "GET",
-          `order/get/pending?address=${OWN_ADDRESS}&productId=${object.uid}`
-        ).then(o => handleXHRResponse(o, unitsLeft));
+          `ordersForItem?distributorAddress=${OWN_ADDRESS}&puid=${convertFromHex(
+            object.uid
+          )}`
+        ).then(o => {
+          handleXHRResponse(o, unitsLeft, puid);
+        });
         return getManufacturerDetails(object.manufacturerAddress);
       })
       .then(({ name, companyName }) => {
@@ -77,21 +85,21 @@ const DistributorProductDetail = props => {
       });
   }, []);
 
-  const handleXHRResponse = ({ result }, left) => {
+  const handleXHRResponse = ({ result }, left, puid) => {
     let tempOrders = ordersArray;
     result.forEach(order => {
       getRetailerDetails(order.retailerAddress).then(
         ({ name, companyName }) => {
           let obj = {
             purchaseOrderId: createPurchaseOrderId(
-              order.purchaseOrderId,
-              order.orderNumber
+              order.orderId,
+              convertFromHex(puid)
             ),
             retailerName: name,
             retailerCompany: companyName,
             orderDate: order.orderDate,
-            orderAmount: order.amount,
-            possible: order.amount <= left
+            orderAmount: order.orderedAmount,
+            possible: order.orderedAmount <= left
           };
           tempOrders.push(obj);
           setOrdersArray([...tempOrders]);
@@ -204,14 +212,10 @@ const DistributorProductDetail = props => {
                       </li>
                       <li>
                         <strong> Product Type</strong>
-                        <span>
-                          {productInfo.productType}
-                        </span>
+                        <span>{productInfo.productType}</span>
                       </li>
                       <li>
-                        <strong>
-                          Units in each Container
-                        </strong>
+                        <strong>Units in each Container</strong>
                         <span>
                           {productInfo.unitsPerPacket
                             ? `${productInfo.unitsPerPacket} Units`
