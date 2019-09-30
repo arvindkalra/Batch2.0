@@ -1,8 +1,8 @@
 export default {
   // SERVER_URL: "http://13.127.54.87:2000",
-  SERVER_URL: "http://10.5.50.36:2000",
+  SERVER_URL: "http://localhost:2000",
   // PURCHASE_ORDER_SERVER: "http://13.127.54.87:2000",
-  PURCHASE_ORDER_SERVER: "http://10.5.50.36:2000",
+  PURCHASE_ORDER_SERVER: "http://localhost:2000",
   NETWORK_NAME: "Truffle",
 
   // For Matic After resolving Issue #14
