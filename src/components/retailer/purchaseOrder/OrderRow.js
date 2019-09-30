@@ -30,23 +30,6 @@ const OrderRow = ({ product, setAmount }) => {
         setPending(true);
       }
     });
-    // makeXHR(
-    //     "POST",
-    //     `order/get/pending?address=${product.distributorAddress}&productId=${product.id}`
-    // ).then(({result}) => {
-    //     result.forEach(order => {
-    //         if (order.retailerAddress === OWN_ADDRESS) {
-    //             let url = createPurchaseOrderId(
-    //                 order.purchaseOrderId,
-    //                 order.orderNumber
-    //             );
-    //             setOrder({
-    //                 url,
-    //                 amount: order.amount
-    //             });
-    //         }
-    //     });
-    // });
   }, []);
 
   const handleInput = e => {
@@ -73,7 +56,7 @@ const OrderRow = ({ product, setAmount }) => {
           <Form.Control
             type={"number"}
             min={0}
-            value={pending ? order.amount : ""}
+            value={pending ? order.amount : product.amount}
             placeholder={"Units of this product to be ordered"}
             onChange={!pending ? handleInput : () => {}}
             isInvalid={!pending ? invalid : false}
