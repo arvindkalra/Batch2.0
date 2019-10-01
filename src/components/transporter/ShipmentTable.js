@@ -19,6 +19,7 @@ const ShipmentTable = ({
     let temp = array;
     if (array.length < 3) {
       setViewableArray([...temp]);
+      setShowSort(false);
     } else {
       if (array[0]["dispatchTime"] === undefined) {
         console.log("Sort on request time");
