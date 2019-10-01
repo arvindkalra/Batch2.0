@@ -17,11 +17,11 @@ const ShipmentTable = ({
   useEffect(() => {
     let sortFunction;
     let temp = array;
-    console.log(temp);
     if (array.length < 3) {
       setViewableArray([...temp]);
     } else {
       if (array[0]["dispatchTime"] === undefined) {
+        console.log("Sort on request time");
         sortFunction = createSortFunction("requestedAt", "string");
       } else {
         sortFunction = createSortFunction("dispatchTime", "string");
@@ -35,11 +35,13 @@ const ShipmentTable = ({
   const sort = e => {
     let val = e.target.value;
     let isInc = val === "true";
-    let temp = array;
-    if (temp[0]["dispatchTime"] === undefined) {
-      return;
+    let sortFunction;
+    if (array[0]["dispatchTime"] === undefined) {
+      sortFunction = createSortFunction("requestedAt", "string", isInc);
+    } else {
+      sortFunction = createSortFunction("dispatchTime", "string", isInc);
     }
-    let sortFunction = createSortFunction("dispatchTime", "string", isInc);
+    let temp = array;
     temp.sort(sortFunction);
     setViewableArray([...temp]);
   };
