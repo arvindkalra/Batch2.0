@@ -26,7 +26,7 @@ export const setBreadcrumb = url => {
         return (
           <Breadcrumb.Item key={index} active={count === index + 1}>
             {" "}
-            {urlItem}
+            {urlItem.replace(/-/g,' ')}
           </Breadcrumb.Item>
         );
       })}

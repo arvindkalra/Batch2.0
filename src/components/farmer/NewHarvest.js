@@ -20,7 +20,7 @@ const NewHarvest = ({ location, history }) => {
   const [lineage, setLineage] = useState("Durban Poison, OG Kush");
 
   const [floweringTime, setFloweringTime] = useState("10-20 days");
-  const [plantLocation, setPlantLocation] = useState("Green House");
+  const [plantLocation, setPlantLocation] = useState("Nursery");
   const [soilType, setSoilType] = useState("Slightly Acidic");
   const [nutrients, setNutrients] = useState("");
   const [seedCount, setSeedCount] = useState(0);
@@ -113,47 +113,50 @@ const NewHarvest = ({ location, history }) => {
             <Form>
               <Row>
                 <Col md={12}>
-                  <Form.Group>
-                    <Form.Label>Seed</Form.Label>
-                    <Form.Control
-                      type={"text"}
-                      placeholder={"Enter the Seed Name"}
-                      onChange={e => setPlantName(e.target.value.captialize())}
-                      isInvalid={clicked ? plantName.length === 0 : false}
-                    />
-                    <FormControl.Feedback type={"invalid"}>
-                      <strong>Required</strong> : Enter name of the Seed
-                    </FormControl.Feedback>
-                  </Form.Group>
+                  {/*<Form.Group>*/}
+                  {/*  <Form.Label>Seed</Form.Label>*/}
+                  {/*  <Form.Control*/}
+                  {/*    type={"text"}*/}
+                  {/*    placeholder={"Enter the Seed Name"}*/}
+                  {/*    onChange={e => setPlantName(e.target.value.captialize())}*/}
+                  {/*    isInvalid={clicked ? plantName.length === 0 : false}*/}
+                  {/*  />*/}
+                  {/*  <FormControl.Feedback type={"invalid"}>*/}
+                  {/*    <strong>Required</strong> : Enter name of the Seed*/}
+                  {/*  </FormControl.Feedback>*/}
+                  {/*</Form.Group>*/}
                 </Col>
                 <Col md={12}>
                   <Form.Group>
                     <Form.Label>Type</Form.Label>
                     <Form.Control
-                      type={"text"}
+                      as={'select'}
                       placeholder={"Enter the Seed Type"}
                       onChange={e => setSeedType(e.target.value)}
                       isInvalid={clicked ? seedType.length === 0 : false}
-                    />
+                    >
+                      <option value="sinensis">Sinensis</option>
+                      <option value="assamica">Assamica</option>
+                    </Form.Control>
                     <FormControl.Feedback type={"invalid"}>
                       <strong>Required</strong> : Enter type of the Seed
                     </FormControl.Feedback>
                   </Form.Group>
                 </Col>
                 <Col md={12}>
-                  <Form.Group controlId={"lineage"}>
-                    <Form.Label>Lineage</Form.Label>
-                    <Form.Control
-                      as={"select"}
-                      onChange={e => setLineage(e.target.value)}
-                    >
-                      <option value="Durban Poison, OG Kush">
-                        Durban Poison, OG Kush
-                      </option>
-                      <option value="line2">line2</option>
-                      <option value="line3">line3</option>
-                    </Form.Control>
-                  </Form.Group>
+                  {/*<Form.Group controlId={"lineage"}>*/}
+                  {/*  <Form.Label>Lineage</Form.Label>*/}
+                  {/*  <Form.Control*/}
+                  {/*    as={"select"}*/}
+                  {/*    onChange={e => setLineage(e.target.value)}*/}
+                  {/*  >*/}
+                  {/*    <option value="Durban Poison, OG Kush">*/}
+                  {/*      Durban Poison, OG Kush*/}
+                  {/*    </option>*/}
+                  {/*    <option value="line2">line2</option>*/}
+                  {/*    <option value="line3">line3</option>*/}
+                  {/*  </Form.Control>*/}
+                  {/*</Form.Group>*/}
                 </Col>
                 <Col md={12}>
                   <Form.Group controlId={"flowering-time"}>
@@ -178,8 +181,8 @@ const NewHarvest = ({ location, history }) => {
                       as={"select"}
                       onChange={e => setPlantLocation(e.target.value)}
                     >
-                      <option value="Green House">Green House</option>
-                      <option value="Outdoor Farm">Outdoor Farm</option>
+                      <option value="Nursery">Nursery</option>
+                      <option value="Plantation">plantation</option>
                     </Form.Control>
                   </Form.Group>
                 </Col>
@@ -191,11 +194,11 @@ const NewHarvest = ({ location, history }) => {
                       onChange={e => setSoilType(e.target.value)}
                     >
                       <option value="Slightly Acidic">Slightly Acidic</option>
-                      <option value="Another Soil Type">
-                        Another Soil Type
+                      <option value="Without Calcium">
+                        Without Calcium
                       </option>
-                      <option value="Yet Another Soil Type">
-                        Yet Another Soil Type
+                      <option value="Porous">
+                        Porous
                       </option>
                     </Form.Control>
                   </Form.Group>
@@ -221,31 +224,31 @@ const NewHarvest = ({ location, history }) => {
                   <Form.Group>
                     <Form.Label>Yield Potential</Form.Label>
                     <Form.Control as={"select"}>
-                      <option value="1 oz / 3 ft">1 oz / 3 ft</option>
-                      <option value="2 oz / 3 ft">2 oz / 3 ft</option>
-                      <option value="3 oz / 3 ft">3 oz / 3 ft</option>
-                      <option value="more than 3 oz / 3 ft">
-                        more than 3 oz / 3 ft
+                      <option value="1 grams / 3 metre">1 grams / 3 metre</option>
+                      <option value="2 grams / 3 metre">2 grams / 3 metre</option>
+                      <option value="3 grams / 3 metre">3 grams / 3 metre</option>
+                      <option value="more than 3 grams / 3 metre">
+                        more than 3 grams / 3 metre
                       </option>
                     </Form.Control>
                   </Form.Group>
                 </Col>
                 <Col md={12}>
                   <Form.Group>
-                    <Form.Label>Average Height (in Inches)</Form.Label>
+                    <Form.Label>Average Height (in centimetres)</Form.Label>
                     <Form.Control as={"select"}>
-                      <option value="50-60 inches">50-60 inches</option>
-                      <option value="60-70 inches">60-70 inches</option>
-                      <option value="70-80 inches">70-80 inches</option>
+                      <option value="50-60 centimetres">50-60 centimetres</option>
+                      <option value="60-70 centimetres">60-70 centimetres</option>
+                      <option value="70-80 centimetres">70-80 centimetres</option>
                     </Form.Control>
                   </Form.Group>
                 </Col>
                 <Col md={12}>
                   <Form.Group>
-                    <Form.Label>Total Potential(in Ounces)</Form.Label>
+                    <Form.Label>Total Potential(in grams)</Form.Label>
                     <Form.Control
                       type={"number"}
-                      placeholder={"enter the total yield potential in ounces"}
+                      placeholder={"enter the total yield potential in grams"}
                       onChange={e => setPotential(parseInt(e.target.value))}
                       isInvalid={clicked ? potential <= 0 : false}
                     />
@@ -256,15 +259,15 @@ const NewHarvest = ({ location, history }) => {
                 </Col>
                 <Col md={12}>
                   <Form.Group>
-                    <Form.Label>Seed Count</Form.Label>
+                    <Form.Label>Stems Sown</Form.Label>
                     <Form.Control
                       type={"number"}
-                      placeholder={"Enter the number of seeds you have sown"}
+                      placeholder={"Enter the number of plant stems or seeds you have sown"}
                       onChange={e => setSeedCount(parseInt(e.target.value))}
                       isInvalid={clicked ? seedCount <= 0 : false}
                     />
                     <FormControl.Feedback type={"invalid"}>
-                      <strong>Required</strong> : Enter the number of seeds sown
+                      <strong>Required</strong> : Enter the number of stems/seeds sown
                     </FormControl.Feedback>
                   </Form.Group>
                 </Col>
