@@ -22,10 +22,10 @@ const NewHarvest = ({ location, history }) => {
   const [floweringTime, setFloweringTime] = useState("10-20 days");
   const [plantLocation, setPlantLocation] = useState("Nursery");
   const [soilType, setSoilType] = useState("Slightly Acidic");
-  const [nutrients, setNutrients] = useState("");
+  const [nutrients, setNutrients] = useState("tea nutrients");
   const [seedCount, setSeedCount] = useState(0);
-  const [plantName, setPlantName] = useState("");
-  const [seedType, setSeedType] = useState("");
+  const [plantName, setPlantName] = useState("tea plant");
+  const [seedType, setSeedType] = useState("sinensis");
   const [plantImage, setPlantImage] = useState("");
   const [potential, setPotential] = useState(0);
 
@@ -65,6 +65,7 @@ const NewHarvest = ({ location, history }) => {
       nutrients: nutrients,
       datePlanted: new Date().toLocaleString(),
       seedCount: seedCount,
+      plantType: seedType,
       plantName: plantName,
       plantImage: plantImage
     };
@@ -133,14 +134,14 @@ const NewHarvest = ({ location, history }) => {
                       as={'select'}
                       placeholder={"Enter the Seed Type"}
                       onChange={e => setSeedType(e.target.value)}
-                      isInvalid={clicked ? seedType.length === 0 : false}
+
                     >
                       <option value="sinensis">Sinensis</option>
                       <option value="assamica">Assamica</option>
                     </Form.Control>
-                    <FormControl.Feedback type={"invalid"}>
-                      <strong>Required</strong> : Enter type of the Seed
-                    </FormControl.Feedback>
+                    {/*<FormControl.Feedback type={"invalid"}>*/}
+                    {/*  <strong>Required</strong> : Enter type of the Seed*/}
+                    {/*</FormControl.Feedback>*/}
                   </Form.Group>
                 </Col>
                 <Col md={12}>
@@ -165,12 +166,11 @@ const NewHarvest = ({ location, history }) => {
                       as={"select"}
                       onChange={e => setFloweringTime(e.target.value)}
                     >
-                      <option value="10-20 weeks">10-20 weeks</option>
-                      <option value="20-30 weeks">20-30 weeks</option>
-                      <option value="30-40 weeks">30-40 weeks</option>
-                      <option value="50-60 weeks">50-60 weeks</option>
-                      <option value="60-70 weeks">60-70 weeks</option>
-                      <option value="70-80 weeks">70-80 weeks</option>
+                      <option value="1-2 years">1-2 years</option>
+                      <option value="2-3 years">2-3 years</option>
+                      <option value="3-4 years">3-4 years</option>
+                      <option value="More than 4 years">More than 4 years</option>
+
                     </Form.Control>
                   </Form.Group>
                 </Col>
@@ -204,31 +204,31 @@ const NewHarvest = ({ location, history }) => {
                   </Form.Group>
                 </Col>
                 <Col md={12}>
-                  <Form.Group>
-                    <Form.Label>Nutrients</Form.Label>
-                    <Form.Control
-                      type={"text"}
-                      placeholder={
-                        "Enter the Nutritional Information about the plant"
-                      }
-                      onChange={e => setNutrients(e.target.value.captialize())}
-                      isInvalid={clicked ? nutrients.length === 0 : false}
-                    />
-                    <FormControl.Feedback type={"invalid"}>
-                      <strong>Required</strong> : Enter the Nutritional
-                      Information
-                    </FormControl.Feedback>
-                  </Form.Group>
+                  {/*<Form.Group>*/}
+                  {/*  <Form.Label>Nutrients</Form.Label>*/}
+                  {/*  <Form.Control*/}
+                  {/*    type={"text"}*/}
+                  {/*    placeholder={*/}
+                  {/*      "Enter the Nutritional Information about the plant"*/}
+                  {/*    }*/}
+                  {/*    onChange={e => setNutrients(e.target.value.captialize())}*/}
+                  {/*    isInvalid={clicked ? nutrients.length === 0 : false}*/}
+                  {/*  />*/}
+                  {/*  <FormControl.Feedback type={"invalid"}>*/}
+                  {/*    <strong>Required</strong> : Enter the Nutritional*/}
+                  {/*    Information*/}
+                  {/*  </FormControl.Feedback>*/}
+                  {/*</Form.Group>*/}
                 </Col>
                 <Col md={12}>
                   <Form.Group>
                     <Form.Label>Yield Potential</Form.Label>
                     <Form.Control as={"select"}>
-                      <option value="1 grams / 3 metre">1 grams / 3 metre</option>
-                      <option value="2 grams / 3 metre">2 grams / 3 metre</option>
-                      <option value="3 grams / 3 metre">3 grams / 3 metre</option>
-                      <option value="more than 3 grams / 3 metre">
-                        more than 3 grams / 3 metre
+                      <option value="100 Kilograms / acre">100 Kilograms / acre</option>
+                      <option value="200 Kilograms / acre">200 Kilograms / acre</option>
+                      <option value="300 Kilograms / acre">300 Kilograms / acre</option>
+                      <option value="more than 300 Kilograms / acre">
+                        More than 300 Kilograms / acre
                       </option>
                     </Form.Control>
                   </Form.Group>

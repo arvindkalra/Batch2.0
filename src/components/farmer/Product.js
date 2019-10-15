@@ -105,9 +105,9 @@ const Product = props => {
                       </li>
 
                       <li>
-                        <strong>Nutrients:</strong>
+                        <strong>Plant:</strong>
                         <span>
-                          {seedObject.details.nutrients || "Loading..."}
+                          {seedObject.details.plantType || "Loading..."}
                         </span>
                       </li>
                       <li>
