@@ -4,8 +4,8 @@ import TableLayout from "../tables/TableLayout";
 const PendingReportTable = ({array, seedObjArr, labDetails}) => {
     const tableHead = [
         "Batch Id",
-        "Farmer Name",
-        "Plant Name",
+        "Cultivator Name",
+        "Plant Type",
         "Amount",
         "Date Harvested",
         "Action"

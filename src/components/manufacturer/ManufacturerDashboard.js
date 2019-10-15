@@ -122,7 +122,7 @@ const ManufacturerDashboard = ({ location }) => {
             </div>
             <BarGraph
               ObjectToShow={availableGraphData}
-              label={"Pounds"}
+              label={"Kilograms"}
             />
           </section>
         </Col>

@@ -15,7 +15,7 @@ const AlreadyTestedReportTable = props => {
     setTableHead([
       "Batch Id",
       "Cultivator",
-      "Plant Name",
+      "Plant Type",
       "Amount",
       "Date Harvested",
       "Date Tested",

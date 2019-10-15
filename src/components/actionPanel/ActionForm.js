@@ -42,8 +42,8 @@ const ActionForm = ({
   const [formFieldValue, setFormFieldValue] = useState(0);
 
   // Send to Lab Form States
-  const [labName, setLabName] = useState("Green Labs LLC");
-  const [transporterName, setTransporterName] = useState("Transporter A");
+  const [labName, setLabName] = useState("UPASI Tea Research");
+  const [transporterName, setTransporterName] = useState("Singh Transporters");
 
   // Destroy Form States
   const [destroyQuantity, setDestroyQuantity] = useState(0);
@@ -223,7 +223,7 @@ const ActionForm = ({
               <Form.Label>Quantity</Form.Label>
               <Form.Control
                 type={"number"}
-                placeholder={"Enter the amount crop destroyed in pounds"}
+                placeholder={"Enter the amount crop destroyed in kilograms"}
                 onChange={e => {
                   setDestroyQuantity(parseInt(e.target.value));
                 }}
@@ -320,10 +320,10 @@ const ActionForm = ({
         <Row>
           <Col md={12}>
             <Form.Group>
-              <Form.Label>Harvested Amount(in Pounds)</Form.Label>
+              <Form.Label>Harvested Amount(in Kilograms)</Form.Label>
               <Form.Control
                 type={"number"}
-                placeholder={"Enter the amount harvested in pounds"}
+                placeholder={"Enter the amount harvested in kilograms"}
                 onChange={e => {
                   setFormFieldValue(parseInt(e.target.value));
                 }}
@@ -356,7 +356,7 @@ const ActionForm = ({
                   setLabName(e.target.value);
                 }}
               >
-                <option value="">Green Labs LLC</option>
+                <option value="">UPASI Tea Research</option>
                 <option value="">LIME Labs INC</option>
               </Form.Control>
             </Form.Group>
@@ -371,7 +371,7 @@ const ActionForm = ({
                   setTransporterName(e.target.value);
                 }}
               >
-                <option value="">Transporter A</option>
+                <option value="">Singh Transporters</option>
                 <option value="">Transporter B</option>
               </Form.Control>
             </Form.Group>
@@ -396,7 +396,7 @@ const ActionForm = ({
             <Row>
               <Col md={6}>
                 <Form.Group>
-                  <Form.Label>Price ($x.xx / Pound)</Form.Label>
+                  <Form.Label>Price (₹ x.xx / Kilogram)</Form.Label>
                   <Form.Control
                     type={"number"}
                     placeholder={"Enter the Selling Price"}
@@ -414,7 +414,7 @@ const ActionForm = ({
               </Col>
               <Col md={6}>
                 <Form.Group>
-                  <Form.Label>Total Price ($x.xx)</Form.Label>
+                  <Form.Label>Total Price (₹ x.xx)</Form.Label>
                   <Form.Control
                     type={"number"}
                     placeholder={"Enter the Selling Price"}
@@ -435,14 +435,14 @@ const ActionForm = ({
             <Form.Group>
               <Form.Label>Select Manufacturer</Form.Label>
               <Form.Control as={"select"} required>
-                <option value="">Profacturing</option>
+                <option value="">Tata Tea</option>
                 <option value="">DEF</option>
               </Form.Control>
             </Form.Group>
             <Form.Group>
               <Form.Label>Select Transporter</Form.Label>
               <Form.Control as={"select"} required>
-                <option value="">Kamath Transportation</option>
+                <option value="">Singh Transportations</option>
                 <option value="">E-Kart</option>
               </Form.Control>
             </Form.Group>

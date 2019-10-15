@@ -112,7 +112,7 @@ const ManufacturerBatchDetail = props => {
                         <strong>Units of Raw Material Bought</strong>
                         <span>
                           {batchInfo.amountHarvested
-                            ? batchInfo.amountHarvested + " Pounds"
+                            ? batchInfo.amountHarvested + " Kilograms"
                             : "Loading..."}
                         </span>
                       </li>

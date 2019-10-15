@@ -38,7 +38,7 @@ const ManufacturerBarGraph = ({data}) => {
             datasets: [
                 {
                     backgroundColor: background,
-                    label: "Pounds",
+                    label: "Kilograms",
                     data: values
                 }
             ]

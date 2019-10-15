@@ -38,8 +38,8 @@ const Product = props => {
           <Col>
             {setBreadcrumb(
               `/cultivator/products/${
-                seedObject.details.plantName
-                  ? seedObject.details.plantName
+                seedObject.details.plantType || seedObject.details.plantName
+                  ?  seedObject.details.plantType || seedObject.details.plantName
                   : "Loading..."
               }`
             )}
@@ -62,7 +62,7 @@ const Product = props => {
                       <img src={seedObject.details.plantImage} alt={""} />
                     ) : (
                       <img
-                        src="https://www.ilovegrowingmarijuana.com/wp-content/uploads/2017/05/Trinity.jpg"
+                        src="https://i.pinimg.com/736x/a4/36/cd/a436cd3a7400ba01fc2fcdb7947bd40a.jpg"
                         alt=""
                       />
                     )}
@@ -74,12 +74,6 @@ const Product = props => {
                       <li>
                         <strong>Batch Id:</strong>
                         <span>#{seedObject.harvestUnitId || "Loading..."}</span>
-                      </li>
-                      <li>
-                        <strong>Lineage : </strong>{" "}
-                        <span>
-                          {seedObject.details.lineage || "Loading..."}
-                        </span>
                       </li>
                       <li>
                         <strong>Flowering Time:</strong>
@@ -105,19 +99,13 @@ const Product = props => {
                       </li>
 
                       <li>
-                        <strong>Plant:</strong>
-                        <span>
-                          {seedObject.details.plantType || "Loading..."}
-                        </span>
-                      </li>
-                      <li>
                         <strong>Date Planted:</strong>
                         <span>
                           {seedObject.details.datePlanted || "Loading..."}
                         </span>
                       </li>
                       <li>
-                        <strong>Seed Count:</strong>
+                        <strong>Stem/Seed Count:</strong>
                         <span>
                           {seedObject.details.seedCount + " Seeds"|| "Loading..."}
                         </span>
@@ -128,7 +116,7 @@ const Product = props => {
                             <strong>Amount Harvested:</strong>
                             <span>
                               {seedObject.details.totalHarvestAmount +
-                                " Pounds" || "Loading..."}
+                                " Kilograms" || "Loading..."}
                             </span>
                           </li>
                         ) : null

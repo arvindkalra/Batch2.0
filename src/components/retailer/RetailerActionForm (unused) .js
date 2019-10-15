@@ -132,7 +132,7 @@ const RetailerActionFormUnused = ({puid}) => {
                                         Quantity: <span>{amount} units</span>
                                     </li>
                                     <li>
-                                        Price : <span>${sellingPrice}</span>
+                                        Price : <span>Rs {sellingPrice}</span>
                                     </li>
                                     <li>
                                         <ul>
@@ -151,7 +151,7 @@ const RetailerActionFormUnused = ({puid}) => {
                                         </ul>
                                     </li>
                                     <li>
-                                        Total : <span>${getTotalFare(sellingPrice, amount)} </span>
+                                        Total : <span>Rs {getTotalFare(sellingPrice, amount)} </span>
                                     </li>
                                 </ul>
                             </Col>

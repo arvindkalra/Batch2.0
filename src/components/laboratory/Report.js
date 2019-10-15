@@ -8,6 +8,7 @@ import { getSeedUnitDetails } from "../../dbController/farmerRole";
 import Table from "react-bootstrap/Table";
 import LabBarGraph from "./LabBarGraph";
 import { Card } from "react-bootstrap";
+import Form from "react-bootstrap/Form";
 
 const Report = ({ location, match, history }) => {
   const [seedObject, setSeedObject] = useState({
@@ -43,7 +44,7 @@ const Report = ({ location, match, history }) => {
       <Row>
         <Col>
           {setBreadcrumb(
-            `/laboratory/report/${seedObject.details.plantName || "Loading..."}`
+            `/laboratory/report/${seedObject.details.plantType || "Loading..."}`
           )}
         </Col>
       </Row>
@@ -58,8 +59,8 @@ const Report = ({ location, match, history }) => {
                 <img src={seedObject.details.plantImage} alt={""} />
               ) : (
                 <img
-                  src="https://www.ilovegrowingmarijuana.com/wp-content/uploads/2017/05/Trinity.jpg"
-                  alt=""
+                  src=""
+                  alt="Loading"
                 />
               )}
             </section>
@@ -67,10 +68,6 @@ const Report = ({ location, match, history }) => {
           <Col md={6}>
             <section className={"product-info"}>
               <ul>
-                <li>
-                  <strong>Lineage:</strong>
-                  <span>{seedObject.details.lineage || "Loading..."}</span>
-                </li>
                 <li>
                   <strong>Flowering Time:</strong>
                   <span>
@@ -80,10 +77,6 @@ const Report = ({ location, match, history }) => {
                 <li>
                   <strong>Soil Type:</strong>
                   <span>{seedObject.details.soilType || "Loading..."}</span>
-                </li>
-                <li>
-                  <strong>Nutrients:</strong>
-                  <span>{seedObject.details.nutrients || "Loading..."}</span>
                 </li>
               </ul>
             </section>
@@ -141,32 +134,32 @@ const Report = ({ location, match, history }) => {
               </thead>
               <tbody>
                 <tr>
-                  <td> Cannabinoids</td>
+                  <td>Crude Fibre (% by Mass)</td>
                   <td>
                     {" "}
                     {seedObject.details.testResults
-                      ? seedObject.details.testResults.cannabinoids
+                      ? seedObject.details.testResults.crudeFibre
                       : "Loading..."}{" "}
                   </td>
-                  <td> 4-5%</td>
+                  <td> >17%</td>
                 </tr>
                 <tr>
-                  <td>THC Content</td>
+                  <td>Water Extract (% by Mass)</td>
                   <td>
                     {seedObject.details.testResults
-                      ? seedObject.details.testResults.thc
+                      ? seedObject.details.testResults.waterExtract
                       : "Loading..."}
                   </td>
-                  <td>3-2%</td>
+                  <td> >32%</td>
                 </tr>
                 <tr>
-                  <td>CBD</td>
+                  <td>Water Soluble Ash (% by Mass)</td>
                   <td>
                     {seedObject.details.testResults
-                      ? seedObject.details.testResults.cbd
+                      ? seedObject.details.testResults.waterSolubleAsh
                       : "Loading..."}
                   </td>
-                  <td>7-8%</td>
+                  <td> >4%</td>
                 </tr>
               </tbody>
             </Table>
@@ -176,8 +169,8 @@ const Report = ({ location, match, history }) => {
             </p>
             <ul>
               <li>
-                The sample was rejected because of dangerous levels of cbd and
-                thc found in it
+                The sample was rejected because of dangerous levels of waterSolubleAsh and
+                waterExtract found in it
               </li>
               <li>
                 The sample color suggests untimely harvset due to which it
@@ -205,21 +198,21 @@ const Report = ({ location, match, history }) => {
           <Card>
             <div className={"card-header action-panel-head"}>
               <div className={"utils__title"}>
-                <strong>Molecular composition of the Sample</strong>
+                <strong>Characteristics of the Sample</strong>
               </div>
             </div>
 
             <LabBarGraph
-              labels={["THC %", "CBD %", "Cannabinoids %"]}
+              labels={["Water Extract %", "Water Soluble Ash %", "Crude Fibre %"]}
               dataArray={[
                 seedObject.details.testResults
-                  ? seedObject.details.testResults.thc
+                  ? seedObject.details.testResults.waterExtract
                   : 0,
                 seedObject.details.testResults
-                  ? seedObject.details.testResults.cbd
+                  ? seedObject.details.testResults.waterSolubleAsh
                   : 0,
                 seedObject.details.testResults
-                  ? seedObject.details.testResults.cannabinoids
+                  ? seedObject.details.testResults.crudeFibre
                   : 0
               ]}
             />

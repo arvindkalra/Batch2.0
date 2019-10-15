@@ -84,7 +84,7 @@ const OrderRow = ({ product, setAmount }) => {
         </Form.Group>
       </td>
       <td>{product.availableQuantity}</td>
-      <td>$ {product.price}</td>
+      <td>Rs {product.price}</td>
       <td>$ {total}</td>
     </tr>
   );

@@ -133,7 +133,7 @@ const ManufacturerActionPanel = ({ left, total, prevDetails, history }) => {
           </div>
           <ProgressBar
             now={((left / total) * 100).toFixed(2)}
-            label={`${left} Pounds`}
+            label={`${left} Kilograms`}
             striped
           />
         </section>
@@ -148,10 +148,10 @@ const ManufacturerActionPanel = ({ left, total, prevDetails, history }) => {
           <Row>
             <Col md={6}>
               <Form.Group>
-                <Form.Label>Raw Material Used (in Pounds)</Form.Label>
+                <Form.Label>Raw Material Used (in Kilograms)</Form.Label>
                 <Form.Control
                   type={"number"}
-                  placeholder={"Enter the amount harvested in pounds"}
+                  placeholder={"Enter the amount harvested in kilograms"}
                   min={0}
                   onChange={e => {
                     setSizeOfEachUnit(

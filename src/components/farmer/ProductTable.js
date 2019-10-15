@@ -13,7 +13,7 @@ const ProductTable = ({ rows }) => {
           {rows.length !== 0 ? (
             <>
               <th>#ID</th>
-              <th>Product Name</th>
+              <th>Plant Type</th>
               <th>Date Planted</th>
               <th>Seeds Sown</th>
               <th>Current Status</th>
@@ -31,7 +31,7 @@ const ProductTable = ({ rows }) => {
               <td>
                 <span className={"under-linked"}>
                   <Link to={`/cultivator/products/${element.harvestUnitId}`}>
-                    {element.plantName}
+                    {element.plantType}
                   </Link>
                 </span>
               </td>

@@ -24,7 +24,7 @@ const OrderTable = ({ setGrandTotal, productList, updateProduct }) => {
           <th>Distributor</th>
           <th>Quantity</th>
           <th>Available Units</th>
-          <th>Price( $ x.xx / unit)</th>
+          <th>Price( Rs x.xx / unit)</th>
           <th>Total</th>
         </tr>
       </thead>

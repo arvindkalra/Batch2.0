@@ -145,7 +145,7 @@ const RetailProduct = props => {
                       <li>
                         <strong>M.R.P.</strong>
                         <span>
-                          ${details.mrp} / {details.container}
+                          Rs {details.mrp} / {details.container}
                         </span>
                       </li>
                     </ul>

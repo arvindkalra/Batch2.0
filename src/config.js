@@ -30,7 +30,6 @@ export default {
   //0xDaab6E2dF20FD2F05f2Ae11E99172ba1590017cB
   // Private Key - 0x24EC32025D946BE6BE3A2D03D6E0062751D1EC73EAAD9CABBC28711A4AC477D1
 
-
   /*
   // For Matic Testnet
   RPC_URL: "https://testnet2.matic.network",

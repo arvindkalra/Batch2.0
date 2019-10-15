@@ -59,13 +59,13 @@ const Dashboard = props => {
         tableRows++;
         let objToBeAdded = {
           harvestUnitId: rowObject.harvestUnitId,
-          plantName: rowObject.details.plantName,
+          plantType: rowObject.details.plantType || rowObject.details.plantName,
           datePlanted: rowObject.details.datePlanted,
           seedCount: rowObject.details.seedCount,
           currentState: rowObject.currentState
         };
         addToBarObject(
-          objToBeAdded.plantName,
+          objToBeAdded.plantType,
           parseInt(objToBeAdded.seedCount)
         );
         tempStatusObj = setNumStatusObject(
@@ -185,14 +185,14 @@ const Dashboard = props => {
     }
   }
 
-  function addToBarObject(plantName, seedCount) {
-    plantName = plantName.captialize();
+  function addToBarObject(plantType, seedCount) {
+    plantType = plantType.captialize();
     let tempBarGraph = barGraphObject;
-    if (tempBarGraph[plantName]) {
-      let old = tempBarGraph[plantName];
-      tempBarGraph[plantName] = old + seedCount;
+    if (tempBarGraph[plantType]) {
+      let old = tempBarGraph[plantType];
+      tempBarGraph[plantType] = old + seedCount;
     } else {
-      tempBarGraph[plantName] = seedCount;
+      tempBarGraph[plantType] = seedCount;
     }
     setBarGraphObject(tempBarGraph);
   }

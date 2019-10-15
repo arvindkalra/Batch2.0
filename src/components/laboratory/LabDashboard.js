@@ -78,7 +78,7 @@ const LabDashboard = props => {
             setSeedObjArr(tempSeedObjArr);
 
             addToGraphData(
-              row.details.plantName,
+              row.details.plantType.captialize(),
               1,
               tempBarObject,
               setTestPlantsGraphObject,
@@ -88,7 +88,7 @@ const LabDashboard = props => {
               rowArr = [
                 row.uid,
                 name,
-                row.details.plantName,
+                row.details.plantType.captialize(),
                 row.details.totalHarvestAmount,
                 row.details.sentToLabOn,
                 "Upload Report"
@@ -105,7 +105,7 @@ const LabDashboard = props => {
               rowArr = [
                 row.uid,
                 name,
-                row.details.plantName,
+                row.details.plantType.captialize(),
                 row.details.totalHarvestAmount,
                 row.details.harvestTime,
                 row.details.testResults.testedOn,
@@ -127,7 +127,7 @@ const LabDashboard = props => {
               rowArr = [
                 row.uid,
                 name,
-                row.details.plantName,
+                row.details.plantType.captialize(),
                 row.details.totalHarvestAmount,
                 row.details.harvestTime,
                 row.details.testResults.testedOn,

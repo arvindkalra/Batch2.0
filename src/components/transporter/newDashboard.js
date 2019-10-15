@@ -61,7 +61,7 @@ const NewDashboard = ({ location }) => {
                 rowObj.url = `${row.uid}H`;
                 rowObj.senderCompany = farmerObj;
                 rowObj.receiverCompany = manufacturerObj;
-                rowObj.amount = row.details.totalHarvestAmount + " Pounds";
+                rowObj.amount = row.details.totalHarvestAmount + " Kilograms";
                 rowObj.requestedAt = row.details.sentToManufacturerOn;
                 rowObj.dispatchTime =
                   row.details.farmToFactoryConsignmentDispatchTime;

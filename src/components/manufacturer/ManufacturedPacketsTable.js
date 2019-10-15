@@ -26,7 +26,7 @@ const ManufacturedPacketsTable = ({
   const [showModal, setShowModal] = useState({ open: false, id: 0 });
   const [modalConfirmed, setModalConfirmed] = useState(false);
   const [distributorName, setDistributorName] = useState("Distributor A");
-  const [transporterName, setTransporterName] = useState("Transporter A");
+  const [transporterName, setTransporterName] = useState("Singh Transporters");
   const [price, setPrice] = useState(0);
   const [showLoader, setShowLoader] = useState("");
 
@@ -143,7 +143,7 @@ const ManufacturedPacketsTable = ({
                 <Row>
                   <Col md={4}>
                     <Form.Group>
-                      <Form.Label>Cost Price ( $x.xx / Pound )</Form.Label>
+                      <Form.Label>Cost Price ( $x.xx / Kilogram )</Form.Label>
                       <Form.Control
                         type={"number"}
                         value={showModal.pricePerUnits}
@@ -154,7 +154,7 @@ const ManufacturedPacketsTable = ({
                   <Col md={4}>
                     <Form.Label>
                       Total Cost Price ( $x.xx for {showModal.materialUsed}{" "}
-                      Pounds)
+                      Kilograms)
                     </Form.Label>
                     <Form.Control
                       type={"number"}

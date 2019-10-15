@@ -111,7 +111,7 @@ const TransporterDashboardUnused = ({ location }) => {
               rowObj.uid = row.uid;
               rowObj.senderCompany = farmerObj.name;
               rowObj.receiverCompany = manufacturerObj.name;
-              rowObj.amount = row.details.totalHarvestAmount + " Pounds";
+              rowObj.amount = row.details.totalHarvestAmount + " Kilograms";
               rowObj.dispatchTime =
                 row.details.farmToFactoryConsignmentDispatchTime;
 

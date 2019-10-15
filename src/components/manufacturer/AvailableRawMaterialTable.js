@@ -64,7 +64,7 @@ const AvailableRawMaterialTable = ({ array }) => {
                       </span>
                     </td>
                     <td>{element.farmerName}</td>
-                    <td>{element.pendingAmount} Pounds</td>
+                    <td>{element.pendingAmount} Kilograms</td>
                   </tr>
                 );
               })}

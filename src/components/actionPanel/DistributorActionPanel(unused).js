@@ -18,7 +18,7 @@ const DistributorActionPanelUnused = ({ left, total, prevDetails }) => {
   const [packetName, setPacketName] = useState("");
   const [containerType, setContainerType] = useState("Box");
   const [retailerName, setRetailerName] = useState("Retailer A");
-  const [transporterName, setTransporterName] = useState("Transporter A");
+  const [transporterName, setTransporterName] = useState("Singh Transporters");
   const [plantImage, setPlantImage] = useState("");
   const [transactionMining, setTransactionMining] = useState(false);
   const [transactionObject, setTransactionObject] = useState(null);
@@ -216,7 +216,7 @@ const DistributorActionPanelUnused = ({ left, total, prevDetails }) => {
                     setTransporterName(e.target.value);
                   }}
                 >
-                  <option value={"Transporter A"}>Transporter A</option>
+                  <option value={"Singh Transporters"}>Singh Transporters</option>
                   <option value={"Transporter B"}>Transporter B</option>
                 </Form.Control>
               </Form.Group>

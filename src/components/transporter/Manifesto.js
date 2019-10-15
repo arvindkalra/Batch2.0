@@ -22,7 +22,7 @@ const Manifesto = ({ rowObj, item, transporterDetails, sender, receiver }) => {
         setDispatchTime(
           item.ipfsData.details.labSampleConsignmentDispatchTime.split(",")[0]
         );
-        setProductName(`${rowObj.details.plantName} (Plant)`);
+        setProductName(`${rowObj.details.plantType} (Plant)`);
         return;
       case "harvest":
         setDeliveryTime(
@@ -35,7 +35,7 @@ const Manifesto = ({ rowObj, item, transporterDetails, sender, receiver }) => {
             ","
           )[0]
         );
-        setProductName(`${rowObj.details.plantName} (Plant)`);
+        setProductName(`${rowObj.details.plantType} (Plant)`);
         return;
       case "retail":
         setDeliveryTime(

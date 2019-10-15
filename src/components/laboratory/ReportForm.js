@@ -18,9 +18,9 @@ import { getFarmerDetails } from "../../dbController/farmerRole";
 
 const ReportForm = ({ formDetails, labDetails }) => {
   // Report Form States
-  const [thc, setThc] = useState("");
-  const [cbd, setCbd] = useState("");
-  const [cannabinoids, setCannabinoids] = useState("");
+  const [waterExtract, setWaterExtract] = useState("");
+  const [waterSolubleAsh, setWaterSolubleAsh] = useState("");
+  const [crudeFibre, setCrudeFibre] = useState("");
   const [labResult, setLabResult] = useState(true);
   const [pending, setPending] = useState(true);
   const [physicalReport, setPhysicalReport] = useState("");
@@ -32,14 +32,14 @@ const ReportForm = ({ formDetails, labDetails }) => {
   useEffect(() => {
     if (formDetails.details.testResults) {
       let {
-        thc,
-        cbd,
-        cannabinoids,
+        waterExtract,
+        waterSolubleAsh,
+        crudeFibre,
         physicalReport
       } = formDetails.details.testResults;
-      setThc(parseFloat(thc));
-      setCbd(parseFloat(cbd));
-      setCannabinoids(parseFloat(cannabinoids));
+      setWaterExtract(parseFloat(waterExtract));
+      setWaterSolubleAsh(parseFloat(waterSolubleAsh));
+      setCrudeFibre(parseFloat(crudeFibre));
       setPhysicalReport(physicalReport);
     }
     getFarmerDetails(formDetails.details.farmerAddress).then(setFarmerDetails);
@@ -71,14 +71,14 @@ const ReportForm = ({ formDetails, labDetails }) => {
     e.preventDefault();
     e.stopPropagation();
     setClicked(true);
-    console.log(thc, cbd, cannabinoids, pending);
+    console.log(waterExtract, waterSolubleAsh, crudeFibre, pending);
     if (
-      (thc <= 0 ||
-        thc > 100 ||
-        cbd <= 0 ||
-        cbd > 100 ||
-        cannabinoids <= 0 ||
-        cannabinoids > 100 ||
+      (waterExtract <= 0 ||
+        waterExtract > 100 ||
+        waterSolubleAsh <= 0 ||
+        waterSolubleAsh > 100 ||
+        crudeFibre <= 0 ||
+        crudeFibre > 100 ||
         physicalReport.length === 0) &&
       pending === false
     ) {
@@ -87,9 +87,9 @@ const ReportForm = ({ formDetails, labDetails }) => {
     setTrasactionMining(true);
     let details = formDetails.details;
     details.testResults = {
-      thc,
-      cbd,
-      cannabinoids,
+      waterExtract,
+      waterSolubleAsh,
+      crudeFibre,
       testedOn: new Date().toLocaleString(),
       physicalReport
     };
@@ -190,68 +190,68 @@ const ReportForm = ({ formDetails, labDetails }) => {
               <Form>
                 <Row>
                   <Col md={12}>
-                    <Form.Group controlId={"thc-content"}>
-                      <Form.Label>THC MAX</Form.Label>
+                    <Form.Group controlId={"waterExtract-content"}>
+                      <Form.Label>Water Extract (% by Mass)</Form.Label>
                       <Form.Control
                         min={"0"}
                         max={"100"}
                         type={"number"}
-                        placeholder={"Enter the THC content"}
-                        value={thc}
+                        placeholder={"Enter the water extract content"}
+                        value={waterExtract}
                         onChange={e => {
-                          setThc(
+                          setWaterExtract(
                             parseFloat(
                               e.target.value === "" ? 0 : e.target.value
                             )
                           );
                         }}
                         isInvalid={
-                          clicked && !pending ? thc <= 0 || thc > 100 : false
+                          clicked && !pending ? waterExtract <= 0 || waterExtract > 100 : false
                         }
                       />
                       <FormControl.Feedback type={"invalid"}>
-                        <strong>Required</strong> : THC should be a valid
+                        <strong>Required</strong> : Water Extract should be a valid
                         percentage
                       </FormControl.Feedback>
                     </Form.Group>
                   </Col>
                   <Col md={12}>
-                    <Form.Group controlId={"cbd-content"}>
-                      <Form.Label>CBDMAX</Form.Label>
+                    <Form.Group controlId={"waterSolubleAsh-content"}>
+                      <Form.Label>Water Soluble Ash (% by Mass)</Form.Label>
                       <Form.Control
                         min={"0"}
                         max={"100"}
                         type={"number"}
-                        placeholder={"Enter the CBD content"}
-                        value={cbd}
+                        placeholder={"Enter the water soluble ash content"}
+                        value={waterSolubleAsh}
                         onChange={e => {
-                          setCbd(
+                          setWaterSolubleAsh(
                             parseFloat(
                               e.target.value === "" ? 0 : e.target.value
                             )
                           );
                         }}
                         isInvalid={
-                          clicked && !pending ? cbd <= 0 || cbd > 100 : false
+                          clicked && !pending ? waterSolubleAsh <= 0 || waterSolubleAsh > 100 : false
                         }
                       />
                       <FormControl.Feedback type={"invalid"}>
-                        <strong>Required</strong> : CBD should be a valid
+                        <strong>Required</strong> : Water soluble ash should be a valid
                         percentage
                       </FormControl.Feedback>
                     </Form.Group>
                   </Col>
                   <Col md={12}>
-                    <Form.Group controlId={"thc-content"}>
-                      <Form.Label>Cannabiniods</Form.Label>
+                    <Form.Group controlId={"waterExtract-content"}>
+                      <Form.Label>Crude Fibre (% by Mass)</Form.Label>
                       <Form.Control
                         min={"0"}
                         max={"100"}
                         type={"number"}
-                        value={cannabinoids}
-                        placeholder={"Enter the Cannabiniods content"}
+                        value={crudeFibre}
+                        placeholder={"Enter the crude fibre content"}
                         onChange={e => {
-                          setCannabinoids(
+                          setCrudeFibre(
                             parseFloat(
                               e.target.value === "" ? 0 : e.target.value
                             )
@@ -259,12 +259,12 @@ const ReportForm = ({ formDetails, labDetails }) => {
                         }}
                         isInvalid={
                           clicked && !pending
-                            ? cannabinoids <= 0 || cannabinoids > 100
+                            ? crudeFibre <= 0 || crudeFibre > 100
                             : false
                         }
                       />
                       <FormControl.Feedback type={"invalid"}>
-                        <strong>Required</strong> : Cannabinoids should be a
+                        <strong>Required</strong> : Crude Fibre should be a
                         valid percentage
                       </FormControl.Feedback>
                     </Form.Group>
@@ -318,8 +318,8 @@ const ReportForm = ({ formDetails, labDetails }) => {
 
             <Col md={8}>
               <LabBarGraph
-                labels={["THC %", "CBD %", "Cannabinoids %"]}
-                dataArray={[thc, cbd, cannabinoids]}
+                labels={["Water Extract %", "Water Soluble Ash %", "Crude Fibre %"]}
+                dataArray={[waterExtract, waterSolubleAsh, crudeFibre]}
               />
             </Col>
           </Row>
