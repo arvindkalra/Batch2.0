@@ -16,6 +16,7 @@ import {
 } from "../../../dbController/retailerRole";
 import Loader from "../../Loader";
 import { getDistributorDetails } from "../../../dbController/distributorRole";
+import config from "../../../config";
 
 const CreateOrder = ({ location, history }) => {
   const [grandTotal, setGrandTotal] = useState(0);
@@ -29,7 +30,7 @@ const CreateOrder = ({ location, history }) => {
       let numRows = 0;
       let tempProductList = productList;
       fetchRowsForCreatingPurchaseOrder(
-        "0x7949173E38cEf39e75E05D2d2C232FBE8BAe5E20",
+        config.ADDRESS,
         (row, total) => {
           if (!row) {
             setLoader(false);

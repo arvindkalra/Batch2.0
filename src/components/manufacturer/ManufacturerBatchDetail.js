@@ -27,8 +27,7 @@ const ManufacturerBatchDetail = props => {
           setPrevDetails(object);
           setBatchInfo({
             buid: object.uid,
-            plantName: object.details.plantName,
-            plantType: object.details.lineage,
+            plantType: object.details.plantType.captialize(),
             dateHarvested: object.details.harvestTime,
             nutrients: object.details.nutrients,
             dateTested: object.details.testResults.testedOn,
@@ -53,7 +52,7 @@ const ManufacturerBatchDetail = props => {
           <Col>
             {setBreadcrumb(
               `/manufacturer/harvests/${
-                batchInfo.plantName ? batchInfo.plantName : "Loading..."
+                batchInfo.plantType ? batchInfo.plantType : "Loading..."
               }`
             )}
           </Col>
@@ -73,7 +72,7 @@ const ManufacturerBatchDetail = props => {
                       <img src={batchInfo.plantImage} alt={""} />
                     ) : (
                       <img
-                        src="https://www.ilovegrowingmarijuana.com/wp-content/uploads/2017/05/Trinity.jpg"
+                        src="https://i.pinimg.com/736x/a4/36/cd/a436cd3a7400ba01fc2fcdb7947bd40a.jpg"
                         alt=""
                       />
                     )}
@@ -98,10 +97,6 @@ const ManufacturerBatchDetail = props => {
                       </li>
                       <li>
                         <strong>Plant Name</strong>
-                        <span>{batchInfo.plantName || "Loading..."}</span>
-                      </li>
-                      <li>
-                        <strong>Lineage</strong>
                         <span>{batchInfo.plantType || "Loading..."}</span>
                       </li>
                       <li>
@@ -119,10 +114,6 @@ const ManufacturerBatchDetail = props => {
                       <li>
                         <strong>Date of Testing</strong>
                         <span>{batchInfo.dateTested || "Loading..."}</span>
-                      </li>
-                      <li>
-                        <strong>Nutrients</strong>
-                        <span>{batchInfo.nutrients || "Loading..."}</span>
                       </li>
                     </ul>
                   </section>

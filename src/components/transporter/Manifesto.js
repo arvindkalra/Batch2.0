@@ -57,7 +57,7 @@ const Manifesto = ({ rowObj, item, transporterDetails, sender, receiver }) => {
             ","
           )[0]
         );
-        setProductName(`${rowObj.details.productType} (Product)`);
+        setProductName(`${rowObj.details.packetName} (Product)`);
         return;
       default:
         setDeliveryTime("new date");

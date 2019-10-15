@@ -5,6 +5,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { makeXHR, parsePurchaseOrderId } from "../../../helpers";
 import { convertFromHex } from "../../../dbController/init";
+import config from "../../../config";
 
 const ConfirmOrder = ({
   productList,
@@ -14,9 +15,8 @@ const ConfirmOrder = ({
   sellOrder
 }) => {
   const taxes = {
-    stateSales: 3,
-    stateExcise: 15,
-    local: 5
+    sgst: 2.5,
+    cgst: 2.5
   };
   const grandTotal = productList.reduce((a, b) => {
     return a + parseFloat(b.orderedAmount) * parseFloat(b.price);
@@ -33,8 +33,8 @@ const ConfirmOrder = ({
       };
     });
     let callObject = {
-      distributorAddress: "0x7949173E38cEf39e75E05D2d2C232FBE8BAe5E20",
-      retailerAddress: "0x7949173E38cEf39e75E05D2d2C232FBE8BAe5E20",
+      distributorAddress: config.ADDRESS,
+      retailerAddress: config.ADDRESS,
       orderPlacedOn: new Date().toLocaleString(),
       itemsArray: orders
     };
@@ -108,25 +108,20 @@ const ConfirmOrder = ({
               Sub - Total Amount: <strong>$ {grandTotal}</strong>
             </p>
             <p>
-              State Excise (15%):{" "}
-              <strong>$ {(grandTotal * taxes.stateExcise) / 100} </strong>
+              CGST (2.5%): <strong>$ {(grandTotal * taxes.cgst) / 100} </strong>
             </p>
             <p>
-              State Sales Tax (3%):{" "}
-              <strong>$ {(grandTotal * taxes.stateSales) / 100}</strong>
-            </p>
-            <p>
-              Local Tax (5%):{" "}
-              <strong>$ {(grandTotal * taxes.local) / 100}</strong>
+              SGST (2.5%): <strong>$ {(grandTotal * taxes.sgst) / 100}</strong>
             </p>
             <p>
               Grand Total:{" "}
               <strong>
                 ${" "}
-                {grandTotal +
-                  (grandTotal * taxes.stateExcise) / 100 +
-                  (grandTotal * taxes.stateSales) / 100 +
-                  (grandTotal * taxes.local) / 100}
+                {(
+                  grandTotal +
+                  (grandTotal * taxes.cgst) / 100 +
+                  (grandTotal * taxes.sgst) / 100
+                ).toFixed(2)}
               </strong>
             </p>
           </Col>

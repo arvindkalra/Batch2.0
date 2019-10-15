@@ -9,7 +9,6 @@ import { fetchBatchUnitDetailsUsingUID } from "../../dbController/distributorRol
 import { fetchProductUnitDetailsUsingUID } from "../../dbController/manufacturerRole";
 import SaleActionForm from "./SaleActionForm";
 import Loader from "../Loader";
-import { Card } from "react-bootstrap";
 import { getRetailerDetails } from "../../dbController/retailerRole";
 
 const RetailProduct = props => {
@@ -75,7 +74,7 @@ const RetailProduct = props => {
                       ) : (
                         <img
                           src={
-                            "https://amyshealthybaking.com/wp-content/uploads/2018/02/copycat-thin-mints-0818.jpg"
+                            "https://4.imimg.com/data4/DA/OV/MY-995058/tata-tea-premium-tea-bags-500x500.jpg"
                           }
                           alt={""}
                         />
@@ -91,11 +90,11 @@ const RetailProduct = props => {
                         <span className={"uid"}>{batchId || "Loading..."}</span>
                       </li>
                       <li>
-                        <strong>Product Type</strong>
+                        <strong>Tea Type</strong>
                         <span>{details.productType || "Loading..."}</span>
                       </li>
                       <li>
-                        <strong>Total Packets Purchased</strong>
+                        <strong>Total Boxes Purchased</strong>
                         <span>
                           {totalPackets
                             ? totalPackets + " Packets"
@@ -103,7 +102,7 @@ const RetailProduct = props => {
                         </span>
                       </li>
                       <li>
-                        <strong>Units Per Packet</strong>
+                        <strong>Tea Bags Per Box</strong>
                         <span>
                           {details.unitsPerPacket
                             ? details.unitsPerPacket + " Units"

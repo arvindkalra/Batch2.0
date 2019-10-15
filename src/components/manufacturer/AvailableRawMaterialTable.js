@@ -32,7 +32,7 @@ const AvailableRawMaterialTable = ({ array }) => {
               <Form.Label>Sort By</Form.Label>
               <Form.Control as={"select"} onChange={sort}>
                 <option value={"harvestUnitId|number"}>ID</option>
-                <option value={"plantName|string"}>Plant Name</option>
+                <option value={"plantType|string"}>Plant Type</option>
                 <option value={"pendingAmount|number"}>Pending Amount</option>
               </Form.Control>
             </Form.Group>
@@ -44,7 +44,7 @@ const AvailableRawMaterialTable = ({ array }) => {
             <thead>
               <tr>
                 <th>#ID</th>
-                <th>Plant Name</th>
+                <th>Plant Type</th>
                 <th>Cultivator</th>
                 <th>Pending Amount</th>
               </tr>
@@ -59,7 +59,7 @@ const AvailableRawMaterialTable = ({ array }) => {
                         <Link
                           to={`/manufacturer/harvest/${element.harvestUnitId}`}
                         >
-                          {element.plantName}
+                          {element.plantType}
                         </Link>
                       </span>
                     </td>

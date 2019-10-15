@@ -44,8 +44,8 @@ const Invoice = ({ retailerDetails, productName, quantity, price, total }) => {
                   <td>1</td>
                   <td>{productName}</td>
                   <td>{quantity}</td>
-                  <td>${price}.00</td>
-                  <td>${total}.00</td>
+                  <td>Rs {price}.00</td>
+                  <td>Rs {total}.00</td>
                 </tr>
               </tbody>
             </Table>
@@ -58,16 +58,13 @@ const Invoice = ({ retailerDetails, productName, quantity, price, total }) => {
             Sub - Total Amount: <strong>${total}</strong>
           </p>
           <p>
-            State Excise (15%): <strong>${(0.15 * total).toFixed(2)}</strong>
+            CGST (2.5%): <strong>Rs {(0.25 * total).toFixed(2)}</strong>
           </p>
           <p>
-            State Sales Tax (3%): <strong>${(0.03 * total).toFixed(2)}</strong>
+            SGST (2.5%): <strong>Rs {(0.25 * total).toFixed(2)}</strong>
           </p>
           <p>
-            Local Tax (5%): <strong>${(0.05 * total).toFixed(2)}</strong>
-          </p>
-          <p>
-            Grand Total: <strong>${(0.23 * total + total).toFixed(2)}</strong>
+            Grand Total: <strong>Rs {(0.5 * total + total).toFixed(2)}</strong>
           </p>
         </Col>
       </Row>

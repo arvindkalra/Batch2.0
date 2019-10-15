@@ -7,27 +7,23 @@ import ProgressBar from "react-bootstrap/ProgressBar";
 import { packetsManufactured } from "../../dbController/manufacturerRole";
 import { checkMined } from "../../dbController/init";
 import Loader from "../Loader";
-import {
-  createTransactionModal,
-  fileToString,
-  getSeedProgress
-} from "../../helpers";
+import { createTransactionModal, fileToString } from "../../helpers";
 import { Card, FormControl } from "react-bootstrap";
 
 const ManufacturerActionPanel = ({ left, total, prevDetails, history }) => {
   const [materialUsed, setMaterialUsed] = useState(0);
   const [plantImage, setPlantImage] = useState("");
   // Preroll or Edible
-  const [productType, setProductType] = useState("Preroll");
+  const [productType, setProductType] = useState("Green Tea");
   // Box or Packet
-  const [packageType, setPackageType] = useState("Box");
+  const [packageType, setPackageType] = useState("Tea Bag Box");
   const [perPackageSize, setPerPackageSize] = useState(0);
   const [numberOfPackages, setNumberOfPackages] = useState(0);
   const [unitSize, setUnitSize] = useState(0);
   const [productName, setProductName] = useState("");
   const [mrp, setMrp] = useState(0);
 
-  const conversionUnit = 16;
+  const conversionUnit = 1000;
 
   const [transactionMining, setTransactionMining] = useState(false);
   const [transactionObject, setTransactionObject] = useState(null);
@@ -174,15 +170,16 @@ const ManufacturerActionPanel = ({ left, total, prevDetails, history }) => {
             </Col>
             <Col md={6}>
               <Form.Group>
-                <Form.Label>Product Type</Form.Label>
+                <Form.Label>Tea Type</Form.Label>
                 <Form.Control
                   as={"select"}
                   onChange={e => {
                     setProductType(e.target.value);
                   }}
                 >
-                  <option value={"Preroll"}>Preroll</option>
-                  <option value={"Edible"}>Edible</option>
+                  <option value={"Green Tea"}>Green Tea</option>
+                  <option value={"Black Tea"}>Black Tea</option>
+                  <option value={"Oolong Tea"}>Oolong Tea</option>
                 </Form.Control>
               </Form.Group>
             </Col>
@@ -195,14 +192,14 @@ const ManufacturerActionPanel = ({ left, total, prevDetails, history }) => {
                     setPackageType(e.target.value);
                   }}
                 >
-                  <option value={"Box"}>Box</option>
-                  <option value={"Packet"}>Packet</option>
+                  <option value={"Tea Bag Box"}>Tea Bag Box</option>
+                  <option value={"Loose Box"}>Loose Box</option>
                 </Form.Control>
               </Form.Group>
             </Col>
             <Col md={6}>
               <Form.Group>
-                <Form.Label>Units in Each {packageType}</Form.Label>
+                <Form.Label>Tea Bags in Each Box</Form.Label>
                 <Form.Control
                   type={"number"}
                   min={0}
@@ -224,7 +221,7 @@ const ManufacturerActionPanel = ({ left, total, prevDetails, history }) => {
             </Col>
             <Col md={6}>
               <Form.Group>
-                <Form.Label>{packageType} Count</Form.Label>
+                <Form.Label>No of Boxes Manufactured</Form.Label>
                 <Form.Control
                   type={"number"}
                   min={0}
@@ -246,7 +243,7 @@ const ManufacturerActionPanel = ({ left, total, prevDetails, history }) => {
             </Col>
             <Col md={6}>
               <Form.Group>
-                <Form.Label>Size of Each {productType} Unit (in Oz)</Form.Label>
+                <Form.Label>Size of Each Tea Bag (in Gram)</Form.Label>
                 <Form.Control type={"number"} readOnly value={unitSize} />
               </Form.Group>
             </Col>
@@ -268,7 +265,7 @@ const ManufacturerActionPanel = ({ left, total, prevDetails, history }) => {
             </Col>
             <Col md={6}>
               <Form.Group>
-                <Form.Label>M.R.P. Of Each {packageType} ($x.xx)</Form.Label>
+                <Form.Label>M.R.P. Of Each {packageType} (Rs x.xx)</Form.Label>
                 <Form.Control
                   type={"number"}
                   min={0}

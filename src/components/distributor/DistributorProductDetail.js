@@ -165,7 +165,7 @@ const DistributorProductDetail = props => {
                       ) : (
                         <img
                           src={
-                            "https://amyshealthybaking.com/wp-content/uploads/2018/02/copycat-thin-mints-0818.jpg"
+                            "https://4.imimg.com/data4/DA/OV/MY-995058/tata-tea-premium-tea-bags-500x500.jpg"
                           }
                           alt={""}
                         />
@@ -199,23 +199,23 @@ const DistributorProductDetail = props => {
                         <span>{productInfo.packedOn || "Loading..."}</span>
                       </li>
                       <li>
-                        <strong>Container Type</strong>
+                        <strong>Package Type</strong>
                         <span>{productInfo.container || "Loading..."}</span>
                       </li>
                       <li>
-                        <strong>Containers Received</strong>
+                        <strong>Boxes Received</strong>
                         <span>
                           {productInfo.totalPacketsManufactured
-                            ? `${productInfo.totalPacketsManufactured} Containers`
+                            ? `${productInfo.totalPacketsManufactured} Boxes`
                             : "Loading..."}
                         </span>
                       </li>
                       <li>
-                        <strong> Product Type</strong>
+                        <strong>Tea Type</strong>
                         <span>{productInfo.productType}</span>
                       </li>
                       <li>
-                        <strong>Units in each Container</strong>
+                        <strong>Tea Bags in Each Box</strong>
                         <span>
                           {productInfo.unitsPerPacket
                             ? `${productInfo.unitsPerPacket} Units`
@@ -226,7 +226,7 @@ const DistributorProductDetail = props => {
                         <strong>M.R.P.</strong>
                         <span>
                           {productInfo.mrp
-                            ? `$${productInfo.mrp} / ${productInfo.container}`
+                            ? `Rs ${productInfo.mrp} / ${productInfo.container}`
                             : "Loading..."}
                         </span>
                       </li>
@@ -234,7 +234,7 @@ const DistributorProductDetail = props => {
                         <strong>Cost Price</strong>
                         <span>
                           {productInfo.manufacturerToDistributorPrice
-                            ? `$${productInfo.manufacturerToDistributorPrice} / ${productInfo.container}`
+                            ? `Rs ${productInfo.manufacturerToDistributorPrice} / ${productInfo.container}`
                             : "Loading..."}
                         </span>
                       </li>
@@ -242,7 +242,7 @@ const DistributorProductDetail = props => {
                         <li>
                           <strong>Selling Price</strong>
                           <span>
-                            {`$${productInfo.distributorToRetailerPrice} / ${productInfo.container}`}
+                            {`Rs ${productInfo.distributorToRetailerPrice} / ${productInfo.container}`}
                           </span>
                         </li>
                       ) : null}
@@ -271,7 +271,7 @@ const DistributorProductDetail = props => {
                           setDistributorSalePrice(parseFloat(e.target.value))
                         }
                         isInvalid={clicked && distributorSalePrice <= 0}
-                        placeholder={`$x.xx/${productInfo.container}`}
+                        placeholder={`Rs x.xx/${productInfo.container}`}
                       />
                       <FormControl.Feedback type={"invalid"}>
                         <strong>Required</strong>
@@ -303,7 +303,7 @@ const DistributorProductDetail = props => {
                       100
                     ).toFixed(2)}
                     label={`${productInfo.totalPacketsManufactured -
-                      productInfo.alreadyUsed} Containers`}
+                      productInfo.alreadyUsed} Boxes`}
                     striped
                   />
                 </Col>

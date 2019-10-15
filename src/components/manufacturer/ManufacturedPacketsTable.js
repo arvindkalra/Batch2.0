@@ -143,7 +143,7 @@ const ManufacturedPacketsTable = ({
                 <Row>
                   <Col md={4}>
                     <Form.Group>
-                      <Form.Label>Cost Price ( $x.xx / Kilogram )</Form.Label>
+                      <Form.Label>Cost Price ( Rs x.xx / Kilogram )</Form.Label>
                       <Form.Control
                         type={"number"}
                         value={showModal.pricePerUnits}
@@ -153,7 +153,7 @@ const ManufacturedPacketsTable = ({
                   </Col>
                   <Col md={4}>
                     <Form.Label>
-                      Total Cost Price ( $x.xx for {showModal.materialUsed}{" "}
+                      Total Cost Price ( Rs x.xx for {showModal.materialUsed}{" "}
                       Kilograms)
                     </Form.Label>
                     <Form.Control
@@ -164,7 +164,7 @@ const ManufacturedPacketsTable = ({
                   </Col>
                   <Col md={4}>
                     <Form.Label>
-                      M.R.P ( $x.xx /{" "}
+                      M.R.P ( Rs x.xx /{" "}
                       {showModal.open
                         ? array[showModal.id].details.container
                         : null}
@@ -181,7 +181,7 @@ const ManufacturedPacketsTable = ({
                   <Col md={6}>
                     <Form.Group>
                       <Form.Label>
-                        Selling Price ( $x.xx /{" "}
+                        Selling Price ( Rs x.xx /{" "}
                         {showModal.open
                           ? array[showModal.id].details.container
                           : null}
@@ -204,7 +204,7 @@ const ManufacturedPacketsTable = ({
                     </Form.Group>
                   </Col>
                   <Col md={6}>
-                    <Form.Label>Total Price ( $x.xx )</Form.Label>
+                    <Form.Label>Total Price ( Rs x.xx )</Form.Label>
                     <Form.Control
                       type={"number"}
                       placeholder={"Enter the Selling Price"}
@@ -228,7 +228,7 @@ const ManufacturedPacketsTable = ({
                       setDistributorName(e.target.value);
                     }}
                   >
-                    <option value={"Declan McVee"}>Declan McVee</option>
+                    <option value={"Khan Distributors"}>Khan Distributors</option>
                   </Form.Control>
                 </Form.Group>
               </Col>
@@ -241,7 +241,7 @@ const ManufacturedPacketsTable = ({
                       setTransporterName(e.target.value);
                     }}
                   >
-                    <option value={"Kiran Kamal"}>Kiran Kamal</option>
+                    <option value={"Kiran Kamal"}>Singh Transporters</option>
                   </Form.Control>
                 </Form.Group>
               </Col>

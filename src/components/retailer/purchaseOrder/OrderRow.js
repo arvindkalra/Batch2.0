@@ -85,7 +85,7 @@ const OrderRow = ({ product, setAmount }) => {
       </td>
       <td>{product.availableQuantity}</td>
       <td>Rs {product.price}</td>
-      <td>$ {total}</td>
+      <td>Rs {total}</td>
     </tr>
   );
 };

@@ -50,12 +50,12 @@ const ManufacturerDashboard = ({ location }) => {
                 harvestUnitId: harvestObject.uid,
                 farmerName: farmerObject.name,
                 pendingAmount: leftAmount,
-                plantName: harvestObject.details.plantName
+                plantType: harvestObject.details.plantType.captialize()
               };
               tempAvailableArray.push(rowArray);
               setAvailableArray([...tempAvailableArray]);
               addToGraphData(
-                harvestObject.details.plantName,
+                harvestObject.details.plantType,
                 leftAmount,
                 availableGraphData,
                 setAvailableGraphData,
