@@ -1,5 +1,5 @@
 import React from "react";
-import Table from "react-bootstrap/es/Table";
+import Table from "react-bootstrap/Table";
 import PackagedShipmentRowUnused from "./PackagedShipmentRow (unused)";
 
 const PackagedShipmentTableUnused = ({ array, rowObjArr }) => {

@@ -1,5 +1,5 @@
 import React from 'react';
-import Spinner from "react-bootstrap/es/Spinner";
+import Spinner from "react-bootstrap/Spinner";
 
 const Loader = ({message}) => {
     return (

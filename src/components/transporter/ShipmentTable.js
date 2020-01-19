@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Table from "react-bootstrap/es/Table";
+import Table from "react-bootstrap/Table";
 import ShipmentRow from "./ShipmentRow";
 import { Col, Form, Row } from "react-bootstrap";
 import { createSortFunction } from "../../helpers";

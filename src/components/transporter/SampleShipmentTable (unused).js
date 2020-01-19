@@ -1,5 +1,5 @@
 import React from 'react';
-import Table from "react-bootstrap/es/Table";
+import Table from "react-bootstrap/Table";
 import SampleShipmentRowUnused from "./SampleShipmentRow (unused)";
 
 const SampleShipmentTableUnused = ({ array, rowObjArr }) => {

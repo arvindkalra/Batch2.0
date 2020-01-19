@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { setBreadcrumb } from "../../helpers";
-import Row from "react-bootstrap/es/Row";
+import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import BarGraph from "../farmer/graphs/dashboard/BarGraph";
 import { connectToWeb3 } from "../../dbController/init";

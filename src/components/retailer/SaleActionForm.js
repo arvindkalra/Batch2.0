@@ -16,7 +16,7 @@ import {
 } from "../../helpers";
 import { checkMined } from "../../dbController/init";
 
-import Table from "react-bootstrap/es/Table";
+import Table from "react-bootstrap/Table";
 import Loader from "../Loader";
 import QRCode from "qrcode.react";
 import "../../assets/stylesheets/retailer.scss";
