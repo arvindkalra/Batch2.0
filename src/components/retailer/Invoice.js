@@ -58,16 +58,16 @@ const Invoice = ({ retailerDetails, productName, quantity, price, total }) => {
             Sub - Total Amount: <strong>${total}</strong>
           </p>
           <p>
-            State Excise (15%): <strong>${(0.15 * total).toFixed(2)}</strong>
+            CA Excise Tax (15%): <strong>${(0.15 * total).toFixed(2)}</strong>
           </p>
           <p>
-            State Sales Tax (3%): <strong>${(0.03 * total).toFixed(2)}</strong>
+            CA Sales Tax (9.5%): <strong>${(0.095 * total).toFixed(2)}</strong>
           </p>
           <p>
-            Local Tax (5%): <strong>${(0.05 * total).toFixed(2)}</strong>
+            Los Angeles Adult Use Tax (5%): <strong>${(0.05 * total).toFixed(2)}</strong>
           </p>
           <p>
-            Grand Total: <strong>${(0.23 * total + total).toFixed(2)}</strong>
+            Grand Total: <strong>${(0.295 * total + total).toFixed(2)}</strong>
           </p>
         </Col>
       </Row>
